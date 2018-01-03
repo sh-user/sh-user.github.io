@@ -155,12 +155,11 @@ recognizer.onend = function() {
   if (rec_str1 === 'выключить'){sendLED('0');}
   //speak(rec_str1);
   rec_str1 = '';
-  playSound();
   recognizer.start();
 };
 
 utterance.onend = function() { 
-  recognizer.start();
+  //recognizer.start();
 };
 
 function speak(str){ 
@@ -171,8 +170,8 @@ function speak(str){
 };
 
 function SetRec(){
-  if (document.getElementById('id_Rec').checked = true){recognizer.start();}
-  else {recognizer.stop();}
+if (document.querySelector('#id_Rec').checked) {recognizer.start();} 
+else {recognizer.stop();}
 }
 
 </script>
@@ -187,13 +186,13 @@ function SetRec(){
   <p class='txt1'>Температура: <a id='stT'></a> &degC</p>
   <p class='txt1'>Влажность: <a id='stH'></a> %</p>
   <p class='txt1'>Статус светодиода: <a id='stLED'></a></p>
-  <p class='txt1'>Управление светодиодом:</p>
+  <p class='txt1'>Управление светодиодом</p>
   <p><input type='button' class='btn' value='Вкл.' onClick="sendLED('1')"/>
   <input type='button' class='btn' value='Выкл.' onClick="sendLED('0')"/></p>
   
-  <p><label><input type='checkbox' id='id_Rec' onclick="SetRec()" value='cc0'> Голосовое управление</label></p>
+  <p><label class='txt1'><input type='checkbox' id='id_Rec' onclick="SetRec()"> Голосовое управление</label></p>
 
-  <p><button class='btn' onclick="recognizer.start()">Вкл.</button></p>
+  <!-- <p><button class='btn' onclick="recognizer.start()">Вкл.</button></p> -->
   <textarea class='txt2' id='rcmd' cols='45' rows='10'> </textarea>
   <p class='txt2'>Голосовые команды: Включить, Выключить.</p>
   <p class='txt2'>Не оставляйте светодиод включенным.</p>

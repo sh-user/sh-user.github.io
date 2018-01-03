@@ -154,6 +154,7 @@ recognizer.onend = function() {
   if (rec_str1 === 'выключить'){sendLED('0');}
   //speak(rec_str1);
   rec_str1 = '';
+  recognizer.start();
 };
 
 utterance.onend = function() { 
@@ -184,8 +185,8 @@ function speak(str){
   <input type='button' class='btn' value='Выкл.' onClick="sendLED('0')"/></p>
   <p class='txt1'>Голосовое управление светодиодом:</p>
   <p><button class='btn' onclick="recognizer.start()">Вкл.</button></p>
-  <textarea class='txt2' id='rcmd' cols='45' rows='12'> </textarea>
+  <textarea class='txt2' id='rcmd' cols='45' rows='10'> </textarea>
   <p class='txt2'>Голосовые команды: Включить, Выключить.</p>
-  <p Не оставляйте светодиод включенным.</p>
+  <p class='txt2'>Не оставляйте светодиод включенным.</p>
 </body>
 </html>

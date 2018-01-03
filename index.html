@@ -10,6 +10,28 @@ body{ margin: 0 30px; background-color:#FCFCFC; font: 15px helvetica, arial, san
 .btn{ width: 125px; height: 35px;}
 .txt1{ color: rgba(0,0,0,0.6); font: 18px helvetica, arial, sans-serif;}
 .txt2{ color: rgba(0,0,0,0.6); font: 14px helvetica, arial, sans-serif;}
+
+.lbl {
+  position: relative; display: block; height: 14px; width: 32px; background: #898989;
+  border-radius: 100px; cursor: pointer; transition: all 0.3s ease;
+}
+.lbl:after {
+  position: absolute; left: -2px; top: -3px; display: block; width: 20px;
+  height: 20px; border-radius: 100px; background: #fff; box-shadow: 0px 0px 6px rgba(0,0,0,0.4);
+  content: ''; transition: all 0.3s ease;
+}
+.lbl:active:after { transform: scale(1.15, 0.2);
+}
+.cbx:checked ~ label { background: #92c9f2;
+}
+.cbx:checked ~ label:after { left: 15px; background: #2173a4;
+}
+.cbx:disabled ~ label { background: #d5d5d5; pointer-events: none;
+}
+.cbx:disabled ~ label:after { background: #bcbdbc;
+}
+.hidden { display: none;}
+
 </style>
 
 <script src="mqttws31.js" type="text/javascript"></script>
@@ -154,6 +176,7 @@ recognizer.onend = function() {
   if (rec_str1 === 'выключить'){sendLED('0');}
   //speak(rec_str1);
   rec_str1 = '';
+  playSound();
   recognizer.start();
 };
 
@@ -183,7 +206,8 @@ function speak(str){
   <p class='txt1'>Управление светодиодом:</p>
   <p><input type='button' class='btn' value='Вкл.' onClick="sendLED('1')"/>
   <input type='button' class='btn' value='Выкл.' onClick="sendLED('0')"/></p>
-  <p class='txt1'>Голосовое управление светодиодом:</p>
+  <p>Голосовое управление <input type="checkbox" id="unchecked" class="cbx hidden"/><label for="unchecked"   class="lbl"></label></p>
+
   <p><button class='btn' onclick="recognizer.start()">Вкл.</button></p>
   <textarea class='txt2' id='rcmd' cols='45' rows='10'> </textarea>
   <p class='txt2'>Голосовые команды: Включить, Выключить.</p>

@@ -2,17 +2,190 @@
 <html lang='ru'><head>
 <meta charset='utf-8'>
 <meta name='viewport' content='width=540'>
+<link rel="shortcut icon" href="images/favicon0.ico" type="image/x-icon" />
 <title>MQTT Websocket</title>
 
 <style>
 body{ margin: 0 30px; background-color:#FCFCFC; font: 15px helvetica, arial, sans-serif;}
 .btn{ width: 125px; height: 35px;}
-.txt{color: rgba(0,0,0,0.6); font: 25px helvetica, arial, sans-serif;}
+.txt1{ color: rgba(0,0,0,0.6); font: 19px helvetica, arial, sans-serif;}
+.txt2{ color: rgba(0,0,0,0.6); font: 14px helvetica, arial, sans-serif;}
 </style>
 
+<script src="mqttws31.js" type="text/javascript"></script>
+<script src="config.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+var flag=0; uflag=0;
+
+
+function playSound() {
+  if (typeof window.Audio === 'function') {
+    var audioElem = new Audio();
+    audioElem.src = "data:audio/ogg;base64,//PCxAAAAANIAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/zwsT/AAADSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/88LE/wAAA0gBQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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";
+    audioElem.play();
+  }
+}
+
+function MQTTconnect() {
+  // Create a client instance
+  client = new Paho.MQTT.Client(host, port, "web_" + parseInt(Math.random() * 100, 10));
+
+  // set callback handlers
+  client.onConnectionLost = onConnectionLost;
+  client.onMessageArrived = onMessageArrived;
+  u = '';
+  p = '';
+  for (var i = 0; i < user.length; i += 2) u += String.fromCharCode(parseInt(user.substr(i, 2), 16));
+  for (var i = 0; i < pass.length; i += 2) p += String.fromCharCode(parseInt(pass.substr(i, 2), 16));
+
+  var options = {
+    useSSL: true,
+    userName: u,
+    password: p,
+    onSuccess: onConnect,
+    onFailure: doFail,
+  }
+  // connect the client
+  client.connect(options);
+}
+
+// called when the client connects
+function onConnect() {
+    // Once a connection has been made, make a subscription and send a message.
+    console.log('onConnect');
+    document.getElementById('stMQTT').innerHTML='Connected';
+    client.subscribe(topic + '/Status');
+    client.subscribe(topic + '/LDR');
+    client.subscribe(topic + '/RSSI');  
+    client.subscribe(topic + '/H'); 
+    client.subscribe(topic + '/T'); 
+    client.subscribe(topic + '/LED');
+    updateStatus();   
+}
+
+function doFail(e){
+    console.log(e);
+    document.getElementById('stMQTT').innerHTML='Not connected';
+}
+
+// called when the client loses its connection
+function onConnectionLost(responseObject) {
+    if (responseObject.errorCode !== 0) {
+      console.log("onConnectionLost:"+responseObject.errorMessage);
+      document.getElementById('stMQTT').innerHTML=responseObject.errorMessage;
+    }
+}
+
+function updateStatus() {
+    if (uflag == 0) {
+    message = new Paho.MQTT.Message(' ');
+    message.destinationName = topic + '/Status';
+    client.send(message);} else {uflag = 0;}
+}
+
+function sendLED(set) {
+    uflag = 1;
+    message = new Paho.MQTT.Message(set);
+    message.destinationName = topic + '/LED';
+    client.send(message);	
+    //playSound();
+}
+
+// called when a message arrives
+function onMessageArrived(message) {
+	console.log("onMessageArrived:"+message.payloadString);
+	if (message.destinationName == topic + '/Status'){ 
+	if (message.payloadString == ' ') {
+	if (flag == 1) {document.getElementById('stESP12').innerHTML = 'Not connected';} else {flag = 1;}} 
+	else { 
+	flag = 0; document.getElementById('stESP12').innerHTML = message.payloadString;
+	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
+	
+	if (message.destinationName == topic + '/RSSI') {
+
+	document.getElementById('stRSSI').innerHTML = message.payloadString; }
+
+	if (message.destinationName == topic + '/LDR') {
+
+	document.getElementById('stLDR').innerHTML = message.payloadString; }
+
+	if (message.destinationName == topic + '/T') {
+
+	document.getElementById('stT').innerHTML = message.payloadString; }
+
+	if (message.destinationName == topic + '/H') {
+
+	document.getElementById('stH').innerHTML = message.payloadString; }
+
+	if (message.destinationName == topic + '/LED') {
+
+	document.getElementById('stLED').innerHTML = message.payloadString; }
+}
+	setInterval(updateStatus,10000);
+
+//=============================================================================
+var recognizer = new webkitSpeechRecognition();
+  var rec_str1 = '';
+  var rec_str2 = '';
+  // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
+  recognizer.interimResults = true;
+  recognizer.lang = 'ru-Ru';	
+  //recognizer.continuous = true;
+  //recognizer.maxAlternatives = 1;
+
+  var voices = speechSynthesis.getVoices();
+  var utterance = new SpeechSynthesisUtterance();
+  utterance.voice = voices[1];
+
+  // Используем колбек для обработки результатов
+recognizer.onresult = function (event) {
+    var result = event.results[event.resultIndex];
+    if (result.isFinal) {
+      rec_str1 = result[0].transcript;
+      rec_str2 = rec_str2 + result[0].transcript + '\r\n';
+      document.getElementById('rcmd').innerHTML = rec_str2;
+      //console.log(event);
+    } else {
+      console.log('Промежуточный результат: ', result[0].transcript);
+    }
+};
+
+recognizer.onend = function() {
+  speak(rec_str1);
+  rec_str1 = '';
+};
+
+utterance.onend = function() { 
+  recognizer.start();
+};
+
+function speak(str){ 
+  if (speechSynthesis.speaking) return; 
+  utterance.text = str; 
+  // воспроизведение фразы: 
+  speechSynthesis.speak(utterance); 
+};
+
+
+</script>
 </head> 
 
-<body>
-  <p class='txt'>MQTT Websocket</p>
+<body onload='MQTTconnect()'>
+  <p class='txt1'>Статус сервера: <a id='stMQTT'></a></p>
+  <p class='txt1'>Статус модуля: <a id='stESP12'></a></p>
+  <p class='txt1'>Последнее обновление: <a id='time'></a></p>
+  <p class='txt1'>Уровень сигнала: <a id='stRSSI'></a> dBm</p>
+  <p class='txt1'>Уровень освещенности: <a id='stLDR'></a></p>
+  <p class='txt1'>Температура: <a id='stT'></a> &degC</p>
+  <p class='txt1'>Влажность: <a id='stH'></a> %</p>
+  <p class='txt1'>Статус светодиода: <a id='stLED'></a></p>
+  <p class='txt1'>Управление светодиодом:</p>
+  <p><input type='button' class='btn' value='Вкл.' onClick="sendLED('1')"/>
+  <input type='button' class='btn' value='Выкл.' onClick="sendLED('0')"/></p>
+  <p class='txt1'>Голосовое управление светодиодом:</p>
+  <p><button class='btn' onclick="recognizer.start()">Вкл.</button></p>
+  <textarea class='txt2' id='rcmd' cols='45' rows='8'> </textarea>
+  <p class='txt2'>Не оставляйте светодиод включенным</p>
 </body>
 </html>

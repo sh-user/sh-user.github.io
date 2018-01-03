@@ -125,7 +125,7 @@ function onMessageArrived(message) {
 	setInterval(updateStatus,10000);
 
 //=============================================================================
-var recognizer = new webkitSpeechRecognition();
+  var recognizer = new webkitSpeechRecognition();
   var rec_str1 = '';
   var rec_str2 = '';
   // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
@@ -143,8 +143,9 @@ recognizer.onresult = function (event) {
     var result = event.results[event.resultIndex];
     if (result.isFinal) {
       rec_str1 = result[0].transcript;
-      rec_str2 = rec_str2 + new Date().toLocaleTimeString() + '  ' + result[0].transcript + '\r\n';
-      document.getElementById('rcmd').innerHTML = rec_str2;
+      //rec_str2 = rec_str2 + new Date().toLocaleTimeString() + '  ' + result[0].transcript + '\r\n';
+      rcmd.value += new Date().toLocaleTimeString() + '  ' + result[0].transcript + '\r\n';
+      //document.getElementById('rcmd').innerHTML = rec_str2;
       //console.log(event);
     } else {
       console.log('Промежуточный результат: ', result[0].transcript);
@@ -152,6 +153,8 @@ recognizer.onresult = function (event) {
 };
 
 recognizer.onend = function() {
+  if (rec_str1 === 'включить'){sendLED('1');}
+  if (rec_str1 === 'выключить'){sendLED('0');}
   speak(rec_str1);
   rec_str1 = '';
 };
@@ -185,6 +188,7 @@ function speak(str){
   <p class='txt1'>Голосовое управление светодиодом:</p>
   <p><button class='btn' onclick="recognizer.start()">Вкл.</button></p>
   <textarea class='txt2' id='rcmd' cols='45' rows='12'> </textarea>
-  <p class='txt2'>Не оставляйте светодиод включенным</p>
+  <p class='txt2'>Голосовые команды: Включить, Выключить.</p>
+  <p Не оставляйте светодиод включенным.</p>
 </body>
 </html>

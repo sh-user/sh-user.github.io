@@ -155,7 +155,7 @@ recognizer.onend = function() {
   if (rec_str1 === 'выключить'){sendLED('0');}
   //speak(rec_str1);
   rec_str1 = '';
-  recognizer.start();
+  if (document.querySelector('#id_Rec').checked) {recognizer.start();}
 };
 
 utterance.onend = function() { 
@@ -191,8 +191,6 @@ else {recognizer.stop();}
   <input type='button' class='btn' value='Выкл.' onClick="sendLED('0')"/></p>
   
   <p><label class='txt1'><input type='checkbox' id='id_Rec' onclick="SetRec()"> Голосовое управление</label></p>
-
-  <!-- <p><button class='btn' onclick="recognizer.start()">Вкл.</button></p> -->
   <textarea class='txt2' id='rcmd' cols='45' rows='10'> </textarea>
   <p class='txt2'>Голосовые команды: Включить, Выключить.</p>
   <p class='txt2'>Не оставляйте светодиод включенным.</p>

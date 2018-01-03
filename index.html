@@ -127,7 +127,6 @@ function onMessageArrived(message) {
 //=============================================================================
   var recognizer = new webkitSpeechRecognition();
   var rec_str1 = '';
-  var rec_str2 = '';
   // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
   recognizer.interimResults = true;
   recognizer.lang = 'ru-Ru';	
@@ -143,9 +142,7 @@ recognizer.onresult = function (event) {
     var result = event.results[event.resultIndex];
     if (result.isFinal) {
       rec_str1 = result[0].transcript;
-      //rec_str2 = rec_str2 + new Date().toLocaleTimeString() + '  ' + result[0].transcript + '\r\n';
       rcmd.value += new Date().toLocaleTimeString() + '  ' + result[0].transcript + '\r\n';
-      //document.getElementById('rcmd').innerHTML = rec_str2;
       //console.log(event);
     } else {
       console.log('Промежуточный результат: ', result[0].transcript);
@@ -155,7 +152,7 @@ recognizer.onresult = function (event) {
 recognizer.onend = function() {
   if (rec_str1 === 'включить'){sendLED('1');}
   if (rec_str1 === 'выключить'){sendLED('0');}
-  speak(rec_str1);
+  //speak(rec_str1);
   rec_str1 = '';
 };
 

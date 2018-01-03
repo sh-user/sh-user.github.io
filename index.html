@@ -144,7 +144,7 @@ recognizer.onresult = function (event) {
     if (result.isFinal) {
       rec_str1 = result[0].transcript;
       rec_str2 = rec_str2 + result[0].transcript + '\r\n';
-      document.getElementById('rcmd').innerHTML = rec_str2;
+      document.getElementById('rcmd').innerHTML = new Date().toLocaleTimeString() + rec_str2;
       //console.log(event);
     } else {
       console.log('Промежуточный результат: ', result[0].transcript);

@@ -94,7 +94,7 @@ function sendLED(set) {
     message = new Paho.MQTT.Message(set);
     message.destinationName = topic + '/LED';
     client.send(message);	
-    //playSound();
+    playSound();
 }
 
 // called when a message arrives
@@ -125,7 +125,7 @@ function onMessageArrived(message) {
 
 	if (message.destinationName == topic + '/LED') {
 
-	document.getElementById('stLED').innerHTML = message.payloadString; playSound(); }
+	document.getElementById('stLED').innerHTML = message.payloadString; }
 }
 	setInterval(updateStatus,10000);
 
@@ -149,7 +149,6 @@ recognizer.onresult = function (event) {
       rec_str1 = result[0].transcript;
       rcmd.value += new Date().toLocaleTimeString() + '  ' + result[0].transcript + '\r\n';
       rcmd.scrollTop = rcmd.scrollHeight;
-      //document.getElementById("rcmd").scrollTop = document.getElementById("rcmd").scrollHeight;
       //console.log(event);
     } else {
       console.log('Промежуточный результат: ', result[0].transcript);
@@ -200,5 +199,6 @@ else {recognizer.stop();}
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' cols='33' rows='8'></textarea>
   <p class='txts'>Не оставляйте светодиод включенным</p>
+  <p class='txts'>Версия страницы: 20180104.2352</p>
 </body>
 </html>

@@ -7,8 +7,7 @@
 
 <style>
 
-body{ margin: 0 35px; background-color: #F5F5F5; color: #2F4F4F; font-weight: bold; 
-font-size: 15px; font-family: Helvetica;}
+body{ margin: 0 35px; background-color: #F5F5F5; color: #2F4F4F; font-size: 15px; font-family: Helvetica;}
 .hh{ font-weight:normal;}
 .btn{ width: 125px; height: 35px;}
 .ed{font-weight: normal; font-size: 12px; font-family: Helvetica; 
@@ -94,7 +93,7 @@ function sendLED(set) {
     message = new Paho.MQTT.Message(set);
     message.destinationName = topic + '/LED';
     client.send(message);	
-    //playSound();
+    playSound();
 }
 
 // called when a message arrives
@@ -183,18 +182,18 @@ else {recognizer.stop();}
 
 <body onload='MQTTconnect()'>
   <h1 class='hh'>MQTT Websocket</h1>
-  <p>Статус сервера: <a id='stMQTT'></a></p>
-  <p>Статус модуля: <a id='stESP12'></a></p>
-  <p>Последнее обновление: <a id='time'></a></p>
-  <p>Уровень сигнала: <a id='stRSSI'></a> dBm</p>
-  <p>Уровень освещенности: <a id='stLDR'></a></p>
-  <p>Температура: <a id='stT'></a> &degC</p>
-  <p>Влажность: <a id='stH'></a> %</p>
-  <p>Статус светодиода: <a id='stLED'></a></p>
-  <p>Управление светодиодом</p>
+  <h3 class='hh'>Статус сервера: <a id='stMQTT'></a></h3>
+  <h3 class='hh'>Статус модуля: <a id='stESP12'></a></h3>
+  <h3 class='hh'>Последнее обновление: <a id='time'></a></h3>
+  <h3 class='hh'>Уровень сигнала: <a id='stRSSI'></a> dBm</h3>
+  <h3 class='hh'>Уровень освещенности: <a id='stLDR'></a></h3>
+  <h3 class='hh'>Температура: <a id='stT'></a> &degC</h3>
+  <h3 class='hh'>Влажность: <a id='stH'></a> %</h3>
+  <h3 class='hh'>Статус светодиода: <a id='stLED'></a></h3>
+  <h3 class='hh'>Управление светодиодом</h3>
   <p><input type='button' class='btn' value='Вкл.' onClick="sendLED('1')"/>
   <input type='button' class='btn' value='Выкл.' onClick="sendLED('0')"/></p>
-  <p><label><input type='checkbox' id='id_Rec' onclick="SetRec()"> Голосовое управление</label></p>
+  <h3 class='hh'><label><input type='checkbox' id='id_Rec' onclick="SetRec()"> Голосовое управление</label></h3>
   <textarea class='ed' id='rcmd' cols='33' rows='10'></textarea>
   <p class='txts'>Голосовые команды: включить, выключить.</p>
   <p class='txts'>Не оставляйте светодиод включенным.</p>

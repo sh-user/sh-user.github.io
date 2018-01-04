@@ -94,7 +94,7 @@ function sendLED(set) {
     message = new Paho.MQTT.Message(set);
     message.destinationName = topic + '/LED';
     client.send(message);	
-    playSound();
+    //playSound();
 }
 
 // called when a message arrives
@@ -125,7 +125,7 @@ function onMessageArrived(message) {
 
 	if (message.destinationName == topic + '/LED') {
 
-	document.getElementById('stLED').innerHTML = message.payloadString; }
+	document.getElementById('stLED').innerHTML = message.payloadString; playSound(); }
 }
 	setInterval(updateStatus,10000);
 

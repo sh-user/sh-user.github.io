@@ -8,7 +8,8 @@
 <style>
 
 body{ margin: 0 35px; background-color: #F5F5F5; color: #2F4F4F; font-size: 15px; font-family: Helvetica;}
-.hh{ font-weight:normal;}
+.hh1{ font-weight:normal;}
+.hh{ font-weight:normal; margin: 12px 0 12px 0;}
 .btn{ width: 125px; height: 35px;}
 .ed{font-weight: normal; font-size: 12px; font-family: Helvetica; 
 border: 1px solid gray;border-radius: 4px; padding: 4px;}
@@ -183,7 +184,7 @@ else {recognizer.stop();}
 </head> 
 
 <body onload='MQTTconnect()'>
-  <h1 class='hh'>MQTT Websocket</h1>
+  <h1 class='hh1'>MQTT Websocket</h1>
   <h3 class='hh'>Статус сервера: <a id='stMQTT'></a></h3>
   <h3 class='hh'>Статус модуля: <a id='stESP12'></a></h3>
   <h3 class='hh'>Последнее обновление: <a id='time'></a></h3>
@@ -196,8 +197,8 @@ else {recognizer.stop();}
   <p><input type='button' class='btn' value='Вкл.' onClick="sendLED('1')"/>
   <input type='button' class='btn' value='Выкл.' onClick="sendLED('0')"/></p>
   <h3 class='hh'><label><input type='checkbox' id='id_Rec' onclick="SetRec()"> Голосовое управление</label></h3>
-  <textarea class='ed' id='rcmd' cols='33' rows='10'></textarea>
-  <p class='txts'>Голосовые команды: включи, выключи.</p>
-  <p class='txts'>Не оставляйте светодиод включенным.</p>
+  <h3 class='hh'>Команды: включить, выключить</h3>
+  <textarea class='ed' id='rcmd' cols='33' rows='8'></textarea>
+  <p class='txts'>Не оставляйте светодиод включенным</p>
 </body>
 </html>

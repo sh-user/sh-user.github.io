@@ -6,10 +6,14 @@
 <title>MQTT Websocket</title>
 
 <style>
-body{ margin: 0 30px; background-color:#FCFCFC; font: 15px helvetica, arial, sans-serif;}
+
+body{ margin: 0 35px; background-color: #F5F5F5; color: #2F4F4F; font-weight: bold; 
+font-size: 15px; font-family: Helvetica;}
+.hh{ font-weight:normal;}
 .btn{ width: 125px; height: 35px;}
-.txt1{ color: rgba(0,0,0,0.6); font: 18px helvetica, arial, sans-serif;}
-.txt2{ color: rgba(0,0,0,0.6); font: 14px helvetica, arial, sans-serif;}
+.ed{font-weight: normal; font-size: 12px; font-family: Helvetica; 
+border: 1px solid gray;border-radius: 4px; padding: 4px;}
+.txts{ font-weight: normal; font-size: 12px; font-family: Helvetica;}
 
 </style>
 
@@ -178,21 +182,21 @@ else {recognizer.stop();}
 </head> 
 
 <body onload='MQTTconnect()'>
-  <p class='txt1'>Статус сервера: <a id='stMQTT'></a></p>
-  <p class='txt1'>Статус модуля: <a id='stESP12'></a></p>
-  <p class='txt1'>Последнее обновление: <a id='time'></a></p>
-  <p class='txt1'>Уровень сигнала: <a id='stRSSI'></a> dBm</p>
-  <p class='txt1'>Уровень освещенности: <a id='stLDR'></a></p>
-  <p class='txt1'>Температура: <a id='stT'></a> &degC</p>
-  <p class='txt1'>Влажность: <a id='stH'></a> %</p>
-  <p class='txt1'>Статус светодиода: <a id='stLED'></a></p>
-  <p class='txt1'>Управление светодиодом</p>
+  <h1 class='hh'>MQTT Websocket</h1>
+  <p>Статус сервера: <a id='stMQTT'></a></p>
+  <p>Статус модуля: <a id='stESP12'></a></p>
+  <p>Последнее обновление: <a id='time'></a></p>
+  <p>Уровень сигнала: <a id='stRSSI'></a> dBm</p>
+  <p>Уровень освещенности: <a id='stLDR'></a></p>
+  <p>Температура: <a id='stT'></a> &degC</p>
+  <p>Влажность: <a id='stH'></a> %</p>
+  <p>Статус светодиода: <a id='stLED'></a></p>
+  <p>Управление светодиодом</p>
   <p><input type='button' class='btn' value='Вкл.' onClick="sendLED('1')"/>
   <input type='button' class='btn' value='Выкл.' onClick="sendLED('0')"/></p>
-  
-  <p><label class='txt1'><input type='checkbox' id='id_Rec' onclick="SetRec()"> Голосовое управление</label></p>
-  <textarea class='txt2' id='rcmd' cols='45' rows='10'> </textarea>
-  <p class='txt2'>Голосовые команды: Включить, Выключить.</p>
-  <p class='txt2'>Не оставляйте светодиод включенным.</p>
+  <p><label><input type='checkbox' id='id_Rec' onclick="SetRec()"> Голосовое управление</label></p>
+  <textarea class='ed' id='rcmd' cols='33' rows='10'></textarea>
+  <p class='txts'>Голосовые команды: включить, выключить.</p>
+  <p class='txts'>Не оставляйте светодиод включенным.</p>
 </body>
 </html>

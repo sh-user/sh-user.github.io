@@ -19,7 +19,8 @@ body{ margin: 0 28px; background-color: #F5F5F5; color: #2F4F4F; font-size: 15px
 
 .ed{ width: 100%; outline: none; resize: none; font-weight: normal; font-size: 12px; font-family: Helvetica; 
 border: 1px solid gray; border-radius: 4px; padding: 0;}
-.txts{ font-weight: normal; font-size: 12px; font-family: Helvetica;}
+.txt{ font-size: 12px;}
+.but{ margin: 8px 0 8px 0;}
 
 </style>
 
@@ -202,13 +203,13 @@ else {recognizer.stop();}
   <h3 class='hh'>Влажность: <a id='stH'></a> %</h3>
   <h3 class='hh'>Статус светодиода: <a id='stLED'></a></h3>
   <h3 class='hh'>Управление светодиодом</h3>
-  <p><input type='button' class='btn' value='Вкл.' onClick="sendLED('1')"/></p>
-  <p><input type='button' class='btn' value='Выкл.' onClick="sendLED('0')"/></p>
+  <p class='but'><input type='button' class='btn' value='Вкл.' onClick="sendLED('1')"/></p>
+  <p class='but'><input type='button' class='btn' value='Выкл.' onClick="sendLED('0')"/></p>
   <h3 class='hh'><label><input type='checkbox' id='id_Rec' onclick="SetRec()"> Голосовое управление</label></h3>
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
-  <p class='txts'>Не оставляйте светодиод включенным</p>
-  <p class='txts'>Версия страницы: 20180105.0203</p>
+  <p class='txt'>Не оставляйте светодиод включенным</p>
+  <p class='txt'>Версия страницы: 20180105.0203</p>
 
 </td></tr>
 </table>

@@ -21,14 +21,14 @@ input[type='checkbox']:checked ~ .switch { background: #9CA5D7; transition: .2s;
   top: -4px; left: -4px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); transition: .2s;
 }
 .card {
-  display: inline-block; margin: 0 16px 2px 0; width: 25px; height: 10px; text-align: center; position: relative;
+  display: inline-block; margin: 0 4px 0 4px; width: 25px; height: 13px; text-align: center; position: relative;
 }
 
 .lay1{width: 300px;}
-.hh0{ font-weight:normal; margin: 16px 0 12px 0;}
+.hh0{ font-weight:normal; margin: 18px 0 12px 0;}
 .hh{ font-weight:normal; margin: 12px 0 12px 0;}
 
-.btn{width: 100%; height: 40px; margin:4px 0 0 0; background: linear-gradient(#F7F7F7, #DCDCDC);
+.btn{width: 100%; height: 40px; margin: 0; background: linear-gradient(#F7F7F7, #DCDCDC);
   border: 1px solid #949494; border-radius: 2px; outline: none;}
 .btn:active {background: linear-gradient(#DCDCDC, #F7F7F7);}
 .btn:hover{border: 1px solid #6E6E6E;}
@@ -221,14 +221,18 @@ else {recognizer.stop();}
   <h3 class='hh'>Управление светодиодом</h3>
   <p class='but'><input type='button' class='btn' value='Вкл.' onClick="sendLED('1')"/></p>
   <p class='but'><input type='button' class='btn' value='Выкл.' onClick="sendLED('0')"/></p>
-  <h3 class='hh0'><label>
-  <div class="card"><label for="id_Rec">
-  <input type="checkbox" id="id_Rec" onclick="SetRec()"/><span class="switch"></span><span class="toggle"></span>
-  </label></div>Голосовое управление</label></h3>
+  <h3 class='hh0'><label>Голосовое управление <div style="width:38px; float:right;">
+        <div class="card">
+        <label for="id_Rec">
+        <input type="checkbox" id="id_Rec" onclick="SetRec()"/><span class="switch"></span><span class="toggle"></span>
+        </label>
+      </div>
+    </div>
+  </label></h3>
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
   <p class='txt'>Не оставляйте светодиод включенным</p>
-  <p class='txt'>Версия страницы: 20180105.0203</p>
+  <p class='txt'>Версия страницы: 20180105.1603</p>
 
 </td></tr>
 </table>

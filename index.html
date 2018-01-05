@@ -1,18 +1,24 @@
 ﻿<!DOCTYPE html>
 <html lang='ru'><head>
 <meta charset='utf-8'>
-<meta name='viewport' content='width=540'>
+<meta name='viewport' content='width=360'>
 <meta http-equiv="Cache-Control" content="no-cache">
 <title>MQTT Websocket</title>
 
 <style>
 
-body{ margin: 0 35px; background-color: #F5F5F5; color: #2F4F4F; font-size: 15px; font-family: Helvetica;}
-.hh1{ font-weight:normal;}
+body{ margin: 0 28px; background-color: #F5F5F5; color: #2F4F4F; font-size: 15px; font-family: Helvetica;}
+
+.lay1{width: 300px;}
 .hh{ font-weight:normal; margin: 12px 0 12px 0;}
-.btn{ width: 125px; height: 35px;}
-.ed{font-weight: normal; font-size: 12px; font-family: Helvetica; 
-border: 1px solid gray;border-radius: 4px; padding: 4px;}
+
+.btn{width: 100%; height: 40px; margin:4px 0 0 0; background: linear-gradient(#F7F7F7, #DCDCDC);
+  border: 1px solid #949494; border-radius: 2px; outline: none;}
+.btn:active {background: linear-gradient(#DCDCDC, #F7F7F7);}
+.btn:hover{border: 1px solid #6E6E6E;}
+
+.ed{ width: 100%; outline: none; resize: none; font-weight: normal; font-size: 12px; font-family: Helvetica; 
+border: 1px solid gray; border-radius: 4px; padding: 0;}
 .txts{ font-weight: normal; font-size: 12px; font-family: Helvetica;}
 
 </style>
@@ -22,7 +28,6 @@ border: 1px solid gray;border-radius: 4px; padding: 4px;}
 
 <script type="text/javascript">
 var flag=0; uflag=0;
-
 
 function playSound() {
   if (typeof window.Audio === 'function') {
@@ -183,7 +188,11 @@ else {recognizer.stop();}
 </head> 
 
 <body onload='MQTTconnect()'>
-  <h1 class='hh1'>MQTT Websocket</h1>
+
+<table class='lay1'>
+<tr><td>
+  <h1 class='hh'>MQTT Websocket</h1>
+  <hr>
   <h3 class='hh'>Статус сервера: <a id='stMQTT'></a></h3>
   <h3 class='hh'>Статус модуля: <a id='stESP12'></a></h3>
   <h3 class='hh'>Последнее обновление: <a id='time'></a></h3>
@@ -193,12 +202,16 @@ else {recognizer.stop();}
   <h3 class='hh'>Влажность: <a id='stH'></a> %</h3>
   <h3 class='hh'>Статус светодиода: <a id='stLED'></a></h3>
   <h3 class='hh'>Управление светодиодом</h3>
-  <p><input type='button' class='btn' value='Вкл.' onClick="sendLED('1')"/>
-  <input type='button' class='btn' value='Выкл.' onClick="sendLED('0')"/></p>
+  <p><input type='button' class='btn' value='Вкл.' onClick="sendLED('1')"/></p>
+  <p><input type='button' class='btn' value='Выкл.' onClick="sendLED('0')"/></p>
   <h3 class='hh'><label><input type='checkbox' id='id_Rec' onclick="SetRec()"> Голосовое управление</label></h3>
   <h3 class='hh'>Команды: включить, выключить</h3>
-  <textarea class='ed' id='rcmd' cols='33' rows='8'></textarea>
+  <textarea class='ed' id='rcmd' rows='8'></textarea>
   <p class='txts'>Не оставляйте светодиод включенным</p>
-  <p class='txts'>Версия страницы: 20180104.2352</p>
+  <p class='txts'>Версия страницы: 20180105.0203</p>
+
+</td></tr>
+</table>
+
 </body>
 </html>

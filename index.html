@@ -25,7 +25,6 @@ input[type='checkbox']:checked ~ .switch { background: #9CA5D7; transition: .2s;
 }
 
 .lay1{width: 300px; margin: 0 auto;}
-.hh0{ font-weight:normal; margin: 18px 0 12px 0;}
 .hh{ font-weight:normal; margin: 12px 0 12px 0;}
 
 .btn{width: 100%; height: 40px; margin: 0; background: linear-gradient(#F7F7F7, #DCDCDC);
@@ -147,7 +146,9 @@ function onMessageArrived(message) {
 
 	if (message.destinationName == topic + '/LED') {
 
-	document.getElementById('stLED').innerHTML = message.payloadString; }
+	//document.getElementById('stLED').innerHTML = message.payloadString; 
+	if (message.payloadString == '0') {document.querySelector('#id_LED').checked = false;}
+	else {document.querySelector('#id_LED').checked = true;}}
 }
 	setInterval(updateStatus,10000);
 
@@ -180,10 +181,10 @@ recognizer.onresult = function (event) {
 recognizer.onend = function() {
   if (rec_str1 === 'включить'){sendLED('1');}
   if (rec_str1 === 'выключить'){sendLED('0');}
-  if (rec_str1 === 'выключить микрофон') {document.querySelector('#id_Rec').checked = false;}
+  //if (rec_str1 === 'выключить микрофон') {document.querySelector('#id_REC').checked = false;}
   //speak(rec_str1);
   rec_str1 = '';
-  if (document.querySelector('#id_Rec').checked) {recognizer.start();}
+  if (document.querySelector('#id_REC').checked) {recognizer.start();}
 };
 
 utterance.onend = function() { 
@@ -197,9 +198,14 @@ function speak(str){
   speechSynthesis.speak(utterance); 
 };
 
-function SetRec(){
-if (document.querySelector('#id_Rec').checked) {recognizer.start();} 
+function checkREC(){
+if (document.querySelector('#id_REC').checked) {recognizer.start();} 
 else {recognizer.stop();}
+}
+
+function checkLED(){
+if (document.querySelector('#id_LED').checked) {sendLED('1');} 
+else {sendLED('0');}
 }
 
 </script>
@@ -218,22 +224,20 @@ else {recognizer.stop();}
   <h3 class='hh'>Уровень освещенности: <a id='stLDR'></a></h3>
   <h3 class='hh'>Температура: <a id='stT'></a> &degC</h3>
   <h3 class='hh'>Влажность: <a id='stH'></a> %</h3>
-  <h3 class='hh'>Статус светодиода: <a id='stLED'></a></h3>
-  <h3 class='hh'>Управление светодиодом</h3>
-  <p class='but'><input type='button' class='btn' value='Вкл.' onClick="sendLED('1')"/></p>
-  <p class='but'><input type='button' class='btn' value='Выкл.' onClick="sendLED('0')"/></p>
-  <h3 class='hh0'><label>Голосовое управление <div style="width:38px; float:right;">
-        <div class="card">
-        <label for="id_Rec">
-        <input type="checkbox" id="id_Rec" onclick="SetRec()"/><span class="switch"></span><span class="toggle"></span>
-        </label>
-      </div>
-    </div>
+  <h3 class='hh'><label>Управление светодиодом <div style="width:38px; float:right;">
+  	<div class="card"><label for="id_LED">
+  	<input type="checkbox" id="id_LED" onclick="checkLED()"/><span class="switch"></span><span class="toggle"></span>
+  	</label></div></div>
+  </label></h3>
+  <h3 class='hh'><label title='Только для Google Chrome'>Голосовое управление <div style="width:38px; float:right;">
+  	<div class="card"><label for="id_REC">
+  	<input type="checkbox" id="id_REC" onclick="checkREC()"/><span class="switch"></span><span class="toggle"></span>
+  	</label></div></div>
   </label></h3>
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
   <p class='txt'>Не оставляйте светодиод включенным</p>
-  <p class='txt'>Версия страницы: 20180106.1846</p>
+  <p class='txt'>Версия страницы: 20180107.0104</p>
 
 </td></tr>
 </table>

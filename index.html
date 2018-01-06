@@ -180,6 +180,7 @@ recognizer.onresult = function (event) {
 recognizer.onend = function() {
   if (rec_str1 === 'включить'){sendLED('1');}
   if (rec_str1 === 'выключить'){sendLED('0');}
+  if (rec_str1 === 'выключить микрофон') {document.querySelector('#id_Rec').checked = false;}
   //speak(rec_str1);
   rec_str1 = '';
   if (document.querySelector('#id_Rec').checked) {recognizer.start();}

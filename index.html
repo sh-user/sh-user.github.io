@@ -211,14 +211,6 @@ if (document.querySelector('#id_LED').checked) {sendLED('1');}
 else {sendLED('0');}
 }
 
-function checkSAVE(){
-  localStorage.setItem('serv', document.getElementById('mq_serv').value);
-  localStorage.setItem('port', document.getElementById('mq_port').value);
-  localStorage.setItem('user', document.getElementById('mq_user').value);
-  localStorage.setItem('pass', document.getElementById('mq_pass').value);
-  localStorage.setItem('save', document.getElementById('mq_save').value);
-}
-
 function divConnect(){
   host = document.getElementById('mq_serv').value; 
   port = parseInt(document.getElementById('mq_port').value);
@@ -245,6 +237,14 @@ function setTXT() {
   document.getElementById('mq_user').value = user;
   document.getElementById('mq_pass').value = pass;
   document.querySelector('#id_SAVE').checked = document.getElementById('save').value;
+}
+
+function checkSAVE(){
+  localStorage.setItem('serv', document.getElementById('mq_serv').value);
+  localStorage.setItem('port', document.getElementById('mq_port').value);
+  localStorage.setItem('user', document.getElementById('mq_user').value);
+  localStorage.setItem('pass', document.getElementById('mq_pass').value);
+  localStorage.setItem('save', document.querySelector('#id_SAVE').checked);
 }
 
 </script>
@@ -294,7 +294,7 @@ function setTXT() {
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180107.2143</p>
+  <p class='stxt'>Версия: 20180107.2149</p>
 </td></tr>
 </table>
 

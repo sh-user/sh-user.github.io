@@ -210,10 +210,14 @@ else {sendLED('0');}
 function viewdiv(){
   document.getElementById('id_div1').style.display='none';
   document.getElementById('id_div2').style.display='block';
+  
   host = document.getElementById('mq_serv').value; 
   port = parseInt(document.getElementById('mq_port').value);
   user = document.getElementById('mq_user').value; 
   pass = document.getElementById('mq_pass').value;
+
+  localStorage.setItem('serv', document.getElementById('mq_serv').value);
+  localStorage.setItem('port', document.getElementById('mq_port').value);
   MQTTconnect();
 }
 
@@ -222,10 +226,17 @@ SearchChar=String.fromCharCode(window.event.keyCode);
 if(AvaiableSymbol.indexOf(SearchChar.toUpperCase())<0)return false;
 }
 
+function setTXT() {
+  host = localStorage.getItem('serv');
+  port = localStorage.getItem('port');
+  document.getElementById('mq_serv').value = host;
+  document.getElementById('mq_port').value = port;
+}
+
 </script>
 </head> 
 
-<body>
+<body onload='setTXT()'>
 
 <table class='lay1'>
 <tr><td>
@@ -263,7 +274,7 @@ if(AvaiableSymbol.indexOf(SearchChar.toUpperCase())<0)return false;
   </label></h3>
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
-  <p class='stxt'>Версия страницы: 20180107.1731</p>
+  <p class='stxt'>Версия страницы: 20180107.1802</p>
 </div>
 </td></tr>
 </table>

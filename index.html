@@ -63,10 +63,6 @@ function MQTTconnect() {
   // set callback handlers
   client.onConnectionLost = onConnectionLost;
   client.onMessageArrived = onMessageArrived;
-  //u = '';
-  //p = '';
-  //for (var i = 0; i < user.length; i += 2) u += String.fromCharCode(parseInt(user.substr(i, 2), 16));
-  //for (var i = 0; i < pass.length; i += 2) p += String.fromCharCode(parseInt(pass.substr(i, 2), 16));
 
   var options = {
     useSSL: true,
@@ -265,7 +261,7 @@ if(AvaiableSymbol.indexOf(SearchChar.toUpperCase())<0)return false;
   </label></h3>
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
-  <p class='stxt'>Версия страницы: 20180107.1439</p>
+  <p class='stxt'>Версия страницы: 20180107.1452</p>
 </div>
 </td></tr>
 </table>

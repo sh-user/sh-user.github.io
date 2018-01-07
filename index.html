@@ -156,8 +156,10 @@ function onMessageArrived(message) {
 
 //=============================================================================
   //var recognizer = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || //window.msSpeechRecognition)();
-  var recognizer = SpeechRecognition || webkitSpeechRecognition;
-  //var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
+
+  var recognizer = new (SpeechRecognition || webkitSpeechRecognition || mozSpeechRecognition || msSpeechRecognition)();
+
+
   //var recognizer = new webkitSpeechRecognition();
   var rec_str1 = '';
   // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
@@ -229,7 +231,7 @@ else {sendLED('0');}
   <h3 class='hh'>Уровень освещенности: <a id='stLDR'></a></h3>
   <h3 class='hh'>Температура: <a id='stT'></a> &degC</h3>
   <h3 class='hh'>Влажность: <a id='stH'></a> %</h3>
-  <h3 class='hh'><label>Управление светодиодом <div class='lay2'>
+  <h3 class='hh'><label title='Не оставляйте светодиод включенным'>Управление светодиодом <div class='lay2'>
   	<div class="card"><label for="id_LED">
   	<input type="checkbox" id="id_LED" onclick="checkLED()"/><span class="switch"></span><span class="toggle"></span>
   	</label></div></div>
@@ -241,8 +243,7 @@ else {sendLED('0');}
   </label></h3>
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
-  <p class='stxt'>Не оставляйте светодиод включенным</p>
-  <p class='stxt'>Версия страницы: 20180107.0202</p>
+  <p class='stxt'>Версия страницы: 20180107.0225</p>
 
 </td></tr>
 </table>

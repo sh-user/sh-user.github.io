@@ -25,7 +25,7 @@ input[type='checkbox']:checked ~ .switch { background: #9CA5D7; transition: .2s;
 }
 
 .lay1 {width: 300px; padding: 0; margin: 0 auto;}
-.lay2 {width: 38px; float: right;}
+.lay2 {width: 40px; float: right;}
 .hh {font-weight:normal; margin: 12px 0 12px 0;}
 
 .btn {width: 100%; height: 40px; margin: 0; background: linear-gradient(#F7F7F7, #DCDCDC);
@@ -240,11 +240,18 @@ function setTXT() {
 }
 
 function checkSAVE(){
+if (document.querySelector('#id_SAVE').checked) {
   localStorage.setItem('serv', document.getElementById('mq_serv').value);
   localStorage.setItem('port', document.getElementById('mq_port').value);
   localStorage.setItem('user', document.getElementById('mq_user').value);
   localStorage.setItem('pass', document.getElementById('mq_pass').value);
-  localStorage.setItem('save', document.querySelector('#id_SAVE').checked);
+  localStorage.setItem('save', document.querySelector('#id_SAVE').checked);}
+  else {
+  localStorage.setItem('serv', '');
+  localStorage.setItem('port', '');
+  localStorage.setItem('user', '');
+  localStorage.setItem('pass', '');
+  localStorage.setItem('save', document.querySelector('#id_SAVE').checked);}
 }
 
 </script>
@@ -294,7 +301,7 @@ function checkSAVE(){
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180107.2207</p>
+  <p class='stxt'>Версия: 20180107.2221</p>
 </td></tr>
 </table>
 

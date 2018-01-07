@@ -155,9 +155,7 @@ function onMessageArrived(message) {
 	setInterval(updateStatus,10000);
 
 //=============================================================================
-  var recognizer = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-
-  //var recognizer = new webkitSpeechRecognition();
+  var recognizer = new webkitSpeechRecognition();
   var rec_str1 = '';
   // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
   recognizer.interimResults = true;
@@ -240,7 +238,7 @@ else {sendLED('0');}
   </label></h3>
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='10'></textarea>
-  <p class='stxt'>Версия страницы: 20180107.0231</p>
+  <p class='stxt'>Версия страницы: 20180107.0240</p>
 
 </td></tr>
 </table>

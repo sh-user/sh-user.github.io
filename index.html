@@ -211,13 +211,20 @@ if (document.querySelector('#id_LED').checked) {sendLED('1');}
 else {sendLED('0');}
 }
 
+function checkSAVE(){
+  localStorage.setItem('serv', document.getElementById('mq_serv').value);
+  localStorage.setItem('port', document.getElementById('mq_port').value);
+  localStorage.setItem('user', document.getElementById('mq_user').value);
+  localStorage.setItem('pass', document.getElementById('mq_pass').value);
+  localStorage.setItem('save', document.getElementById('mq_save').value);
+}
+
 function divConnect(){
   host = document.getElementById('mq_serv').value; 
   port = parseInt(document.getElementById('mq_port').value);
   user = document.getElementById('mq_user').value; 
   pass = document.getElementById('mq_pass').value;
-  localStorage.setItem('serv', document.getElementById('mq_serv').value);
-  localStorage.setItem('port', document.getElementById('mq_port').value);
+  
   if (host=='' || document.getElementById('mq_port').value=='' || user=='' || pass=='') 
   {alert('Ошибка\r\nЗаполните все поля формы'); return;}
   MQTTconnect();
@@ -231,8 +238,13 @@ if(AvaiableSymbol.indexOf(SearchChar.toUpperCase())<0)return false;
 function setTXT() {
   host = localStorage.getItem('serv');
   port = localStorage.getItem('port');
+  user = localStorage.getItem('user');
+  pass = localStorage.getItem('pass');
   document.getElementById('mq_serv').value = host;
   document.getElementById('mq_port').value = port;
+  document.getElementById('mq_user').value = user;
+  document.getElementById('mq_pass').value = pass;
+  document.querySelector('#id_SAVE').checked = document.getElementById('save').value;
 }
 
 </script>
@@ -252,7 +264,12 @@ function setTXT() {
   <p><input class='ed2' id='mq_port' name='q_port' type='text' placeholder='Порт' onkeypress="return keyNUM('0123456789')"></p>
   <p><input class='ed2' id='mq_user' name='q_user' type='text' placeholder='Логин'>
 </p>			
-  <p><input class='ed2' id='mq_pass' name='q_pass' type='password' placeholder='Пароль'></p>		  
+  <p><input class='ed2' id='mq_pass' name='q_pass' type='password' placeholder='Пароль'></p>
+  <h3 class='hh'><label>Запомнить меня <div class='lay2'>
+    <div class='card'><label for="id_SAVE">
+    <input type="checkbox" id="id_SAVE" onclick="checkSAVE()"/><span class="switch"></span><span class="toggle"></span>
+    </label></div></div>
+  </label></h3>		  
   <p><input class='btn' type='button' value='Войти' onClick="divConnect()"/></p>
 </form>
 </div>
@@ -277,7 +294,7 @@ function setTXT() {
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180107.1940</p>
+  <p class='stxt'>Версия: 20180107.2143</p>
 </td></tr>
 </table>
 

@@ -237,7 +237,7 @@ function setTXT() {
   document.getElementById('mq_port').value = port;
   document.getElementById('mq_user').value = user;
   document.getElementById('mq_pass').value = pass;
-  sv1 = document.getElementById('save').value;
+  sv1 = localStorage.getItem('save');
   if (sv1 = '1') {document.querySelector('#id_SAVE').checked = true;} 
   else {document.querySelector('#id_SAVE').checked = false;}
 }
@@ -299,7 +299,7 @@ function checkSAVE(){
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180107.2157</p>
+  <p class='stxt'>Версия: 20180107.2201</p>
 </td></tr>
 </table>
 

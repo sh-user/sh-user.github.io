@@ -155,10 +155,7 @@ function onMessageArrived(message) {
 	setInterval(updateStatus,10000);
 
 //=============================================================================
-  //var recognizer = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || //window.msSpeechRecognition)();
-
-  var recognizer = new (SpeechRecognition || webkitSpeechRecognition || mozSpeechRecognition || msSpeechRecognition)();
-
+  var recognizer = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 
   //var recognizer = new webkitSpeechRecognition();
   var rec_str1 = '';
@@ -232,18 +229,18 @@ else {sendLED('0');}
   <h3 class='hh'>Температура: <a id='stT'></a> &degC</h3>
   <h3 class='hh'>Влажность: <a id='stH'></a> %</h3>
   <h3 class='hh'><label title='Не оставляйте светодиод включенным'>Управление светодиодом <div class='lay2'>
-  	<div class="card"><label for="id_LED">
-  	<input type="checkbox" id="id_LED" onclick="checkLED()"/><span class="switch"></span><span class="toggle"></span>
-  	</label></div></div>
+    <div class="card"><label for="id_LED">
+    <input type="checkbox" id="id_LED" onclick="checkLED()"/><span class="switch"></span><span class="toggle"></span>
+    </label></div></div>
   </label></h3>
   <h3 class='hh'><label title='Только для Google Chrome'>Голосовое управление <div class='lay2'>
-  	<div class="card"><label for="id_REC">
-  	<input type="checkbox" id="id_REC" onclick="checkREC()"/><span class="switch"></span><span class="toggle"></span>
-  	</label></div></div>
+    <div class="card"><label for="id_REC">
+    <input type="checkbox" id="id_REC" onclick="checkREC()"/><span class="switch"></span><span class="toggle"></span>
+    </label></div></div>
   </label></h3>
   <h3 class='hh'>Команды: включить, выключить</h3>
-  <textarea class='ed' id='rcmd' rows='8'></textarea>
-  <p class='stxt'>Версия страницы: 20180107.0225</p>
+  <textarea class='ed' id='rcmd' rows='10'></textarea>
+  <p class='stxt'>Версия страницы: 20180107.0231</p>
 
 </td></tr>
 </table>

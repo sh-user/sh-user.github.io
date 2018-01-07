@@ -88,12 +88,13 @@ function onConnect() {
     client.subscribe(topic + '/LED');
     updateStatus();
     document.getElementById('id_div1').style.display='none';
-    document.getElementById('id_div2').style.display='block';   
+    document.getElementById('id_div2').style.display='block';
 }
 
 function doFail(e){
     console.log(e);
     document.getElementById('stMQTT').innerHTML='Not connected';
+    alert(e);
 }
 
 // called when the client loses its connection
@@ -250,6 +251,7 @@ function setTXT() {
 </p>			
   <p><input class='ed2' id='mq_pass' name='q_pass' type='password' placeholder='Пароль'></p>		  
   <p><input class='btn' type='button' value='Войти' onClick="divConnect()"/></p>
+  <p class='stxt'>Версия: 20180107.1903</p>
 </form>
 </div>
 <div id='id_div2' style="display: none">
@@ -272,7 +274,7 @@ function setTXT() {
   </label></h3>
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
-  <p class='stxt'>Версия страницы: 20180107.1802</p>
+  <p class='stxt'>Версия: 20180107.1903</p>
 </div>
 </td></tr>
 </table>

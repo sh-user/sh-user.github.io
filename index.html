@@ -7,7 +7,7 @@
 
 <style>
 
-body{ margin:0; background-color: #F5F5F5; color: #2F4F4F; font-size: 15px; font-family: Helvetica;}
+body{ margin:0; background-color: #F5F5F5; color: #2F4F4F; font-family: Helvetica; font-size: 15px; }
 
 input[type='checkbox'] { display: none;}
 input[type='checkbox']:checked ~ .toggle { background: #3F51B5; left: 15px; transition: .2s;}
@@ -24,7 +24,7 @@ input[type='checkbox']:checked ~ .switch { background: #9CA5D7; transition: .2s;
   display: inline-block; margin: 0 4px 0 4px; width: 25px; height: 13px; text-align: center; position: relative;
 }
 
-.lay1 {width: 300px; margin: 0 auto;}
+.lay1 {width: 300px; padding: 0; margin: 0 auto;}
 .lay2 {width: 38px; float: right;}
 .hh {font-weight:normal; margin: 12px 0 12px 0;}
 
@@ -33,18 +33,19 @@ input[type='checkbox']:checked ~ .switch { background: #9CA5D7; transition: .2s;
 .btn:active {background: linear-gradient(#DCDCDC, #F7F7F7);}
 .btn:hover {border: 1px solid #6E6E6E;}
 
-.ed {width: 100%; outline: none; resize: none; font-weight: normal; font-size: 12px; font-family: Helvetica; 
-border: 1px solid gray; border-radius: 4px; padding: 0;}
+.ed {width: 300px; outline: none; resize: none; font-family: Helvetica; font-size: 15px; 
+border: 1px solid gray; border-radius: 4px; padding: 6px;}
+
+.ed2 {width: 300px; height: 24px; border: 1px solid gray; font-family: Helvetica; font-size: 15px; 
+border-radius: 4px; padding: 6px; }
 .stxt {font-size: 12px;}
-.but {margin: 8px 0 8px 0;}
 
 </style>
 
 <script src="mqttws31.js" type="text/javascript"></script>
-<script src="config.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-var flag=0; uflag=0;
+var flag = 0; uflag = 0; host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
 
 function playSound() {
   if (typeof window.Audio === 'function') {
@@ -62,15 +63,15 @@ function MQTTconnect() {
   // set callback handlers
   client.onConnectionLost = onConnectionLost;
   client.onMessageArrived = onMessageArrived;
-  u = '';
-  p = '';
-  for (var i = 0; i < user.length; i += 2) u += String.fromCharCode(parseInt(user.substr(i, 2), 16));
-  for (var i = 0; i < pass.length; i += 2) p += String.fromCharCode(parseInt(pass.substr(i, 2), 16));
+  //u = '';
+  //p = '';
+  //for (var i = 0; i < user.length; i += 2) u += String.fromCharCode(parseInt(user.substr(i, 2), 16));
+  //for (var i = 0; i < pass.length; i += 2) p += String.fromCharCode(parseInt(pass.substr(i, 2), 16));
 
   var options = {
     useSSL: true,
-    userName: u,
-    password: p,
+    userName: user,
+    password: pass,
     onSuccess: onConnect,
     onFailure: doFail,
   }
@@ -210,15 +211,41 @@ if (document.querySelector('#id_LED').checked) {sendLED('1');}
 else {sendLED('0');}
 }
 
+function viewdiv(){
+  document.getElementById('id_div1').style.display='none';
+  document.getElementById('id_div2').style.display='block';
+  host = document.getElementById('mq_serv').value; 
+  port = parseInt(document.getElementById('mq_port').value);
+  user = document.getElementById('mq_user').value; 
+  pass = document.getElementById('mq_pass').value;
+  MQTTconnect();
+}
+
+function keyPress(AvaiableSymbol) {
+SearchChar=String.fromCharCode(window.event.keyCode);
+if(AvaiableSymbol.indexOf(SearchChar.toUpperCase())<0)return false;
+}
+
 </script>
 </head> 
 
-<body onload='MQTTconnect()'>
+<body>
 
 <table class='lay1'>
 <tr><td>
   <h1 class='hh'>MQTT Websocket</h1>
   <hr>
+<div id='id_div1'>
+  <h3 class='hh'>Авторизация</h3>
+  <p><input class='ed2' id='mq_serv' type='text' placeholder='Сервер' value='m23.cloudmqtt.com'>
+</p>			
+  <p><input class='ed2' id='mq_port' type='text' placeholder='Порт' onkeypress="return keyPress('0123456789')" value='33492'></p>
+  <p><input class='ed2' id='mq_user' type='text' placeholder='Логин' value='ivtjhrii'>
+</p>			
+  <p><input class='ed2' id='mq_pass' type='password' placeholder='Пароль' value='_Gnt6HJ2ncka'></p>		  
+  <p><input class='btn' type='button' value='Войти' onClick="viewdiv()"/></p>
+</div>
+<div id='id_div2' style="display: none">
   <h3 class='hh'>Статус сервера: <a id='stMQTT'></a></h3>
   <h3 class='hh'>Статус модуля: <a id='stESP12'></a></h3>
   <h3 class='hh'>Последнее обновление: <a id='time'></a></h3>
@@ -227,19 +254,19 @@ else {sendLED('0');}
   <h3 class='hh'>Температура: <a id='stT'></a> &degC</h3>
   <h3 class='hh'>Влажность: <a id='stH'></a> %</h3>
   <h3 class='hh'><label title='Не оставляйте светодиод включенным'>Управление светодиодом <div class='lay2'>
-    <div class="card"><label for="id_LED">
+    <div class='card'><label for="id_LED">
     <input type="checkbox" id="id_LED" onclick="checkLED()"/><span class="switch"></span><span class="toggle"></span>
     </label></div></div>
   </label></h3>
   <h3 class='hh'><label title='Только для Google Chrome'>Голосовое управление <div class='lay2'>
-    <div class="card"><label for="id_REC">
+    <div class='card'><label for="id_REC">
     <input type="checkbox" id="id_REC" onclick="checkREC()"/><span class="switch"></span><span class="toggle"></span>
     </label></div></div>
   </label></h3>
   <h3 class='hh'>Команды: включить, выключить</h3>
-  <textarea class='ed' id='rcmd' rows='10'></textarea>
-  <p class='stxt'>Версия страницы: 20180107.0240</p>
-
+  <textarea class='ed' id='rcmd' rows='8'></textarea>
+  <p class='stxt'>Версия страницы: 20180107.1439</p>
+</div>
 </td></tr>
 </table>
 

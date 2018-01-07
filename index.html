@@ -228,7 +228,6 @@ if(AvaiableSymbol.indexOf(SearchChar.toUpperCase())<0)return false;
 }
 
 function setTXT() {
-  var sv1;
   host = localStorage.getItem('serv');
   port = localStorage.getItem('port');
   user = localStorage.getItem('user');
@@ -237,19 +236,15 @@ function setTXT() {
   document.getElementById('mq_port').value = port;
   document.getElementById('mq_user').value = user;
   document.getElementById('mq_pass').value = pass;
-  sv1 = localStorage.getItem('save');
-  if (sv1 = '1') {document.querySelector('#id_SAVE').checked = true;} 
-  else {document.querySelector('#id_SAVE').checked = false;}
+  document.querySelector('#id_SAVE').checked = = localStorage.getItem('save');
 }
 
 function checkSAVE(){
-  var sv0;
   localStorage.setItem('serv', document.getElementById('mq_serv').value);
   localStorage.setItem('port', document.getElementById('mq_port').value);
   localStorage.setItem('user', document.getElementById('mq_user').value);
   localStorage.setItem('pass', document.getElementById('mq_pass').value);
-  if (document.querySelector('#id_SAVE').checked) {sv0 = '1';} else {sv0 = '0';}
-  localStorage.setItem('save', sv0);
+  localStorage.setItem('save', document.querySelector('#id_SAVE').checked);
 }
 
 </script>
@@ -299,7 +294,7 @@ function checkSAVE(){
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180107.2201</p>
+  <p class='stxt'>Версия: 20180107.2207</p>
 </td></tr>
 </table>
 

@@ -109,7 +109,8 @@ function updateStatus() {
     if (uflag == 0) {
     message = new Paho.MQTT.Message(' ');
     message.destinationName = topic + '/Status';
-    client.send(message);} else {uflag = 0;}
+    client.send(message);} 
+    else {uflag = 0;}
 }
 
 function sendLED(set) {
@@ -217,6 +218,8 @@ function divConnect(){
   pass = document.getElementById('mq_pass').value;
   localStorage.setItem('serv', document.getElementById('mq_serv').value);
   localStorage.setItem('port', document.getElementById('mq_port').value);
+  if (host=='' || document.getElementById('mq_port').value=='' || user=='' || pass=='') 
+  {alert('Ошибка\r\nЗаполните все поля формы'); return;}
   MQTTconnect();
 }
 
@@ -242,7 +245,7 @@ function setTXT() {
   <h1 class='hh'>MQTT Websocket</h1>
   <hr>
 <div id='id_div1'>
-<form autocomplete='on'>
+<form>
   <h3 class='hh'>Авторизация</h3>
   <p><input class='ed2' id='mq_serv' name='q_serv' type='text' placeholder='Сервер'>
 </p>			
@@ -251,7 +254,6 @@ function setTXT() {
 </p>			
   <p><input class='ed2' id='mq_pass' name='q_pass' type='password' placeholder='Пароль'></p>		  
   <p><input class='btn' type='button' value='Войти' onClick="divConnect()"/></p>
-  <p class='stxt'>Версия: 20180107.1911</p>
 </form>
 </div>
 <div id='id_div2' style="display: none">
@@ -274,8 +276,8 @@ function setTXT() {
   </label></h3>
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
-  <p class='stxt'>Версия: 20180107.1911</p>
 </div>
+  <p class='stxt'>Версия: 20180107.1934</p>
 </td></tr>
 </table>
 

@@ -9,6 +9,15 @@
 
 body{ margin:0; background-color: #F5F5F5; color: #2F4F4F; font-family: Helvetica; font-size: 15px; }
 
+.ex1 {position: relative;	width: 32px; height: 32px; background-color: white;	border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);}
+.ex1::before, .ex1::after {	position: absolute;	top: 15px; left: 8px; width: 16px; height: 3px;	content: "";
+    background-color: #2F4F4F;}
+.ex1::before {-ms-transform: rotate(-45deg); -webkit-transform: rotate(-45deg); transform: rotate(-45deg);}
+.ex1::after {-ms-transform: rotate(45deg); -webkit-transform: rotate(45deg);	transform: rotate(45deg);}
+.ex1:active::before, .ex1:active::after { background-color: white; }
+.ex1:active {background-color: #2F4F4F;}
+
 input[type='checkbox'] { display: none;}
 input[type='checkbox']:checked ~ .toggle { background: #3F51B5; left: 15px; transition: .2s;}
 input[type='checkbox']:checked ~ .switch { background: #9CA5D7; transition: .2s;}
@@ -26,6 +35,7 @@ input[type='checkbox']:checked ~ .switch { background: #9CA5D7; transition: .2s;
 
 .lay1 {width: 300px; padding: 0; margin: 0 auto;}
 .lay2 {width: 40px; float: right;}
+.lay3 {width: 32px; float: right;}
 .hh {font-weight:normal; margin: 12px 0 12px 0;}
 
 .btn {width: 100%; height: 40px; margin: 0; background: linear-gradient(#F7F7F7, #DCDCDC);
@@ -89,6 +99,7 @@ function onConnect() {
     updateStatus();
     document.getElementById('id_div1').style.display='none';
     document.getElementById('id_div2').style.display='block';
+    document.getElementById('id_EX').style.display='block';
 }
 
 function doFail(e){
@@ -202,13 +213,13 @@ function speak(str){
 };
 
 function checkREC(){
-if (document.querySelector('#id_REC').checked) {recognizer.start();} 
-else {recognizer.stop();}
+  if (document.querySelector('#id_REC').checked) {recognizer.start();} 
+  else {recognizer.stop();}
 }
 
 function checkLED(){
-if (document.querySelector('#id_LED').checked) {sendLED('1');} 
-else {sendLED('0');}
+  if (document.querySelector('#id_LED').checked) {sendLED('1');} 
+  else {sendLED('0');}
 }
 
 function divConnect(){
@@ -223,8 +234,8 @@ function divConnect(){
 }
 
 function keyNUM(AvaiableSymbol) {
-SearchChar=String.fromCharCode(window.event.keyCode);
-if(AvaiableSymbol.indexOf(SearchChar.toUpperCase())<0)return false;
+  SearchChar=String.fromCharCode(window.event.keyCode);
+  if(AvaiableSymbol.indexOf(SearchChar.toUpperCase())<0)return false;
 }
 
 function setTXT() {
@@ -261,7 +272,9 @@ if (document.querySelector('#id_SAVE').checked) {
 
 <table class='lay1'>
 <tr><td>
-  <h1 class='hh'>MQTT Websocket</h1>
+  <h1 class='hh'>MQTT Websocket 
+  <div class='lay3' id='id_EX' style="display: none"><div class='ex1' title='Выход'></div></div>
+  </h1></h1>
   <hr>
 <div id='id_div1'>
 <form>
@@ -273,8 +286,8 @@ if (document.querySelector('#id_SAVE').checked) {
 </p>			
   <p><input class='ed2' id='mq_pass' name='q_pass' type='password' placeholder='Пароль'></p>
   <h3 class='hh'><label>Запомнить меня <div class='lay2'>
-    <div class='card'><label for="id_SAVE">
-    <input type="checkbox" id="id_SAVE" onclick="checkSAVE()"/><span class="switch"></span><span class="toggle"></span>
+    <div class='card'><label for='id_SAVE'>
+    <input type='checkbox' id='id_SAVE' onclick="checkSAVE()"/><span class='switch'></span><span class="toggle"></span>
     </label></div></div>
   </label></h3>		  
   <p><input class='btn' type='button' value='Войти' onClick="divConnect()"/></p>
@@ -289,19 +302,19 @@ if (document.querySelector('#id_SAVE').checked) {
   <h3 class='hh'>Температура: <a id='stT'></a> &degC</h3>
   <h3 class='hh'>Влажность: <a id='stH'></a> %</h3>
   <h3 class='hh'><label title='Не оставляйте светодиод включенным'>Управление светодиодом <div class='lay2'>
-    <div class='card'><label for="id_LED">
-    <input type="checkbox" id="id_LED" onclick="checkLED()"/><span class="switch"></span><span class="toggle"></span>
+    <div class='card'><label for='id_LED'>
+    <input type='checkbox' id='id_LED' onclick="checkLED()"/><span class='switch'></span><span class="toggle"></span>
     </label></div></div>
   </label></h3>
   <h3 class='hh'><label title='Только для Google Chrome'>Голосовое управление <div class='lay2'>
-    <div class='card'><label for="id_REC">
-    <input type="checkbox" id="id_REC" onclick="checkREC()"/><span class="switch"></span><span class="toggle"></span>
+    <div class='card'><label for='id_REC'>
+    <input type='checkbox' id='id_REC' onclick="checkREC()"/><span class='switch'></span><span class="toggle"></span>
     </label></div></div>
   </label></h3>
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180107.2331</p>
+  <p class='stxt'>Версия: 20180109.0130</p>
 </td></tr>
 </table>
 

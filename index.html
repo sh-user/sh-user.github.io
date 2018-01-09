@@ -117,6 +117,7 @@ function onConnectionLost(responseObject) {
     if (responseObject.errorCode !== 0) {
       console.log("onConnectionLost:"+responseObject.errorMessage);
       document.getElementById('stMQTT').innerHTML=responseObject.errorMessage;
+      alert('Ошибка\r\n'+responseObject.errorMessage);
     }
 }
 
@@ -141,10 +142,8 @@ function sendLED(set) {
 function onMessageArrived(message) {
 	console.log("onMessageArrived:"+message.payloadString);
 	if (message.destinationName == topic + '/Status'){ 
-        cnt = cnt + 1;
-        document.getElementById('stCLIENT').innerHTML = cnt;
-
 	if (message.payloadString == ' ') {
+        cnt = cnt + 1; document.getElementById('stCLIENT').innerHTML = cnt;
 	if (flag == 1) {document.getElementById('stESP12').innerHTML = 'Not connected';} else {flag = 1;}} 
 	else { 
 	flag = 0; document.getElementById('stESP12').innerHTML = message.payloadString;
@@ -342,7 +341,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109-2222</p>
+  <p class='stxt'>Версия: 20180109-2240</p>
 </td></tr>
 </table>
 

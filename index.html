@@ -102,7 +102,7 @@ function onConnect() {
     document.getElementById('id_div2').style.display='block';
     if (document.querySelector('#id_SAVE').checked) {
     document.getElementById('id_EX').style.display='block';
-    document.querySelector('#id_REC').checked = localStorage.getItem('rec');}
+    document.querySelector('#id_REC').checked = localStorage.getItem('rec'); checkREC();}
 }
 
 function doFail(e){
@@ -332,7 +332,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109-1406</p>
+  <p class='stxt'>Версия: 20180109-1414</p>
 </td></tr>
 </table>
 

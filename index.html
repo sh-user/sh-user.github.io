@@ -132,10 +132,10 @@ function updateStatus() {
     message.destinationName = topic + '/Status';
     client.send(message);
 
-    cnt = 1;
     message = new Paho.MQTT.Message(String(intRND));
     message.destinationName = topic + '/CLIENT';
     client.send(message);
+    cnt = 1;
     } 
     else {LEDflag = 0;}
 }
@@ -355,7 +355,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180110-0128</p>
+  <p class='stxt'>Версия: 20180110-0134</p>
 </td></tr>
 </table>
 

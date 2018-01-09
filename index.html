@@ -56,7 +56,7 @@ border-radius: 4px; padding: 6px; }
 <script type="text/javascript">
 //=============================================================================
 //глобальные переменные
-var cnt = 0; flag = 0; LEDflag = 0; temp = ''; BF = 0; AF = 0; rnd = '';
+var cnt = 1; flag = 0; LEDflag = 0; temp = ''; BF = 0; AF = 0; rnd = '';
 var host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
 
 function playSound() {
@@ -132,7 +132,7 @@ function updateStatus() {
     message.destinationName = topic + '/Status';
     client.send(message);
 
-    cnt = 0;
+    cnt = 1;
     message = new Paho.MQTT.Message(rnd);
     message.destinationName = topic + '/CLIENT';
     client.send(message);

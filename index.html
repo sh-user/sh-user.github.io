@@ -53,9 +53,10 @@ border-radius: 4px; padding: 6px; }
 </style>
 
 <script src="mqttws31.js" type="text/javascript"></script>
-
 <script type="text/javascript">
-var timerId; flag = 0; uflag = 0; host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
+
+//глобальные переменные
+var flag = 0; uflag = 0; host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
 
 function playSound() {
   if (typeof window.Audio === 'function') {
@@ -164,7 +165,7 @@ function onMessageArrived(message) {
 	if (message.payloadString == '0') {document.querySelector('#id_LED').checked = false;}
 	else {document.querySelector('#id_LED').checked = true;}}
 }
-	timerId = setInterval(updateStatus,10000);
+	setInterval(updateStatus,10000);
 
 //=============================================================================
   var recognizer = new webkitSpeechRecognition();
@@ -267,16 +268,12 @@ if (document.querySelector('#id_SAVE').checked) {
 
 function divEX(){
 if (confirm("Вы действительно хотите выйти?")) {
-  clearInterval(timerId);
   localStorage.setItem('serv', '');
   localStorage.setItem('port', '');
   localStorage.setItem('user', '');
   localStorage.setItem('pass', '');
   localStorage.setItem('save', '');
-  setTXT();
-  document.getElementById('id_div1').style.display='block';
-  document.getElementById('id_div2').style.display='block';
-  document.getElementById('id_EX').style.display='none';
+  location.reload();
 }
 }
 
@@ -329,7 +326,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109.0225</p>
+  <p class='stxt'>Версия: 20180109.0237</p>
 </td></tr>
 </table>
 

@@ -224,13 +224,27 @@ function checkLED(){
 }
 
 function divConnect(){
+if (document.querySelector('#id_SAVE').checked) {
+  localStorage.setItem('serv', document.getElementById('mq_serv').value);
+  localStorage.setItem('port', document.getElementById('mq_port').value);
+  localStorage.setItem('user', document.getElementById('mq_user').value);
+  localStorage.setItem('pass', document.getElementById('mq_pass').value);
+  localStorage.setItem('save', document.querySelector('#id_SAVE').checked);}
+  else {
+  //localStorage.setItem('serv', '');
+  //localStorage.setItem('port', '');
+  //localStorage.setItem('user', '');
+  localStorage.setItem('pass', '');
+  localStorage.setItem('save', '');
+}
+
   host = document.getElementById('mq_serv').value; 
   port = parseInt(document.getElementById('mq_port').value);
   user = document.getElementById('mq_user').value; 
   pass = document.getElementById('mq_pass').value;
   
   if (host=='' || document.getElementById('mq_port').value=='' || user=='' || pass=='') 
-  {alert('Ошибка\r\nЗаполните все поля формы'); document.getElementById('id_div1').style.display='block'; return;}
+  {alert('Ошибка\r\nЗаполните все поля формы'); return;}
   MQTTconnect();
 }
 
@@ -251,21 +265,6 @@ function startPAGE() {
   document.querySelector('#id_SAVE').checked = localStorage.getItem('save');
   if (document.querySelector('#id_SAVE').checked) {divConnect();}
   else {document.getElementById('id_div1').style.display='block';}
-}
-
-function checkSAVE(){
-if (document.querySelector('#id_SAVE').checked) {
-  localStorage.setItem('serv', document.getElementById('mq_serv').value);
-  localStorage.setItem('port', document.getElementById('mq_port').value);
-  localStorage.setItem('user', document.getElementById('mq_user').value);
-  localStorage.setItem('pass', document.getElementById('mq_pass').value);
-  localStorage.setItem('save', document.querySelector('#id_SAVE').checked);}
-  else {
-  //localStorage.setItem('serv', '');
-  //localStorage.setItem('port', '');
-  //localStorage.setItem('user', '');
-  localStorage.setItem('pass', '');
-  localStorage.setItem('save', '');}
 }
 
 function divEX(){
@@ -301,7 +300,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <p><input class='ed2' id='mq_pass' type='password' placeholder='Пароль'></p>
   <h3 class='hh'><label>Запомнить меня <div class='lay2'>
     <div class='card'><label for='id_SAVE'>
-    <input type='checkbox' id='id_SAVE' onclick="checkSAVE()"/><span class='switch'></span><span class="toggle"></span>
+    <input type='checkbox' id='id_SAVE'/><span class='switch'></span><span class="toggle"></span>
     </label></div></div>
   </label></h3>		  
   <p><input class='btn' type='button' value='Войти' onClick="divConnect()"/></p>
@@ -328,7 +327,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109.0325</p>
+  <p class='stxt'>Версия: 20180109.0330</p>
 </td></tr>
 </table>
 

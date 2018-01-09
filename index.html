@@ -35,7 +35,7 @@ input[type='checkbox']:checked ~ .switch { background: #9CA5D7; transition: .2s;
 
 .lay1 {width: 300px; padding: 0; margin: 0 auto;}
 .lay2 {width: 40px; float: right;}
-.lay3 {width: 34px; float: right;}
+.lay3 {width: 33px; float: right;}
 .hh {font-weight:normal; margin: 12px 0 12px 0;}
 
 .btn {width: 100%; height: 40px; margin: 0; background: linear-gradient(#F7F7F7, #DCDCDC);
@@ -250,6 +250,7 @@ function startPAGE() {
   document.getElementById('mq_pass').value = pass;
   document.querySelector('#id_SAVE').checked = localStorage.getItem('save');
   if (document.querySelector('#id_SAVE').checked) {divConnect();}
+  else {document.getElementById('id_div1').style.display='block';}
 }
 
 function checkSAVE(){
@@ -289,7 +290,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <div class='lay3' id='id_EX' style="display: none"><div class='ex1' title='Выход' onclick="divEX()"></div></div>
   </h1></h1>
   <hr>
-<div id='id_div1'>
+<div id='id_div1' style="display: none">
 <form>
   <h3 class='hh'>Авторизация</h3>
   <p><input class='ed2' id='mq_serv' type='text' placeholder='Сервер'>
@@ -327,7 +328,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109.0250</p>
+  <p class='stxt'>Версия: 20180109.0303</p>
 </td></tr>
 </table>
 

@@ -141,13 +141,14 @@ function sendLED(set) {
 function onMessageArrived(message) {
 	console.log("onMessageArrived:"+message.payloadString);
 	if (message.destinationName == topic + '/Status'){ 
+        cnt = cnt + 1;
+        document.getElementById('stCLIENT').innerHTML = cnt;
+
 	if (message.payloadString == ' ') {
 	if (flag == 1) {document.getElementById('stESP12').innerHTML = 'Not connected';} else {flag = 1;}} 
 	else { 
 	flag = 0; document.getElementById('stESP12').innerHTML = message.payloadString;
-	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();
-	cnt = cnt + 1;
-        document.getElementById('stCLIENT').innerHTML = cnt;}}
+	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
 	
 	if (message.destinationName == topic + '/RSSI') {
 
@@ -213,7 +214,7 @@ recognizer.onend = function() {
 };
 
 utterance.onend = function() { 
-  recognizer.start(); //продолжить распознование
+  //recognizer.start(); //продолжить распознование
 };
 
 function speak(str){ 
@@ -341,7 +342,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109-2200</p>
+  <p class='stxt'>Версия: 20180109-2222</p>
 </td></tr>
 </table>
 

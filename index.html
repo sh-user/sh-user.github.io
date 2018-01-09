@@ -56,7 +56,7 @@ border-radius: 4px; padding: 6px; }
 <script type="text/javascript">
 
 //глобальные переменные
-var temp; flag = 0; uflag = 0; host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
+var cnt; temp; flag = 0; uflag = 0; cflag = 0; host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
 
 function playSound() {
   if (typeof window.Audio === 'function') {
@@ -97,12 +97,14 @@ function onConnect() {
     client.subscribe(topic + '/H'); 
     client.subscribe(topic + '/T'); 
     client.subscribe(topic + '/LED');
+    client.subscribe(topic + '/CLIENT');
     updateStatus();
     document.getElementById('id_div1').style.display='none';
     document.getElementById('id_div2').style.display='block';
     if (document.querySelector('#id_SAVE').checked) {
     document.getElementById('id_EX').style.display='block';
     document.querySelector('#id_REC').checked = localStorage.getItem('rec'); checkREC();}
+    
 }
 
 function doFail(e){
@@ -144,7 +146,12 @@ function onMessageArrived(message) {
 	if (flag == 1) {document.getElementById('stESP12').innerHTML = 'Not connected';} else {flag = 1;}} 
 	else { 
 	flag = 0; document.getElementById('stESP12').innerHTML = message.payloadString;
-	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
+	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();
+	//сейчас на сайте
+	cnt = cnt + 1;
+	message = new Paho.MQTT.Message(cnt);
+    	message.destinationName = topic + '/CLIENT';
+    	client.send(message); }}
 	
 	if (message.destinationName == topic + '/RSSI') {
 
@@ -167,6 +174,17 @@ function onMessageArrived(message) {
 	//document.getElementById('stLED').innerHTML = message.payloadString; 
 	if (message.payloadString == '0') {document.querySelector('#id_LED').checked = false;}
 	else {document.querySelector('#id_LED').checked = true;}}
+
+	if (message.destinationName == topic + '/CLIENT') {
+
+        if (cflag = 0) {
+        cnt = parseInt(message.payloadString);
+        cnt = cnt + 1;
+        var cn = cnt.toString(10);
+	message = new Paho.MQTT.Message(cn);
+    	message.destinationName = topic + '/CLIENT';
+        document.getElementById('stCLIENT').innerHTML = message.payloadString; 
+    	client.send(message); cflag = 1; }}
 }
 	setInterval(updateStatus,10000);
 
@@ -319,6 +337,7 @@ if (confirm("Вы действительно хотите выйти?")) {
 <div id='id_div2' style="display: none">
   <h3 class='hh'>Статус сервера: <a id='stMQTT'></a></h3>
   <h3 class='hh'>Статус модуля: <a id='stESP12'></a></h3>
+  <h3 class='hh'>Сейчас на сайте: <a id='stCLIENT'></a></h3>
   <h3 class='hh'>Последнее обновление: <a id='time'></a></h3>
   <h3 class='hh'>Уровень сигнала: <a id='stRSSI'></a> dBm</h3>
   <h3 class='hh'>Уровень освещенности: <a id='stLDR'></a></h3>
@@ -337,7 +356,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109-1541</p>
+  <p class='stxt'>Версия: 20180109-2125</p>
 </td></tr>
 </table>
 

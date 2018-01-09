@@ -131,11 +131,10 @@ function updateStatus() {
     message = new Paho.MQTT.Message(' ');
     message.destinationName = topic + '/Status';
     client.send(message);
-
+    cnt = 0;
     message = new Paho.MQTT.Message(String(intRND));
     message.destinationName = topic + '/CLIENT';
     client.send(message);
-    cnt = 1;
     } 
     else {LEDflag = 0;}
 }
@@ -161,6 +160,7 @@ function onMessageArrived(message) {
         if (message.destinationName == topic + '/CLIENT') {
 	BF = parseInt(message.payloadString);
         if (BF != AF) {cnt = cnt + 1; AF = parseInt(message.payloadString);}
+	else {cnt = 1;}
 	document.getElementById('stCLIENT').innerHTML = cnt;}
 
 	if (message.destinationName == topic + '/RSSI') {
@@ -355,7 +355,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180110-0134</p>
+  <p class='stxt'>Версия: 20180110-0140</p>
 </td></tr>
 </table>
 

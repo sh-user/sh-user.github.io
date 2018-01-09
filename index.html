@@ -9,9 +9,9 @@
 
 body{ margin:0; background-color: #F5F5F5; color: #2F4F4F; font-family: Helvetica; font-size: 15px; }
 
-.ex1 {position: relative;	width: 32px; height: 32px; background-color: white;	border-radius: 50%;
+.ex1 {position: relative;	width: 30px; height: 30px; background-color: white;	border-radius: 50%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);}
-.ex1::before, .ex1::after {	position: absolute;	top: 15px; left: 8px; width: 16px; height: 3px;	content: "";
+.ex1::before, .ex1::after {	position: absolute;	top: 14px; left: 8px; width: 14px; height: 3px;	content: "";
     background-color: #2F4F4F;}
 .ex1::before {-ms-transform: rotate(-45deg); -webkit-transform: rotate(-45deg); transform: rotate(-45deg);}
 .ex1::after {-ms-transform: rotate(45deg); -webkit-transform: rotate(45deg);	transform: rotate(45deg);}
@@ -223,7 +223,20 @@ function checkLED(){
   else {sendLED('0');}
 }
 
+function keyNUM(AvaiableSymbol) {
+  SearchChar=String.fromCharCode(window.event.keyCode);
+  if(AvaiableSymbol.indexOf(SearchChar.toUpperCase())<0)return false;
+}
+
 function divConnect(){
+  host = document.getElementById('mq_serv').value; 
+  port = parseInt(document.getElementById('mq_port').value);
+  user = document.getElementById('mq_user').value; 
+  pass = document.getElementById('mq_pass').value;
+
+if (host=='' || document.getElementById('mq_port').value=='' || user=='' || pass=='') 
+  {alert('Ошибка\r\nЗаполните все поля формы'); document.getElementById('id_div1').style.display='block'; return;}
+
 if (document.querySelector('#id_SAVE').checked) {
   localStorage.setItem('serv', document.getElementById('mq_serv').value);
   localStorage.setItem('port', document.getElementById('mq_port').value);
@@ -237,23 +250,10 @@ if (document.querySelector('#id_SAVE').checked) {
   localStorage.setItem('pass', '');
   localStorage.setItem('save', '');
 }
-
-  host = document.getElementById('mq_serv').value; 
-  port = parseInt(document.getElementById('mq_port').value);
-  user = document.getElementById('mq_user').value; 
-  pass = document.getElementById('mq_pass').value;
-  
-  if (host=='' || document.getElementById('mq_port').value=='' || user=='' || pass=='') 
-  {alert('Ошибка\r\nЗаполните все поля формы'); return;}
   MQTTconnect();
 }
 
-function keyNUM(AvaiableSymbol) {
-  SearchChar=String.fromCharCode(window.event.keyCode);
-  if(AvaiableSymbol.indexOf(SearchChar.toUpperCase())<0)return false;
-}
-
-function startPAGE() {
+function loadPAGE() {
   host = localStorage.getItem('serv');
   port = localStorage.getItem('port');
   user = localStorage.getItem('user');
@@ -281,7 +281,7 @@ if (confirm("Вы действительно хотите выйти?")) {
 </script>
 </head> 
 
-<body onload='startPAGE()'>
+<body onload='loadPAGE()'>
 
 <table class='lay1'>
 <tr><td>
@@ -327,7 +327,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109.0342</p>
+  <p class='stxt'>Версия: 20180109.0352</p>
 </td></tr>
 </table>
 

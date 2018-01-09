@@ -56,7 +56,7 @@ border-radius: 4px; padding: 6px; }
 <script type="text/javascript">
 
 //глобальные переменные
-var cnt = 0; flag = 0; uflag = 0; temp = ''; host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
+var cnt = 0; flag = 0; uflag = 0; temp = ''; ctxt = ''; host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
 
 function playSound() {
   if (typeof window.Audio === 'function') {
@@ -92,17 +92,23 @@ function onConnect() {
     console.log('onConnect');
     document.getElementById('stMQTT').innerHTML='Connected';
     client.subscribe(topic + '/Status');
+    client.subscribe(topic + '/CLIENT');
     client.subscribe(topic + '/LDR');
     client.subscribe(topic + '/RSSI');  
     client.subscribe(topic + '/H'); 
     client.subscribe(topic + '/T'); 
     client.subscribe(topic + '/LED');
+
     updateStatus();
+    message = new Paho.MQTT.Message(parseInt(Math.random() * 100, 10));
+    message.destinationName = topic + '/CLIENT';
+    client.send(message);
+
     document.getElementById('id_div1').style.display='none';
     document.getElementById('id_div2').style.display='block';
     if (document.querySelector('#id_SAVE').checked) {
     document.getElementById('id_EX').style.display='block';
-    document.querySelector('#id_REC').checked = localStorage.getItem('rec'); checkREC();}
+    document.querySelector('#id_REC').checked = localStorage.getItem('rec'); checkREC(); }
 }
 
 function doFail(e){
@@ -143,12 +149,15 @@ function onMessageArrived(message) {
 	console.log("onMessageArrived:"+message.payloadString);
 	if (message.destinationName == topic + '/Status'){ 
 	if (message.payloadString == ' ') {
-        cnt = cnt + 1; document.getElementById('stCLIENT').innerHTML = cnt;
-	if (flag == 1) {document.getElementById('stESP12').innerHTML = 'Not connected';} else {flag = 1;}} 
+ 	if (flag == 1) {document.getElementById('stESP12').innerHTML = 'Not connected';} else {flag = 1;}} 
 	else { 
 	flag = 0; document.getElementById('stESP12').innerHTML = message.payloadString;
 	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
 	
+        if (message.destinationName == topic + '/CLIENT') {
+        if (message.payloadString != ctxt) {cnt = cnt + 1; ctxt = message.payloadString;}
+	document.getElementById('stCLIENT').innerHTML = cnt;}
+
 	if (message.destinationName == topic + '/RSSI') {
 
 	document.getElementById('stRSSI').innerHTML = message.payloadString; }
@@ -341,7 +350,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109-2240</p>
+  <p class='stxt'>Версия: 20180109-2310</p>
 </td></tr>
 </table>
 

@@ -56,7 +56,7 @@ border-radius: 4px; padding: 6px; }
 <script type="text/javascript">
 //=============================================================================
 //глобальные переменные
-var cnt = 1; flag = 0; LEDflag = 0; temp = ''; BF = 0; AF = 0; rnd = '';
+var cnt = 0; flag = 0; LEDflag = 0; temp = ''; BF = 0; AF = 0; intRND = 0;
 var host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
 
 function playSound() {
@@ -99,7 +99,7 @@ function onConnect() {
     client.subscribe(topic + '/H'); 
     client.subscribe(topic + '/T'); 
     client.subscribe(topic + '/LED');
-    rnd = String(Math.random());
+    intRND = parseInt(Math.random() * 100, 10);
     updateStatus();
 
     document.getElementById('id_div1').style.display='none';
@@ -132,8 +132,8 @@ function updateStatus() {
     message.destinationName = topic + '/Status';
     client.send(message);
 
-    cnt = 1;
-    message = new Paho.MQTT.Message(rnd);
+    cnt = 0;
+    message = new Paho.MQTT.Message(String(intRND));
     message.destinationName = topic + '/CLIENT';
     client.send(message);
     } 
@@ -355,7 +355,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180110-0101</p>
+  <p class='stxt'>Версия: 20180110-0115</p>
 </td></tr>
 </table>
 

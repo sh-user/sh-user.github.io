@@ -210,11 +210,11 @@ recognizer.onend = function() {
 };
 
 utterance.onend = function() { 
-  recognizer.start(); //продолжить распознование голоса после голосового ответа
+  recognizer.start(); //продолжить распознование
 };
 
 function speak(str){ 
-  recognizer.stop(); //это чтобы система не распозновала свой же голос
+  recognizer.abort();  //чтобы не распозновала свой же голос
   if (speechSynthesis.speaking) return; 
   utterance.text = str; 
   // воспроизведение фразы: 
@@ -337,7 +337,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109-1516</p>
+  <p class='stxt'>Версия: 20180109-1531</p>
 </td></tr>
 </table>
 

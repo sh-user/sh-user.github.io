@@ -11,7 +11,7 @@ body{ margin:0; background-color: #F5F5F5; color: #2F4F4F; font-family: Helvetic
 
 .ex1 {position: relative; width: 30px; height: 30px; background-color: white; border-radius: 50%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);}
-.ex1::before, .ex1::after {	position: absolute;	top: 14px; left: 8px; width: 14px; height: 3px;	content: "";
+.ex1::before, .ex1::after { position: absolute;	top: 14px; left: 8px; width: 14px; height: 3px;	content: "";
     background-color: #2F4F4F;}
 .ex1::before {-ms-transform: rotate(-45deg); -webkit-transform: rotate(-45deg); transform: rotate(-45deg);}
 .ex1::after {-ms-transform: rotate(45deg); -webkit-transform: rotate(45deg);	transform: rotate(45deg);}
@@ -56,7 +56,7 @@ border-radius: 4px; padding: 6px; }
 <script type="text/javascript">
 //=============================================================================
 //глобальные переменные
-var cnt = 0; flag = 0; uflag = 0; temp = ''; ctxt = ''; rnd = '';
+var cnt = 0; flag = 0; uflag = 0; temp = ''; BF = ''; AF = ''; rnd = '';
 var host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
 
 function playSound() {
@@ -99,7 +99,7 @@ function onConnect() {
     client.subscribe(topic + '/H'); 
     client.subscribe(topic + '/T'); 
     client.subscribe(topic + '/LED');
-    rnd = String(Math.random() * 100, 10);
+    rnd = String(Math.random());
     updateStatus();
 
     document.getElementById('id_div1').style.display='none';
@@ -130,7 +130,7 @@ function updateStatus() {
     message = new Paho.MQTT.Message(' ');
     message.destinationName = topic + '/Status';
     client.send(message);
-    cnt = 0;
+    if (AF == BF) {cnt = 1;}
     message = new Paho.MQTT.Message(rnd);
     message.destinationName = topic + '/CLIENT';
     client.send(message);} 
@@ -156,7 +156,8 @@ function onMessageArrived(message) {
 	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
 	
         if (message.destinationName == topic + '/CLIENT') {
-        if (message.payloadString != ctxt) {cnt = cnt + 1; ctxt = message.payloadString;}
+	BF = message.payloadString;
+        if (BF != AF) {cnt = cnt + 1; AF = message.payloadString;}
 	document.getElementById('stCLIENT').innerHTML = cnt;}
 
 	if (message.destinationName == topic + '/RSSI') {
@@ -351,7 +352,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109-2353</p>
+  <p class='stxt'>Версия: 20180109-0014</p>
 </td></tr>
 </table>
 

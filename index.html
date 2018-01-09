@@ -54,9 +54,9 @@ border-radius: 4px; padding: 6px; }
 
 <script src="mqttws31.js" type="text/javascript"></script>
 <script type="text/javascript">
-
+//=============================================================================
 //глобальные переменные
-var cnt = 0; flag = 0; uflag = 0; temp = ''; ctxt = ''; host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
+var cnt = 1; flag = 0; uflag = 0; temp = ''; ctxt = ''; host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
 
 function playSound() {
   if (typeof window.Audio === 'function') {
@@ -100,7 +100,7 @@ function onConnect() {
     client.subscribe(topic + '/LED');
 
     updateStatus();
-    message = new Paho.MQTT.Message(parseInt(Math.random() * 100, 10));
+    message = new Paho.MQTT.Message(String(Math.random() * 100, 10));
     message.destinationName = topic + '/CLIENT';
     client.send(message);
 
@@ -129,7 +129,7 @@ function onConnectionLost(responseObject) {
 
 function updateStatus() {
     if (uflag == 0) {
-    cnt = 0;
+    cnt = 1;
     message = new Paho.MQTT.Message(' ');
     message.destinationName = topic + '/Status';
     client.send(message);} 
@@ -350,7 +350,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109-2310</p>
+  <p class='stxt'>Версия: 20180109-2318</p>
 </td></tr>
 </table>
 

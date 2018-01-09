@@ -244,7 +244,7 @@ if (document.querySelector('#id_SAVE').checked) {
   pass = document.getElementById('mq_pass').value;
   
   if (host=='' || document.getElementById('mq_port').value=='' || user=='' || pass=='') 
-  {alert('Ошибка\r\nЗаполните все поля формы'); return;}
+  {alert('Ошибка\r\nЗаполните все поля формы'); document.getElementById('id_div1').style.display='block'; return;}
   MQTTconnect();
 }
 
@@ -327,7 +327,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109.0330</p>
+  <p class='stxt'>Версия: 20180109.0337</p>
 </td></tr>
 </table>
 

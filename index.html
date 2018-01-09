@@ -101,6 +101,7 @@ function onConnect() {
     document.getElementById('id_div1').style.display='none';
     document.getElementById('id_div2').style.display='block';
     document.getElementById('id_EX').style.display='block';
+    document.querySelector('#id_REC').checked = localStorage.getItem('rec');
 }
 
 function doFail(e){
@@ -215,8 +216,9 @@ function speak(str){
 };
 
 function checkREC(){
-  if (document.querySelector('#id_REC').checked) {recognizer.start();} 
-  else {recognizer.stop();}
+  if (document.querySelector('#id_REC').checked) 
+  {localStorage.setItem('rec', document.querySelector('#id_REC').checked); recognizer.start();} 
+  else {localStorage.setItem('rec', ''); recognizer.stop();}
 }
 
 function checkLED(){
@@ -328,7 +330,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109.0411</p>
+  <p class='stxt'>Версия: 20180109-1400</p>
 </td></tr>
 </table>
 

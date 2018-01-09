@@ -199,7 +199,8 @@ recognizer.onresult = function (event) {
 recognizer.onend = function() {
   if (rec_str1 === 'включить'){sendLED('1');}
   if (rec_str1 === 'выключить'){sendLED('0');}
-  temp = temp + ' &degC';
+  temp.replace('.',',');
+  temp = temp + ' °';
   if (rec_str1 === 'температура') {speak(temp);}
   //speak(rec_str1);
   temp = '';
@@ -334,7 +335,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109-1438</p>
+  <p class='stxt'>Версия: 20180109-1446</p>
 </td></tr>
 </table>
 

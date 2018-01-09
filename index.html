@@ -35,7 +35,7 @@ input[type='checkbox']:checked ~ .switch { background: #9CA5D7; transition: .2s;
 
 .lay1 {width: 300px; padding: 0; margin: 0 auto;}
 .lay2 {width: 40px; float: right;}
-.lay3 {width: 33px; float: right;}
+.lay3 {width: 32px; float: right;}
 .hh {font-weight:normal; margin: 12px 0 12px 0;}
 
 .btn {width: 100%; height: 40px; margin: 0; background: linear-gradient(#F7F7F7, #DCDCDC);
@@ -105,7 +105,8 @@ function onConnect() {
 
 function doFail(e){
     console.log(e);
-    document.getElementById('stMQTT').innerHTML='Not connected';
+    //document.getElementById('stMQTT').innerHTML='Not connected';
+    document.getElementById('id_div1').style.display='block';
     alert('Ошибка подключения к серверу\r\nПроверьте правильность введенных параметров');
 }
 
@@ -228,14 +229,14 @@ function keyNUM(AvaiableSymbol) {
   if(AvaiableSymbol.indexOf(SearchChar.toUpperCase())<0)return false;
 }
 
-function divConnect(){
+function btnConnect(){
   host = document.getElementById('mq_serv').value; 
   port = parseInt(document.getElementById('mq_port').value);
   user = document.getElementById('mq_user').value; 
   pass = document.getElementById('mq_pass').value;
 
 if (host=='' || document.getElementById('mq_port').value=='' || user=='' || pass=='') 
-  {alert('Ошибка\r\nЗаполните все поля формы'); document.getElementById('id_div1').style.display='block'; return;}
+  {document.getElementById('id_div1').style.display='block'; alert('Ошибка\r\nЗаполните все поля формы'); return;}
 
 if (document.querySelector('#id_SAVE').checked) {
   localStorage.setItem('serv', document.getElementById('mq_serv').value);
@@ -263,7 +264,7 @@ function loadPAGE() {
   document.getElementById('mq_user').value = user;
   document.getElementById('mq_pass').value = pass;
   document.querySelector('#id_SAVE').checked = localStorage.getItem('save');
-  if (document.querySelector('#id_SAVE').checked) {divConnect();}
+  if (document.querySelector('#id_SAVE').checked) {btnConnect();}
   else {document.getElementById('id_div1').style.display='block';}
 }
 
@@ -303,7 +304,7 @@ if (confirm("Вы действительно хотите выйти?")) {
     <input type='checkbox' id='id_SAVE'/><span class='switch'></span><span class="toggle"></span>
     </label></div></div>
   </label></h3>		  
-  <p><input class='btn' type='button' value='Войти' onClick="divConnect()"/></p>
+  <p><input class='btn' type='button' value='Войти' onClick="btnConnect()"/></p>
 </form>
 </div>
 <div id='id_div2' style="display: none">
@@ -327,7 +328,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109.0352</p>
+  <p class='stxt'>Версия: 20180109.0411</p>
 </td></tr>
 </table>
 

@@ -200,8 +200,8 @@ recognizer.onend = function() {
   var tmp;
   if (rec_str1 === 'включить'){sendLED('1');}
   if (rec_str1 === 'выключить'){sendLED('0');}
-  //temp = temp.replace('.',',');
-  tmp = temp.substring(0,temp.indexOf('.'));
+  tmp = temp.replace('.',' и ');
+  //tmp = temp.substring(0,temp.indexOf('.'));
   tmp = tmp + ' °';
   if (rec_str1 === 'температура') {speak(tmp);}
   //speak(rec_str1);
@@ -214,7 +214,7 @@ utterance.onend = function() {
 };
 
 function speak(str){ 
-  recognizer.abort();  //чтобы не распозновала свой же голос
+  recognizer.stop();  //чтобы система не распозновала свой же голос
   if (speechSynthesis.speaking) return; 
   utterance.text = str; 
   // воспроизведение фразы: 
@@ -337,7 +337,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109-1531</p>
+  <p class='stxt'>Версия: 20180109-1537</p>
 </td></tr>
 </table>
 

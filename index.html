@@ -197,12 +197,13 @@ recognizer.onresult = function (event) {
 };
 
 recognizer.onend = function() {
+  var tmp;
   if (rec_str1 === 'включить'){sendLED('1');}
   if (rec_str1 === 'выключить'){sendLED('0');}
   //temp = temp.replace('.',',');
-  temp = temp.substring(0,temp.indexOf('.'));
-  temp = temp + ' °';
-  if (rec_str1 === 'температура') {speak(temp);}
+  tmp = temp.substring(0,temp.indexOf('.'));
+  tmp = tmp + ' °';
+  if (rec_str1 === 'температура') {speak(tmp);}
   //speak(rec_str1);
   rec_str1 = '';
   if (document.querySelector('#id_REC').checked) {recognizer.start();}
@@ -335,7 +336,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109-1500</p>
+  <p class='stxt'>Версия: 20180109-1510</p>
 </td></tr>
 </table>
 

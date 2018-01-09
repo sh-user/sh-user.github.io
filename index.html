@@ -56,7 +56,7 @@ border-radius: 4px; padding: 6px; }
 <script type="text/javascript">
 //=============================================================================
 //глобальные переменные
-var cnt = 1; flag = 0; uflag = 0; temp = ''; ctxt = ''; rand = 0;
+var cnt = 1; flag = 0; uflag = 0; temp = ''; ctxt = ''; rnd = '';
 var host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
 
 function playSound() {
@@ -70,8 +70,7 @@ function playSound() {
 //=============================================================================
 function MQTTconnect() {
   // Create a client instance
-  rand = parseInt(Math.random() * 100, 10);
-  client = new Paho.MQTT.Client(host, port, 'web_' + rand);
+  client = new Paho.MQTT.Client(host, port, 'web_' + parseInt(Math.random() * 100, 10));
 
   // set callback handlers
   client.onConnectionLost = onConnectionLost;
@@ -100,7 +99,7 @@ function onConnect() {
     client.subscribe(topic + '/H'); 
     client.subscribe(topic + '/T'); 
     client.subscribe(topic + '/LED');
-
+    rnd = String(Math.random() * 100, 10);
     updateStatus();
 
     document.getElementById('id_div1').style.display='none';
@@ -132,7 +131,7 @@ function updateStatus() {
     message.destinationName = topic + '/Status';
     client.send(message);
     cnt = 1;
-    message = new Paho.MQTT.Message(String(rand));
+    message = new Paho.MQTT.Message(rnd);
     message.destinationName = topic + '/CLIENT';
     client.send(message);} 
     else {uflag = 0;}
@@ -352,7 +351,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180109-2330</p>
+  <p class='stxt'>Версия: 20180109-2350</p>
 </td></tr>
 </table>
 

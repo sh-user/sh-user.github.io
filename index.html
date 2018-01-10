@@ -56,8 +56,7 @@ border-radius: 4px; padding: 6px; }
 <script type="text/javascript">
 //=============================================================================
 //глобальные переменные
-var flag = 0; LEDflag = 0; temp = ''; 
-var host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
+var flag = 0; temp = ''; host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
 
 function playSound() {
   if (typeof window.Audio === 'function') {
@@ -127,11 +126,11 @@ function onConnectionLost(responseObject) {
 }
 
 function updateStatus() {
-  if (flag == 0) {document.getElementById('stESP12').innerHTML = 'Не подключен';} 
+  if (flag == 0) {document.getElementById('stESP12').innerHTML = 'Не подключен';}
+  else {flag = 0;}
 }
 
 function sendLED(set) {
-    //LEDflag = 1;
     message = new Paho.MQTT.Message(set);
     message.destinationName = topic + '/LED';
     client.send(message);	
@@ -337,7 +336,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180110-1256</p>
+  <p class='stxt'>Версия: 20180110-1305</p>
 </td></tr>
 </table>
 

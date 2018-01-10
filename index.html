@@ -76,7 +76,7 @@ function MQTTconnect() {
 
   // Connect the client, with a Last-Will-and-Testament
   var lwt = new Paho.MQTT.Message('lwt');
-  lwt.destinationName = 'topic + '/Users';
+  lwt.destinationName = topic + '/Users';
   lwt.qos = 0;
   lwt.retained = false;
 
@@ -355,7 +355,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180110-2116</p>
+  <p class='stxt'>Версия: 20180110-2120</p>
 </td></tr>
 </table>
 

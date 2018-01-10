@@ -92,6 +92,7 @@ function onConnect() {
     console.log('onConnect');
     document.getElementById('stMQTT').innerHTML='Подключен';
     client.subscribe(topic + '/Status');
+    client.subscribe(topic + '/Users');
     client.subscribe(topic + '/LDR');
     client.subscribe(topic + '/RSSI');  
     client.subscribe(topic + '/H'); 
@@ -100,6 +101,9 @@ function onConnect() {
     
     message = new Paho.MQTT.Message(' ');
     message.destinationName = topic + '/Status';
+    client.send(message);
+    message = new Paho.MQTT.Message('+');
+    message.destinationName = topic + '/Users';
     client.send(message);
 
     document.getElementById('id_div1').style.display='none';
@@ -149,6 +153,10 @@ function onMessageArrived(message) {
 	t2 = setInterval(upStatus,12000); console.log('t2=12000');
 	document.getElementById('stESP12').innerHTML = 'Подключен';
 	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
+
+	if (message.destinationName == topic + '/Users') {
+
+	document.getElementById('stUsers').innerHTML = message.payloadString; }
 	
 	if (message.destinationName == topic + '/RSSI') {
 
@@ -217,7 +225,7 @@ utterance.onend = function() {
 };
 
 function speak(str){ 
-  recognizer.stop();  //чтобы система не распозновала свой же голос
+  //recognizer.stop();  
   if (speechSynthesis.speaking) return; 
   utterance.text = str; 
   // воспроизведение фразы: 
@@ -322,6 +330,7 @@ if (confirm("Вы действительно хотите выйти?")) {
 <div id='id_div2' style="display: none">
   <h3 class='hh'>Статус сервера: <a id='stMQTT'></a></h3>
   <h3 class='hh'>Статус модуля: <a id='stESP12'></a></h3>
+  <h3 class='hh'>Пользователей на сайте: <a id='stUSERS'></a></h3>
   <h3 class='hh'>Последнее обновление: <a id='time'></a></h3>
   <h3 class='hh'>Уровень сигнала: <a id='stRSSI'></a> dBm</h3>
   <h3 class='hh'>Уровень освещенности: <a id='stLDR'></a></h3>
@@ -340,7 +349,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180110-1520</p>
+  <p class='stxt'>Версия: 20180110-1757</p>
 </td></tr>
 </table>
 

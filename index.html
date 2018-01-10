@@ -93,13 +93,13 @@ function onConnect() {
     console.log('onConnect');
     document.getElementById('stMQTT').innerHTML='Connected';
     client.subscribe(topic + '/Status');
-    client.subscribe(topic + '/CLIENT');
+    //client.subscribe(topic + '/CLIENT');
     client.subscribe(topic + '/LDR');
     client.subscribe(topic + '/RSSI');  
     client.subscribe(topic + '/H'); 
     client.subscribe(topic + '/T'); 
     client.subscribe(topic + '/LED');
-    intRND = parseInt(Math.random() * 100, 10);
+    //intRND = parseInt(Math.random() * 100, 10);
     updateStatus();
 
     document.getElementById('id_div1').style.display='none';
@@ -132,9 +132,9 @@ function updateStatus() {
     message.destinationName = topic + '/Status';
     client.send(message);
     cnt = 0;
-    message = new Paho.MQTT.Message(String(intRND));
-    message.destinationName = topic + '/CLIENT';
-    client.send(message);
+    //message = new Paho.MQTT.Message(String(intRND));
+    //message.destinationName = topic + '/CLIENT';
+    //client.send(message);
     } 
     else {LEDflag = 0;}
 }
@@ -152,16 +152,18 @@ function onMessageArrived(message) {
 	console.log("onMessageArrived:"+message.payloadString);
 	if (message.destinationName == topic + '/Status'){ 
 	if (message.payloadString == ' ') {
+	cnt = cnt + 1; document.getElementById('stCLIENT').innerHTML = cnt;}
+
  	if (flag == 1) {document.getElementById('stESP12').innerHTML = 'Not connected';} else {flag = 1;}} 
 	else { 
 	flag = 0; document.getElementById('stESP12').innerHTML = message.payloadString;
 	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
 	
-        if (message.destinationName == topic + '/CLIENT') {
-	BF = parseInt(message.payloadString);
-        if (BF != AF) {cnt = cnt + 1; AF = BF; document.getElementById('stCLIENT').innerHTML = cnt;}
-	else {cnt = 1;}
-	}
+        //if (message.destinationName == topic + '/CLIENT') {
+	//BF = parseInt(message.payloadString);
+        //if (BF != AF) {cnt = cnt + 1; AF = BF; document.getElementById('stCLIENT').innerHTML = cnt;}
+	//else {cnt = 1;}
+	//}
 
 	if (message.destinationName == topic + '/RSSI') {
 
@@ -355,7 +357,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180110-0205</p>
+  <p class='stxt'>Версия: 20180110-0213</p>
 </td></tr>
 </table>
 

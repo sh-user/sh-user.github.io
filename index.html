@@ -152,7 +152,7 @@ function onMessageArrived(message) {
 	console.log("onMessageArrived:"+message.payloadString);
 	if (message.destinationName == topic + '/Status'){ 
 	if (message.payloadString == ' ') {
-	cnt = cnt + 1; document.getElementById('stCLIENT').innerHTML = cnt;}
+	cnt = cnt + 1; document.getElementById('stCLIENT').innerHTML = cnt;
 
  	if (flag == 1) {document.getElementById('stESP12').innerHTML = 'Not connected';} else {flag = 1;}} 
 	else { 

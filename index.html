@@ -33,6 +33,7 @@ input[type='checkbox']:checked ~ .switch { background: #9CA5D7; transition: .2s;
   display: inline-block; margin: 0 4px 0 4px; width: 25px; height: 13px; text-align: center; position: relative;
 }
 
+.block1 { background: #ccc; border: solid 1px black; }
 .lay1 {width: 300px; padding: 0; margin: 0 auto;}
 .lay2 {width: 40px; float: right;}
 .lay3 {width: 32px; float: right;}
@@ -75,10 +76,8 @@ function MQTTconnect() {
   client.onMessageArrived = onMessageArrived;
 
   // Connect the client, with a Last-Will-and-Testament
-  var lwt = new Paho.MQTT.Message('lwt');
+  var lwt = new Paho.MQTT.Message('-');  
   lwt.destinationName = topic + '/Users';
-  lwt.qos = 0;
-  lwt.retained = false;
 
   var options = {
     useSSL: true,
@@ -336,7 +335,9 @@ if (confirm("Вы действительно хотите выйти?")) {
 <div id='id_div2' style="display: none">
   <h3 class='hh'>Статус сервера: <a id='stMQTT'></a></h3>
   <h3 class='hh'>Статус модуля: <a id='stESP12'></a></h3>
-  <h3 class='hh'>Пользователей на сайте: <a id='stUSERS'></a></h3>
+  <div class='block1' title='в режиме отладки'>
+	<h3 class='hh'>Пользователей на сайте: <a id='stUSERS'></a></h3>
+  </div>
   <h3 class='hh'>Последнее обновление: <a id='time'></a></h3>
   <h3 class='hh'>Уровень сигнала: <a id='stRSSI'></a> dBm</h3>
   <h3 class='hh'>Уровень освещенности: <a id='stLDR'></a></h3>
@@ -355,7 +356,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180110-2120</p>
+  <p class='stxt'>Версия: 20180110-2132</p>
 </td></tr>
 </table>
 

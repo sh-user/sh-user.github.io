@@ -174,7 +174,7 @@ function onMessageArrived(message) {
 	if (message.payloadString == '0') {document.querySelector('#id_LED').checked = false;}
 	else {document.querySelector('#id_LED').checked = true;}}
 }
-	setInterval(updateStatus,3000);
+	setInterval(updateStatus,1000);
 
 //=============================================================================
   var recognizer = new webkitSpeechRecognition();
@@ -343,7 +343,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180110-1236</p>
+  <p class='stxt'>Версия: 20180110-1244</p>
 </td></tr>
 </table>
 

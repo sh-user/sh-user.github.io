@@ -56,7 +56,7 @@ border-radius: 4px; padding: 6px; }
 <script type="text/javascript">
 //=============================================================================
 //глобальные переменные
-var cnt = 0; cntCLIENT = 1; flag = 0; LEDflag = 0; temp = ''; 
+var flag = 0; LEDflag = 0; temp = ''; 
 var host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
 
 function playSound() {
@@ -127,8 +127,6 @@ function updateStatus() {
     message = new Paho.MQTT.Message(' ');
     message.destinationName = topic + '/Status';
     client.send(message);
-    cnt = 0;
-    document.getElementById('stCLIENT').innerHTML = cntCLIENT;
     } 
   else {LEDflag = 0;}
 }
@@ -146,8 +144,6 @@ function onMessageArrived(message) {
 	console.log("onMessageArrived:"+message.payloadString);
 	if (message.destinationName == topic + '/Status'){ 
 	if (message.payloadString == ' ') {
-	cnt = cnt + 1; 
-	cntCLIENT = cnt;
  	if (flag == 1) {document.getElementById('stESP12').innerHTML = 'Not connected';} else {flag = 1;}} 
 	else { 
 	flag = 0; document.getElementById('stESP12').innerHTML = message.payloadString;
@@ -326,7 +322,6 @@ if (confirm("Вы действительно хотите выйти?")) {
 <div id='id_div2' style="display: none">
   <h3 class='hh'>Статус сервера: <a id='stMQTT'></a></h3>
   <h3 class='hh'>Статус модуля: <a id='stESP12'></a></h3>
-  <h3 class='hh'>Пользователей на сайте: <a id='stCLIENT'></a></h3>
   <h3 class='hh'>Последнее обновление: <a id='time'></a></h3>
   <h3 class='hh'>Уровень сигнала: <a id='stRSSI'></a> dBm</h3>
   <h3 class='hh'>Уровень освещенности: <a id='stLDR'></a></h3>
@@ -345,7 +340,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180110-0240</p>
+  <p class='stxt'>Версия: 20180110-0000</p>
 </td></tr>
 </table>
 

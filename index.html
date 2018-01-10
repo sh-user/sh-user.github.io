@@ -76,7 +76,7 @@ function MQTTconnect() {
 
   // Connect the client, with a Last-Will-and-Testament
   var lwt = new Paho.MQTT.Message('lwt');
-  lwt.destinationName = 'topic + '/Users'';
+  lwt.destinationName = 'topic + '/Users';
   lwt.qos = 0;
   lwt.retained = false;
 

@@ -56,7 +56,7 @@ border-radius: 4px; padding: 6px; }
 <script type="text/javascript">
 //=============================================================================
 //глобальные переменные
-var cnt = 0; BF = 0; AF = 0; intRND = 0; flag = 0; LEDflag = 0; temp = ''; 
+var cnt1 = 0; cnt2 = 0; flag = 0; LEDflag = 0; temp = ''; 
 var host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
 
 function playSound() {
@@ -93,15 +93,12 @@ function onConnect() {
     console.log('onConnect');
     document.getElementById('stMQTT').innerHTML='Connected';
     client.subscribe(topic + '/Status');
-    //client.subscribe(topic + '/CLIENT');
     client.subscribe(topic + '/LDR');
     client.subscribe(topic + '/RSSI');  
     client.subscribe(topic + '/H'); 
     client.subscribe(topic + '/T'); 
     client.subscribe(topic + '/LED');
-    //intRND = parseInt(Math.random() * 100, 10);
     updateStatus();
-
     document.getElementById('id_div1').style.display='none';
     document.getElementById('id_div2').style.display='block';
     if (document.querySelector('#id_SAVE').checked) {
@@ -126,17 +123,14 @@ function onConnectionLost(responseObject) {
 }
 
 function updateStatus() {
-    if (LEDflag == 0) {
-    
+  if (LEDflag == 0) {
     message = new Paho.MQTT.Message(' ');
     message.destinationName = topic + '/Status';
     client.send(message);
     cnt = 0;
-    //message = new Paho.MQTT.Message(String(intRND));
-    //message.destinationName = topic + '/CLIENT';
-    //client.send(message);
+    document.getElementById('stCLIENT').innerHTML = cnt2;
     } 
-    else {LEDflag = 0;}
+  else {LEDflag = 0;}
 }
 
 function sendLED(set) {
@@ -152,19 +146,13 @@ function onMessageArrived(message) {
 	console.log("onMessageArrived:"+message.payloadString);
 	if (message.destinationName == topic + '/Status'){ 
 	if (message.payloadString == ' ') {
-	cnt = cnt + 1; document.getElementById('stCLIENT').innerHTML = cnt;
-
+	cnt1 = cnt1 + 1; 
+	cnt2 = cnt1;
  	if (flag == 1) {document.getElementById('stESP12').innerHTML = 'Not connected';} else {flag = 1;}} 
 	else { 
 	flag = 0; document.getElementById('stESP12').innerHTML = message.payloadString;
 	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
 	
-        //if (message.destinationName == topic + '/CLIENT') {
-	//BF = parseInt(message.payloadString);
-        //if (BF != AF) {cnt = cnt + 1; AF = BF; document.getElementById('stCLIENT').innerHTML = cnt;}
-	//else {cnt = 1;}
-	//}
-
 	if (message.destinationName == topic + '/RSSI') {
 
 	document.getElementById('stRSSI').innerHTML = message.payloadString; }
@@ -338,7 +326,7 @@ if (confirm("Вы действительно хотите выйти?")) {
 <div id='id_div2' style="display: none">
   <h3 class='hh'>Статус сервера: <a id='stMQTT'></a></h3>
   <h3 class='hh'>Статус модуля: <a id='stESP12'></a></h3>
-  <h3 class='hh'>Пользователей на сайте: <a id='stCLIENT'></a></h3>
+  <h3 class='hh'>Пользователей на сайте: <a id='stCLIENT' title='Пока не работает'></a></h3>
   <h3 class='hh'>Последнее обновление: <a id='time'></a></h3>
   <h3 class='hh'>Уровень сигнала: <a id='stRSSI'></a> dBm</h3>
   <h3 class='hh'>Уровень освещенности: <a id='stLDR'></a></h3>
@@ -357,7 +345,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180110-0213</p>
+  <p class='stxt'>Версия: 20180110-0231</p>
 </td></tr>
 </table>
 

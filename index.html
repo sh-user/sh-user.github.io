@@ -84,9 +84,9 @@ function MQTTconnect() {
     useSSL: true,
     userName: user,
     password: pass,
+    willMessage = lwt,
     onSuccess: onConnect,
     onFailure: doFail,
-    willMessage = lwt
   }
   // connect the client
   client.connect(options);

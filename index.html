@@ -150,7 +150,7 @@ function onMessageArrived(message) {
 	if (message.destinationName == topic + '/Status'){
 	if (message.payloadString == ' ') {timeout1 = setInterval(upStatus1,2000); console.log('setInterval=2000');}
 	if (message.payloadString == '1') { 
-	clearInterval(timeout1); timeout2 = setInterval(upStatus2,12000); console.log('setInterval=12000');
+	clearInterval(timeout1); timeout2 = setInterval(upStatus2,15000); console.log('clearInterval(timeout1) setInterval=15000');
 	document.getElementById('stESP12').innerHTML = 'Подключен';
 	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
 	
@@ -344,7 +344,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180110-1415</p>
+  <p class='stxt'>Версия: 20180110-1420</p>
 </td></tr>
 </table>
 

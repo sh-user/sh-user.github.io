@@ -33,7 +33,7 @@ input[type='checkbox']:checked ~ .switch { background: #9CA5D7; transition: .2s;
   display: inline-block; margin: 0 4px 0 4px; width: 25px; height: 13px; text-align: center; position: relative;
 }
 
-.block1 { background: #ccc; border: solid 1px black; }
+.block1 { border: solid 1px black; }
 .lay1 {width: 300px; padding: 0; margin: 0 auto;}
 .lay2 {width: 40px; float: right;}
 .lay3 {width: 32px; float: right;}
@@ -57,7 +57,7 @@ border-radius: 4px; padding: 6px; }
 <script type="text/javascript">
 //=============================================================================
 //глобальные переменные
-var t1 = 0; t2 = 0; temp = ''; host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
+var t1 = 0; t2 = 0; cnt = 0; temp = ''; host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
 
 function playSound() {
   if (typeof window.Audio === 'function') {
@@ -96,8 +96,9 @@ function onConnect() {
     // Once a connection has been made, make a subscription and send a message.
     console.log('onConnect');
     document.getElementById('stMQTT').innerHTML='Подключен';
-    client.subscribe(topic + '/Status');
     client.subscribe(topic + '/Users');
+    client.subscribe(topic + '/CNT');
+    client.subscribe(topic + '/Status');
     client.subscribe(topic + '/LDR');
     client.subscribe(topic + '/RSSI');  
     client.subscribe(topic + '/H'); 
@@ -105,10 +106,10 @@ function onConnect() {
     client.subscribe(topic + '/LED');
     
     message = new Paho.MQTT.Message(' ');
-    message.destinationName = topic + '/Status';
+    message.destinationName = topic + '/Users';
     client.send(message);
     message = new Paho.MQTT.Message(' ');
-    message.destinationName = topic + '/Users';
+    message.destinationName = topic + '/Status';
     client.send(message);
 
     document.getElementById('id_div1').style.display='none';
@@ -141,6 +142,18 @@ function sendLED(set) {
     playSound();
 }
 
+function sendCNT(set) {
+    message = new Paho.MQTT.Message(set);
+    message.destinationName = topic + '/CNT';
+    client.send(message);	
+}
+
+function sendUsers(set) {
+    message = new Paho.MQTT.Message(set);
+    message.destinationName = topic + '/Users';
+    client.send(message);	
+}
+
 function upStatus() {
   document.getElementById('stESP12').innerHTML = 'Не подключен';
   if (t1 != 0) {clearInterval(t1); t1=0; console.log('t1=0');}
@@ -159,9 +172,17 @@ function onMessageArrived(message) {
 	document.getElementById('stESP12').innerHTML = 'Подключен';
 	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
 
+        if (message.destinationName == topic + '/CNT') {
+
+	cnt = parseInt(message.payloadString); 
+	document.getElementById('stUSERS').innerHTML = message.payloadString;}
+
 	if (message.destinationName == topic + '/Users') {
 
-	document.getElementById('stUSERS').innerHTML = message.payloadString; }
+	var st = message.payloadString;
+	if (st == ' ') {if (cnt != 10) {cnt = cnt + 1; sendCNT(cnt.toString());}}
+	if (st == '-') {if (cnt != 0) {cnt = cnt - 1; sendCNT(cnt.toString());}}
+	}
 	
 	if (message.destinationName == topic + '/RSSI') {
 
@@ -356,7 +377,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180110-2132</p>
+  <p class='stxt'>Версия: 20180111-0020</p>
 </td></tr>
 </table>
 

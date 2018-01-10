@@ -132,21 +132,21 @@ function sendLED(set) {
     playSound();
 }
 
-function updateStatus() {
+function upStatus() {
   document.getElementById('stESP12').innerHTML = 'Не подключен';
   clearInterval(timeout1);
+  clearInterval(timeout2);
 }
 
 // called when a message arrives
 function onMessageArrived(message) {
 	console.log('onMessageArrived:' + message.payloadString);
 	if (message.destinationName == topic + '/Status'){
-	if (message.payloadString == ' ') {timeout1 = setInterval(updateStatus,2000);}
-	if (message.payloadString == '1') {
+	if (message.payloadString == ' ') {timeout1 = setInterval(upStatus,2000);}
+	if (message.payloadString == '1') { 
+	clearInterval(timeout1); timeout2 = setInterval(upStatus,12000);
 	document.getElementById('stESP12').innerHTML = 'Подключен';
-	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();
-	clearInterval(timeout1);
-	clearInterval(timeout2);}}
+	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
 	
 	if (message.destinationName == topic + '/RSSI') {
 
@@ -170,7 +170,6 @@ function onMessageArrived(message) {
 	if (message.payloadString == '0') {document.querySelector('#id_LED').checked = false;}
 	else {document.querySelector('#id_LED').checked = true;}}
 }
-	timeout2 = setInterval(updateStatus,12000);
 
 //=============================================================================
   var recognizer = new webkitSpeechRecognition();
@@ -339,7 +338,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180110-1346</p>
+  <p class='stxt'>Версия: 20180110-1404</p>
 </td></tr>
 </table>
 

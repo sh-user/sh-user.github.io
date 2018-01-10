@@ -156,7 +156,7 @@ function onMessageArrived(message) {
 
 	if (message.destinationName == topic + '/Users') {
 
-	document.getElementById('stUsers').innerHTML = message.payloadString; }
+	document.getElementById('stUSERS').innerHTML = message.payloadString; }
 	
 	if (message.destinationName == topic + '/RSSI') {
 
@@ -349,7 +349,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180110-1757</p>
+  <p class='stxt'>Версия: 20180110-1805</p>
 </td></tr>
 </table>
 

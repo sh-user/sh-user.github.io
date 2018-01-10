@@ -156,33 +156,33 @@ function sendUsers(set) {
 
 function upStatus() {
   document.getElementById('stESP12').innerHTML = 'Не подключен';
-  if (t1 != 0) {clearInterval(t1); t1=0; console.log('t1=0');}
-  if (t2 != 0) {clearInterval(t2); t2=0; console.log('t2=0');}
+  if (t1 != 0) {clearInterval(t1); t1=0;}
+  if (t2 != 0) {clearInterval(t2); t2=0;}
 }
 
 // called when a message arrives
 function onMessageArrived(message) {
-	console.log('onMessageArrived:' + message.payloadString);
+	//console.log('onMessageArrived:' + message.payloadString);
 	
 	if (message.destinationName == topic + '/Status'){
-	if (message.payloadString == ' ') {t1 = setInterval(upStatus,2000); console.log('t1=2000');}
+	if (message.payloadString == ' ') {t1 = setInterval(upStatus,2000);}
 	if (message.payloadString == '1') { 
-	if (t1 != 0) {clearInterval(t1); t1=0; console.log('t1=0');}
-	if (t2 != 0) {clearInterval(t2); t2=0; console.log('t2=0');}
+	if (t1 != 0) {clearInterval(t1); t1=0;}
+	if (t2 != 0) {clearInterval(t2); t2=0;}
 	t2 = setInterval(upStatus,12000); console.log('t2=12000');
 	document.getElementById('stESP12').innerHTML = 'Подключен';
 	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
 
         if (message.destinationName == topic + '/CNT') {
 
-	cnt = parseInt(message.payloadString); 
+	cnt = parseInt(message.payloadString); console.log(message.payloadString);
 	document.getElementById('stUSERS').innerHTML = message.payloadString;}
 
 	if (message.destinationName == topic + '/Users') {
 
-	var st = message.payloadString;
-	if (st == '+') {if (cnt < 10) {cnt = cnt + 1; sendCNT(cnt.toString());}}
-	if (st == '-') {if (cnt > 0) {cnt = cnt - 1; sendCNT(cnt.toString());}}
+        console.log(message.payloadString);
+	if (message.payloadString == '+') {if (cnt < 10) {cnt = cnt + 1; sendCNT(cnt.toString());}}
+	if (message.payloadString == '-') {if (cnt > 0) {cnt = cnt - 1; sendCNT(cnt.toString());}}
 	}
 	
 	if (message.destinationName == topic + '/RSSI') {

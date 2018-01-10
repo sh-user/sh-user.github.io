@@ -169,7 +169,7 @@ function onMessageArrived(message) {
 	if (message.payloadString == '1') { 
 	if (t1 != 0) {clearInterval(t1); t1=0;}
 	if (t2 != 0) {clearInterval(t2); t2=0;}
-	t2 = setInterval(upStatus,12000); console.log('t2=12000');
+	t2 = setInterval(upStatus,12000);
 	document.getElementById('stESP12').innerHTML = 'Подключен';
 	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
 
@@ -181,8 +181,8 @@ function onMessageArrived(message) {
 	if (message.destinationName == topic + '/Users') {
 
         console.log(message.payloadString);
-	if (message.payloadString == '+') {if (cnt < 10) {cnt = cnt + 1; sendCNT(cnt.toString());}}
-	if (message.payloadString == '-') {if (cnt > 0) {cnt = cnt - 1; sendCNT(cnt.toString());}}
+	if (message.payloadString == '+') {if (cnt != 10) {cnt = cnt + 1; sendCNT(cnt.toString());}}
+	if (message.payloadString == '-') {if (cnt != 0) {cnt = cnt - 1; sendCNT(cnt.toString());}}
 	}
 	
 	if (message.destinationName == topic + '/RSSI') {
@@ -378,7 +378,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180111-0052</p>
+  <p class='stxt'>Версия: 20180111-0154</p>
 </td></tr>
 </table>
 

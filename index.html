@@ -105,7 +105,7 @@ function onConnect() {
     client.subscribe(topic + '/T'); 
     client.subscribe(topic + '/LED');
     
-    message = new Paho.MQTT.Message(' ');
+    message = new Paho.MQTT.Message('+');
     message.destinationName = topic + '/Users';
     client.send(message);
     message = new Paho.MQTT.Message(' ');
@@ -163,6 +163,7 @@ function upStatus() {
 // called when a message arrives
 function onMessageArrived(message) {
 	console.log('onMessageArrived:' + message.payloadString);
+	
 	if (message.destinationName == topic + '/Status'){
 	if (message.payloadString == ' ') {t1 = setInterval(upStatus,2000); console.log('t1=2000');}
 	if (message.payloadString == '1') { 
@@ -180,8 +181,8 @@ function onMessageArrived(message) {
 	if (message.destinationName == topic + '/Users') {
 
 	var st = message.payloadString;
-	if (st == ' ') {if (cnt != 10) {cnt = cnt + 1; sendCNT(cnt.toString());}}
-	if (st == '-') {if (cnt != 0) {cnt = cnt - 1; sendCNT(cnt.toString());}}
+	if (st == '+') {if (cnt < 10) {cnt = cnt + 1; sendCNT(cnt.toString());}}
+	if (st == '-') {if (cnt > 0) {cnt = cnt - 1; sendCNT(cnt.toString());}}
 	}
 	
 	if (message.destinationName == topic + '/RSSI') {
@@ -377,7 +378,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180111-0020</p>
+  <p class='stxt'>Версия: 20180111-0052</p>
 </td></tr>
 </table>
 

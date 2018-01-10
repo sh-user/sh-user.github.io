@@ -132,9 +132,13 @@ function sendLED(set) {
     playSound();
 }
 
-function upStatus() {
+function upStatus1() {
   document.getElementById('stESP12').innerHTML = 'Не подключен';
   clearInterval(timeout1);
+}
+
+function upStatus2() {
+  document.getElementById('stESP12').innerHTML = 'Не подключен';
   clearInterval(timeout2);
 }
 
@@ -142,9 +146,9 @@ function upStatus() {
 function onMessageArrived(message) {
 	console.log('onMessageArrived:' + message.payloadString);
 	if (message.destinationName == topic + '/Status'){
-	if (message.payloadString == ' ') {timeout1 = setInterval(upStatus,2000);}
+	if (message.payloadString == ' ') {timeout1 = setInterval(upStatus1,2000);}
 	if (message.payloadString == '1') { 
-	clearInterval(timeout1); timeout2 = setInterval(upStatus,12000);
+	clearInterval(timeout1); timeout2 = setInterval(upStatus2,12000);
 	document.getElementById('stESP12').innerHTML = 'Подключен';
 	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
 	
@@ -338,7 +342,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180110-1404</p>
+  <p class='stxt'>Версия: 20180110-1410</p>
 </td></tr>
 </table>
 

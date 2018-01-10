@@ -56,7 +56,7 @@ border-radius: 4px; padding: 6px; }
 <script type="text/javascript">
 //=============================================================================
 //глобальные переменные
-var flag = 0; temp = ''; host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
+var timeout = 0; temp = ''; host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
 
 function playSound() {
   if (typeof window.Audio === 'function') {
@@ -125,10 +125,6 @@ function onConnectionLost(responseObject) {
     }
 }
 
-function updateStatus() {
-  if (flag == 0) {document.getElementById('stESP12').innerHTML = 'Не подключен';}
-}
-
 function sendLED(set) {
     message = new Paho.MQTT.Message(set);
     message.destinationName = topic + '/LED';
@@ -136,13 +132,21 @@ function sendLED(set) {
     playSound();
 }
 
+function updateStatus() {
+  document.getElementById('stESP12').innerHTML = 'Не подключен';
+  clearInterval(timeout1);
+}
+
 // called when a message arrives
 function onMessageArrived(message) {
-	console.log("onMessageArrived:"+message.payloadString);
+	console.log('onMessageArrived:' + message.payloadString);
 	if (message.destinationName == topic + '/Status'){
-	if (message.payloadString == ' ') {flag = 0;}
-	else { flag = 1; document.getElementById('stESP12').innerHTML = 'Подключен';
-	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
+	if (message.payloadString == ' ') {timeout1 = setInterval(updateStatus,2000);}
+	if (message.payloadString == '1') {
+	document.getElementById('stESP12').innerHTML = 'Подключен';
+	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();
+	clearInterval(timeout1);
+	clearInterval(timeout2);}}
 	
 	if (message.destinationName == topic + '/RSSI') {
 
@@ -166,7 +170,7 @@ function onMessageArrived(message) {
 	if (message.payloadString == '0') {document.querySelector('#id_LED').checked = false;}
 	else {document.querySelector('#id_LED').checked = true;}}
 }
-	setInterval(updateStatus,2000);
+	timeout2 = setInterval(updateStatus,12000);
 
 //=============================================================================
   var recognizer = new webkitSpeechRecognition();
@@ -335,7 +339,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180110-1314</p>
+  <p class='stxt'>Версия: 20180110-1346</p>
 </td></tr>
 </table>
 

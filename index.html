@@ -96,8 +96,8 @@ function onConnect() {
     // Once a connection has been made, make a subscription and send a message.
     console.log('onConnect');
     document.getElementById('stMQTT').innerHTML='Подключен';
-    client.subscribe(topic + '/Users');
-    client.subscribe(topic + '/CNT');
+    //client.subscribe(topic + '/Users');
+    client.subscribe(topic + '\$SYS/broker/clients/inactive);
     client.subscribe(topic + '/Status');
     client.subscribe(topic + '/LDR');
     client.subscribe(topic + '/RSSI');  
@@ -105,9 +105,9 @@ function onConnect() {
     client.subscribe(topic + '/T'); 
     client.subscribe(topic + '/LED');
     
-    message = new Paho.MQTT.Message('+');
-    message.destinationName = topic + '/Users';
-    client.send(message);
+    //message = new Paho.MQTT.Message('+');
+    //message.destinationName = topic + '/Users';
+    //client.send(message);
     message = new Paho.MQTT.Message(' ');
     message.destinationName = topic + '/Status';
     client.send(message);
@@ -142,17 +142,17 @@ function sendLED(set) {
     playSound();
 }
 
-function sendCNT(set) {
-    message = new Paho.MQTT.Message(set);
-    message.destinationName = topic + '/CNT';
-    client.send(message);	
-}
+//function sendCNT(set) {
+//    message = new Paho.MQTT.Message(set);
+//    message.destinationName = topic + '/CNT';
+//    client.send(message);	
+//}
 
-function sendUsers(set) {
-    message = new Paho.MQTT.Message(set);
-    message.destinationName = topic + '/Users';
-    client.send(message);	
-}
+//function sendUsers(set) {
+//    message = new Paho.MQTT.Message(set);
+//    message.destinationName = topic + '/Users';
+//    client.send(message);	
+//}
 
 function upStatus() {
   document.getElementById('stESP12').innerHTML = 'Не подключен';
@@ -173,17 +173,17 @@ function onMessageArrived(message) {
 	document.getElementById('stESP12').innerHTML = 'Подключен';
 	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
 
-        if (message.destinationName == topic + '/CNT') {
+        if (message.destinationName == topic + 'topic + '\$SYS/broker/clients/inactive') {
 
-	cnt = parseInt(message.payloadString); console.log(message.payloadString);
+	console.log(message.payloadString);
 	document.getElementById('stUSERS').innerHTML = message.payloadString;}
 
-	if (message.destinationName == topic + '/Users') {
+	//if (message.destinationName == topic + '/Users') {
 
-        console.log(message.payloadString);
-	if (message.payloadString == '+') {if (cnt != 10) {cnt = cnt + 1; sendCNT(cnt.toString());}}
-	if (message.payloadString == '-') {if (cnt != 0) {cnt = cnt - 1; sendCNT(cnt.toString());}}
-	}
+        //console.log(message.payloadString);
+	//if (message.payloadString == '+') {if (cnt != 10) {cnt = cnt + 1; sendCNT(cnt.toString());}}
+	//if (message.payloadString == '-') {if (cnt != 0) {cnt = cnt - 1; sendCNT(cnt.toString());}}
+	//}
 	
 	if (message.destinationName == topic + '/RSSI') {
 
@@ -378,7 +378,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180111-0154</p>
+  <p class='stxt'>Версия: 20180111-0240</p>
 </td></tr>
 </table>
 

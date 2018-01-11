@@ -57,7 +57,7 @@ border-radius: 4px; padding: 6px; }
 <script type="text/javascript">
 //=============================================================================
 //глобальные переменные
-var t1 = 0; t2 = 0; temp = ''; host = ''; port = 0; user = ''; pass = '';
+var temp = ''; host = ''; port = 0; user = ''; pass = '';
 
 function playSound() {
   if (typeof window.Audio === 'function') {
@@ -98,7 +98,7 @@ function onConnect() {
     document.getElementById('stMQTT').innerHTML='Подключен';
     client.subscribe('$SYS/broker/clients/inactive');
     client.subscribe('$SYS/broker/clients/connected');
-    //client.subscribe('ESP12/Status');
+    client.subscribe('ESP12/Status');
     client.subscribe('ESP12/LDR');
     client.subscribe('ESP12/RSSI');  
     client.subscribe('ESP12/H'); 
@@ -154,8 +154,7 @@ function onMessageArrived(message) {
 
 	if (message.payloadString == '0') { 
 	document.getElementById('stESP').innerHTML = 'Не подключен';}
-	else {document.getElementById('stESP').innerHTML = 'Подключен';
-	}}
+	else {document.getElementById('stESP').innerHTML = 'Подключен';}}
 
 	//пользователи на сайте
         if (message.destinationName == '$SYS/broker/clients/inactive') {
@@ -361,7 +360,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180111-0010</p>
+  <p class='stxt'>Версия: 20180111-0001</p>
 </td></tr>
 </table>
 

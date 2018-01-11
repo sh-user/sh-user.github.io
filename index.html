@@ -1,0 +1,398 @@
+﻿<!DOCTYPE html>
+<html lang='ru'><head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=360'>
+<meta http-equiv="Cache-Control" content="no-cache">
+<title>MQTT Websocket</title>
+
+<style>
+
+body{ margin:0; background-color: #F5F5F5; color: #2F4F4F; font-family: Helvetica; font-size: 15px; }
+
+.ex1 {position: relative; width: 30px; height: 30px; background-color: white; border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);}
+.ex1::before, .ex1::after { position: absolute;	top: 14px; left: 8px; width: 14px; height: 3px;	content: "";
+    background-color: #2F4F4F;}
+.ex1::before {-ms-transform: rotate(-45deg); -webkit-transform: rotate(-45deg); transform: rotate(-45deg);}
+.ex1::after {-ms-transform: rotate(45deg); -webkit-transform: rotate(45deg);	transform: rotate(45deg);}
+.ex1:active::before, .ex1:active::after { background-color: white; }
+.ex1:active {background-color: #2F4F4F;}
+
+input[type='checkbox'] { display: none;}
+input[type='checkbox']:checked ~ .toggle { background: #3F51B5; left: 15px; transition: .2s;}
+input[type='checkbox']:checked ~ .switch { background: #9CA5D7; transition: .2s;}
+.switch {
+  display: block; width: 32px; height: 14px; background: #939393; border-radius: 10px;
+  position: absolute; top: 0; transition: .2s;
+}
+.toggle {
+  height: 21px; width: 21px; border-radius: 50%; background: white; position: absolute;
+  top: -4px; left: -4px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); transition: .2s;
+}
+.card {
+  display: inline-block; margin: 0 4px 0 4px; width: 25px; height: 13px; text-align: center; position: relative;
+}
+
+.block1 { border: solid 1px #2F4F4F; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);}
+.lay1 {width: 300px; padding: 0; margin: 0 auto;}
+.lay2 {width: 40px; float: right;}
+.lay3 {width: 32px; float: right;}
+.hh {font-weight:normal; margin: 12px 0 12px 0;}
+
+.btn {width: 100%; height: 40px; margin: 0; background: linear-gradient(#F7F7F7, #DCDCDC);
+  border: 1px solid #949494; border-radius: 2px; outline: none;}
+.btn:active {background: linear-gradient(#DCDCDC, #F7F7F7);}
+.btn:hover {border: 1px solid #6E6E6E;}
+
+.ed {width: 300px; outline: none; resize: none; font-family: Helvetica; font-size: 15px; 
+border: 1px solid gray; border-radius: 4px; padding: 6px;}
+
+.ed2 {width: 300px; height: 24px; border: 1px solid gray; font-family: Helvetica; font-size: 15px; 
+border-radius: 4px; padding: 6px; }
+.stxt {font-size: 12px;}
+
+</style>
+
+<script src="mqttws31.js" type="text/javascript"></script>
+<script type="text/javascript">
+//=============================================================================
+//глобальные переменные
+var flag = ''; temp = ''; host = ''; port = 0; user = ''; pass = '';
+
+function playSound() {
+  if (typeof window.Audio === 'function') {
+    var audioElem = new Audio();
+    audioElem.src = "data:audio/ogg;base64,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";
+    audioElem.play();
+  }
+}
+
+//=============================================================================
+function MQTTconnect() {
+  // Create a client instance
+  client = new Paho.MQTT.Client(host, port, 'web_' + parseInt(Math.random() * 100, 10));
+  // set callback handlers
+  client.onConnectionLost = onConnectionLost;
+  client.onMessageArrived = onMessageArrived;
+
+  // Connect the client, with a Last-Will-and-Testament
+  //var lwt = new Paho.MQTT.Message('-');  
+  //lwt.destinationName = 'ESP12/Users';
+
+  var options = {
+    useSSL: true,
+    userName: user,
+    password: pass,
+    //willMessage: lwt,
+    onSuccess: onConnect,
+    onFailure: doFail,
+  }
+  // connect the client
+  client.connect(options);
+}
+
+// called when the client connects
+function onConnect() {
+    // Once a connection has been made, make a subscription and send a message.
+    console.log('onConnect');
+    document.getElementById('stMQTT').innerHTML='Подключен';
+    client.subscribe('$SYS/broker/clients/inactive');
+    client.subscribe('$SYS/broker/clients/connected');
+    client.subscribe('ESP12/Status');
+    client.subscribe('ESP12/LDR');
+    client.subscribe('ESP12/RSSI');  
+    client.subscribe('ESP12/H'); 
+    client.subscribe('ESP12/T'); 
+    client.subscribe('ESP12/LED');
+    client.subscribe('ESP12/SetLED');
+    client.subscribe('ESP12/MESS');
+    
+    message = new Paho.MQTT.Message(' ');
+    message.destinationName = 'ESP12/Status';
+    client.send(message);
+
+    document.getElementById('id_login').style.display='none';
+    document.getElementById('id_mqtt').style.display='block';
+    if (document.querySelector('#id_SAVE').checked) {
+    document.getElementById('id_EX').style.display='block';
+    document.querySelector('#id_REC').checked = localStorage.getItem('rec'); checkREC(); }
+}
+
+function doFail(e){
+    console.log(e);
+    document.getElementById('stMQTT').innerHTML='Не подключен';
+    document.getElementById('id_login').style.display='block';
+    alert('Ошибка подключения к серверу\r\nПроверьте правильность введенных параметров');
+}
+
+// called when the client loses its connection
+function onConnectionLost(responseObject) {
+    if (responseObject.errorCode !== 0) {
+      console.log("onConnectionLost:"+responseObject.errorMessage);
+      document.getElementById('stMQTT').innerHTML=responseObject.errorMessage;
+      alert('Ошибка\r\n'+responseObject.errorMessage);
+    }
+}
+
+function sendLED(set) {
+    message = new Paho.MQTT.Message(set);
+    message.destinationName = 'ESP12/SetLED';
+    client.send(message);
+}
+
+// called when a message arrives
+function onMessageArrived(message) {
+	console.log(message.destinationName + ':' + message.payloadString);
+
+	//статус модуля
+	if (message.destinationName == 'ESP12/Status') {
+
+	if (message.payloadString == '1') {
+	document.getElementById('stESP').innerHTML = 'Подключен';}}
+
+	//статус модуля от брокера
+        if (message.destinationName == '$SYS/broker/clients/connected') {
+
+	if (message.payloadString == '0') { 
+	document.getElementById('stESP').innerHTML = 'Не подключен';}
+	else {document.getElementById('stESP').innerHTML = 'Подключен';}}
+
+	//пользователи на сайте
+        if (message.destinationName == '$SYS/broker/clients/inactive') {
+
+	if (message.payloadString == '0') {document.getElementById('stUSERS').innerHTML = '1';}
+	else {document.getElementById('stUSERS').innerHTML = message.payloadString;}}
+
+	//уровень сигнала
+	if (message.destinationName == 'ESP12/RSSI') {
+
+	document.getElementById('stRSSI').innerHTML = message.payloadString; 
+	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}
+
+	//уровень освещенности
+	if (message.destinationName == 'ESP12/LDR') {
+
+	document.getElementById('stLDR').innerHTML = message.payloadString; }
+
+	//температура
+	if (message.destinationName == 'ESP12/T') {
+
+	document.getElementById('stT').innerHTML = message.payloadString; temp = message.payloadString;}
+
+	//влажность
+	if (message.destinationName == 'ESP12/H') {
+
+	document.getElementById('stH').innerHTML = message.payloadString; }
+
+	//статус светодиода
+	if (message.destinationName == 'ESP12/LED') {
+
+	//document.getElementById('stLED').innerHTML = message.payloadString; 
+	if (message.payloadString == '0') {document.querySelector('#id_LED').checked = false;}
+	else {document.querySelector('#id_LED').checked = true;}
+	if (flag == '') {flag = message.payloadString; }
+	if (message.payloadString != flag) { flag = message.payloadString; playSound();}
+	else {flag = message.payloadString; }}
+
+	if (message.destinationName == 'ESP12/MESS') {
+   	rmess.value += new Date().toLocaleTimeString() + ': ' + message.payloadString + '\r\n';
+      	rmess.scrollTop = rmess.scrollHeight; playSound();  
+	}
+}
+
+//=============================================================================
+  var recognizer = new webkitSpeechRecognition();
+  var rec_str1 = '';
+  // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
+  recognizer.interimResults = true;
+  recognizer.lang = 'ru-Ru';	
+  //recognizer.continuous = true;
+  //recognizer.maxAlternatives = 1;
+
+  var voices = speechSynthesis.getVoices();
+  var utterance = new SpeechSynthesisUtterance();
+  utterance.voice = voices[1];
+
+  // Используем колбек для обработки результатов
+recognizer.onresult = function (event) {
+    var result = event.results[event.resultIndex];
+    if (result.isFinal) {
+      rec_str1 = result[0].transcript;
+      rcmd.value += new Date().toLocaleTimeString() + ': ' + result[0].transcript + '\r\n';
+      rcmd.scrollTop = rcmd.scrollHeight;
+      //console.log(event);
+    } else {
+      console.log('Промежуточный результат: ', result[0].transcript);
+    }
+};
+
+recognizer.onend = function() {
+  var tmp;
+  if (rec_str1 === 'включить'){sendLED('1');}
+  if (rec_str1 === 'выключить'){sendLED('0');}
+  tmp = temp.replace('.',' и ');
+  //tmp = temp.substring(0,temp.indexOf('.'));
+  //tmp = tmp + ' °';
+  if (rec_str1 === 'температура') {speak(tmp);}
+  //speak(rec_str1);
+  rec_str1 = '';
+  if (document.querySelector('#id_REC').checked) {recognizer.start();}
+};
+
+utterance.onend = function() { 
+  //recognizer.start(); //продолжить распознование
+};
+
+function speak(str){ 
+  //recognizer.stop();  
+  if (speechSynthesis.speaking) return; 
+  utterance.text = str; 
+  // воспроизведение фразы: 
+  speechSynthesis.speak(utterance); 
+};
+
+function checkREC(){
+  if (document.querySelector('#id_REC').checked) {
+  document.getElementById('id_area').style.display='block';
+  localStorage.setItem('rec', document.querySelector('#id_REC').checked); recognizer.start();} 
+  else {
+  document.getElementById('id_area').style.display='none';
+  document.getElementById('rcmd').value = '';	
+  localStorage.setItem('rec', ''); recognizer.stop();}
+}
+
+function checkLED(){
+  if (document.querySelector('#id_LED').checked) {sendLED('1');} 
+  else {sendLED('0');}
+}
+
+function keyNUM(AvaiableSymbol) {
+  SearchChar=String.fromCharCode(window.event.keyCode);
+  if(AvaiableSymbol.indexOf(SearchChar.toUpperCase())<0)return false;
+}
+
+function btnConnect(){
+  host = document.getElementById('mq_serv').value; 
+  port = parseInt(document.getElementById('mq_port').value);
+  user = document.getElementById('mq_user').value; 
+  pass = document.getElementById('mq_pass').value;
+
+if (host=='' || document.getElementById('mq_port').value=='' || user=='' || pass=='') 
+  {document.getElementById('id_login').style.display='block'; alert('Ошибка\r\nЗаполните все поля формы'); return;}
+
+if (document.querySelector('#id_SAVE').checked) {
+  localStorage.setItem('serv', document.getElementById('mq_serv').value);
+  localStorage.setItem('port', document.getElementById('mq_port').value);
+  localStorage.setItem('user', document.getElementById('mq_user').value);
+  localStorage.setItem('pass', document.getElementById('mq_pass').value);
+  localStorage.setItem('save', document.querySelector('#id_SAVE').checked);}
+  else {
+  //localStorage.setItem('serv', '');
+  //localStorage.setItem('port', '');
+  //localStorage.setItem('user', '');
+  localStorage.setItem('pass', '');
+  localStorage.setItem('save', '');
+  localStorage.setItem('rec', '');
+}
+  MQTTconnect();
+}
+
+function btnSendMESS(){
+    message = new Paho.MQTT.Message(document.getElementById('mq_mess').value);
+    message.destinationName = 'ESP12/MESS';
+    client.send(message);
+    document.getElementById('mq_mess').value = '';
+}
+
+function loadPAGE() {
+  host = localStorage.getItem('serv');
+  port = localStorage.getItem('port');
+  user = localStorage.getItem('user');
+  pass = localStorage.getItem('pass');
+  document.getElementById('mq_serv').value = host;
+  document.getElementById('mq_port').value = port;
+  document.getElementById('mq_user').value = user;
+  document.getElementById('mq_pass').value = pass;
+  document.querySelector('#id_SAVE').checked = localStorage.getItem('save');
+  if (document.querySelector('#id_SAVE').checked) {btnConnect();}
+  else {document.getElementById('id_login').style.display='block';}
+}
+
+function divEX(){
+if (confirm("Вы действительно хотите выйти?")) {
+  localStorage.setItem('serv', '');
+  localStorage.setItem('port', '');
+  localStorage.setItem('user', '');
+  localStorage.setItem('pass', '');
+  localStorage.setItem('save', '');
+  location.reload();
+}
+}
+
+</script>
+</head> 
+
+<body onload='loadPAGE()'>
+
+<table class='lay1'>
+<tr><td>
+  <h1 class='hh'>MQTT Websocket 
+  <div class='lay3' id='id_EX' style="display: none"><div class='ex1' title='Выход' onclick="divEX()"></div></div>
+  </h1></h1>
+  <hr>
+<div id='id_login' style="display: none">
+<form>
+  <h3 class='hh'>Авторизация</h3>
+  <p><input class='ed2' id='mq_serv' type='text' placeholder='Сервер'>
+</p>			
+  <p><input class='ed2' id='mq_port' type='text' placeholder='Порт' onkeypress="return keyNUM('0123456789')"></p>
+  <p><input class='ed2' id='mq_user' type='text' placeholder='Логин'>
+</p>			
+  <p><input class='ed2' id='mq_pass' type='password' placeholder='Пароль'></p>
+  <h3 class='hh'><label>Запомнить меня <div class='lay2'>
+    <div class='card'><label for='id_SAVE'>
+    <input type='checkbox' id='id_SAVE'/><span class='switch'></span><span class="toggle"></span>
+    </label></div></div>
+  </label></h3>		  
+  <p><input class='btn' type='button' value='Войти' onClick="btnConnect()"/></p>
+</form>
+</div>
+<div id='id_mqtt' style="display: none">
+  <h3 class='hh'>Статус сервера: <a id='stMQTT'></a></h3>
+  <h3 class='hh'>Статус модуля: <a id='stESP'></a></h3>
+  <div class='block1' title='Работает от MQTT брокера!'> 
+    <h3 class='hh'>Пользователей на сайте: <a id='stUSERS'></a></h3>
+  </div>
+  <h3 class='hh'>Последнее обновление: <a id='time'></a></h3>
+  <h3 class='hh'>Уровень сигнала: <a id='stRSSI'></a> dBm</h3>
+  <h3 class='hh'>Уровень освещенности: <a id='stLDR'></a></h3>
+  <h3 class='hh'>Температура: <a id='stT'></a> &degC</h3>
+  <h3 class='hh'>Влажность: <a id='stH'></a> %</h3>
+  <h3 class='hh'><label title='Не оставляйте светодиод включенным'>Управление светодиодом <div class='lay2'>
+    <div class='card'><label for='id_LED'>
+    <input type='checkbox' id='id_LED' onclick="checkLED()"/><span class='switch'></span><span class='toggle'></span>
+    </label></div></div>
+  </label></h3>
+  <h3 class='hh'><label title='Работает только в Google Chrome'>Голосовое управление <div class='lay2'>
+    <div class='card'><label for='id_REC'>
+    <input type='checkbox' id='id_REC' onclick="checkREC()"/><span class='switch'></span><span class='toggle'></span>
+    </label></div></div>
+  </label></h3>
+<div id='id_area' style="display: none">
+  <h3 class='hh'>Команды: включить, выключить, температура</h3>
+  <textarea readonly class='ed' id='rcmd' rows='8'></textarea>
+</div>
+   <h3 class='hh'>MQTT Messenger </h3>
+   <textarea readonly class='ed' id='rmess' rows='8'></textarea>
+<form onsubmit="btnSendMESS(); return false">
+   <p class='hh'><input class='ed2' id='mq_mess' autocomplete='off' type='text' placeholder='Сообщение'>
+</p>
+   <p class='hh'><input class='btn' type='submit' value='Отправить'/></p>
+</form>
+</div>
+  <p class='stxt'>Версия: 20180111-1700</p>
+</td></tr>
+</table>
+
+</body>
+</html>

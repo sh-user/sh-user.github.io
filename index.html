@@ -147,8 +147,10 @@ function upStatus() {
 
 // called when a message arrives
 function onMessageArrived(message) {
-	console.log('onMessageArrived:' message.destinationName + ':' + message.payloadString);
 	
+	//console.log('onMessageArrived:' + message.destinationName + ':' + message.payloadString);
+	console.log(message.destinationName + ':' + message.payloadString);
+
 	if (message.destinationName == 'ESP12/Status'){
 	if (message.payloadString == ' ') {t1 = setInterval(upStatus,2000);}
 	if (message.payloadString == '1') { 
@@ -360,7 +362,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180111-0001</p>
+  <p class='stxt'>Версия: 20180111-0002</p>
 </td></tr>
 </table>
 

@@ -195,7 +195,7 @@ function onMessageArrived(message) {
 	else {flag = message.payloadString; }}
 
 	if (message.destinationName == 'ESP12/MESS') {
-   	rmess.value += new Date().toLocaleTimeString() + '  ' + message.payloadString + '\r\n';
+   	rmess.value += new Date().toLocaleTimeString() + ': ' + message.payloadString + '\r\n';
       	rmess.scrollTop = rmess.scrollHeight; playSound();  
 	}
 }
@@ -218,7 +218,7 @@ recognizer.onresult = function (event) {
     var result = event.results[event.resultIndex];
     if (result.isFinal) {
       rec_str1 = result[0].transcript;
-      rcmd.value += new Date().toLocaleTimeString() + '  ' + result[0].transcript + '\r\n';
+      rcmd.value += new Date().toLocaleTimeString() + ': ' + result[0].transcript + '\r\n';
       rcmd.scrollTop = rcmd.scrollHeight;
       //console.log(event);
     } else {
@@ -300,6 +300,7 @@ function btnSendMESS(){
     message = new Paho.MQTT.Message(document.getElementById('mq_mess').value);
     message.destinationName = 'ESP12/MESS';
     client.send(message);
+    document.getElementById('mq_mess').value = '';
 }
 
 function loadPAGE() {

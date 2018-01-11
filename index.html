@@ -105,13 +105,14 @@ function onConnect() {
     client.subscribe('ESP12/T'); 
     client.subscribe('ESP12/LED');
     client.subscribe('ESP12/SetLED');
+    client.subscribe('ESP12/MESS');
     
     message = new Paho.MQTT.Message(' ');
     message.destinationName = 'ESP12/Status';
     client.send(message);
 
-    document.getElementById('id_div1').style.display='none';
-    document.getElementById('id_div2').style.display='block';
+    document.getElementById('id_login').style.display='none';
+    document.getElementById('id_mqtt').style.display='block';
     if (document.querySelector('#id_SAVE').checked) {
     document.getElementById('id_EX').style.display='block';
     document.querySelector('#id_REC').checked = localStorage.getItem('rec'); checkREC(); }
@@ -120,7 +121,7 @@ function onConnect() {
 function doFail(e){
     console.log(e);
     document.getElementById('stMQTT').innerHTML='Не подключен';
-    document.getElementById('id_div1').style.display='block';
+    document.getElementById('id_login').style.display='block';
     alert('Ошибка подключения к серверу\r\nПроверьте правильность введенных параметров');
 }
 
@@ -192,6 +193,12 @@ function onMessageArrived(message) {
 	if (flag == '') {flag = message.payloadString; }
 	if (message.payloadString != flag) { flag = message.payloadString; playSound();}
 	else {flag = message.payloadString; }}
+
+	if (message.destinationName == 'ESP12/MESS') {
+   	rmess.value += new Date().toLocaleTimeString() + '  ' + message.payloadString + '\r\n';
+      	rmess.scrollTop = rmess.scrollHeight;
+	playSound();  
+	}
 }
 
 //=============================================================================
@@ -268,7 +275,7 @@ function btnConnect(){
   pass = document.getElementById('mq_pass').value;
 
 if (host=='' || document.getElementById('mq_port').value=='' || user=='' || pass=='') 
-  {document.getElementById('id_div1').style.display='block'; alert('Ошибка\r\nЗаполните все поля формы'); return;}
+  {document.getElementById('id_login').style.display='block'; alert('Ошибка\r\nЗаполните все поля формы'); return;}
 
 if (document.querySelector('#id_SAVE').checked) {
   localStorage.setItem('serv', document.getElementById('mq_serv').value);
@@ -287,6 +294,12 @@ if (document.querySelector('#id_SAVE').checked) {
   MQTTconnect();
 }
 
+function btnSendMESS(){
+    message = new Paho.MQTT.Message(document.getElementById('mq_mess').value);
+    message.destinationName = 'ESP12/MESS';
+    client.send(message);
+}
+
 function loadPAGE() {
   host = localStorage.getItem('serv');
   port = localStorage.getItem('port');
@@ -298,7 +311,7 @@ function loadPAGE() {
   document.getElementById('mq_pass').value = pass;
   document.querySelector('#id_SAVE').checked = localStorage.getItem('save');
   if (document.querySelector('#id_SAVE').checked) {btnConnect();}
-  else {document.getElementById('id_div1').style.display='block';}
+  else {document.getElementById('id_login').style.display='block';}
 }
 
 function divEX(){
@@ -323,7 +336,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <div class='lay3' id='id_EX' style="display: none"><div class='ex1' title='Выход' onclick="divEX()"></div></div>
   </h1></h1>
   <hr>
-<div id='id_div1' style="display: none">
+<div id='id_login' style="display: none">
 <form>
   <h3 class='hh'>Авторизация</h3>
   <p><input class='ed2' id='mq_serv' type='text' placeholder='Сервер'>
@@ -340,7 +353,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <p><input class='btn' type='button' value='Войти' onClick="btnConnect()"/></p>
 </form>
 </div>
-<div id='id_div2' style="display: none">
+<div id='id_mqtt' style="display: none">
   <h3 class='hh'>Статус сервера: <a id='stMQTT'></a></h3>
   <div class='block1' title='Работает от MQTT брокера!'> 
     <h3 class='hh'>Статус модуля: <a id='stESP'></a></h3>
@@ -351,26 +364,27 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Уровень освещенности: <a id='stLDR'></a></h3>
   <h3 class='hh'>Температура: <a id='stT'></a> &degC</h3>
   <h3 class='hh'>Влажность: <a id='stH'></a> %</h3>
- 
-<div class='block1' title='Режим отладки, не трогать!'> 
-
-<h3 class='hh'><label title='Не оставляйте светодиод включенным'>Управление светодиодом <div class='lay2'>
+  <h3 class='hh'><label title='Не оставляйте светодиод включенным'>Управление светодиодом <div class='lay2'>
     <div class='card'><label for='id_LED'>
     <input type='checkbox' id='id_LED' onclick="checkLED()"/><span class='switch'></span><span class='toggle'></span>
     </label></div></div>
   </label></h3>
-
-</div>
-
   <h3 class='hh'><label title='Работает только в Google Chrome'>Голосовое управление <div class='lay2'>
     <div class='card'><label for='id_REC'>
     <input type='checkbox' id='id_REC' onclick="checkREC()"/><span class='switch'></span><span class='toggle'></span>
     </label></div></div>
   </label></h3>
+<div id='id_area' style="display: none">
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
-  <textarea class='ed' id='rcmd' rows='7'></textarea>
+  <textarea class='ed' id='rcmd' rows='6'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180111-1400</p>
+   <h3 class='hh'>MQTT Messenger </h3>
+   <textarea class='ed' id='rmess' rows='6'></textarea>
+   <p><input class='ed2' id='mq_mess' type='text' placeholder='Сообщение'>
+</p>
+   <p><input class='btn' type='button' value='Отправить' onClick="btnSendMESS()"/></p>
+</div>
+  <p class='stxt'>Версия: 20180111-1500</p>
 </td></tr>
 </table>
 

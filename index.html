@@ -57,7 +57,7 @@ border-radius: 4px; padding: 6px; }
 <script type="text/javascript">
 //=============================================================================
 //глобальные переменные
-var t1 = 0; t2 = 0; cnt = 0; temp = ''; host = ''; port = 0; user = ''; pass = ''; topic = 'ESP12';
+var t1 = 0; t2 = 0; temp = ''; host = ''; port = 0; user = ''; pass = '';
 
 function playSound() {
   if (typeof window.Audio === 'function') {
@@ -77,7 +77,7 @@ function MQTTconnect() {
 
   // Connect the client, with a Last-Will-and-Testament
   //var lwt = new Paho.MQTT.Message('-');  
-  //lwt.destinationName = topic + '/Users';
+  //lwt.destinationName = 'ESP12/Users';
 
   var options = {
     useSSL: true,
@@ -96,20 +96,17 @@ function onConnect() {
     // Once a connection has been made, make a subscription and send a message.
     console.log('onConnect');
     document.getElementById('stMQTT').innerHTML='Подключен';
-    //client.subscribe(topic + '/Users');
-    client.subscribe('\$SYS/broker/clients/inactive');
-    client.subscribe(topic + '/Status');
-    client.subscribe(topic + '/LDR');
-    client.subscribe(topic + '/RSSI');  
-    client.subscribe(topic + '/H'); 
-    client.subscribe(topic + '/T'); 
-    client.subscribe(topic + '/LED');
+    client.subscribe('$SYS/broker/clients/inactive');
+    client.subscribe('$SYS/broker/clients/connected');
+    client.subscribe('ESP12/Status');
+    client.subscribe('ESP12/LDR');
+    client.subscribe('ESP12/RSSI');  
+    client.subscribe('ESP12/H'); 
+    client.subscribe('ESP12/T'); 
+    client.subscribe('ESP12/LED');
     
-    //message = new Paho.MQTT.Message('+');
-    //message.destinationName = topic + '/Users';
-    //client.send(message);
     message = new Paho.MQTT.Message(' ');
-    message.destinationName = topic + '/Status';
+    message.destinationName = 'ESP12/Status';
     client.send(message);
 
     document.getElementById('id_div1').style.display='none';
@@ -137,22 +134,10 @@ function onConnectionLost(responseObject) {
 
 function sendLED(set) {
     message = new Paho.MQTT.Message(set);
-    message.destinationName = topic + '/LED';
+    message.destinationName = 'ESP12/LED';
     client.send(message);	
     playSound();
 }
-
-//function sendCNT(set) {
-//    message = new Paho.MQTT.Message(set);
-//    message.destinationName = topic + '/CNT';
-//    client.send(message);	
-//}
-
-//function sendUsers(set) {
-//    message = new Paho.MQTT.Message(set);
-//    message.destinationName = topic + '/Users';
-//    client.send(message);	
-//}
 
 function upStatus() {
   document.getElementById('stESP12').innerHTML = 'Не подключен';
@@ -162,9 +147,9 @@ function upStatus() {
 
 // called when a message arrives
 function onMessageArrived(message) {
-	//console.log('onMessageArrived:' + message.payloadString);
+	console.log('onMessageArrived:' message.destinationName + ':' + message.payloadString);
 	
-	if (message.destinationName == topic + '/Status'){
+	if (message.destinationName == 'ESP12/Status'){
 	if (message.payloadString == ' ') {t1 = setInterval(upStatus,2000);}
 	if (message.payloadString == '1') { 
 	if (t1 != 0) {clearInterval(t1); t1=0;}
@@ -173,35 +158,31 @@ function onMessageArrived(message) {
 	document.getElementById('stESP12').innerHTML = 'Подключен';
 	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
 
-        if (message.destinationName == '\$SYS/broker/clients/inactive') {
+        if (message.destinationName == '$SYS/broker/clients/inactive') {
 
-	console.log(message.payloadString);
 	document.getElementById('stUSERS').innerHTML = message.payloadString;}
 
-	//if (message.destinationName == topic + '/Users') {
+        if (message.destinationName == '$SYS/broker/clients/connected') {
 
-        //console.log(message.payloadString);
-	//if (message.payloadString == '+') {if (cnt != 10) {cnt = cnt + 1; sendCNT(cnt.toString());}}
-	//if (message.payloadString == '-') {if (cnt != 0) {cnt = cnt - 1; sendCNT(cnt.toString());}}
-	//}
-	
-	if (message.destinationName == topic + '/RSSI') {
+	document.getElementById('stESP').innerHTML = message.payloadString;}
+
+	if (message.destinationName == 'ESP12/RSSI') {
 
 	document.getElementById('stRSSI').innerHTML = message.payloadString; }
 
-	if (message.destinationName == topic + '/LDR') {
+	if (message.destinationName == 'ESP12/LDR') {
 
 	document.getElementById('stLDR').innerHTML = message.payloadString; }
 
-	if (message.destinationName == topic + '/T') {
+	if (message.destinationName == 'ESP12/T') {
 
 	document.getElementById('stT').innerHTML = message.payloadString; temp = message.payloadString;}
 
-	if (message.destinationName == topic + '/H') {
+	if (message.destinationName == 'ESP12/H') {
 
 	document.getElementById('stH').innerHTML = message.payloadString; }
 
-	if (message.destinationName == topic + '/LED') {
+	if (message.destinationName == 'ESP12/LED') {
 
 	//document.getElementById('stLED').innerHTML = message.payloadString; 
 	if (message.payloadString == '0') {document.querySelector('#id_LED').checked = false;}
@@ -359,6 +340,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Статус модуля: <a id='stESP12'></a></h3>
   <div class='block1' title='в режиме отладки'>
 	<h3 class='hh'>Пользователей на сайте: <a id='stUSERS'></a></h3>
+	<h3 class='hh'>Статус модуля от брокера: <a id='stESP'></a></h3>
   </div>
   <h3 class='hh'>Последнее обновление: <a id='time'></a></h3>
   <h3 class='hh'>Уровень сигнала: <a id='stRSSI'></a> dBm</h3>
@@ -378,7 +360,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180111-0000</p>
+  <p class='stxt'>Версия: 20180111-0001</p>
 </td></tr>
 </table>
 

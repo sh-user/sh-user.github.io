@@ -33,7 +33,7 @@ input[type='checkbox']:checked ~ .switch { background: #9CA5D7; transition: .2s;
   display: inline-block; margin: 0 4px 0 4px; width: 25px; height: 13px; text-align: center; position: relative;
 }
 
-.block1 { border: solid 1px black; }
+.block1 { border: solid 1px #2F4F4F; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);}
 .lay1 {width: 300px; padding: 0; margin: 0 auto;}
 .lay2 {width: 40px; float: right;}
 .lay3 {width: 32px; float: right;}
@@ -57,7 +57,7 @@ border-radius: 4px; padding: 6px; }
 <script type="text/javascript">
 //=============================================================================
 //глобальные переменные
-var temp = ''; host = ''; port = 0; user = ''; pass = '';
+var flag = ''; temp = ''; host = ''; port = 0; user = ''; pass = '';
 
 function playSound() {
   if (typeof window.Audio === 'function') {
@@ -135,8 +135,7 @@ function onConnectionLost(responseObject) {
 function sendLED(set) {
     message = new Paho.MQTT.Message(set);
     message.destinationName = 'ESP12/LED';
-    client.send(message);	
-    playSound();
+    client.send(message);
 }
 
 // called when a message arrives
@@ -159,7 +158,8 @@ function onMessageArrived(message) {
 	//пользователи на сайте
         if (message.destinationName == '$SYS/broker/clients/inactive') {
 
-	document.getElementById('stUSERS').innerHTML = message.payloadString;}
+	if (message.payloadString == '0') {document.getElementById('stUSERS').innerHTML = '1';}
+	else {document.getElementById('stUSERS').innerHTML = message.payloadString;}}
 
 	//уровень сигнала
 	if (message.destinationName == 'ESP12/RSSI') {
@@ -187,7 +187,10 @@ function onMessageArrived(message) {
 
 	//document.getElementById('stLED').innerHTML = message.payloadString; 
 	if (message.payloadString == '0') {document.querySelector('#id_LED').checked = false;}
-	else {document.querySelector('#id_LED').checked = true;}}
+	else {document.querySelector('#id_LED').checked = true;}
+	if (flag == '') {flag = message.payloadString; }
+	if (message.payloadString != flag) { flag = message.payloadString; playSound();}
+	else {flag = message.payloadString; }}
 }
 
 //=============================================================================
@@ -347,20 +350,26 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Уровень освещенности: <a id='stLDR'></a></h3>
   <h3 class='hh'>Температура: <a id='stT'></a> &degC</h3>
   <h3 class='hh'>Влажность: <a id='stH'></a> %</h3>
-  <h3 class='hh'><label title='Не оставляйте светодиод включенным'>Управление светодиодом <div class='lay2'>
+ 
+<div class='block1' title='Режим отладки, не трогать!'> 
+
+<h3 class='hh'><label title='Не оставляйте светодиод включенным'>Управление светодиодом <div class='lay2'>
     <div class='card'><label for='id_LED'>
     <input type='checkbox' id='id_LED' onclick="checkLED()"/><span class='switch'></span><span class='toggle'></span>
     </label></div></div>
   </label></h3>
-  <h3 class='hh'><label title='Только для Google Chrome'>Голосовое управление <div class='lay2'>
+
+</div>
+
+  <h3 class='hh'><label title='Работает только в Google Chrome'>Голосовое управление <div class='lay2'>
     <div class='card'><label for='id_REC'>
     <input type='checkbox' id='id_REC' onclick="checkREC()"/><span class='switch'></span><span class='toggle'></span>
     </label></div></div>
   </label></h3>
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
-  <textarea class='ed' id='rcmd' rows='8'></textarea>
+  <textarea class='ed' id='rcmd' rows='7'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180111-0001</p>
+  <p class='stxt'>Версия: 20180111-1400</p>
 </td></tr>
 </table>
 

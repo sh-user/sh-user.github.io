@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)http://mdn.github.io/web-speech-api/speak-easy-synthesis/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+
+    <title>Speech synthesiser</title>
+
+    <link rel="stylesheet" href="./Speech synthesiser_files/style.css">
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <h1>Speech synthesiser</h1>
+
+    <p>Enter some text in the input below and press return to hear it. change voices using the dropdown menu.</p>
+    
+    <form>
+    <input type="text" class="txt">
+    <div>
+      <label for="rate">Rate</label><input type="range" min="0.5" max="2" value="1" step="0.1" id="rate">
+      <div class="rate-value">1</div>
+      <div class="clearfix"></div>
+    </div>
+    <div>
+      <label for="pitch">Pitch</label><input type="range" min="0" max="2" value="1" step="0.1" id="pitch">
+      <div class="pitch-value">0</div>
+      <div class="clearfix"></div>
+    </div>
+    <select><option data-lang="ru-RU" data-name="Microsoft Irina Desktop - Russian">Microsoft Irina Desktop - Russian (ru-RU) -- DEFAULT</option><option data-lang="en-US" data-name="Microsoft Zira Desktop - English (United States)">Microsoft Zira Desktop - English (United States) (en-US)</option><option data-lang="de-DE" data-name="Google Deutsch">Google Deutsch (de-DE)</option><option data-lang="en-US" data-name="Google US English">Google US English (en-US)</option><option data-lang="en-GB" data-name="Google UK English Female">Google UK English Female (en-GB)</option><option data-lang="en-GB" data-name="Google UK English Male">Google UK English Male (en-GB)</option><option data-lang="es-ES" data-name="Google español">Google español (es-ES)</option><option data-lang="es-US" data-name="Google español de Estados Unidos">Google español de Estados Unidos (es-US)</option><option data-lang="fr-FR" data-name="Google français">Google français (fr-FR)</option><option data-lang="hi-IN" data-name="Google हिन्दी">Google हिन्दी (hi-IN)</option><option data-lang="id-ID" data-name="Google Bahasa Indonesia">Google Bahasa Indonesia (id-ID)</option><option data-lang="it-IT" data-name="Google italiano">Google italiano (it-IT)</option><option data-lang="ja-JP" data-name="Google 日本語">Google 日本語 (ja-JP)</option><option data-lang="ko-KR" data-name="Google 한국의">Google 한국의 (ko-KR)</option><option data-lang="nl-NL" data-name="Google Nederlands">Google Nederlands (nl-NL)</option><option data-lang="pl-PL" data-name="Google polski">Google polski (pl-PL)</option><option data-lang="pt-BR" data-name="Google português do Brasil">Google português do Brasil (pt-BR)</option><option data-lang="ru-RU" data-name="Google русский">Google русский (ru-RU)</option><option data-lang="zh-CN" data-name="Google 普通话（中国大陆）">Google&nbsp;普通话（中国大陆） (zh-CN)</option><option data-lang="zh-HK" data-name="Google 粤語（香港）">Google&nbsp;粤語（香港） (zh-HK)</option><option data-lang="zh-TW" data-name="Google 國語（臺灣）">Google 國語（臺灣） (zh-TW)</option></select>
+    </form>
+
+    <script>
+var synth = window.speechSynthesis;
+
+var inputForm = document.querySelector('form');
+var inputTxt = document.querySelector('.txt');
+var voiceSelect = document.querySelector('select');
+
+var pitch = document.querySelector('#pitch');
+var pitchValue = document.querySelector('.pitch-value');
+var rate = document.querySelector('#rate');
+var rateValue = document.querySelector('.rate-value');
+
+var voices = [];
+
+function populateVoiceList() {
+  voices = synth.getVoices();
+  var selectedIndex = voiceSelect.selectedIndex < 0 ? 0 : voiceSelect.selectedIndex;
+  voiceSelect.innerHTML = '';
+  for(i = 0; i < voices.length ; i++) {
+    var option = document.createElement('option');
+    option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
+    
+    if(voices[i].default) {
+      option.textContent += ' -- DEFAULT';
+    }
+
+    option.setAttribute('data-lang', voices[i].lang);
+    option.setAttribute('data-name', voices[i].name);
+    voiceSelect.appendChild(option);
+  }
+  voiceSelect.selectedIndex = selectedIndex;
+}
+
+populateVoiceList();
+if (speechSynthesis.onvoiceschanged !== undefined) {
+  speechSynthesis.onvoiceschanged = populateVoiceList;
+}
+
+inputForm.onsubmit = function(event) {
+  event.preventDefault();
+
+  var utterThis = new SpeechSynthesisUtterance(inputTxt.value);
+  var selectedOption = voiceSelect.selectedOptions[0].getAttribute('data-name');
+  for(i = 0; i < voices.length ; i++) {
+    if(voices[i].name === selectedOption) {
+      utterThis.voice = voices[i];
+    }
+  }
+  utterThis.pitch = pitch.value;
+  utterThis.rate = rate.value;
+  synth.speak(utterThis);
+
+  utterThis.onpause = function(event) {
+    var char = event.utterance.text.charAt(event.charIndex);
+    console.log('Speech paused at character ' + event.charIndex + ' of "' +
+    event.utterance.text + '", which is "' + char + '".');
+  }
+
+  inputTxt.blur();
+}
+
+pitch.onchange = function() {
+  pitchValue.textContent = pitch.value;
+}
+
+rate.onchange = function() {
+  rateValue.textContent = rate.value;
+}
+</script>
+  
+</body></html>

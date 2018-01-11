@@ -98,7 +98,7 @@ function onConnect() {
     document.getElementById('stMQTT').innerHTML='Подключен';
     client.subscribe('$SYS/broker/clients/inactive');
     client.subscribe('$SYS/broker/clients/connected');
-    client.subscribe('ESP12/Status');
+    //client.subscribe('ESP12/Status');
     client.subscribe('ESP12/LDR');
     client.subscribe('ESP12/RSSI');  
     client.subscribe('ESP12/H'); 
@@ -139,51 +139,44 @@ function sendLED(set) {
     playSound();
 }
 
-function upStatus() {
-  document.getElementById('stESP12').innerHTML = 'Не подключен';
-  if (t1 != 0) {clearInterval(t1); t1=0;}
-  if (t2 != 0) {clearInterval(t2); t2=0;}
-}
-
 // called when a message arrives
 function onMessageArrived(message) {
-	
-	//console.log('onMessageArrived:' + message.destinationName + ':' + message.payloadString);
 	console.log(message.destinationName + ':' + message.payloadString);
 
-	if (message.destinationName == 'ESP12/Status'){
-	if (message.payloadString == ' ') {t1 = setInterval(upStatus,2000);}
-	if (message.payloadString == '1') { 
-	if (t1 != 0) {clearInterval(t1); t1=0;}
-	if (t2 != 0) {clearInterval(t2); t2=0;}
-	t2 = setInterval(upStatus,12000);
-	document.getElementById('stESP12').innerHTML = 'Подключен';
+	//статус модуля
+        if (message.destinationName == '$SYS/broker/clients/connected') {
+
+	if (message.payloadString == '0') { 
+	document.getElementById('stESP').innerHTML = 'Не подключен';}
+	else {document.getElementById('stESP').innerHTML = 'Подключен';
 	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
 
+	//пользователи на сайте
         if (message.destinationName == '$SYS/broker/clients/inactive') {
 
 	document.getElementById('stUSERS').innerHTML = message.payloadString;}
 
-        if (message.destinationName == '$SYS/broker/clients/connected') {
-
-	document.getElementById('stESP').innerHTML = message.payloadString;}
-
+	//уровень сигнала
 	if (message.destinationName == 'ESP12/RSSI') {
 
 	document.getElementById('stRSSI').innerHTML = message.payloadString; }
 
+	//уровень освещенности
 	if (message.destinationName == 'ESP12/LDR') {
 
 	document.getElementById('stLDR').innerHTML = message.payloadString; }
 
+	//температура
 	if (message.destinationName == 'ESP12/T') {
 
 	document.getElementById('stT').innerHTML = message.payloadString; temp = message.payloadString;}
 
+	//влажность
 	if (message.destinationName == 'ESP12/H') {
 
 	document.getElementById('stH').innerHTML = message.payloadString; }
 
+	//статус светодиода
 	if (message.destinationName == 'ESP12/LED') {
 
 	//document.getElementById('stLED').innerHTML = message.payloadString; 
@@ -339,10 +332,9 @@ if (confirm("Вы действительно хотите выйти?")) {
 </div>
 <div id='id_div2' style="display: none">
   <h3 class='hh'>Статус сервера: <a id='stMQTT'></a></h3>
-  <h3 class='hh'>Статус модуля: <a id='stESP12'></a></h3>
-  <div class='block1' title='в режиме отладки'>
-	<h3 class='hh'>Пользователей на сайте: <a id='stUSERS'></a></h3>
-	<h3 class='hh'>Статус модуля от брокера: <a id='stESP'></a></h3>
+  <div class='block1' title='в режиме отладки'> 
+    <h3 class='hh'>Статус модуля: <a id='stESP'></a></h3>
+    <h3 class='hh'>Пользователей на сайте: <a id='stUSERS'></a></h3>
   </div>
   <h3 class='hh'>Последнее обновление: <a id='time'></a></h3>
   <h3 class='hh'>Уровень сигнала: <a id='stRSSI'></a> dBm</h3>
@@ -362,7 +354,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180111-0002</p>
+  <p class='stxt'>Версия: 20180111-0007</p>
 </td></tr>
 </table>
 

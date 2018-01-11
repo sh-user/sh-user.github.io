@@ -97,7 +97,7 @@ function onConnect() {
     console.log('onConnect');
     document.getElementById('stMQTT').innerHTML='Подключен';
     //client.subscribe(topic + '/Users');
-    client.subscribe('\$SYS/broker/clients/inactive);
+    client.subscribe('\$SYS/broker/clients/inactive');
     client.subscribe(topic + '/Status');
     client.subscribe(topic + '/LDR');
     client.subscribe(topic + '/RSSI');  

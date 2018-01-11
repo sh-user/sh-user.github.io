@@ -257,6 +257,7 @@ function checkREC(){
   localStorage.setItem('rec', document.querySelector('#id_REC').checked); recognizer.start();} 
   else {
   document.getElementById('id_area').style.display='none';
+  document.getElementById('rcmd').value = '';	
   localStorage.setItem('rec', ''); recognizer.stop();}
 }
 
@@ -379,15 +380,15 @@ if (confirm("Вы действительно хотите выйти?")) {
   </label></h3>
 <div id='id_area' style="display: none">
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
-  <textarea class='ed' id='rcmd' rows='8'></textarea>
+  <textarea readonly class='ed' id='rcmd' rows='8'></textarea>
 </div>
    <h3 class='hh'>MQTT Messenger </h3>
-   <textarea class='ed' id='rmess' rows='8'></textarea>
+   <textarea readonly class='ed' id='rmess' rows='8'></textarea>
    <p class='hh'><input class='ed2' id='mq_mess' type='text' placeholder='Сообщение'>
 </p>
    <p class='hh'><input class='btn' type='button' value='Отправить' onClick="btnSendMESS()"/></p>
 </div>
-  <p class='stxt'>Версия: 20180111-1601</p>
+  <p class='stxt'>Версия: 20180111-1602</p>
 </td></tr>
 </table>
 

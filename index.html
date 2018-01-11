@@ -104,6 +104,7 @@ function onConnect() {
     client.subscribe('ESP12/H'); 
     client.subscribe('ESP12/T'); 
     client.subscribe('ESP12/LED');
+    client.subscribe('ESP12/SetLED');
     
     message = new Paho.MQTT.Message(' ');
     message.destinationName = 'ESP12/Status';
@@ -134,7 +135,7 @@ function onConnectionLost(responseObject) {
 
 function sendLED(set) {
     message = new Paho.MQTT.Message(set);
-    message.destinationName = 'ESP12/LED';
+    message.destinationName = 'ESP12/SetLED';
     client.send(message);
 }
 

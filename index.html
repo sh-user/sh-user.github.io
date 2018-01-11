@@ -144,12 +144,18 @@ function onMessageArrived(message) {
 	console.log(message.destinationName + ':' + message.payloadString);
 
 	//статус модуля
+	if (message.destinationName == 'ESP12/Status') {
+
+	if (message.payloadString == '1') {
+	document.getElementById('stESP').innerHTML = 'Подключен';}}
+
+	//статус модуля от брокера
         if (message.destinationName == '$SYS/broker/clients/connected') {
 
 	if (message.payloadString == '0') { 
 	document.getElementById('stESP').innerHTML = 'Не подключен';}
 	else {document.getElementById('stESP').innerHTML = 'Подключен';
-	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}}
+	}}
 
 	//пользователи на сайте
         if (message.destinationName == '$SYS/broker/clients/inactive') {
@@ -159,7 +165,8 @@ function onMessageArrived(message) {
 	//уровень сигнала
 	if (message.destinationName == 'ESP12/RSSI') {
 
-	document.getElementById('stRSSI').innerHTML = message.payloadString; }
+	document.getElementById('stRSSI').innerHTML = message.payloadString; 
+	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}
 
 	//уровень освещенности
 	if (message.destinationName == 'ESP12/LDR') {
@@ -354,7 +361,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea class='ed' id='rcmd' rows='8'></textarea>
 </div>
-  <p class='stxt'>Версия: 20180111-0007</p>
+  <p class='stxt'>Версия: 20180111-0010</p>
 </td></tr>
 </table>
 

@@ -275,7 +275,7 @@ utterance.onend = function() {
 
 //=============================================================================
 function speak(str){ 
-  recognizer.stop();
+  //recognizer.stop();
   if (speechSynthesis.speaking) return; 
   utterance.text = str; 
   // воспроизведение фразы: 

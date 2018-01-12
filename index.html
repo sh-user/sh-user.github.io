@@ -203,7 +203,7 @@ function onMessageArrived(message) {
    	rmess.value += new Date().toLocaleTimeString() + ': ' + message.payloadString + '\r\n';
       	rmess.scrollTop = rmess.scrollHeight; 
 	if (document.querySelector('#id_UTT').checked) { 
-	  if (txtUTT != message.payloadString) {txtUTT = message.payloadString;} 
+	  if (txtUTT != message.payloadString) {txtUTT = message.payloadString;} else {txtUTT = ''} }
 	else { playSound();}  
 	}
 }
@@ -257,7 +257,8 @@ if (document.querySelector('#id_RMESS').checked) {
   rec_str = '';
 }
 
-//if (document.querySelector('#id_UTT').checked && txtUTT != '') { speak(txtUTT); txtUTT = '';} 
+if (document.querySelector('#id_UTT').checked && txtUTT != '') { speak(txtUTT); } 
+
 //else {
 //if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
 //  recognizer.start();}
@@ -446,7 +447,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   </div>
 
 </div>
-  <p class='stxt'>Версия: 20180112-2000</p>
+  <p class='stxt'>Версия: 20180112-2002</p>
 </td></tr>
 </table>
 

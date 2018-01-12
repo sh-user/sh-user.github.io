@@ -202,7 +202,7 @@ function onMessageArrived(message) {
 
 //=============================================================================
   var recognizer = new webkitSpeechRecognition();
-  var rec_str1 = '';
+  var rec_str = '';
   // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
   recognizer.interimResults = true;
   recognizer.lang = 'ru-Ru';	
@@ -217,7 +217,7 @@ function onMessageArrived(message) {
 recognizer.onresult = function (event) {
     var result = event.results[event.resultIndex];
     if (result.isFinal) {
-      rec_str1 = result[0].transcript;
+      rec_str = result[0].transcript;
       if (document.querySelector('#id_REC').checked) {
         rcmd.value += new Date().toLocaleTimeString() + ': ' + result[0].transcript + '\r\n';
         rcmd.scrollTop = rcmd.scrollHeight;}
@@ -230,21 +230,22 @@ recognizer.onresult = function (event) {
 recognizer.onend = function() {
 if (document.querySelector('#id_REC').checked) {
   var tmp;
-  if (rec_str1 === 'включить'){sendLED('1');}
-  if (rec_str1 === 'выключить'){sendLED('0');}
+  if (rec_str === 'включить'){sendLED('1');}
+  if (rec_str === 'выключить'){sendLED('0');}
   tmp = temp.replace('.',' и ');
   //tmp = temp.substring(0,temp.indexOf('.'));
   //tmp = tmp + ' °';
-  if (rec_str1 === 'температура') {speak(tmp);}
-  //speak(rec_str1);
-  rec_str1 = '';
+  if (rec_str === 'температура') {speak(tmp);}
+  //speak(rec_str);
+  rec_str = '';
   recognizer.start();}
 
 if (document.querySelector('#id_RMESS').checked) {
-  message = new Paho.MQTT.Message(rec_str1);
-  message.destinationName = 'ESP12/MESS';
-  client.send(message);
-  rec_str1 = '';
+  if (rec_str != '') {
+    message = new Paho.MQTT.Message(rec_str);
+    message.destinationName = 'ESP12/MESS';
+    client.send(message);} 
+  rec_str = '';
   recognizer.start();}
 }
 
@@ -397,8 +398,8 @@ if (confirm("Вы действительно хотите выйти?")) {
 <form onsubmit="btnSendMESS(); return false">
    <p class='hh'><input class='ed2' id='mq_mess' autocomplete='off' type='text' placeholder='Сообщение'>
 </p>
-   <div class='block1' title='РЕЖИМ ОТЛАДКИ, НЕ ТРОГАТЬ !'>
-   <h3 class='hh'><label title='Работает только в Google Chrome'>Голосовой чат <div class='lay2'>
+   <div class='block1' title='РЕЖИМ ОТЛАДКИ. НЕ ТРОГАТЬ !'>
+   <h3 class='hh'><label title='Работает только в Google Chrome'>Голосовое сообщение<div class='lay2'>
     <div class='card'><label for='id_RMESS'>
     <input type='checkbox' id='id_RMESS' onclick="checkREC()"/><span class='switch'></span><span class='toggle'></span>
     </label></div></div>
@@ -406,7 +407,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   </div>
 </form><br>
 </div>
-  <p class='stxt'>Версия: 20180112-1800</p>
+  <p class='stxt'>Версия: 20180112-1845</p>
 </td></tr>
 </table>
 

@@ -202,7 +202,7 @@ function onMessageArrived(message) {
 	if (message.destinationName == 'ESP12/MESS') {
    	rmess.value += new Date().toLocaleTimeString() + ': ' + message.payloadString + '\r\n';
       	rmess.scrollTop = rmess.scrollHeight; 
-	if (document.querySelector('#id_UTT').checked) { recognition.stop(); txtUTT = message.payloadString; } 
+	if (document.querySelector('#id_UTT').checked) { recognizer.stop(); txtUTT = message.payloadString; } 
 	else { playSound();}  
 	}
 }

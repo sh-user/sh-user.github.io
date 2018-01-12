@@ -202,7 +202,7 @@ function onMessageArrived(message) {
 	if (message.destinationName == 'ESP12/MESS') {
    	rmess.value += new Date().toLocaleTimeString() + ': ' + message.payloadString + '\r\n';
       	rmess.scrollTop = rmess.scrollHeight; 
-	if (document.querySelector('#id_UTT').checked) { txtUTT = message.payloadString; } 
+	if (document.querySelector('#id_UTT').checked) { } 
 	else { playSound();}  
 	}
 }
@@ -213,7 +213,6 @@ function onMessageArrived(message) {
   // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
   recognizer.interimResults = true;
   recognizer.lang = 'ru-Ru';
-  //recognizer.lang = 'en-EN';	
   //recognizer.continuous = true;
   //recognizer.maxAlternatives = 1;
 
@@ -256,16 +255,10 @@ if (document.querySelector('#id_RMESS').checked) {
   else {rec_str = ''; }
 }
 
-if (rec_str == '') {
-if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
-  recognizer.start();}
-}
+if (document.querySelector('#id_UTT').checked) { speak(message.payloadString);}
+//if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
+//  recognizer.start();}
 
-}
-
-//=============================================================================
-recognizer.onspeechend = function() {
-   speak(txtUTT);
 }
 
 //=============================================================================

@@ -205,7 +205,8 @@ function onMessageArrived(message) {
   var rec_str = '';
   // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
   recognizer.interimResults = true;
-  recognizer.lang = 'ru-Ru';	
+  recognizer.lang = 'ru-Ru';
+  //recognizer.lang = 'en-EN';	
   //recognizer.continuous = true;
   //recognizer.maxAlternatives = 1;
 
@@ -244,15 +245,14 @@ if (document.querySelector('#id_RMESS').checked) {
     message = new Paho.MQTT.Message(rec_str);
     message.destinationName = 'ESP12/MESS';
     client.send(message);} 
+  speak(rec_str);
   rec_str = '';}
-
-if (document.querySelector('#id_RMESS').checked  || document.querySelector('#id_RMESS').checked) {
-  recognizer.start();}
 
 }
 
 utterance.onend = function() { 
-  //recognizer.start(); //продолжить распознование
+if (document.querySelector('#id_RMESS').checked  || document.querySelector('#id_RMESS').checked) {
+  recognizer.start();}
 }
 
 function speak(str){ 
@@ -274,6 +274,10 @@ function checkREC(){
   
   if (document.querySelector('#id_RMESS').checked) { recognizer.start(); }
   else { recognizer.stop();}
+}
+
+function checkUREC(){
+
 }
 
 function checkLED(){
@@ -400,6 +404,9 @@ if (confirm("Вы действительно хотите выйти?")) {
 <form onsubmit="btnSendMESS(); return false">
    <p class='hh'><input class='ed2' id='mq_mess' autocomplete='off' type='text' placeholder='Сообщение'>
 </p>
+</form>
+
+<div class='block1' title='РЕЖИМ ОТЛАДКИ. НЕ ТРОГАТЬ !'>  
 
    <h3 class='hh'><label title='Работает только в Google Chrome'>Голосовой набор сообщения<div class='lay2'>
     <div class='card'><label for='id_RMESS'>
@@ -407,17 +414,15 @@ if (confirm("Вы действительно хотите выйти?")) {
     </label></div></div>
   </label></h3>
 
-  <div class='block1' title='РЕЖИМ ОТЛАДКИ. НЕ ТРОГАТЬ !'>  
   <h3 class='hh'><label>Голосовое воспроизведение <div class='lay2'>
-    <div class='card'><label for='id_RMESS'>
-    <input type='checkbox' id='id_RMESS' onclick="checkREC()"/><span class='switch'></span><span class='toggle'></span>
+    <div class='card'><label for='id_UTEXT'>
+    <input type='checkbox' id='id_UTEXT' onclick="checkUREC()"/><span class='switch'></span><span class='toggle'></span>
     </label></div></div>
   </label></h3>
   </div>
 
-</form>
 </div>
-  <p class='stxt'>Версия: 20180112-1900</p>
+  <p class='stxt'>Версия: 20180112-2000</p>
 </td></tr>
 </table>
 

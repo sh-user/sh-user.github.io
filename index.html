@@ -202,7 +202,7 @@ function onMessageArrived(message) {
 	if (message.destinationName == 'ESP12/MESS') {
    	rmess.value += new Date().toLocaleTimeString() + ': ' + message.payloadString + '\r\n';
       	rmess.scrollTop = rmess.scrollHeight; 
-	if (document.querySelector('#id_UTT').checked) { recognizer.stop(); speak(message.payloadString);} 
+	if (document.querySelector('#id_UTT').checked) { txtUTT = message.payloadString);} 
 	else { playSound();}  
 	}
 }
@@ -265,7 +265,7 @@ if (document.querySelector('#id_REC').checked || document.querySelector('#id_RME
 
 //=============================================================================
 recognizer.onspeechend = function() {
-  console.log('Speech has stopped being detected');
+   speak(txtUTT);
 }
 
 //=============================================================================
@@ -448,7 +448,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   </div>
 
 </div>
-  <p class='stxt'>Версия: 20180112-2100</p>
+  <p class='stxt'>Версия: 20180113-0000</p>
 </td></tr>
 </table>
 

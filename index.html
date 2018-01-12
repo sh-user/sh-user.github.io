@@ -240,7 +240,7 @@ if (document.querySelector('#id_REC').checked) {
   rec_str1 = '';
   recognizer.start();}
 
-if (document.querySelector('#id_RMESS').checked && rec_str1 != '') {
+if (document.querySelector('#id_RMESS').checked) {
   message = new Paho.MQTT.Message(rec_str1);
   message.destinationName = 'ESP12/MESS';
   client.send(message);
@@ -397,14 +397,16 @@ if (confirm("Вы действительно хотите выйти?")) {
 <form onsubmit="btnSendMESS(); return false">
    <p class='hh'><input class='ed2' id='mq_mess' autocomplete='off' type='text' placeholder='Сообщение'>
 </p>
+   <div class='block1' title='РЕЖИМ ОТЛАДКИ, НЕ ТРОГАТЬ !'>
    <h3 class='hh'><label title='Работает только в Google Chrome'>Голосовой чат <div class='lay2'>
     <div class='card'><label for='id_RMESS'>
     <input type='checkbox' id='id_RMESS' onclick="checkREC()"/><span class='switch'></span><span class='toggle'></span>
     </label></div></div>
   </label></h3>
+  </div>
 </form><br>
 </div>
-  <p class='stxt'>Версия: 20180112-1700</p>
+  <p class='stxt'>Версия: 20180112-1800</p>
 </td></tr>
 </table>
 

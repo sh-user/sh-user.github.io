@@ -57,7 +57,7 @@ border-radius: 4px; padding: 6px; }
 <script type="text/javascript">
 //=============================================================================
 //глобальные переменные
-var flag = ''; temp = ''; host = ''; port = 0; user = ''; pass = '';
+var flag = ''; temp = ''; host = ''; port = 0; user = ''; pass = ''; txtUTT = '';
 
 function playSound() {
   if (typeof window.Audio === 'function') {
@@ -91,6 +91,7 @@ function MQTTconnect() {
   client.connect(options);
 }
 
+//=============================================================================
 // called when the client connects
 function onConnect() {
     // Once a connection has been made, make a subscription and send a message.
@@ -118,6 +119,7 @@ function onConnect() {
     document.querySelector('#id_REC').checked = localStorage.getItem('rec'); checkREC(); }
 }
 
+//=============================================================================
 function doFail(e){
     console.log(e);
     document.getElementById('stMQTT').innerHTML='Не подключен';
@@ -125,6 +127,7 @@ function doFail(e){
     alert('Ошибка подключения к серверу\r\nПроверьте правильность введенных параметров');
 }
 
+//=============================================================================
 // called when the client loses its connection
 function onConnectionLost(responseObject) {
     if (responseObject.errorCode !== 0) {
@@ -134,12 +137,14 @@ function onConnectionLost(responseObject) {
     }
 }
 
+//=============================================================================
 function sendLED(set) {
     message = new Paho.MQTT.Message(set);
     message.destinationName = 'ESP12/SetLED';
     client.send(message);
 }
 
+//=============================================================================
 // called when a message arrives
 function onMessageArrived(message) {
 	console.log(message.destinationName + ':' + message.payloadString);
@@ -197,8 +202,8 @@ function onMessageArrived(message) {
 	if (message.destinationName == 'ESP12/MESS') {
    	rmess.value += new Date().toLocaleTimeString() + ': ' + message.payloadString + '\r\n';
       	rmess.scrollTop = rmess.scrollHeight; 
-	if (document.querySelector('#id_UTT').checked) { speak(message.payloadString); }
-	else { playSound();}  
+        txtUTT = message.payloadString;
+	if (! document.querySelector('#id_UTT').checked) { playSound();}  
 	}
 }
 
@@ -230,6 +235,7 @@ recognizer.onresult = function (event) {
     }
 }
 
+//=============================================================================
 recognizer.onend = function() {
 if (document.querySelector('#id_REC').checked) {
   var tmp;
@@ -239,7 +245,6 @@ if (document.querySelector('#id_REC').checked) {
   //tmp = temp.substring(0,temp.indexOf('.'));
   //tmp = tmp + ' °';
   if (rec_str === 'температура') {speak(tmp);}
-  //speak(rec_str);
   rec_str = '';
 }
 
@@ -251,16 +256,24 @@ if (document.querySelector('#id_RMESS').checked) {
   rec_str = '';
 }
 
-if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
-  recognizer.start();}
-
+if (document.querySelector('#id_UTT').checked) {
+  if (txtUTT != '') { speak(txtUTT); } 
+  txtUTT = '';
 }
 
+if (! document.querySelector('#id_UTT').checked){
+if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
+  recognizer.start();}
+}}
+}
+
+//=============================================================================
 utterance.onend = function() { 
   if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
   recognizer.start();}
 }
 
+//=============================================================================
 function speak(str){ 
   recognizer.stop();
   if (speechSynthesis.speaking) return; 
@@ -269,6 +282,7 @@ function speak(str){
   speechSynthesis.speak(utterance); 
 }
 
+//=============================================================================
 function checkREC(){
   if (document.querySelector('#id_REC').checked) {
   document.getElementById('id_area').style.display='block';
@@ -282,20 +296,24 @@ function checkREC(){
   else { recognizer.stop();}
 }
 
+//=============================================================================
 function checkUTT(){
   
 }
 
+//=============================================================================
 function checkLED(){
   if (document.querySelector('#id_LED').checked) {sendLED('1');} 
   else {sendLED('0');}
 }
 
+//=============================================================================
 function keyNUM(AvaiableSymbol) {
   SearchChar=String.fromCharCode(window.event.keyCode);
   if(AvaiableSymbol.indexOf(SearchChar.toUpperCase())<0)return false;
 }
 
+//=============================================================================
 function btnConnect(){
   host = document.getElementById('mq_serv').value; 
   port = parseInt(document.getElementById('mq_port').value);
@@ -322,6 +340,7 @@ if (document.querySelector('#id_SAVE').checked) {
   MQTTconnect();
 }
 
+//=============================================================================
 function btnSendMESS(){
     message = new Paho.MQTT.Message(document.getElementById('mq_mess').value);
     message.destinationName = 'ESP12/MESS';
@@ -329,6 +348,7 @@ function btnSendMESS(){
     document.getElementById('mq_mess').value = '';
 }
 
+//=============================================================================
 function loadPAGE() {
   host = localStorage.getItem('serv');
   port = localStorage.getItem('port');
@@ -343,6 +363,7 @@ function loadPAGE() {
   else {document.getElementById('id_login').style.display='block';}
 }
 
+//=============================================================================
 function divEX(){
 if (confirm("Вы действительно хотите выйти?")) {
   localStorage.setItem('serv', '');
@@ -428,7 +449,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   </div>
 
 </div>
-  <p class='stxt'>Версия: 20180112-2002</p>
+  <p class='stxt'>Версия: 20180112-2000</p>
 </td></tr>
 </table>
 

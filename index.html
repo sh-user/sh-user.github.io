@@ -264,6 +264,11 @@ if (document.querySelector('#id_REC').checked || document.querySelector('#id_RME
 }
 
 //=============================================================================
+recognizer.onspeechend = function() {
+  console.log('Speech has stopped being detected');
+}
+
+//=============================================================================
 utterance.onend = function() { 
   if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
   recognizer.start();}

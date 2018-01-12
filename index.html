@@ -1,9 +1,8 @@
-﻿<!DOCTYPE html>
-<html lang='ru'><head>
+﻿<!DOCTYPE html><html lang='ru'>
+<head>
 <meta charset='utf-8'>
 <meta name='viewport' content='width=360'>
 <meta http-equiv='Cache-Control' content='no-cache'>
-<link rel='shortcut icon' href='/favicon.ico' type="image/x-icon" />
 <title>MQTT Websocket</title>
 
 <style>
@@ -219,15 +218,17 @@ recognizer.onresult = function (event) {
     var result = event.results[event.resultIndex];
     if (result.isFinal) {
       rec_str1 = result[0].transcript;
-      rcmd.value += new Date().toLocaleTimeString() + ': ' + result[0].transcript + '\r\n';
-      rcmd.scrollTop = rcmd.scrollHeight;
-      //console.log(event);
+      if (document.querySelector('#id_REC').checked) {
+        rcmd.value += new Date().toLocaleTimeString() + ': ' + result[0].transcript + '\r\n';
+        rcmd.scrollTop = rcmd.scrollHeight;}
+        //console.log(event);
     } else {
       console.log('Промежуточный результат: ', result[0].transcript);
     }
-};
+}
 
 recognizer.onend = function() {
+if (document.querySelector('#id_REC').checked) {
   var tmp;
   if (rec_str1 === 'включить'){sendLED('1');}
   if (rec_str1 === 'выключить'){sendLED('0');}
@@ -237,12 +238,19 @@ recognizer.onend = function() {
   if (rec_str1 === 'температура') {speak(tmp);}
   //speak(rec_str1);
   rec_str1 = '';
-  if (document.querySelector('#id_REC').checked) {recognizer.start();}
-};
+  recognizer.start();}
+
+if (document.querySelector('#id_RMESS').checked && rec_str1 != '') {
+  message = new Paho.MQTT.Message(rec_str1);
+  message.destinationName = 'ESP12/MESS';
+  client.send(message);
+  rec_str1 = '';
+  recognizer.start();}
+}
 
 utterance.onend = function() { 
   //recognizer.start(); //продолжить распознование
-};
+}
 
 function speak(str){ 
   //recognizer.stop();  
@@ -250,7 +258,7 @@ function speak(str){
   utterance.text = str; 
   // воспроизведение фразы: 
   speechSynthesis.speak(utterance); 
-};
+}
 
 function checkREC(){
   if (document.querySelector('#id_REC').checked) {
@@ -260,6 +268,9 @@ function checkREC(){
   document.getElementById('id_area').style.display='none';
   document.getElementById('rcmd').value = '';	
   localStorage.setItem('rec', ''); recognizer.stop();}
+  
+  if (document.querySelector('#id_RMESS').checked) { recognizer.start(); }
+  else { recognizer.stop();}
 }
 
 function checkLED(){
@@ -386,10 +397,14 @@ if (confirm("Вы действительно хотите выйти?")) {
 <form onsubmit="btnSendMESS(); return false">
    <p class='hh'><input class='ed2' id='mq_mess' autocomplete='off' type='text' placeholder='Сообщение'>
 </p>
-   <p class='hh'><input class='btn' type='submit' value='Отправить'/></p>
-</form>
+   <h3 class='hh'><label title='Работает только в Google Chrome'>Голосовой чат <div class='lay2'>
+    <div class='card'><label for='id_RMESS'>
+    <input type='checkbox' id='id_RMESS' onclick="checkREC()"/><span class='switch'></span><span class='toggle'></span>
+    </label></div></div>
+  </label></h3>
+</form><br>
 </div>
-  <p class='stxt'>Версия: 20180111-1700</p>
+  <p class='stxt'>Версия: 20180112-1700</p>
 </td></tr>
 </table>
 

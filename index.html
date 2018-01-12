@@ -202,8 +202,9 @@ function onMessageArrived(message) {
 	if (message.destinationName == 'ESP12/MESS') {
    	rmess.value += new Date().toLocaleTimeString() + ': ' + message.payloadString + '\r\n';
       	rmess.scrollTop = rmess.scrollHeight; 
-        txtUTT = message.payloadString;
-	if (! document.querySelector('#id_UTT').checked) { playSound();}  
+	if (document.querySelector('#id_UTT').checked) { 
+	  if (txtUTT != message.payloadString) {txtUTT = message.payloadString;} 
+	else { playSound();}  
 	}
 }
 
@@ -256,11 +257,11 @@ if (document.querySelector('#id_RMESS').checked) {
   rec_str = '';
 }
 
-if (txtUTT != '') { speak(txtUTT); txtUTT = '';} 
-else {
-if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
-  recognizer.start();}
-}
+//if (document.querySelector('#id_UTT').checked && txtUTT != '') { speak(txtUTT); txtUTT = '';} 
+//else {
+//if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
+//  recognizer.start();}
+//}
 
 }
 
@@ -274,9 +275,8 @@ utterance.onend = function() {
 function speak(str){ 
   //recognizer.stop();
   if (speechSynthesis.speaking) return; 
-  utterance.text = str; 
-  // воспроизведение фразы: 
-  speechSynthesis.speak(utterance); 
+  utterance.text = str;
+  speechSynthesis.speak(utterance);   //воспроизведение фразы
 }
 
 //=============================================================================
@@ -446,7 +446,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   </div>
 
 </div>
-  <p class='stxt'>Версия: 20180112-2001</p>
+  <p class='stxt'>Версия: 20180112-2000</p>
 </td></tr>
 </table>
 

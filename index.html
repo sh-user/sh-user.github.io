@@ -256,15 +256,12 @@ if (document.querySelector('#id_RMESS').checked) {
   rec_str = '';
 }
 
-if (document.querySelector('#id_UTT').checked) {
-  if (txtUTT != '') { speak(txtUTT); } 
-  txtUTT = '';
-}
-
-if (! document.querySelector('#id_UTT').checked){
+if (txtUTT != '') { speak(txtUTT); txtUTT = '';} 
+else {
 if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
   recognizer.start();}
 }
+
 }
 
 //=============================================================================
@@ -449,7 +446,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   </div>
 
 </div>
-  <p class='stxt'>Версия: 20180112-2000</p>
+  <p class='stxt'>Версия: 20180112-2001</p>
 </td></tr>
 </table>
 

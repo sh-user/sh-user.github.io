@@ -202,7 +202,7 @@ function onMessageArrived(message) {
 	if (message.destinationName == 'ESP12/MESS') {
    	rmess.value += new Date().toLocaleTimeString() + ': ' + message.payloadString + '\r\n';
       	rmess.scrollTop = rmess.scrollHeight; 
-	if (document.querySelector('#id_UTT').checked) { speak(message.payloadString);} 
+	if (document.querySelector('#id_UTT').checked) { recognizer.stop(); speak(message.payloadString);} 
 	else { playSound();}  
 	}
 }
@@ -271,8 +271,6 @@ utterance.onend = function() {
 
 //=============================================================================
 function speak(str){ 
-  //recognizer.stop();
-  recognizer.abort();
   if (speechSynthesis.speaking) return; 
   utterance.text = str;
   speechSynthesis.speak(utterance);   //воспроизведение фразы
@@ -445,7 +443,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   </div>
 
 </div>
-  <p class='stxt'>Версия: 20180112-2000</p>
+  <p class='stxt'>Версия: 20180112-2100</p>
 </td></tr>
 </table>
 

@@ -196,7 +196,9 @@ function onMessageArrived(message) {
 
 	if (message.destinationName == 'ESP12/MESS') {
    	rmess.value += new Date().toLocaleTimeString() + ': ' + message.payloadString + '\r\n';
-      	rmess.scrollTop = rmess.scrollHeight; playSound();  
+      	rmess.scrollTop = rmess.scrollHeight; 
+	if (document.querySelector('#id_UTT').checked) { speak(message.payloadString); }
+	else { playSound();}  
 	}
 }
 
@@ -238,21 +240,24 @@ if (document.querySelector('#id_REC').checked) {
   //tmp = tmp + ' °';
   if (rec_str === 'температура') {speak(tmp);}
   //speak(rec_str);
-  rec_str = '';}
+  rec_str = '';
+}
 
 if (document.querySelector('#id_RMESS').checked) {
   if (rec_str != '') {
     message = new Paho.MQTT.Message(rec_str);
     message.destinationName = 'ESP12/MESS';
     client.send(message);} 
-  speak(rec_str);
-  rec_str = '';}
+  rec_str = '';
+}
+
+if (document.querySelector('#id_REC').checked  || (document.querySelector('#id_RMESS').checked && document.querySelector('#id_UTT').checked = false)) {
+  recognizer.start();}
 
 }
 
 utterance.onend = function() { 
-if (document.querySelector('#id_RMESS').checked  || document.querySelector('#id_RMESS').checked) {
-  recognizer.start();}
+ if (document.querySelector('#id_RMESS').checked) {recognizer.start();}
 }
 
 function speak(str){ 
@@ -276,8 +281,8 @@ function checkREC(){
   else { recognizer.stop();}
 }
 
-function checkUREC(){
-
+function checkUTT(){
+  
 }
 
 function checkLED(){
@@ -415,14 +420,14 @@ if (confirm("Вы действительно хотите выйти?")) {
   </label></h3>
 
   <h3 class='hh'><label>Голосовое воспроизведение <div class='lay2'>
-    <div class='card'><label for='id_UTEXT'>
-    <input type='checkbox' id='id_UTEXT' onclick="checkUREC()"/><span class='switch'></span><span class='toggle'></span>
+    <div class='card'><label for='id_UTT'>
+    <input type='checkbox' id='id_UTT' onclick="checkUTT()"/><span class='switch'></span><span class='toggle'></span>
     </label></div></div>
   </label></h3>
   </div>
 
 </div>
-  <p class='stxt'>Версия: 20180112-2000</p>
+  <p class='stxt'>Версия: 20180112-2001</p>
 </td></tr>
 </table>
 

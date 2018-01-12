@@ -49,7 +49,7 @@ border: 1px solid gray; border-radius: 4px; padding: 6px;}
 
 .ed2 {width: 300px; height: 24px; border: 1px solid gray; font-family: Helvetica; font-size: 15px; 
 border-radius: 4px; padding: 6px; }
-.stxt {font-size: 12px;}
+.stxt {margin: 12px 0 12px 0; font-size: 12px;}
 
 </style>
 
@@ -237,16 +237,18 @@ if (document.querySelector('#id_REC').checked) {
   //tmp = tmp + ' °';
   if (rec_str === 'температура') {speak(tmp);}
   //speak(rec_str);
-  rec_str = '';
-  recognizer.start();}
+  rec_str = '';}
 
 if (document.querySelector('#id_RMESS').checked) {
   if (rec_str != '') {
     message = new Paho.MQTT.Message(rec_str);
     message.destinationName = 'ESP12/MESS';
     client.send(message);} 
-  rec_str = '';
+  rec_str = '';}
+
+if (document.querySelector('#id_RMESS').checked  || document.querySelector('#id_RMESS').checked) {
   recognizer.start();}
+
 }
 
 utterance.onend = function() { 
@@ -398,16 +400,24 @@ if (confirm("Вы действительно хотите выйти?")) {
 <form onsubmit="btnSendMESS(); return false">
    <p class='hh'><input class='ed2' id='mq_mess' autocomplete='off' type='text' placeholder='Сообщение'>
 </p>
-   <div class='block1' title='РЕЖИМ ОТЛАДКИ. НЕ ТРОГАТЬ !'>
-   <h3 class='hh'><label title='Работает только в Google Chrome'>Голосовое сообщение<div class='lay2'>
+
+   <h3 class='hh'><label title='Работает только в Google Chrome'>Голосовой набор сообщения<div class='lay2'>
+    <div class='card'><label for='id_RMESS'>
+    <input type='checkbox' id='id_RMESS' onclick="checkREC()"/><span class='switch'></span><span class='toggle'></span>
+    </label></div></div>
+  </label></h3>
+
+  <div class='block1' title='РЕЖИМ ОТЛАДКИ. НЕ ТРОГАТЬ !'>  
+  <h3 class='hh'><label>Голосовое воспроизведение <div class='lay2'>
     <div class='card'><label for='id_RMESS'>
     <input type='checkbox' id='id_RMESS' onclick="checkREC()"/><span class='switch'></span><span class='toggle'></span>
     </label></div></div>
   </label></h3>
   </div>
-</form><br>
+
+</form>
 </div>
-  <p class='stxt'>Версия: 20180112-1845</p>
+  <p class='stxt'>Версия: 20180112-1900</p>
 </td></tr>
 </table>
 

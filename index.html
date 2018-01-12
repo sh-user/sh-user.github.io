@@ -202,8 +202,8 @@ function onMessageArrived(message) {
 	if (message.destinationName == 'ESP12/MESS') {
    	rmess.value += new Date().toLocaleTimeString() + ': ' + message.payloadString + '\r\n';
       	rmess.scrollTop = rmess.scrollHeight; 
-	if (document.querySelector('#id_UTT').checked && txtUTT != rec_str) {
-	  speak(message.payloadString); txtUTT = message.payloadString;}
+	if (document.querySelector('#id_UTT').checked && message.payloadString != rec_str) {
+	  speak(message.payloadString);}
 	else { playSound();}  
 	}
 }
@@ -221,7 +221,8 @@ function onMessageArrived(message) {
   var utterance = new SpeechSynthesisUtterance();
   utterance.voice = voices[1];
 
-  // Используем колбек для обработки результатов
+//=============================================================================
+//Используем колбек для обработки результатов
 recognizer.onresult = function (event) {
     var result = event.results[event.resultIndex];
     if (result.isFinal) {
@@ -245,7 +246,7 @@ if (document.querySelector('#id_REC').checked) {
   //tmp = temp.substring(0,temp.indexOf('.'));
   //tmp = tmp + ' °';
   if (rec_str === 'температура') {speak(tmp);}
-  else { rec_str = '';}
+  rec_str = '';
 }
 
 if (document.querySelector('#id_RMESS').checked) {
@@ -262,7 +263,7 @@ if (document.querySelector('#id_REC').checked || document.querySelector('#id_RME
 
 //=============================================================================
 //utterance.onend = function() { 
-//
+
 //}
 
 //=============================================================================
@@ -284,11 +285,6 @@ function checkREC(){
   
   if (document.querySelector('#id_RMESS').checked) { recognizer.start(); }
   else { recognizer.stop();}
-}
-
-//=============================================================================
-function checkUTT(){
-
 }
 
 //=============================================================================
@@ -433,7 +429,7 @@ if (confirm("Вы действительно хотите выйти?")) {
 
   <h3 class='hh'><label>Голосовое воспроизведение <div class='lay2'>
     <div class='card'><label for='id_UTT'>
-    <input type='checkbox' id='id_UTT' onclick="checkUTT()"/><span class='switch'></span><span class='toggle'></span>
+    <input type='checkbox' id='id_UTT'/><span class='switch'></span><span class='toggle'></span>
     </label></div></div>
   </label></h3>
   </div>

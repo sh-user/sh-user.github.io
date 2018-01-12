@@ -272,6 +272,7 @@ utterance.onend = function() {
 //=============================================================================
 function speak(str){ 
   //recognizer.stop();
+  recognizer.abort();
   if (speechSynthesis.speaking) return; 
   utterance.text = str;
   speechSynthesis.speak(utterance);   //воспроизведение фразы
@@ -444,7 +445,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   </div>
 
 </div>
-  <p class='stxt'>Версия: 20180112-2004</p>
+  <p class='stxt'>Версия: 20180112-2000</p>
 </td></tr>
 </table>
 

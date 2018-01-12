@@ -257,11 +257,12 @@ if (document.querySelector('#id_REC').checked || document.querySelector('#id_RME
 }
 
 utterance.onend = function() { 
- if (document.querySelector('#id_RMESS').checked) {recognizer.start();}
+  if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
+  recognizer.start();}
 }
 
 function speak(str){ 
-  //recognizer.stop();  
+  recognizer.stop();
   if (speechSynthesis.speaking) return; 
   utterance.text = str; 
   // воспроизведение фразы: 
@@ -427,7 +428,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   </div>
 
 </div>
-  <p class='stxt'>Версия: 20180112-2000</p>
+  <p class='stxt'>Версия: 20180112-2002</p>
 </td></tr>
 </table>
 

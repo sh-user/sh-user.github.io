@@ -202,7 +202,8 @@ function onMessageArrived(message) {
 	if (message.destinationName == 'ESP12/MESS') {
    	rmess.value += new Date().toLocaleTimeString() + ': ' + message.payloadString + '\r\n';
       	rmess.scrollTop = rmess.scrollHeight; 
-	if (document.querySelector('#id_UTT').checked) { recognizer.stop(); txtUTT = message.payloadString; } 
+	if (document.querySelector('#id_UTT').checked && txtUTT != rec_str) {
+	  speak(message.payloadString); txtUTT = message.payloadString;}
 	else { playSound();}  
 	}
 }
@@ -244,7 +245,7 @@ if (document.querySelector('#id_REC').checked) {
   //tmp = temp.substring(0,temp.indexOf('.'));
   //tmp = tmp + ' °';
   if (rec_str === 'температура') {speak(tmp);}
-  else {rec_str = ''; }
+  rec_str = ''; 
 }
 
 if (document.querySelector('#id_RMESS').checked) {
@@ -252,20 +253,17 @@ if (document.querySelector('#id_RMESS').checked) {
     message = new Paho.MQTT.Message(rec_str);
     message.destinationName = 'ESP12/MESS';
     client.send(message);} 
-  else {rec_str = ''; }
+    rec_str = ''; 
 }
 
-if (document.querySelector('#id_UTT').checked && txtUTT != '') { speak(txtUTT); txtUTT = '';}
-//if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
-//  recognizer.start();}
-
+if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
+  recognizer.start();}
 }
 
 //=============================================================================
-utterance.onend = function() { 
-  if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
-  recognizer.start();}
-}
+//utterance.onend = function() { 
+//
+//}
 
 //=============================================================================
 function speak(str){ 
@@ -290,7 +288,7 @@ function checkREC(){
 
 //=============================================================================
 function checkUTT(){
-  
+
 }
 
 //=============================================================================

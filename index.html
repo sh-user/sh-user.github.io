@@ -211,7 +211,7 @@ function onMessageArrived(message) {
           txtUSER = txtUSER.substring(txtUSER.indexOf('\n'),txtUSER.length);
 	  recognizer.stop();
 	  flagSTOP = 1;
-          setTimeout(speak(txtUSER), 3000);}
+	  setTimeout(function(){speak(txtUSER);}, 2000);
 	else { playSound();}  
 	}
 }
@@ -259,7 +259,14 @@ recognizer.onresult = function (event) {
 }
 
 //=============================================================================
+recognizer.onstart = function() {
+document.getElementById('stRR').innerHTML = 'start';
+}
+
+//=============================================================================
 recognizer.onend = function() {
+document.getElementById('stRR').innerHTML = 'end';
+
 if (flagSTOP = 1) {
 if (document.querySelector('#id_REC').checked) {
   var tmp;
@@ -457,7 +464,8 @@ if (confirm("Вы действительно хотите выйти?")) {
   </label></h3>
 </div>
 </div>
-  <p class='stxt'>Версия: 20180113-1800</a></p>
+  <p class='stxt'>Версия: 20180113-1800</p>
+  <p class='stxt'>Распознование: <a id='stRR'></a></p>
 </td></tr>
 </table>
 

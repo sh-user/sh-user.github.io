@@ -260,7 +260,7 @@ recognizer.onresult = function (event) {
 
 //=============================================================================
 recognizer.onstart = function() {
-document.getElementById('stMIC').innerHTML = 'Включен';
+  document.getElementById('stMIC').innerHTML = 'Включен';
 }
 
 //=============================================================================
@@ -380,6 +380,7 @@ function loadPAGE() {
   document.querySelector('#id_SAVE').checked = localStorage.getItem('save');
   if (document.querySelector('#id_SAVE').checked) {btnConnect();}
   else {document.getElementById('id_login').style.display='block';}
+  document.getElementById('stMIC').innerHTML = 'Выключен';
 }
 
 //=============================================================================
@@ -451,7 +452,7 @@ if (confirm("Вы действительно хотите выйти?")) {
    <p class='hh'><input class='ed2' id='mq_mess' autocomplete='off' type='text' placeholder='Сообщение'>
 </p>
 </form>
-<div class='block1' title='Режим отладки'>
+
    <h3 class='hh'><label title='Работает только в Google Chrome'>Голосовой набор сообщения<div class='lay2'>
     <div class='card'><label for='id_RMESS'>
     <input type='checkbox' id='id_RMESS' onclick="checkREC()"/><span class='switch'></span><span class='toggle'></span>
@@ -462,10 +463,10 @@ if (confirm("Вы действительно хотите выйти?")) {
     <input type='checkbox' id='id_UTT'/><span class='switch'></span><span class='toggle'></span>
     </label></div></div>
   </label></h3>
+
+  <h3 class='hh'>Микрофон: <a id='stMIC'></a></h3>
 </div>
-</div>
-  <p class='stxt'>Микрофон: <a id='stMIC'></a></p>
-  <p class='stxt'>Версия: 20180113-1801</p>
+  <p class='stxt'>Версия: 20180114-0000</p>
 </td></tr>
 </table>
 

@@ -205,11 +205,10 @@ function onMessageArrived(message) {
       	rmess.scrollTop = rmess.scrollHeight; 
         var txtUSER = message.payloadString;
         txtUSER = txtUSER.substring(0,txtUSER.indexOf('\r'));
+        console.log('txtUSER:' + txtUSER + ';idUSER:' + idUSER);
 	if (document.querySelector('#id_UTT').checked && txtUSER != idUSER) { 
 	  txtUSER = message.payloadString;
-          console.log('speak1:' + txtUSER);
           txtUSER = txtUSER.substring(txtUSER.indexOf('\n'),txtUSER.length);
-          console.log('speak2:' + txtUSER); 	
           speak(txtUSER); }
 	else { playSound();}  
 	}

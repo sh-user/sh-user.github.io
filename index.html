@@ -209,9 +209,9 @@ function onMessageArrived(message) {
 	if (document.querySelector('#id_UTT').checked && txtUSER != 'User ' + idUSER) { 
 	  txtUSER = message.payloadString;
           txtUSER = txtUSER.substring(txtUSER.indexOf('\n'),txtUSER.length);
-	  flagSTOP = 1;
 	  recognizer.stop();
-          setTimeout(speak(txtUSER), 2000);}
+	  flagSTOP = 1;
+          setTimeout(speak(txtUSER), 3000);}
 	else { playSound();}  
 	}
 }

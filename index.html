@@ -167,7 +167,8 @@ function onMessageArrived(message) {
         if (message.destinationName == '$SYS/broker/clients/inactive') {
 
 	if (message.payloadString == '0') {document.getElementById('stUSERS').innerHTML = '1';}
-	else {document.getElementById('stUSERS').innerHTML = message.payloadString;}}
+	else {document.getElementById('stUSERS').innerHTML = message.payloadString;
+	rmess.value = 'Пользователей на сайте: ' + message.payloadString + '\r\n';}}
 
 	//уровень сигнала
 	if (message.destinationName == 'ESP12/RSSI') {
@@ -423,6 +424,7 @@ if (confirm("Вы действительно хотите выйти?")) {
    <p class='hh'><input class='ed2' id='mq_mess' autocomplete='off' type='text' placeholder='Сообщение'>
 </p>
 </form>
+<div class='block1' title='Режим отладки'>
    <h3 class='hh'><label title='Работает только в Google Chrome'>Голосовой набор сообщения<div class='lay2'>
     <div class='card'><label for='id_RMESS'>
     <input type='checkbox' id='id_RMESS' onclick="checkREC()"/><span class='switch'></span><span class='toggle'></span>
@@ -434,7 +436,8 @@ if (confirm("Вы действительно хотите выйти?")) {
     </label></div></div>
   </label></h3>
 </div>
-  <p class='stxt'>Версия: 20180113-1400</p>
+</div>
+  <p class='stxt'>Версия: 20180113-1700</p>
 </td></tr>
 </table>
 

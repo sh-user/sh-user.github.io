@@ -267,7 +267,7 @@ document.getElementById('stRR').innerHTML = 'start';
 recognizer.onend = function() {
 document.getElementById('stRR').innerHTML = 'end';
 
-if (flagSTOP = 1) {
+if (flagSTOP = 0) {
 if (document.querySelector('#id_REC').checked) {
   var tmp;
   if (rec_str === 'включить'){sendLED('1');}
@@ -464,7 +464,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   </label></h3>
 </div>
 </div>
-  <p class='stxt'>Версия: 20180113-1800</p>
+  <p class='stxt'>Версия: 20180113-1801</p>
   <p class='stxt'>Распознование: <a id='stRR'></a></p>
 </td></tr>
 </table>

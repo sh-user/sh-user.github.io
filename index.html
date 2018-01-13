@@ -57,7 +57,7 @@ border-radius: 4px; padding: 6px; }
 <script type="text/javascript">
 //=============================================================================
 //глобальные переменные
-var flag = ''; temp = ''; host = ''; port = 0; user = ''; pass = ''; txtUTT = '';
+var idUSER = ''; flag = ''; temp = ''; host = ''; port = 0; user = ''; pass = ''; txtUTT = '';
 
 function playSound() {
   if (typeof window.Audio === 'function') {
@@ -70,7 +70,8 @@ function playSound() {
 //=============================================================================
 function MQTTconnect() {
   // Create a client instance
-  client = new Paho.MQTT.Client(host, port, 'web_' + parseInt(Math.random() * 100, 10));
+  idUSER = parseInt(Math.random() * 100, 10);
+  client = new Paho.MQTT.Client(host, port, 'web_' + idUSER);
   // set callback handlers
   client.onConnectionLost = onConnectionLost;
   client.onMessageArrived = onMessageArrived;
@@ -202,9 +203,9 @@ function onMessageArrived(message) {
 	if (message.destinationName == 'ESP12/MESS') {
    	rmess.value += new Date().toLocaleTimeString() + ': ' + message.payloadString + '\r\n';
       	rmess.scrollTop = rmess.scrollHeight; 
-        console.log('message.payloadString:' + message.payloadString + ' rec_str:' + rec_str);
-	if (document.querySelector('#id_UTT').checked && message.payloadString != rec_str) {
-	  speak(message.payloadString); txtUTT = message.payloadString;}
+        var txtUSER = message.payloadString;
+        txtUSER = txtUSER.substring(0,txtUSER.indexOf('\r'));
+	if (document.querySelector('#id_UTT').checked && txtUSER != idUSER) { speak(message.payloadString); }
 	else { playSound();}  
 	}
 }
@@ -251,12 +252,11 @@ if (document.querySelector('#id_REC').checked) {
 }
 
 if (document.querySelector('#id_RMESS').checked) {
-  if (rec_str != '' && rec_str != txtUTT) {
-    message = new Paho.MQTT.Message(rec_str);
+  if (rec_str != '') {
+    message = new Paho.MQTT.Message('User ' + idUSER + '\r\n' + rec_str + '\r\n');
     message.destinationName = 'ESP12/MESS';
     client.send(message);} 
-    rec_str = '';
-    txtUTT = '';	
+    rec_str = '';	
 }
 
 if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
@@ -265,7 +265,6 @@ if (document.querySelector('#id_REC').checked || document.querySelector('#id_RME
 
 //=============================================================================
 //utterance.onend = function() { 
-
 //}
 
 //=============================================================================
@@ -330,7 +329,7 @@ if (document.querySelector('#id_SAVE').checked) {
 
 //=============================================================================
 function btnSendMESS(){
-    message = new Paho.MQTT.Message(document.getElementById('mq_mess').value);
+    message = new Paho.MQTT.Message('User ' + idUSER + '\r\n' + document.getElementById('mq_mess').value + '\r\n');
     message.destinationName = 'ESP12/MESS';
     client.send(message);
     document.getElementById('mq_mess').value = '';
@@ -425,13 +424,13 @@ if (confirm("Вы действительно хотите выйти?")) {
     <input type='checkbox' id='id_RMESS' onclick="checkREC()"/><span class='switch'></span><span class='toggle'></span>
     </label></div></div>
   </label></h3>
-  <h3 class='hh'><label>Голосовое воспроизведение <div class='lay2'>
+  <h3 class='hh'><label>Голосовое воспроизведение<div class='lay2'>
     <div class='card'><label for='id_UTT'>
     <input type='checkbox' id='id_UTT'/><span class='switch'></span><span class='toggle'></span>
     </label></div></div>
   </label></h3>
 </div>
-  <p class='stxt'>Версия: 20180113-0000</p>
+  <p class='stxt'>Версия: 20180113-1320</p>
 </td></tr>
 </table>
 

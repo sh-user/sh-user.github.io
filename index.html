@@ -260,12 +260,12 @@ recognizer.onresult = function (event) {
 
 //=============================================================================
 recognizer.onstart = function() {
-document.getElementById('stRR').innerHTML = 'start';
+document.getElementById('stMIC').innerHTML = 'Включен';
 }
 
 //=============================================================================
 recognizer.onend = function() {
-document.getElementById('stRR').innerHTML = 'end';
+document.getElementById('stMIC').innerHTML = 'Выключен';
 
 if (flagSTOP == 0) {
 if (document.querySelector('#id_REC').checked) {
@@ -464,8 +464,8 @@ if (confirm("Вы действительно хотите выйти?")) {
   </label></h3>
 </div>
 </div>
+  <p class='stxt'>Микрофон: <a id='stMIC'></a></p>
   <p class='stxt'>Версия: 20180113-1801</p>
-  <p class='stxt'>Распознование: <a id='stRR'></a></p>
 </td></tr>
 </table>
 

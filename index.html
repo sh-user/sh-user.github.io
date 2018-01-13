@@ -255,7 +255,8 @@ if (document.querySelector('#id_RMESS').checked) {
     message = new Paho.MQTT.Message(rec_str);
     message.destinationName = 'ESP12/MESS';
     client.send(message);} 
-    else { rec_str = '';}
+    rec_str = '';
+    txtUTT = '';	
 }
 
 if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {

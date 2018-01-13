@@ -44,7 +44,7 @@ input[type='checkbox']:checked ~ .switch { background: #9CA5D7; transition: .2s;
 .btn:active {background: linear-gradient(#DCDCDC, #F7F7F7);}
 .btn:hover {border: 1px solid #6E6E6E;}
 
-.ed {width: 300px; outline: none; resize: none; font-family: Helvetica; font-size: 15px; 
+.ed {width: 300px; outline: none; resize: none; font-family: Helvetica; font-size: 12px; 
 border: 1px solid gray; border-radius: 4px; padding: 6px;}
 
 .ed2 {width: 300px; height: 24px; border: 1px solid gray; font-family: Helvetica; font-size: 15px; 
@@ -207,8 +207,9 @@ function onMessageArrived(message) {
         txtUSER = txtUSER.substring(0,txtUSER.indexOf('\r'));
 	if (document.querySelector('#id_UTT').checked && txtUSER != idUSER) { 
 	  txtUSER = message.payloadString;
-          txtUSER = txtUSER.substring(txtUSER.indexOf('\n'),txtUSER.indexOf('\r'));
-          console.log('speak:' + txtUSER); 	
+          console.log('speak1:' + txtUSER);
+          txtUSER = txtUSER.substring(txtUSER.indexOf('\n'),txtUSER.length);
+          console.log('speak2:' + txtUSER); 	
           speak(txtUSER); }
 	else { playSound();}  
 	}
@@ -434,7 +435,7 @@ if (confirm("Вы действительно хотите выйти?")) {
     </label></div></div>
   </label></h3>
 </div>
-  <p class='stxt'>Версия: 20180113-1320</p>
+  <p class='stxt'>Версия: 20180113-1400</p>
 </td></tr>
 </table>
 

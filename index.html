@@ -57,7 +57,7 @@ border-radius: 4px; padding: 6px; }
 <script type="text/javascript">
 //=============================================================================
 //глобальные переменные
-var idUSER = ''; flag = ''; temp = ''; host = ''; port = 0; user = ''; pass = ''; txtUTT = '';
+var idUSER = ''; flag = ''; temp = ''; host = ''; port = 0; user = ''; pass = ''; txtUTT = ''; flagSTOP = 0;
 
 function playSound() {
   if (typeof window.Audio === 'function') {
@@ -206,11 +206,12 @@ function onMessageArrived(message) {
       	rmess.scrollTop = rmess.scrollHeight; 
         var txtUSER = message.payloadString;
         txtUSER = txtUSER.substring(0,txtUSER.indexOf('\r'));
-        console.log('txtUSER:' + txtUSER + ';idUSER:' + idUSER);
 	if (document.querySelector('#id_UTT').checked && txtUSER != 'User ' + idUSER) { 
 	  txtUSER = message.payloadString;
           txtUSER = txtUSER.substring(txtUSER.indexOf('\n'),txtUSER.length);
-          speak(txtUSER); }
+	  recognizer.stop();
+	  flagSTOP = 1;
+          setTimeout(speak(txtUSER), 1000);}
 	else { playSound();}  
 	}
 }
@@ -259,6 +260,7 @@ recognizer.onresult = function (event) {
 
 //=============================================================================
 recognizer.onend = function() {
+if (flagSTOP = 0) {
 if (document.querySelector('#id_REC').checked) {
   var tmp;
   if (rec_str === 'включить'){sendLED('1');}
@@ -279,12 +281,16 @@ if (document.querySelector('#id_RMESS').checked) {
 }
 
 if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
-  recognizer.start();}
+  recognizer.start();} 
+}
 }
 
 //=============================================================================
-//utterance.onend = function() { 
-//}
+utterance.onend = function() { 
+  flagSTOP = 0;
+  if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
+  recognizer.start();}
+}
 
 //=============================================================================
 function speak(str){ 
@@ -451,7 +457,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   </label></h3>
 </div>
 </div>
-  <p class='stxt'>Версия: 20180113-1700</p>
+  <p class='stxt'>Версия: 20180113-1800</a></p>
 </td></tr>
 </table>
 

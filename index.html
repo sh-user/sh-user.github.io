@@ -217,6 +217,7 @@ function onMessageArrived(message) {
 
 //=============================================================================
   var recognizer = new webkitSpeechRecognition();
+  var recog = false;
   var rec_str = '';
   // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
   recognizer.interimResults = true;
@@ -231,42 +232,22 @@ function onMessageArrived(message) {
 //=============================================================================
 //Используем колбек для обработки результатов
 recognizer.onresult = function (event) {
+    var tmp;
     var result = event.results[event.resultIndex];
     if (result.isFinal) {
       rec_str = result[0].transcript;
       if (document.querySelector('#id_REC').checked) {
         rcmd.value += new Date().toLocaleTimeString() + ': ' + result[0].transcript + '\r\n';
-        rcmd.scrollTop = rcmd.scrollHeight;}
-        //console.log(event);
-    } else {
-      console.log('Промежуточный результат: ', result[0].transcript);
-    }
-}
-
-
-//=============================================================================
-recognizer.onaudioend = function() {
-  recognizer.start();
-  console.log('Audio capturing ended');
-}
-
-//=============================================================================
-recognizer.onaudiostart = function() {
-  console.log('Audio capturing started');
-}
-
-//=============================================================================
-recognizer.onend = function() {
-if (document.querySelector('#id_REC').checked) {
-  var tmp;
-  if (rec_str === 'включить'){sendLED('1');}
-  if (rec_str === 'выключить'){sendLED('0');}
-  tmp = temp.replace('.',' и ');
-  //tmp = temp.substring(0,temp.indexOf('.'));
-  //tmp = tmp + ' °';
-  if (rec_str === 'температура') {speak(tmp);}
-  rec_str = '';
-}
+        rcmd.scrollTop = rcmd.scrollHeight;
+        
+  	if (rec_str === 'включить'){sendLED('1');}
+  	if (rec_str === 'выключить'){sendLED('0');}
+  	tmp = temp.replace('.',' и ');
+  	//tmp = temp.substring(0,temp.indexOf('.'));
+  	//tmp = tmp + ' °';
+  	if (rec_str === 'температура') {speak(tmp);}
+  	rec_str = '';
+	}
 
 if (document.querySelector('#id_RMESS').checked) {
   if (rec_str != '') {
@@ -275,9 +256,22 @@ if (document.querySelector('#id_RMESS').checked) {
     client.send(message);} 
     rec_str = '';	
 }
+        //console.log(event);
+    } else {
+      console.log('Промежуточный результат: ', result[0].transcript);
+    }
+}
 
-//if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
-//  recognizer.start();}
+//=============================================================================
+recognizer.onstart = function () {
+    recog = true;
+};
+
+//=============================================================================
+recognizer.onend = function() {
+    recog = false;
+if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
+  recognizer.start();}
 }
 
 //=============================================================================

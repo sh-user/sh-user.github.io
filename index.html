@@ -230,24 +230,45 @@ function onMessageArrived(message) {
   utterance.voice = voices[1];
 
 //=============================================================================
+  var recognizer = new webkitSpeechRecognition();
+  var rec_str = '';
+  // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
+  recognizer.interimResults = true;
+  recognizer.lang = 'ru-Ru';
+  //recognizer.continuous = true;
+  //recognizer.maxAlternatives = 1;
+
+  var voices = speechSynthesis.getVoices();
+  var utterance = new SpeechSynthesisUtterance();
+  utterance.voice = voices[1];
+
+//=============================================================================
 //Используем колбек для обработки результатов
 recognizer.onresult = function (event) {
-    var tmp;
     var result = event.results[event.resultIndex];
     if (result.isFinal) {
       rec_str = result[0].transcript;
       if (document.querySelector('#id_REC').checked) {
         rcmd.value += new Date().toLocaleTimeString() + ': ' + result[0].transcript + '\r\n';
-        rcmd.scrollTop = rcmd.scrollHeight;
-        
-  	if (rec_str === 'включить'){sendLED('1');}
-  	if (rec_str === 'выключить'){sendLED('0');}
-  	tmp = temp.replace('.',' и ');
-  	//tmp = temp.substring(0,temp.indexOf('.'));
-  	//tmp = tmp + ' °';
-  	if (rec_str === 'температура') {speak(tmp);}
-  	rec_str = '';
-	}
+        rcmd.scrollTop = rcmd.scrollHeight;}
+        //console.log(event);
+    } else {
+      console.log('Промежуточный результат: ', result[0].transcript);
+    }
+}
+
+//=============================================================================
+recognizer.onend = function() {
+if (document.querySelector('#id_REC').checked) {
+  var tmp;
+  if (rec_str === 'включить'){sendLED('1');}
+  if (rec_str === 'выключить'){sendLED('0');}
+  tmp = temp.replace('.',' и ');
+  //tmp = temp.substring(0,temp.indexOf('.'));
+  //tmp = tmp + ' °';
+  if (rec_str === 'температура') {speak(tmp);}
+  rec_str = '';
+}
 
 if (document.querySelector('#id_RMESS').checked) {
   if (rec_str != '') {
@@ -256,20 +277,7 @@ if (document.querySelector('#id_RMESS').checked) {
     client.send(message);} 
     rec_str = '';	
 }
-        //console.log(event);
-    } else {
-      console.log('Промежуточный результат: ', result[0].transcript);
-    }
-}
 
-//=============================================================================
-recognizer.onstart = function () {
-    recog = true;
-};
-
-//=============================================================================
-recognizer.onend = function() {
-    recog = false;
 if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
   recognizer.start();}
 }
@@ -443,7 +451,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   </label></h3>
 </div>
 </div>
-  <p class='stxt'>Версия: 20180113-1800-TEST</p>
+  <p class='stxt'>Версия: 20180113-1700</p>
 </td></tr>
 </table>
 

@@ -237,10 +237,22 @@ recognizer.onresult = function (event) {
       if (document.querySelector('#id_REC').checked) {
         rcmd.value += new Date().toLocaleTimeString() + ': ' + result[0].transcript + '\r\n';
         rcmd.scrollTop = rcmd.scrollHeight;}
+	recognizer.start();
         //console.log(event);
     } else {
       console.log('Промежуточный результат: ', result[0].transcript);
     }
+}
+
+
+//=============================================================================
+recognizer.onaudioend = function() {
+  console.log('Audio capturing ended');
+}
+
+//=============================================================================
+recognizer.onaudiostart = function() {
+  console.log('Audio capturing started');
 }
 
 //=============================================================================

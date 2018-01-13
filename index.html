@@ -260,7 +260,7 @@ recognizer.onresult = function (event) {
 
 //=============================================================================
 recognizer.onend = function() {
-if (flagSTOP = 0) {
+if (flagSTOP = 1) {
 if (document.querySelector('#id_REC').checked) {
   var tmp;
   if (rec_str === 'включить'){sendLED('1');}

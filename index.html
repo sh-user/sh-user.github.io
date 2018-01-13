@@ -207,7 +207,8 @@ function onMessageArrived(message) {
         txtUSER = txtUSER.substring(0,txtUSER.indexOf('\r'));
 	if (document.querySelector('#id_UTT').checked && txtUSER != idUSER) { 
 	  txtUSER = message.payloadString;
-          txtUSER = txtUSER.substring(temp.indexOf('\n'),temp.indexOf('\r')); 	
+          txtUSER = txtUSER.substring(temp.indexOf('\n'),temp.indexOf('\r'));
+          console.log('speak:' + txtUSER); 	
           speak(txtUSER); }
 	else { playSound();}  
 	}

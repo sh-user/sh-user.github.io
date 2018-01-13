@@ -202,6 +202,7 @@ function onMessageArrived(message) {
 	if (message.destinationName == 'ESP12/MESS') {
    	rmess.value += new Date().toLocaleTimeString() + ': ' + message.payloadString + '\r\n';
       	rmess.scrollTop = rmess.scrollHeight; 
+        console.log('message.payloadString:' + message.payloadString + ' rec_str:' + rec_str);
 	if (document.querySelector('#id_UTT').checked && message.payloadString != rec_str) {
 	  speak(message.payloadString); txtUTT = message.payloadString;}
 	else { playSound();}  
@@ -250,11 +251,11 @@ if (document.querySelector('#id_REC').checked) {
 }
 
 if (document.querySelector('#id_RMESS').checked) {
-  if (rec_str != '') {
+  if (rec_str != '' && rec_str != txtUTT) {
     message = new Paho.MQTT.Message(rec_str);
     message.destinationName = 'ESP12/MESS';
     client.send(message);} 
-    else { rec_str = '';}
+    rec_str = '';
 }
 
 if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {

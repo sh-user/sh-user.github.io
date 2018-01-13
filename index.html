@@ -205,7 +205,10 @@ function onMessageArrived(message) {
       	rmess.scrollTop = rmess.scrollHeight; 
         var txtUSER = message.payloadString;
         txtUSER = txtUSER.substring(0,txtUSER.indexOf('\r'));
-	if (document.querySelector('#id_UTT').checked && txtUSER != idUSER) { speak(message.payloadString); }
+	if (document.querySelector('#id_UTT').checked && txtUSER != idUSER) { 
+	  txtUSER = message.payloadString;
+          txtUSER = txtUSER.substring(temp.indexOf('\n'),temp.indexOf('\r')); 	
+          speak(txtUSER); }
 	else { playSound();}  
 	}
 }

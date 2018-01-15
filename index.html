@@ -136,7 +136,7 @@ function onConnectionLost(responseObject) {
     if (responseObject.errorCode !== 0) {
       console.log("onConnectionLost:"+responseObject.errorMessage);
       document.getElementById('stMQTT').innerHTML=responseObject.errorMessage;
-      alert('Ошибка\r\n'+responseObject.errorMessage);
+      //alert('Ошибка\r\n'+responseObject.errorMessage);
     }
 }
 
@@ -156,14 +156,17 @@ function onMessageArrived(message) {
 	if (message.destinationName == 'ESP12/Status') {
 
 	if (message.payloadString == '1') {
-	document.getElementById('stESP').innerHTML = 'Подключен';}}
+	document.getElementById('stESP').innerHTML = 'Подключен';
+	document.getElementById('id_info').style.display='block';}}
 
 	//статус модуля от брокера
         if (message.destinationName == '$SYS/broker/clients/connected') {
 
 	if (message.payloadString == '0') { 
-	document.getElementById('stESP').innerHTML = 'Не подключен';}
-	else {document.getElementById('stESP').innerHTML = 'Подключен';}}
+	document.getElementById('stESP').innerHTML = 'Не подключен';
+	document.getElementById('id_info').style.display='none';}
+	else {document.getElementById('stESP').innerHTML = 'Подключен';
+	document.getElementById('id_info').style.display='block';}}
 
 	//пользователей на сайте
         if (message.destinationName == '$SYS/broker/clients/inactive') {
@@ -447,6 +450,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Статус сервера: <a id='stMQTT'></a></h3>
   <h3 class='hh'>Статус модуля: <a id='stESP'></a></h3>
   <h3 class='hh'>Пользователей на сайте: <a id='stUSERS'></a></h3>
+<div id='id_info' style="display: none">
   <h3 class='hh'>Последнее обновление: <a id='time'></a></h3>
   <h3 class='hh'>Уровень сигнала: <a id='stRSSI'></a> dBm</h3>
   <h3 class='hh'>Уровень освещенности: <a id='stLDR'></a></h3>
@@ -467,6 +471,7 @@ if (confirm("Вы действительно хотите выйти?")) {
 <div id='id_area1' style="display: none">
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea readonly class='ed' id='rcmd' rows='8'></textarea>
+</div>
 </div>
 
 <h3 class='hh'><label>MQTT Messenger <div class='lay2'>
@@ -496,7 +501,7 @@ if (confirm("Вы действительно хотите выйти?")) {
 <p><input class='btn' type='button' value='Перезагрузить модуль' onClick="btnReset()"/></p>
 
 </div>
-  <p class='stxt'>Версия: 20180115-0000</p>
+  <p class='stxt'>Версия: 20180115-1800</p>
 </td></tr>
 </table>
 

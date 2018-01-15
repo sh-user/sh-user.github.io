@@ -152,6 +152,13 @@ function sendLED(set) {
 function onMessageArrived(message) {
 	console.log(message.destinationName + ':' + message.payloadString);
 
+        //перезагрузка модуля
+	if (message.destinationName == 'ESP12/Reset') {
+
+	if (message.payloadString == '1') {
+	document.getElementById('stESP').innerHTML = 'Перезагрузка';
+	document.getElementById('id_info').style.display='none';}}
+
 	//статус модуля
 	if (message.destinationName == 'ESP12/Status') {
 
@@ -227,7 +234,7 @@ function onMessageArrived(message) {
   // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
   recognizer.interimResults = true;
   recognizer.lang = 'ru-Ru';
-  recognizer.continuous = true;
+  //recognizer.continuous = true;
   //recognizer.maxAlternatives = 1;
 
   var voices = speechSynthesis.getVoices();
@@ -346,13 +353,11 @@ function keyNUM(AvaiableSymbol) {
 
 //=============================================================================
 function btnReset(){
-  alert('Тут будет перезагрузка модуля');
-
-//if (confirm("Вы действительно хотите перезагрузить модуль?")) {
-//  message = new Paho.MQTT.Message(' ');
-//  message.destinationName = 'ESP12/Reset';
-//  client.send(message);
-//}
+if (confirm("Вы действительно хотите перезагрузить модуль?")) {
+  message = new Paho.MQTT.Message(' ');
+  message.destinationName = 'ESP12/Reset';
+  client.send(message);
+}
 }
 
 //=============================================================================

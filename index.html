@@ -101,6 +101,7 @@ function onConnect() {
     client.subscribe('$SYS/broker/clients/inactive');
     client.subscribe('$SYS/broker/clients/connected');
     client.subscribe('ESP12/Status');
+    client.subscribe('ESP12/Reset');
     client.subscribe('ESP12/LDR');
     client.subscribe('ESP12/RSSI');  
     client.subscribe('ESP12/H'); 

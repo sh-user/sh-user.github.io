@@ -219,7 +219,7 @@ function onMessageArrived(message) {
 
 //=============================================================================
   var recognizer = new webkitSpeechRecognition();
-  var recog = false;
+  var rec_flag = false;
   var rec_str = '';
   // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
   recognizer.interimResults = true;
@@ -260,7 +260,13 @@ recognizer.onresult = function (event) {
 }
 
 //=============================================================================
+recognizer.onstart = function() {
+  rec_flag = true;
+}
+
+//=============================================================================
 recognizer.onend = function() {
+rec_flag = false;
 if (flagSTOP == 0) {
 if (document.querySelector('#id_REC').checked) {
   var tmp;
@@ -320,7 +326,7 @@ function checkBX(){
   localStorage.setItem('mess', ''); }
 
   if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
-  recognizer.start();} else { recognizer.stop();}
+  if (! rec_flag) {recognizer.start();}} else { recognizer.stop();}
 }
 
 //=============================================================================

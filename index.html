@@ -117,7 +117,9 @@ function onConnect() {
     document.getElementById('id_mqtt').style.display='block';
     if (document.querySelector('#id_SAVE').checked) {
     document.getElementById('id_EX').style.display='block';
-    document.querySelector('#id_REC').checked = localStorage.getItem('rec'); checkBX(); }
+    document.querySelector('#id_REC').checked = localStorage.getItem('reccmd'); 
+    document.querySelector('#id_MESS').checked = localStorage.getItem('mess'); 
+    checkBX(); }
 }
 
 //=============================================================================
@@ -302,20 +304,23 @@ function speak(str){
 function checkBX(){
   if (document.querySelector('#id_REC').checked) {
   document.getElementById('id_area1').style.display='block';
-  localStorage.setItem('rec', document.querySelector('#id_REC').checked); 
-  recognizer.start();} 
+  localStorage.setItem('reccmd', document.querySelector('#id_REC').checked); } 
   else {
   document.getElementById('id_area1').style.display='none';
   document.getElementById('rcmd').value = '';	
-  localStorage.setItem('rec', ''); 
-  recognizer.stop();}
+  localStorage.setItem('reccmd', ''); }
   
   if (document.querySelector('#id_MESS').checked) {
-    document.getElementById('id_area2').style.display='block';
-    if (document.querySelector('#id_RMESS').checked) { recognizer.start(); }
-    else { recognizer.stop();}
-  }
-  else {document.getElementById('id_area2').style.display='none'; }
+  document.getElementById('id_area2').style.display='block'; 
+  localStorage.setItem('mess', document.querySelector('#id_REC').checked); }
+  else {
+  document.querySelector('#id_RMESS').checked = false;
+  document.querySelector('#id_UTT').checked = false;
+  document.getElementById('id_area2').style.display='none';
+  localStorage.setItem('mess', ''); }
+
+  if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
+  recognizer.start();} else { recognizer.stop();}
 }
 
 //=============================================================================
@@ -332,11 +337,13 @@ function keyNUM(AvaiableSymbol) {
 
 //=============================================================================
 function btnReset(){
-if (confirm("Вы действительно хотите перезагрузить модуль?")) {
-  message = new Paho.MQTT.Message('1');
-  message.destinationName = 'ESP12/Reset';
-  client.send(message);
-}
+  alert('Тут будет перезагрузка модуля');
+
+//if (confirm("Вы действительно хотите перезагрузить модуль?")) {
+//  message = new Paho.MQTT.Message(' ');
+//  message.destinationName = 'ESP12/Reset';
+//  client.send(message);
+//}
 }
 
 //=============================================================================
@@ -360,7 +367,8 @@ if (document.querySelector('#id_SAVE').checked) {
   else {
   localStorage.setItem('pass', '');
   localStorage.setItem('save', '');
-  localStorage.setItem('rec', '');
+  localStorage.setItem('reccmd', '');
+  localStorage.setItem('mess', '');
 }
   MQTTconnect();
 }

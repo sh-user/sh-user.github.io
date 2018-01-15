@@ -101,7 +101,7 @@ function onConnect() {
     client.subscribe('$SYS/broker/clients/inactive');
     client.subscribe('$SYS/broker/clients/connected');
     client.subscribe('ESP12/Status');
-    client.subscribe('ESP12/Reset');
+    client.subscribe('ESP12/RES');
     client.subscribe('ESP12/LDR');
     client.subscribe('ESP12/RSSI');  
     client.subscribe('ESP12/H'); 
@@ -154,7 +154,7 @@ function onMessageArrived(message) {
 	console.log(message.destinationName + ':' + message.payloadString);
 
         //перезагрузка модуля
-	if (message.destinationName == 'ESP12/Reset') {
+	if (message.destinationName == 'ESP12/RES') {
 
 	if (message.payloadString == '1') {
 	stESP.innerHTML = 'Перезагрузка';
@@ -356,7 +356,7 @@ function keyNUM(AvaiableSymbol) {
 function btnReset(){
 if (confirm("Вы действительно хотите перезагрузить модуль?")) {
   message = new Paho.MQTT.Message(' ');
-  message.destinationName = 'ESP12/Reset';
+  message.destinationName = 'ESP12/RES';
   client.send(message);
 }
 }
@@ -507,7 +507,7 @@ if (confirm("Вы действительно хотите выйти?")) {
 <p><input class='btn' type='button' value='Перезагрузить модуль' onClick="btnReset()"/></p>
 
 </div>
-  <p class='stxt'>Версия: 20180115-2000</p>
+  <p class='stxt'>Версия: 20180115-2100</p>
 </td></tr>
 </table>
 

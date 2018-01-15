@@ -97,7 +97,7 @@ function MQTTconnect() {
 function onConnect() {
     // Once a connection has been made, make a subscription and send a message.
     console.log('onConnect');
-    document.getElementById('stMQTT').innerHTML='Подключен';
+    stMQTT.innerHTML='Подключен';
     client.subscribe('$SYS/broker/clients/inactive');
     client.subscribe('$SYS/broker/clients/connected');
     client.subscribe('ESP12/Status');
@@ -114,20 +114,20 @@ function onConnect() {
     message.destinationName = 'ESP12/Status';
     client.send(message);
 
-    document.getElementById('id_login').style.display='none';
-    document.getElementById('id_mqtt').style.display='block';
-    if (document.querySelector('#id_SAVE').checked) {
-    document.getElementById('id_EX').style.display='block';
-    document.querySelector('#id_REC').checked = localStorage.getItem('reccmd'); 
-    document.querySelector('#id_MESS').checked = localStorage.getItem('mess'); 
+    id_login.style.display='none';
+    id_mqtt.style.display='block';
+    if (id_SAVE.checked) {
+    id_EX.style.display='block';
+    id_REC.checked = localStorage.getItem('reccmd'); 
+    id_MESS.checked = localStorage.getItem('mess'); 
     checkBX(); }
 }
 
 //=============================================================================
 function doFail(e){
     console.log(e);
-    //document.getElementById('stMQTT').innerHTML='Не подключен';
-    document.getElementById('id_login').style.display='block';   
+    //stMQTT.innerHTML='Не подключен';
+    id_login.style.display='block';   
     alert('Ошибка подключения к серверу\r\nПроверьте правильность введенных параметров и соединение с интернетом');
 }
 
@@ -136,7 +136,7 @@ function doFail(e){
 function onConnectionLost(responseObject) {
     if (responseObject.errorCode !== 0) {
       console.log("onConnectionLost:"+responseObject.errorMessage);
-      document.getElementById('stMQTT').innerHTML=responseObject.errorMessage;
+      stMQTT.innerHTML=responseObject.errorMessage;
       //alert('Ошибка\r\n'+responseObject.errorMessage);
     }
 }
@@ -157,58 +157,58 @@ function onMessageArrived(message) {
 	if (message.destinationName == 'ESP12/Reset') {
 
 	if (message.payloadString == '1') {
-	document.getElementById('stESP').innerHTML = 'Перезагрузка';
-	document.getElementById('id_info').style.display='none';}}
+	stESP.innerHTML = 'Перезагрузка';
+	id_info.style.display='none';}}
 
 	//статус модуля
 	if (message.destinationName == 'ESP12/Status') {
 
 	if (message.payloadString == '1') {
-	document.getElementById('stESP').innerHTML = 'Подключен';
-	document.getElementById('id_info').style.display='block';}}
+	stESP.innerHTML = 'Подключен';
+	id_info.style.display='block';}}
 
 	//статус модуля от брокера
         if (message.destinationName == '$SYS/broker/clients/connected') {
 
 	if (message.payloadString == '0') { 
-	document.getElementById('stESP').innerHTML = 'Не подключен';
-	document.getElementById('id_info').style.display='none';}
-	else {document.getElementById('stESP').innerHTML = 'Подключен';
-	document.getElementById('id_info').style.display='block';}}
+	stESP.innerHTML = 'Не подключен';
+	id_info.style.display='none';}
+	else {stESP.innerHTML = 'Подключен';
+	id_info.style.display='block';}}
 
 	//пользователей на сайте
         if (message.destinationName == '$SYS/broker/clients/inactive') {
 
-	if (message.payloadString == '0') {document.getElementById('stUSERS').innerHTML = '1';}
-	else {document.getElementById('stUSERS').innerHTML = message.payloadString;}}
+	if (message.payloadString == '0') {stUSERS.innerHTML = '1';}
+	else {stUSERS.innerHTML = message.payloadString;}}
 
 	//уровень сигнала
 	if (message.destinationName == 'ESP12/RSSI') {
 
-	document.getElementById('stRSSI').innerHTML = message.payloadString; 
-	document.getElementById('time').innerHTML = new Date().toLocaleTimeString();}
+	stRSSI.innerHTML = message.payloadString; 
+	time.innerHTML = new Date().toLocaleTimeString();}
 
 	//уровень освещенности
 	if (message.destinationName == 'ESP12/LDR') {
 
-	document.getElementById('stLDR').innerHTML = message.payloadString; }
+	stLDR.innerHTML = message.payloadString; }
 
 	//температура
 	if (message.destinationName == 'ESP12/T') {
 
-	document.getElementById('stT').innerHTML = message.payloadString; temp = message.payloadString;}
+	stT.innerHTML = message.payloadString; temp = message.payloadString;}
 
 	//влажность
 	if (message.destinationName == 'ESP12/H') {
 
-	document.getElementById('stH').innerHTML = message.payloadString; }
+	stH.innerHTML = message.payloadString; }
 
 	//статус светодиода
 	if (message.destinationName == 'ESP12/LED') {
 
-	//document.getElementById('stLED').innerHTML = message.payloadString; 
-	if (message.payloadString == '0') {document.querySelector('#id_LED').checked = false;}
-	else {document.querySelector('#id_LED').checked = true;}
+	//stLED.innerHTML = message.payloadString; 
+	if (message.payloadString == '0') {id_LED.checked = false;}
+	else {id_LED.checked = true;}
 	if (flag == '') {flag = message.payloadString; }
 	if (message.payloadString != flag) { flag = message.payloadString; playSound();}
 	else {flag = message.payloadString; }}
@@ -218,7 +218,7 @@ function onMessageArrived(message) {
       	rmess.scrollTop = rmess.scrollHeight; 
         var txtUSER = message.payloadString;
         txtUSER = txtUSER.substring(0,txtUSER.indexOf('\r'));
-	if (document.querySelector('#id_UTT').checked && txtUSER != user) { 
+	if (id_UTT.checked && txtUSER != user) { 
 	  txtUSER = message.payloadString;
           txtUSER = txtUSER.substring(txtUSER.indexOf('\n'),txtUSER.length);
 	  recognizer.stop();
@@ -261,7 +261,7 @@ recognizer.onresult = function (event) {
     var result = event.results[event.resultIndex];
     if (result.isFinal) {
       rec_str = result[0].transcript;
-      if (document.querySelector('#id_REC').checked) {
+      if (id_REC.checked) {
         rcmd.value += new Date().toLocaleTimeString() + ': ' + result[0].transcript + '\r\n';
         rcmd.scrollTop = rcmd.scrollHeight;}
         //console.log(event);
@@ -279,7 +279,7 @@ recognizer.onstart = function() {
 recognizer.onend = function() {
 rec_flag = false;
 if (flagSTOP == 0) {
-if (document.querySelector('#id_REC').checked) {
+if (id_REC.checked) {
   var tmp;
   if (rec_str === 'включить'){sendLED('1');}
   if (rec_str === 'выключить'){sendLED('0');}
@@ -290,7 +290,7 @@ if (document.querySelector('#id_REC').checked) {
   rec_str = '';
 }
 
-if (document.querySelector('#id_RMESS').checked) {
+if (id_RMESS.checked) {
   if (rec_str != '') {
     message = new Paho.MQTT.Message(user + '\r\n' + rec_str + '\r\n');
     message.destinationName = 'ESP12/MESS';
@@ -298,7 +298,7 @@ if (document.querySelector('#id_RMESS').checked) {
     rec_str = '';	
 }
 
-if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
+if (id_REC.checked || id_RMESS.checked) {
   recognizer.start();} 
 }
 }
@@ -306,7 +306,7 @@ if (document.querySelector('#id_REC').checked || document.querySelector('#id_RME
 //=============================================================================
 utterance.onend = function() { 
   flagSTOP = 0;
-  if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
+  if (id_REC.checked || id_RMESS.checked) {
   recognizer.start();}
 }
 
@@ -319,30 +319,30 @@ function speak(str){
 
 //=============================================================================
 function checkBX(){
-  if (document.querySelector('#id_REC').checked) {
-  document.getElementById('id_area1').style.display='block';
-  localStorage.setItem('reccmd', document.querySelector('#id_REC').checked); } 
+  if (id_REC.checked) {
+  id_area1.style.display='block';
+  localStorage.setItem('reccmd', id_REC.checked); } 
   else {
-  document.getElementById('id_area1').style.display='none';
-  document.getElementById('rcmd').value = '';	
+  id_area1.style.display='none';
+  rcmd.value = '';	
   localStorage.setItem('reccmd', ''); }
   
-  if (document.querySelector('#id_MESS').checked) {
-  document.getElementById('id_area2').style.display='block'; 
-  localStorage.setItem('mess', document.querySelector('#id_REC').checked); }
+  if (id_MESS.checked) {
+  id_area2.style.display='block'; 
+  localStorage.setItem('mess', id_MESS.checked); }
   else {
-  document.querySelector('#id_RMESS').checked = false;
-  document.querySelector('#id_UTT').checked = false;
-  document.getElementById('id_area2').style.display='none';
+  id_RMESS.checked = false;
+  id_UTT.checked = false;
+  id_area2.style.display='none';
   localStorage.setItem('mess', ''); }
 
-  if (document.querySelector('#id_REC').checked || document.querySelector('#id_RMESS').checked) {
+  if (id_REC.checked || id_RMESS.checked) {
   if (! rec_flag) {recognizer.start();}} else { recognizer.stop();}
 }
 
 //=============================================================================
 function checkLED(){
-  if (document.querySelector('#id_LED').checked) {sendLED('1');} 
+  if (id_LED.checked) {sendLED('1');} 
   else {sendLED('0');}
 }
 
@@ -363,22 +363,22 @@ if (confirm("Вы действительно хотите перезагрузи
 
 //=============================================================================
 function btnConnect(){
-  host = document.getElementById('mq_serv').value; 
-  port = parseInt(document.getElementById('mq_port').value);
-  user = document.getElementById('mq_user').value; 
-  login = document.getElementById('mq_login').value;
-  pass = document.getElementById('mq_pass').value;
+  host = mq_serv.value; 
+  port = parseInt(mq_port.value);
+  user = mq_user.value; 
+  login = mq_login.value;
+  pass = mq_pass.value;
 
-if (host=='' || document.getElementById('mq_port').value=='' || user=='' || login=='' || pass=='') 
-  {document.getElementById('id_login').style.display='block'; alert('Ошибка\r\nЗаполните все поля формы'); return;}
+if (host=='' || mq_port.value=='' || user=='' || login=='' || pass=='') 
+  {id_login.style.display='block'; alert('Ошибка\r\nЗаполните все поля формы'); return;}
 
-if (document.querySelector('#id_SAVE').checked) {
-  localStorage.setItem('serv', document.getElementById('mq_serv').value);
-  localStorage.setItem('port', document.getElementById('mq_port').value);
-  localStorage.setItem('user', document.getElementById('mq_user').value);
-  localStorage.setItem('login', document.getElementById('mq_login').value);
-  localStorage.setItem('pass', document.getElementById('mq_pass').value);
-  localStorage.setItem('save', document.querySelector('#id_SAVE').checked);}
+if (id_SAVE.checked) {
+  localStorage.setItem('serv', mq_serv.value);
+  localStorage.setItem('port', mq_port.value);
+  localStorage.setItem('user', mq_user.value);
+  localStorage.setItem('login', mq_login.value);
+  localStorage.setItem('pass', mq_pass.value);
+  localStorage.setItem('save', id_SAVE.checked);}
   else {
   localStorage.setItem('pass', '');
   localStorage.setItem('save', '');
@@ -390,10 +390,10 @@ if (document.querySelector('#id_SAVE').checked) {
 
 //=============================================================================
 function btnSendMESS(){
-    message = new Paho.MQTT.Message(user + '\r\n' + document.getElementById('mq_mess').value + '\r\n');
+    message = new Paho.MQTT.Message(user + '\r\n' + mq_mess.value + '\r\n');
     message.destinationName = 'ESP12/MESS';
     client.send(message);
-    document.getElementById('mq_mess').value = '';
+    mq_mess.value = '';
 }
 
 //=============================================================================
@@ -403,15 +403,15 @@ function loadPAGE() {
   user = localStorage.getItem('user');
   login = localStorage.getItem('login');
   pass = localStorage.getItem('pass');
-  document.getElementById('mq_serv').value = host;
-  document.getElementById('mq_port').value = port;
-  document.getElementById('mq_user').value = user;
-  document.getElementById('mq_login').value = login;
-  document.getElementById('mq_pass').value = pass;
-  document.querySelector('#id_SAVE').checked = localStorage.getItem('save');
-  if (document.querySelector('#id_SAVE').checked) {btnConnect();}
-  else {document.getElementById('id_login').style.display='block';}
-  document.getElementById('stUSER1').innerHTML = user; 
+  mq_serv.value = host;
+  mq_port.value = port;
+  mq_user.value = user;
+  mq_login.value = login;
+  mq_pass.value = pass;
+  id_SAVE.checked = localStorage.getItem('save');
+  if (id_SAVE.checked) {btnConnect();}
+  else {id_login.style.display='block';}
+  stUSER1.innerHTML = user; 
 }
 
 //=============================================================================
@@ -507,7 +507,7 @@ if (confirm("Вы действительно хотите выйти?")) {
 <p><input class='btn' type='button' value='Перезагрузить модуль' onClick="btnReset()"/></p>
 
 </div>
-  <p class='stxt'>Версия: 20180115-1800</p>
+  <p class='stxt'>Версия: 20180115-2000</p>
 </td></tr>
 </table>
 

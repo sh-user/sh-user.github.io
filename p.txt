@@ -1,0 +1,4 @@
+Server:		m23.cloudmqtt.com
+Port:		33492
+User:		ivtjhrii
+Password:	_Gnt6HJ2ncka

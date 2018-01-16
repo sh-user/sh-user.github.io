@@ -102,6 +102,7 @@ function onConnect() {
     client.subscribe('$SYS/broker/clients/connected');
     client.subscribe('ESP12/Status');
     client.subscribe('ESP12/Heap');
+    client.subscribe('ESP12/PIR');
     client.subscribe('ESP12/LDR');
     client.subscribe('ESP12/RSSI');  
     client.subscribe('ESP12/H'); 
@@ -176,6 +177,9 @@ function onMessageArrived(message) {
 	//уровень сигнала
 	if (message.destinationName == 'ESP12/RSSI') {stRSSI.innerHTML = message.payloadString; 
 	time.innerHTML = new Date().toLocaleTimeString();}
+
+        //датчик движения
+	if (message.destinationName == 'ESP12/PIR') {stPIR.innerHTML = message.payloadString; }
 
 	//уровень освещенности
 	if (message.destinationName == 'ESP12/LDR') {stLDR.innerHTML = message.payloadString; }
@@ -435,6 +439,9 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Последнее обновление: <a id='time'></a></h3>
   <h3 class='hh'>Уровень сигнала: <a id='stRSSI'></a> dBm</h3>
   <h3 class='hh'>Свободная память: <a id='stHeap'></a> байт</h3>
+<div class='block1'>
+  <h3 class='hh'>Датчик движения: <a id='stPIR'></a></h3>
+</div>
   <h3 class='hh'>Уровень освещенности: <a id='stLDR'></a></h3>
   <h3 class='hh'>Температура: <a id='stT'></a> &degC</h3>
   <h3 class='hh'>Влажность: <a id='stH'></a> %</h3>

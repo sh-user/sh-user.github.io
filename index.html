@@ -101,7 +101,7 @@ function onConnect() {
     client.subscribe('$SYS/broker/clients/inactive');
     client.subscribe('$SYS/broker/clients/connected');
     client.subscribe('ESP12/Status');
-    client.subscribe('ESP12/RES');
+    client.subscribe('ESP12/Reset');
     client.subscribe('ESP12/LDR');
     client.subscribe('ESP12/RSSI');  
     client.subscribe('ESP12/H'); 
@@ -154,27 +154,20 @@ function onMessageArrived(message) {
 	console.log(message.destinationName + ':' + message.payloadString);
 
         //перезагрузка модуля
-	if (message.destinationName == 'ESP12/RES') {
+	if (message.destinationName == 'ESP12/Reset') {
 
-	if (message.payloadString == '1') {
-	stESP.innerHTML = 'Перезагрузка';
-	id_info.style.display='none';}}
+	if (message.payloadString == '1') { stESP.innerHTML = 'Перезагрузка'; id_info.style.display='none';}}
 
 	//статус модуля
 	if (message.destinationName == 'ESP12/Status') {
 
-	if (message.payloadString == '1') {
-	stESP.innerHTML = 'Подключен';
-	id_info.style.display='block';}}
+	if (message.payloadString == '1') {stESP.innerHTML = 'Подключен'; id_info.style.display='block';}}
 
 	//статус модуля от брокера
         if (message.destinationName == '$SYS/broker/clients/connected') {
 
-	if (message.payloadString == '0') { 
-	stESP.innerHTML = 'Не подключен';
-	id_info.style.display='none';}
-	else {stESP.innerHTML = 'Подключен';
-	id_info.style.display='block';}}
+	if (message.payloadString == '0') { stESP.innerHTML = 'Не подключен'; id_info.style.display='none';}
+	else {stESP.innerHTML = 'Подключен'; id_info.style.display='block';}}
 
 	//пользователей на сайте
         if (message.destinationName == '$SYS/broker/clients/inactive') {
@@ -183,25 +176,17 @@ function onMessageArrived(message) {
 	else {stUSERS.innerHTML = message.payloadString;}}
 
 	//уровень сигнала
-	if (message.destinationName == 'ESP12/RSSI') {
-
-	stRSSI.innerHTML = message.payloadString; 
+	if (message.destinationName == 'ESP12/RSSI') {stRSSI.innerHTML = message.payloadString; 
 	time.innerHTML = new Date().toLocaleTimeString();}
 
 	//уровень освещенности
-	if (message.destinationName == 'ESP12/LDR') {
-
-	stLDR.innerHTML = message.payloadString; }
+	if (message.destinationName == 'ESP12/LDR') {stLDR.innerHTML = message.payloadString; }
 
 	//температура
-	if (message.destinationName == 'ESP12/T') {
-
-	stT.innerHTML = message.payloadString; temp = message.payloadString;}
+	if (message.destinationName == 'ESP12/T') {stT.innerHTML = message.payloadString; temp = message.payloadString;}
 
 	//влажность
-	if (message.destinationName == 'ESP12/H') {
-
-	stH.innerHTML = message.payloadString; }
+	if (message.destinationName == 'ESP12/H') {stH.innerHTML = message.payloadString; }
 
 	//статус светодиода
 	if (message.destinationName == 'ESP12/LED') {
@@ -213,6 +198,7 @@ function onMessageArrived(message) {
 	if (message.payloadString != flag) { flag = message.payloadString; playSound();}
 	else {flag = message.payloadString; }}
 
+	//мессенджер
 	if (message.destinationName == 'ESP12/MESS') {
    	rmess.value += new Date().toLocaleTimeString() + ': ' + message.payloadString + '\r\n';
       	rmess.scrollTop = rmess.scrollHeight; 
@@ -356,7 +342,7 @@ function keyNUM(AvaiableSymbol) {
 function btnReset(){
 if (confirm("Вы действительно хотите перезагрузить модуль?")) {
   message = new Paho.MQTT.Message(' ');
-  message.destinationName = 'ESP12/RES';
+  message.destinationName = 'ESP12/Reset';
   client.send(message);
 }
 }

@@ -59,6 +59,17 @@ border-radius: 4px; padding: 6px; }
 //глобальные переменные
 var idUSER = ''; flag = ''; temp = ''; host = ''; port = 0; user = ''; login = ''; pass = ''; txtUTT = ''; flagSTOP = 0;
 
+
+//=============================================================================
+function playSound2() {
+  if (typeof window.Audio === 'function') {
+    var audioElem = new Audio();
+    audioElem.src = "data:audio/ogg;base64,//OAxAAAAAAAAAAAAEluZm8AAAAPAAAABgAABbUAKioqKioqKioqKioqKioqKlVVVVVVVVVVVVVVVVVVVVVVgICAgICAgICAgICAgICAgKqqqqqqqqqqqqqqqqqqqqqq1dXV1dXV1dXV1dXV1dXV1dX/////////////////////AAAAOUxBTUUzLjk5cgFuAAAAAAAAAAAUQCQC8yIAAEAAAAW12OvnQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/zgMQAH9FCmAVDeAJa/d3cW7oiIidcAAAAAAAAAAABnfv37+PfFH79+xq9Xq9PoeTguDgixJwU4GcTNyJWPWTsnZOy5nWz2Y1er3+6PKQ1YrGR48ePIjpQEAQB8H3y4Pg+D5/5R3EAIAgAwfB98Hw//BA5gmD4Pg//4IAgCAIf+XB/wQcUDCgQcCGGFdpLW65E6AAACXHLXHI070FQyaS7iRtZTPYQxeQq1NZYbneed2T+OqPSm2iXcJPHNfFnNPRoOsHb/Zl/+gUIN461Qoj/84LEQzw8FspfmHgCISBBJe1KgQUOV1BfRC+LlUxq4SKpZ1I+rp6f0Bx3vq6dmZlci4iq22p+A5SH6ERAVEaJBctQiGtTmfqow9isUaLeOrnFHuV6M68wOLFBPF+qznorEzFsxNCoam9ZTqOUZY4+bwZLbgTf3vyACPbjN0rg+9L7iUpYuwoc/41j/H/zXUZd4bHmLx8ybv4PklmPx6yNZetfd7V1W98f06SCCvNVQiuMX+d/X3/r7DfuIV4AQkYTguCuJKzt75043wrbVjX07v/zgsQWMBQOlYvPqACwdSuHtdJbJUTJGkki6mc1LxLk6WBaSIAYCBoG8iwAICwRAwWoSkMwTZdJYiwuIY4Z0qC4iLCFBGQi4cgLUYkoOo3J4mmOKUy1GR+ghMSiRylVueKBNCOy6YoqOGRsgpM4TZkuynu7JXq0PP1eqtazE0PrFLkFZSVK1VKqya6D1VrW6b7V/9nWpzAZcbKJxJTzO02QMk/WgnroVP0NkvqrUtEuhqIg4nkiuioDmVBIhBC3Fp4pAz3TO3Zm5far1af9vvrD//OCxBkuZAqRiVioAFd1rWFM+jYzSPsbmCCNA4XCuQ8sBfgDAQOAxQigNzIEQmNBzyLBsQyRoZFY8kThDCFGMGUE3CYiCIs9AskgOozJsnEFJIGRMmSzQyNjZZkWrOyKzAmxXi4aHTdNF60jIwP1pukl/Ut1atdXdq2WxfL4gqSZu6Fd90XetVa7952m+pXf12rmYuzWmqtA/379SmUy+329HtvWXw3ZBmNvH/6Kul9vlz9YAADScWrlcqhprYelaf1YflCNxax/crNGkIipuI3/84LEIzR7vuJfmHgDFzEVbc3Qnz5naoBKx61XnSm/+f+8zWsIO5b/4yCLZP08h0GtcKpLUi/TBTv7/MKNm1n1dW/zpo/hv1AyRFMs3f11/XFrdXQXvkbMUqxQpl2kTzOiJ3isiKN/e8HEKtXuLfFoVarlBXxm3/+9/P6kM5WOE8eIr0/HZMZeNjjjNYNrW/xmtcfOZXm8f/Gs4xjf/gkk0/2ZMOHDZFQ4Q9QFexzskTBPBdfhRf7CO/EGG2JEkvM5//VU4KAVmkUcqqrFtwWF7P/zgsQVLvPyNAHGeACJ40nFuQ46lFHP0go9J1QzlIKQlGl2AvAERiivA5hxOZymioZqvYuHzNdSobGYVarXtISuV2oT6NmurPtWhPrbq9e7gva+1t//1rXD59qE+jbzWtfWvtb1rvNa1+LRtWtvNfa2sWtbeYL3da1+Lf//NdYs+1a1t+ta/OvjfrXea1r8Wjatbfr/b+1rbzBe7rWv9t//5rrFn2sWtb1gxR4a/BoYHfLQVUxBTUUzLjk5LjNVVVVVVVVVVVVVVVVVVVVVVVVV";
+    audioElem.play();
+  }
+}
+
+//=============================================================================
 function playSound() {
   if (typeof window.Audio === 'function') {
     var audioElem = new Audio();
@@ -179,7 +190,9 @@ function onMessageArrived(message) {
 	time.innerHTML = new Date().toLocaleTimeString();}
 
         //датчик движения
-	if (message.destinationName == 'ESP12/PIR') {stPIR.innerHTML = message.payloadString; }
+	if (message.destinationName == 'ESP12/PIR') {stPIR.innerHTML = message.payloadString; 
+        //if (message.payloadString == '1') { playSound2();}
+	}
 
 	//уровень освещенности
 	if (message.destinationName == 'ESP12/LDR') {stLDR.innerHTML = message.payloadString; }
@@ -439,9 +452,7 @@ if (confirm("Вы действительно хотите выйти?")) {
   <h3 class='hh'>Последнее обновление: <a id='time'></a></h3>
   <h3 class='hh'>Уровень сигнала: <a id='stRSSI'></a> dBm</h3>
   <h3 class='hh'>Свободная память: <a id='stHeap'></a> байт</h3>
-<div class='block1'>
   <h3 class='hh'>Датчик движения: <a id='stPIR'></a></h3>
-</div>
   <h3 class='hh'>Уровень освещенности: <a id='stLDR'></a></h3>
   <h3 class='hh'>Температура: <a id='stT'></a> &degC</h3>
   <h3 class='hh'>Влажность: <a id='stH'></a> %</h3>
@@ -488,7 +499,7 @@ if (confirm("Вы действительно хотите выйти?")) {
 </div>
 
 </div>
-  <p class='stxt'>Версия: 20180116-1400</p>
+  <p class='stxt'>Версия: 20180116-2100</p>
 </td></tr>
 </table>
 

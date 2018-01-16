@@ -101,6 +101,7 @@ function onConnect() {
     client.subscribe('$SYS/broker/clients/inactive');
     client.subscribe('$SYS/broker/clients/connected');
     client.subscribe('ESP12/Status');
+    client.subscribe('ESP12/Heap');
     client.subscribe('ESP12/LDR');
     client.subscribe('ESP12/RSSI');  
     client.subscribe('ESP12/H'); 
@@ -156,6 +157,9 @@ function onMessageArrived(message) {
 	if (message.destinationName == 'ESP12/Status') {
 
 	if (message.payloadString == '1') {stESP.innerHTML = 'Подключен'; id_info.style.display='block';}}
+
+	//статус heap
+	if (message.destinationName == 'ESP12/Heap') { stHeap.innerHTML = message.payloadString; }
 
 	//статус модуля от брокера
         if (message.destinationName == '$SYS/broker/clients/connected') {
@@ -430,6 +434,7 @@ if (confirm("Вы действительно хотите выйти?")) {
 <div id='id_info' style="display: none">
   <h3 class='hh'>Последнее обновление: <a id='time'></a></h3>
   <h3 class='hh'>Уровень сигнала: <a id='stRSSI'></a> dBm</h3>
+  <h3 class='hh'>Свободная память: <a id='stHeap'></a> Байт</h3>
   <h3 class='hh'>Уровень освещенности: <a id='stLDR'></a></h3>
   <h3 class='hh'>Температура: <a id='stT'></a> &degC</h3>
   <h3 class='hh'>Влажность: <a id='stH'></a> %</h3>

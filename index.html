@@ -401,10 +401,10 @@ function checkBX(){
   id_area2.style.display='none';
   localStorage.setItem('mess', ''); }
 
-//if (!('webkitSpeechRecognition' in window)) {
+if ('webkitSpeechRecognition' in window) {
   if (id_REC.checked || id_RMESS.checked) {
   if (! rec_flag) {recognizer.start();}} else { recognizer.stop();}
-//}
+}
 }
 
 //=============================================================================

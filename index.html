@@ -189,7 +189,8 @@ function onConnect() {
     client.subscribe('$SYS/broker/clients/inactive');
     client.subscribe('$SYS/broker/clients/connected');
     client.subscribe('ESP12/Status');
-    client.subscribe('ESP12/Reset');
+    client.subscribe('ESP12/Heap');
+    client.subscribe('ESP12/PIR');
     client.subscribe('ESP12/LDR');
     client.subscribe('ESP12/RSSI');  
     client.subscribe('ESP12/H'); 
@@ -241,15 +242,13 @@ function sendLED(set) {
 function onMessageArrived(message) {
 	console.log(message.destinationName + ':' + message.payloadString);
 
-        //перезагрузка модуля
-	if (message.destinationName == 'ESP12/Reset') {
-
-	if (message.payloadString == '1') { stESP.innerHTML = 'Перезагрузка'; id_info.style.display='none';}}
-
 	//статус модуля
 	if (message.destinationName == 'ESP12/Status') {
 
 	if (message.payloadString == '1') {stESP.innerHTML = 'Подключен'; id_info.style.display='block';}}
+
+	//статус heap
+	if (message.destinationName == 'ESP12/Heap') { stHeap.innerHTML = message.payloadString; }
 
 	//статус модуля от брокера
         if (message.destinationName == '$SYS/broker/clients/connected') {
@@ -266,6 +265,11 @@ function onMessageArrived(message) {
 	//уровень сигнала
 	if (message.destinationName == 'ESP12/RSSI') {stRSSI.innerHTML = message.payloadString; 
 	time.innerHTML = new Date().toLocaleTimeString();}
+
+        //датчик движения
+	if (message.destinationName == 'ESP12/PIR') {stPIR.innerHTML = message.payloadString; 
+        //if (message.payloadString == '1') { playSound2();}
+	}
 
 	//уровень освещенности
 	if (message.destinationName == 'ESP12/LDR') {stLDR.innerHTML = message.payloadString; }

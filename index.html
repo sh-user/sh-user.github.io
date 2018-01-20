@@ -136,7 +136,7 @@ border-radius: 4px; padding: 6px; }
 </div>
 
 </div>
-  <p class='stxt'>Версия: 20180116-2100</p>
+  <p class='stxt'>Версия: 20180120-2100</p>
 </td></tr>
 </table>
 
@@ -401,8 +401,10 @@ function checkBX(){
   id_area2.style.display='none';
   localStorage.setItem('mess', ''); }
 
+if ('webkitSpeechRecognition' in window) {
   if (id_REC.checked || id_RMESS.checked) {
   if (! rec_flag) {recognizer.start();}} else { recognizer.stop();}
+}
 }
 
 //=============================================================================

@@ -308,7 +308,7 @@ function onMessageArrived(message) {
 }
 
 //=============================================================================
-  if ('webkitSpeechRecognition' in window) {
+if (window.hasOwnProperty('webkitSpeechRecognition')) {
   var recognizer = new webkitSpeechRecognition();
   // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
   recognizer.interimResults = true;
@@ -401,7 +401,7 @@ function checkBX(){
   id_area2.style.display='none';
   localStorage.setItem('mess', ''); }
 
-if ('webkitSpeechRecognition' in window) {
+if (window.hasOwnProperty('webkitSpeechRecognition')) {
   if (id_REC.checked || id_RMESS.checked) {
   if (! rec_flag) {recognizer.start();}} else { recognizer.stop();}
 }

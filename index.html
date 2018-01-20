@@ -109,12 +109,12 @@ function checkBX(){
   id_UTT.checked = false;
   id_area2.style.display='none';
   localStorage.setItem('mess', ''); }
-try {
+//try {
   if (id_REC.checked || id_RMESS.checked) {
   if (! rec_flag) {recognizer.start();}} else { recognizer.stop();}
-} catch (err) { 
+//} catch (err) { 
   //alert('Этот браузер не поддерживает распознавание голоса');
-}
+//}
 }
 
 //=============================================================================
@@ -169,9 +169,10 @@ function onConnect() {
     id_mqtt.style.display='block';
     if (id_SAVE.checked) {
     id_EX.style.display='block';
-    id_REC.checked = localStorage.getItem('reccmd'); 
-    id_MESS.checked = localStorage.getItem('mess'); 
-    checkBX(); }
+    //id_REC.checked = localStorage.getItem('reccmd'); 
+    //id_MESS.checked = localStorage.getItem('mess'); 
+    //checkBX(); 
+    }
 }
 
 //=============================================================================

@@ -52,357 +52,6 @@ border-radius: 4px; padding: 6px; }
 .stxt {margin: 12px 0 12px 0; font-size: 14px;}
 
 </style>
-
-<script src="mqttws31.js" type="text/javascript"></script>
-<script type="text/javascript">
-//=============================================================================
-//глобальные переменные
-var idUSER = ''; flag = ''; temp = ''; host = ''; port = 0; user = ''; login = ''; pass = ''; txtUTT = ''; flagSTOP = 0;
-
-
-//=============================================================================
-function playSound2() {
-  if (typeof window.Audio === 'function') {
-    var audioElem = new Audio();
-    audioElem.src = "data:audio/ogg;base64,//OAxAAAAAAAAAAAAEluZm8AAAAPAAAABgAABbUAKioqKioqKioqKioqKioqKlVVVVVVVVVVVVVVVVVVVVVVgICAgICAgICAgICAgICAgKqqqqqqqqqqqqqqqqqqqqqq1dXV1dXV1dXV1dXV1dXV1dX/////////////////////AAAAOUxBTUUzLjk5cgFuAAAAAAAAAAAUQCQC8yIAAEAAAAW12OvnQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/zgMQAH9FCmAVDeAJa/d3cW7oiIidcAAAAAAAAAAABnfv37+PfFH79+xq9Xq9PoeTguDgixJwU4GcTNyJWPWTsnZOy5nWz2Y1er3+6PKQ1YrGR48ePIjpQEAQB8H3y4Pg+D5/5R3EAIAgAwfB98Hw//BA5gmD4Pg//4IAgCAIf+XB/wQcUDCgQcCGGFdpLW65E6AAACXHLXHI070FQyaS7iRtZTPYQxeQq1NZYbneed2T+OqPSm2iXcJPHNfFnNPRoOsHb/Zl/+gUIN461Qoj/84LEQzw8FspfmHgCISBBJe1KgQUOV1BfRC+LlUxq4SKpZ1I+rp6f0Bx3vq6dmZlci4iq22p+A5SH6ERAVEaJBctQiGtTmfqow9isUaLeOrnFHuV6M68wOLFBPF+qznorEzFsxNCoam9ZTqOUZY4+bwZLbgTf3vyACPbjN0rg+9L7iUpYuwoc/41j/H/zXUZd4bHmLx8ybv4PklmPx6yNZetfd7V1W98f06SCCvNVQiuMX+d/X3/r7DfuIV4AQkYTguCuJKzt75043wrbVjX07v/zgsQWMBQOlYvPqACwdSuHtdJbJUTJGkki6mc1LxLk6WBaSIAYCBoG8iwAICwRAwWoSkMwTZdJYiwuIY4Z0qC4iLCFBGQi4cgLUYkoOo3J4mmOKUy1GR+ghMSiRylVueKBNCOy6YoqOGRsgpM4TZkuynu7JXq0PP1eqtazE0PrFLkFZSVK1VKqya6D1VrW6b7V/9nWpzAZcbKJxJTzO02QMk/WgnroVP0NkvqrUtEuhqIg4nkiuioDmVBIhBC3Fp4pAz3TO3Zm5far1af9vvrD//OCxBkuZAqRiVioAFd1rWFM+jYzSPsbmCCNA4XCuQ8sBfgDAQOAxQigNzIEQmNBzyLBsQyRoZFY8kThDCFGMGUE3CYiCIs9AskgOozJsnEFJIGRMmSzQyNjZZkWrOyKzAmxXi4aHTdNF60jIwP1pukl/Ut1atdXdq2WxfL4gqSZu6Fd90XetVa7952m+pXf12rmYuzWmqtA/379SmUy+329HtvWXw3ZBmNvH/6Kul9vlz9YAADScWrlcqhprYelaf1YflCNxax/crNGkIipuI3/84LEIzR7vuJfmHgDFzEVbc3Qnz5naoBKx61XnSm/+f+8zWsIO5b/4yCLZP08h0GtcKpLUi/TBTv7/MKNm1n1dW/zpo/hv1AyRFMs3f11/XFrdXQXvkbMUqxQpl2kTzOiJ3isiKN/e8HEKtXuLfFoVarlBXxm3/+9/P6kM5WOE8eIr0/HZMZeNjjjNYNrW/xmtcfOZXm8f/Gs4xjf/gkk0/2ZMOHDZFQ4Q9QFexzskTBPBdfhRf7CO/EGG2JEkvM5//VU4KAVmkUcqqrFtwWF7P/zgsQVLvPyNAHGeACJ40nFuQ46lFHP0go9J1QzlIKQlGl2AvAERiivA5hxOZymioZqvYuHzNdSobGYVarXtISuV2oT6NmurPtWhPrbq9e7gva+1t//1rXD59qE+jbzWtfWvtb1rvNa1+LRtWtvNfa2sWtbeYL3da1+Lf//NdYs+1a1t+ta/OvjfrXea1r8Wjatbfr/b+1rbzBe7rWv9t//5rrFn2sWtb1gxR4a/BoYHfLQVUxBTUUzLjk5LjNVVVVVVVVVVVVVVVVVVVVVVVVV";
-    audioElem.play();
-  }
-}
-
-//=============================================================================
-function playSound() {
-  if (typeof window.Audio === 'function') {
-    var audioElem = new Audio();
-    audioElem.src = "data:audio/ogg;base64,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";
-    audioElem.play();
-  }
-}
-
-//=============================================================================
-  var recognizer = new webkitSpeechRecognition();
-  var rec_str = '';
-  // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
-  recognizer.interimResults = true;
-  recognizer.lang = 'ru-Ru';
-  //recognizer.continuous = true;
-  //recognizer.maxAlternatives = 1;
-
-  var voices = speechSynthesis.getVoices();
-  var utterance = new SpeechSynthesisUtterance();
-  utterance.voice = voices[1];
-
-//=============================================================================
-function checkBX(){
-  if (id_REC.checked) {
-  id_area1.style.display='block';
-  localStorage.setItem('reccmd', id_REC.checked); } 
-  else {
-  id_area1.style.display='none';
-  rcmd.value = '';	
-  localStorage.setItem('reccmd', ''); }
-  
-  if (id_MESS.checked) {
-  id_area2.style.display='block'; 
-  localStorage.setItem('mess', id_MESS.checked); }
-  else {
-  id_RMESS.checked = false;
-  id_UTT.checked = false;
-  id_area2.style.display='none';
-  localStorage.setItem('mess', ''); }
-//try {
-  if (id_REC.checked || id_RMESS.checked) {
-  if (! rec_flag) {recognizer.start();}} else { recognizer.stop();}
-//} catch (err) { 
-  //alert('Этот браузер не поддерживает распознавание голоса');
-//}
-}
-
-//=============================================================================
-function MQTTconnect() {
-  // Create a client instance
-  idUSER = parseInt(Math.random() * 100, 10);
-  client = new Paho.MQTT.Client(host, port, 'web_' + idUSER);
-  // set callback handlers
-  client.onConnectionLost = onConnectionLost;
-  client.onMessageArrived = onMessageArrived;
-
-  // Connect the client, with a Last-Will-and-Testament
-  //var lwt = new Paho.MQTT.Message('-');  
-  //lwt.destinationName = 'ESP12/Users';
-
-  var options = {
-    useSSL: true,
-    userName: login,
-    password: pass,
-    //willMessage: lwt,
-    onSuccess: onConnect,
-    onFailure: doFail,
-  }
-  // connect the client
-  client.connect(options);
-}
-
-//=============================================================================
-// called when the client connects
-function onConnect() {
-    // Once a connection has been made, make a subscription and send a message.
-    console.log('onConnect');
-    stMQTT.innerHTML='Подключен';
-    client.subscribe('$SYS/broker/clients/inactive');
-    client.subscribe('$SYS/broker/clients/connected');
-    client.subscribe('ESP12/Status');
-    client.subscribe('ESP12/Heap');
-    client.subscribe('ESP12/PIR');
-    client.subscribe('ESP12/LDR');
-    client.subscribe('ESP12/RSSI');  
-    client.subscribe('ESP12/H'); 
-    client.subscribe('ESP12/T'); 
-    client.subscribe('ESP12/LED');
-    client.subscribe('ESP12/SetLED');
-    client.subscribe('ESP12/MESS');
-    
-    message = new Paho.MQTT.Message(' ');
-    message.destinationName = 'ESP12/Status';
-    client.send(message);
-
-    id_login.style.display='none';
-    id_mqtt.style.display='block';
-    if (id_SAVE.checked) {
-    id_EX.style.display='block';
-    //id_REC.checked = localStorage.getItem('reccmd'); 
-    //id_MESS.checked = localStorage.getItem('mess'); 
-    //checkBX(); 
-    }
-}
-
-//=============================================================================
-function doFail(e){
-    console.log(e);
-    //stMQTT.innerHTML='Не подключен';
-    id_login.style.display='block';   
-    alert('Ошибка подключения к серверу\r\nПроверьте правильность введенных параметров и соединение с интернетом');
-}
-
-//=============================================================================
-// called when the client loses its connection
-function onConnectionLost(responseObject) {
-    if (responseObject.errorCode !== 0) {
-      console.log("onConnectionLost:"+responseObject.errorMessage);
-      stMQTT.innerHTML=responseObject.errorMessage;
-      //alert('Ошибка\r\n'+responseObject.errorMessage);
-    }
-}
-
-//=============================================================================
-function sendLED(set) {
-    message = new Paho.MQTT.Message(set);
-    message.destinationName = 'ESP12/SetLED';
-    client.send(message);
-}
-
-//=============================================================================
-// called when a message arrives
-function onMessageArrived(message) {
-	console.log(message.destinationName + ':' + message.payloadString);
-
-	//статус модуля
-	if (message.destinationName == 'ESP12/Status') {
-
-	if (message.payloadString == '1') {stESP.innerHTML = 'Подключен'; id_info.style.display='block';}}
-
-	//статус heap
-	if (message.destinationName == 'ESP12/Heap') { stHeap.innerHTML = message.payloadString; }
-
-	//статус модуля от брокера
-        if (message.destinationName == '$SYS/broker/clients/connected') {
-
-	if (message.payloadString == '0') { stESP.innerHTML = 'Не подключен'; id_info.style.display='none';}
-	else {stESP.innerHTML = 'Подключен'; id_info.style.display='block';}}
-
-	//пользователей на сайте
-        if (message.destinationName == '$SYS/broker/clients/inactive') {
-
-	if (message.payloadString == '0') {stUSERS.innerHTML = '1';}
-	else {stUSERS.innerHTML = message.payloadString;}}
-
-	//уровень сигнала
-	if (message.destinationName == 'ESP12/RSSI') {stRSSI.innerHTML = message.payloadString; 
-	time.innerHTML = new Date().toLocaleTimeString();}
-
-        //датчик движения
-	if (message.destinationName == 'ESP12/PIR') {stPIR.innerHTML = message.payloadString; 
-        //if (message.payloadString == '1') { playSound2();}
-	}
-
-	//уровень освещенности
-	if (message.destinationName == 'ESP12/LDR') {stLDR.innerHTML = message.payloadString; }
-
-	//температура
-	if (message.destinationName == 'ESP12/T') {stT.innerHTML = message.payloadString; temp = message.payloadString;}
-
-	//влажность
-	if (message.destinationName == 'ESP12/H') {stH.innerHTML = message.payloadString; }
-
-	//статус светодиода
-	if (message.destinationName == 'ESP12/LED') {
-
-	//stLED.innerHTML = message.payloadString; 
-	if (message.payloadString == '0') {id_LED.checked = false;}
-	else {id_LED.checked = true;}
-	if (flag == '') {flag = message.payloadString; }
-	if (message.payloadString != flag) { flag = message.payloadString; playSound();}
-	else {flag = message.payloadString; }}
-
-	//мессенджер
-	if (message.destinationName == 'ESP12/MESS') {
-   	rmess.value += new Date().toLocaleTimeString() + ': ' + message.payloadString + '\r\n';
-      	rmess.scrollTop = rmess.scrollHeight; 
-        var txtUSER = message.payloadString;
-        txtUSER = txtUSER.substring(0,txtUSER.indexOf('\r'));
-	if (id_UTT.checked && txtUSER != user) { 
-	  txtUSER = message.payloadString;
-          txtUSER = txtUSER.substring(txtUSER.indexOf('\n'),txtUSER.length);
-	  recognizer.stop();
-	  flagSTOP = 1;
-	  setTimeout(function(){speak(txtUSER);}, 2000);} 
-	else { playSound();}  
-	}
-}
-
-//=============================================================================
-//Используем колбек для обработки результатов
-recognizer.onresult = function (event) {
-    var result = event.results[event.resultIndex];
-    if (result.isFinal) {
-      rec_str = result[0].transcript;
-      if (id_REC.checked) {
-        rcmd.value += new Date().toLocaleTimeString() + ': ' + result[0].transcript + '\r\n';
-        rcmd.scrollTop = rcmd.scrollHeight;}
-        //console.log(event);
-    } else {
-      console.log('Промежуточный результат: ', result[0].transcript);
-    }
-}
-
-//=============================================================================
-recognizer.onstart = function() {
-  rec_flag = true;
-}
-
-//=============================================================================
-recognizer.onend = function() {
-rec_flag = false;
-if (flagSTOP == 0) {
-if (id_REC.checked) {
-  var tmp;
-  if (rec_str === 'включить'){sendLED('1');}
-  if (rec_str === 'выключить'){sendLED('0');}
-  tmp = temp.replace('.',' и ');
-  //tmp = temp.substring(0,temp.indexOf('.'));
-  //tmp = tmp + ' °';
-  if (rec_str === 'температура') {speak(tmp);}
-  rec_str = '';
-}
-
-if (id_RMESS.checked) {
-  if (rec_str != '') {
-    message = new Paho.MQTT.Message(user + '\r\n' + rec_str + '\r\n');
-    message.destinationName = 'ESP12/MESS';
-    client.send(message);} 
-    rec_str = '';	
-}
-
-if (id_REC.checked || id_RMESS.checked) { recognizer.start();} 
-}
-}
-
-//=============================================================================
-utterance.onend = function() { 
-  flagSTOP = 0;
-  if (id_REC.checked || id_RMESS.checked) { recognizer.start();}
-}
-
-//=============================================================================
-function speak(str){ 
-  if (speechSynthesis.speaking) return; 
-  utterance.text = str;
-  speechSynthesis.speak(utterance);   //воспроизведение фразы
-}
-
-//=============================================================================
-function checkLED(){
-  if (id_LED.checked) {sendLED('1');} 
-  else {sendLED('0');}
-}
-
-//=============================================================================
-function keyNUM(AvaiableSymbol) {
-  SearchChar=String.fromCharCode(window.event.keyCode);
-  if(AvaiableSymbol.indexOf(SearchChar.toUpperCase())<0)return false;
-}
-
-//=============================================================================
-function btnConnect(){
-  host = mq_serv.value; 
-  port = parseInt(mq_port.value);
-  user = mq_user.value; 
-  login = mq_login.value;
-  pass = mq_pass.value;
-
-if (host=='' || mq_port.value=='' || user=='' || login=='' || pass=='') 
-  {id_login.style.display='block'; alert('Ошибка\r\nЗаполните все поля формы'); return;}
-
-if (id_SAVE.checked) {
-  localStorage.setItem('serv', mq_serv.value);
-  localStorage.setItem('port', mq_port.value);
-  localStorage.setItem('user', mq_user.value);
-  localStorage.setItem('login', mq_login.value);
-  localStorage.setItem('pass', mq_pass.value);
-  localStorage.setItem('save', id_SAVE.checked);}
-  else {
-  localStorage.setItem('pass', '');
-  localStorage.setItem('save', '');
-  localStorage.setItem('reccmd', '');
-  localStorage.setItem('mess', '');
-}
-  MQTTconnect();
-}
-
-//=============================================================================
-function btnSendMESS(){
-    message = new Paho.MQTT.Message(user + '\r\n' + mq_mess.value + '\r\n');
-    message.destinationName = 'ESP12/MESS';
-    client.send(message);
-    mq_mess.value = '';
-}
-
-//=============================================================================
-function loadPAGE() {
-  host = localStorage.getItem('serv');
-  port = localStorage.getItem('port');
-  user = localStorage.getItem('user');
-  login = localStorage.getItem('login');
-  pass = localStorage.getItem('pass');
-  mq_serv.value = host;
-  mq_port.value = port;
-  mq_user.value = user;
-  mq_login.value = login;
-  mq_pass.value = pass;
-  id_SAVE.checked = localStorage.getItem('save');
-  if (id_SAVE.checked) {btnConnect();}
-  else {id_login.style.display='block';}
-  stUSER1.innerHTML = user; 
-}
-
-//=============================================================================
-function divEX(){
-if (confirm("Вы действительно хотите выйти?")) {
-  localStorage.clear();
-  location.reload();
-}
-}
-
-</script>
 </head> 
 
 <body onload='loadPAGE()'>
@@ -490,6 +139,365 @@ if (confirm("Вы действительно хотите выйти?")) {
   <p class='stxt'>Версия: 20180116-2100</p>
 </td></tr>
 </table>
+
+
+<script src="mqttws31.js" type="text/javascript"></script>
+<script type="text/javascript">
+//=============================================================================
+//глобальные переменные
+var idUSER = ''; flag = ''; temp = ''; host = ''; port = 0; user = ''; login = ''; pass = ''; txtUTT = ''; flagSTOP = 0;
+
+function playSound() {
+  if (typeof window.Audio === 'function') {
+    var audioElem = new Audio();
+    audioElem.src = "data:audio/ogg;base64,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";
+    audioElem.play();
+  }
+}
+
+//=============================================================================
+function MQTTconnect() {
+  // Create a client instance
+  idUSER = parseInt(Math.random() * 100, 10);
+  client = new Paho.MQTT.Client(host, port, 'web_' + idUSER);
+  // set callback handlers
+  client.onConnectionLost = onConnectionLost;
+  client.onMessageArrived = onMessageArrived;
+
+  // Connect the client, with a Last-Will-and-Testament
+  //var lwt = new Paho.MQTT.Message('-');  
+  //lwt.destinationName = 'ESP12/Users';
+
+  var options = {
+    useSSL: true,
+    userName: login,
+    password: pass,
+    //willMessage: lwt,
+    onSuccess: onConnect,
+    onFailure: doFail,
+  }
+  // connect the client
+  client.connect(options);
+}
+
+//=============================================================================
+// called when the client connects
+function onConnect() {
+    // Once a connection has been made, make a subscription and send a message.
+    console.log('onConnect');
+    stMQTT.innerHTML='Подключен';
+    client.subscribe('$SYS/broker/clients/inactive');
+    client.subscribe('$SYS/broker/clients/connected');
+    client.subscribe('ESP12/Status');
+    client.subscribe('ESP12/Reset');
+    client.subscribe('ESP12/LDR');
+    client.subscribe('ESP12/RSSI');  
+    client.subscribe('ESP12/H'); 
+    client.subscribe('ESP12/T'); 
+    client.subscribe('ESP12/LED');
+    client.subscribe('ESP12/SetLED');
+    client.subscribe('ESP12/MESS');
+    
+    message = new Paho.MQTT.Message(' ');
+    message.destinationName = 'ESP12/Status';
+    client.send(message);
+
+    id_login.style.display='none';
+    id_mqtt.style.display='block';
+    if (id_SAVE.checked) {
+    id_EX.style.display='block';
+    id_REC.checked = localStorage.getItem('reccmd'); 
+    id_MESS.checked = localStorage.getItem('mess'); 
+    checkBX(); }
+}
+
+//=============================================================================
+function doFail(e){
+    console.log(e);
+    //stMQTT.innerHTML='Не подключен';
+    id_login.style.display='block';   
+    alert('Ошибка подключения к серверу\r\nПроверьте правильность введенных параметров и соединение с интернетом');
+}
+
+//=============================================================================
+// called when the client loses its connection
+function onConnectionLost(responseObject) {
+    if (responseObject.errorCode !== 0) {
+      console.log("onConnectionLost:"+responseObject.errorMessage);
+      stMQTT.innerHTML=responseObject.errorMessage;
+      //alert('Ошибка\r\n'+responseObject.errorMessage);
+    }
+}
+
+//=============================================================================
+function sendLED(set) {
+    message = new Paho.MQTT.Message(set);
+    message.destinationName = 'ESP12/SetLED';
+    client.send(message);
+}
+
+//=============================================================================
+// called when a message arrives
+function onMessageArrived(message) {
+	console.log(message.destinationName + ':' + message.payloadString);
+
+        //перезагрузка модуля
+	if (message.destinationName == 'ESP12/Reset') {
+
+	if (message.payloadString == '1') { stESP.innerHTML = 'Перезагрузка'; id_info.style.display='none';}}
+
+	//статус модуля
+	if (message.destinationName == 'ESP12/Status') {
+
+	if (message.payloadString == '1') {stESP.innerHTML = 'Подключен'; id_info.style.display='block';}}
+
+	//статус модуля от брокера
+        if (message.destinationName == '$SYS/broker/clients/connected') {
+
+	if (message.payloadString == '0') { stESP.innerHTML = 'Не подключен'; id_info.style.display='none';}
+	else {stESP.innerHTML = 'Подключен'; id_info.style.display='block';}}
+
+	//пользователей на сайте
+        if (message.destinationName == '$SYS/broker/clients/inactive') {
+
+	if (message.payloadString == '0') {stUSERS.innerHTML = '1';}
+	else {stUSERS.innerHTML = message.payloadString;}}
+
+	//уровень сигнала
+	if (message.destinationName == 'ESP12/RSSI') {stRSSI.innerHTML = message.payloadString; 
+	time.innerHTML = new Date().toLocaleTimeString();}
+
+	//уровень освещенности
+	if (message.destinationName == 'ESP12/LDR') {stLDR.innerHTML = message.payloadString; }
+
+	//температура
+	if (message.destinationName == 'ESP12/T') {stT.innerHTML = message.payloadString; temp = message.payloadString;}
+
+	//влажность
+	if (message.destinationName == 'ESP12/H') {stH.innerHTML = message.payloadString; }
+
+	//статус светодиода
+	if (message.destinationName == 'ESP12/LED') {
+
+	//stLED.innerHTML = message.payloadString; 
+	if (message.payloadString == '0') {id_LED.checked = false;}
+	else {id_LED.checked = true;}
+	if (flag == '') {flag = message.payloadString; }
+	if (message.payloadString != flag) { flag = message.payloadString; playSound();}
+	else {flag = message.payloadString; }}
+
+	//мессенджер
+	if (message.destinationName == 'ESP12/MESS') {
+   	rmess.value += new Date().toLocaleTimeString() + ': ' + message.payloadString + '\r\n';
+      	rmess.scrollTop = rmess.scrollHeight; 
+        var txtUSER = message.payloadString;
+        txtUSER = txtUSER.substring(0,txtUSER.indexOf('\r'));
+	if (id_UTT.checked && txtUSER != user) { 
+	  txtUSER = message.payloadString;
+          txtUSER = txtUSER.substring(txtUSER.indexOf('\n'),txtUSER.length);
+	  recognizer.stop();
+	  flagSTOP = 1;
+	  setTimeout(function(){speak(txtUSER);}, 2000);} 
+	else { playSound();}  
+	}
+}
+
+//=============================================================================
+  var recognizer = new webkitSpeechRecognition();
+  var rec_flag = false;
+  var rec_str = '';
+  // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
+  recognizer.interimResults = true;
+  recognizer.lang = 'ru-Ru';
+  //recognizer.continuous = true;
+  //recognizer.maxAlternatives = 1;
+
+  var voices = speechSynthesis.getVoices();
+  var utterance = new SpeechSynthesisUtterance();
+  utterance.voice = voices[1];
+
+//=============================================================================
+  var recognizer = new webkitSpeechRecognition();
+  var rec_str = '';
+  // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
+  recognizer.interimResults = true;
+  recognizer.lang = 'ru-Ru';
+  //recognizer.continuous = true;
+  //recognizer.maxAlternatives = 1;
+
+  var voices = speechSynthesis.getVoices();
+  var utterance = new SpeechSynthesisUtterance();
+  utterance.voice = voices[1];
+
+//=============================================================================
+//Используем колбек для обработки результатов
+recognizer.onresult = function (event) {
+    var result = event.results[event.resultIndex];
+    if (result.isFinal) {
+      rec_str = result[0].transcript;
+      if (id_REC.checked) {
+        rcmd.value += new Date().toLocaleTimeString() + ': ' + result[0].transcript + '\r\n';
+        rcmd.scrollTop = rcmd.scrollHeight;}
+        //console.log(event);
+    } else {
+      console.log('Промежуточный результат: ', result[0].transcript);
+    }
+}
+
+//=============================================================================
+recognizer.onstart = function() {
+  rec_flag = true;
+}
+
+//=============================================================================
+recognizer.onend = function() {
+rec_flag = false;
+if (flagSTOP == 0) {
+if (id_REC.checked) {
+  var tmp;
+  if (rec_str === 'включить'){sendLED('1');}
+  if (rec_str === 'выключить'){sendLED('0');}
+  tmp = temp.replace('.',' и ');
+  //tmp = temp.substring(0,temp.indexOf('.'));
+  //tmp = tmp + ' °';
+  if (rec_str === 'температура') {speak(tmp);}
+  rec_str = '';
+}
+
+if (id_RMESS.checked) {
+  if (rec_str != '') {
+    message = new Paho.MQTT.Message(user + '\r\n' + rec_str + '\r\n');
+    message.destinationName = 'ESP12/MESS';
+    client.send(message);} 
+    rec_str = '';	
+}
+
+if (id_REC.checked || id_RMESS.checked) {
+  recognizer.start();} 
+}
+}
+
+//=============================================================================
+utterance.onend = function() { 
+  flagSTOP = 0;
+  if (id_REC.checked || id_RMESS.checked) {
+  recognizer.start();}
+}
+
+//=============================================================================
+function speak(str){ 
+  if (speechSynthesis.speaking) return; 
+  utterance.text = str;
+  speechSynthesis.speak(utterance);   //воспроизведение фразы
+}
+
+//=============================================================================
+function checkBX(){
+  if (id_REC.checked) {
+  id_area1.style.display='block';
+  localStorage.setItem('reccmd', id_REC.checked); } 
+  else {
+  id_area1.style.display='none';
+  rcmd.value = '';	
+  localStorage.setItem('reccmd', ''); }
+  
+  if (id_MESS.checked) {
+  id_area2.style.display='block'; 
+  localStorage.setItem('mess', id_MESS.checked); }
+  else {
+  id_RMESS.checked = false;
+  id_UTT.checked = false;
+  id_area2.style.display='none';
+  localStorage.setItem('mess', ''); }
+
+  if (id_REC.checked || id_RMESS.checked) {
+  if (! rec_flag) {recognizer.start();}} else { recognizer.stop();}
+}
+
+//=============================================================================
+function checkLED(){
+  if (id_LED.checked) {sendLED('1');} 
+  else {sendLED('0');}
+}
+
+//=============================================================================
+function keyNUM(AvaiableSymbol) {
+  SearchChar=String.fromCharCode(window.event.keyCode);
+  if(AvaiableSymbol.indexOf(SearchChar.toUpperCase())<0)return false;
+}
+
+//=============================================================================
+function btnReset(){
+if (confirm("Вы действительно хотите перезагрузить модуль?")) {
+  message = new Paho.MQTT.Message(' ');
+  message.destinationName = 'ESP12/Reset';
+  client.send(message);
+}
+}
+
+//=============================================================================
+function btnConnect(){
+  host = mq_serv.value; 
+  port = parseInt(mq_port.value);
+  user = mq_user.value; 
+  login = mq_login.value;
+  pass = mq_pass.value;
+
+if (host=='' || mq_port.value=='' || user=='' || login=='' || pass=='') 
+  {id_login.style.display='block'; alert('Ошибка\r\nЗаполните все поля формы'); return;}
+
+if (id_SAVE.checked) {
+  localStorage.setItem('serv', mq_serv.value);
+  localStorage.setItem('port', mq_port.value);
+  localStorage.setItem('user', mq_user.value);
+  localStorage.setItem('login', mq_login.value);
+  localStorage.setItem('pass', mq_pass.value);
+  localStorage.setItem('save', id_SAVE.checked);}
+  else {
+  localStorage.setItem('pass', '');
+  localStorage.setItem('save', '');
+  localStorage.setItem('reccmd', '');
+  localStorage.setItem('mess', '');
+}
+  MQTTconnect();
+}
+
+//=============================================================================
+function btnSendMESS(){
+    message = new Paho.MQTT.Message(user + '\r\n' + mq_mess.value + '\r\n');
+    message.destinationName = 'ESP12/MESS';
+    client.send(message);
+    mq_mess.value = '';
+}
+
+//=============================================================================
+function loadPAGE() {
+  host = localStorage.getItem('serv');
+  port = localStorage.getItem('port');
+  user = localStorage.getItem('user');
+  login = localStorage.getItem('login');
+  pass = localStorage.getItem('pass');
+  mq_serv.value = host;
+  mq_port.value = port;
+  mq_user.value = user;
+  mq_login.value = login;
+  mq_pass.value = pass;
+  id_SAVE.checked = localStorage.getItem('save');
+  if (id_SAVE.checked) {btnConnect();}
+  else {id_login.style.display='block';}
+  stUSER1.innerHTML = user; 
+}
+
+//=============================================================================
+function divEX(){
+if (confirm("Вы действительно хотите выйти?")) {
+  localStorage.clear();
+  location.reload();
+}
+}
+
+</script>
+
 
 </body>
 </html>

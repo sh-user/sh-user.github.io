@@ -308,20 +308,6 @@ function onMessageArrived(message) {
 
 //=============================================================================
   var recognizer = new webkitSpeechRecognition();
-  var rec_flag = false;
-  var rec_str = '';
-  // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
-  recognizer.interimResults = true;
-  recognizer.lang = 'ru-Ru';
-  //recognizer.continuous = true;
-  //recognizer.maxAlternatives = 1;
-
-  var voices = speechSynthesis.getVoices();
-  var utterance = new SpeechSynthesisUtterance();
-  utterance.voice = voices[1];
-
-//=============================================================================
-  var recognizer = new webkitSpeechRecognition();
   var rec_str = '';
   // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
   recognizer.interimResults = true;

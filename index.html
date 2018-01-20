@@ -79,6 +79,44 @@ function playSound() {
 }
 
 //=============================================================================
+  var recognizer = new webkitSpeechRecognition();
+  var rec_str = '';
+  // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
+  recognizer.interimResults = true;
+  recognizer.lang = 'ru-Ru';
+  //recognizer.continuous = true;
+  //recognizer.maxAlternatives = 1;
+
+  var voices = speechSynthesis.getVoices();
+  var utterance = new SpeechSynthesisUtterance();
+  utterance.voice = voices[1];
+
+//=============================================================================
+function checkBX(){
+  if (id_REC.checked) {
+  id_area1.style.display='block';
+  localStorage.setItem('reccmd', id_REC.checked); } 
+  else {
+  id_area1.style.display='none';
+  rcmd.value = '';	
+  localStorage.setItem('reccmd', ''); }
+  
+  if (id_MESS.checked) {
+  id_area2.style.display='block'; 
+  localStorage.setItem('mess', id_MESS.checked); }
+  else {
+  id_RMESS.checked = false;
+  id_UTT.checked = false;
+  id_area2.style.display='none';
+  localStorage.setItem('mess', ''); }
+try {
+  if (id_REC.checked || id_RMESS.checked) {
+  if (! rec_flag) {recognizer.start();}} else { recognizer.stop();}
+} catch (err) { 
+}
+}
+
+//=============================================================================
 function MQTTconnect() {
   // Create a client instance
   idUSER = parseInt(Math.random() * 100, 10);
@@ -230,33 +268,6 @@ function onMessageArrived(message) {
 }
 
 //=============================================================================
-  var recognizer = new webkitSpeechRecognition();
-  var rec_flag = false;
-  var rec_str = '';
-  // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
-  recognizer.interimResults = true;
-  recognizer.lang = 'ru-Ru';
-  //recognizer.continuous = true;
-  //recognizer.maxAlternatives = 1;
-
-  var voices = speechSynthesis.getVoices();
-  var utterance = new SpeechSynthesisUtterance();
-  utterance.voice = voices[1];
-
-//=============================================================================
-  var recognizer = new webkitSpeechRecognition();
-  var rec_str = '';
-  // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
-  recognizer.interimResults = true;
-  recognizer.lang = 'ru-Ru';
-  //recognizer.continuous = true;
-  //recognizer.maxAlternatives = 1;
-
-  var voices = speechSynthesis.getVoices();
-  var utterance = new SpeechSynthesisUtterance();
-  utterance.voice = voices[1];
-
-//=============================================================================
 //Используем колбек для обработки результатов
 recognizer.onresult = function (event) {
     var result = event.results[event.resultIndex];
@@ -299,16 +310,14 @@ if (id_RMESS.checked) {
     rec_str = '';	
 }
 
-if (id_REC.checked || id_RMESS.checked) {
-  recognizer.start();} 
+if (id_REC.checked || id_RMESS.checked) { recognizer.start();} 
 }
 }
 
 //=============================================================================
 utterance.onend = function() { 
   flagSTOP = 0;
-  if (id_REC.checked || id_RMESS.checked) {
-  recognizer.start();}
+  if (id_REC.checked || id_RMESS.checked) { recognizer.start();}
 }
 
 //=============================================================================
@@ -316,29 +325,6 @@ function speak(str){
   if (speechSynthesis.speaking) return; 
   utterance.text = str;
   speechSynthesis.speak(utterance);   //воспроизведение фразы
-}
-
-//=============================================================================
-function checkBX(){
-  if (id_REC.checked) {
-  id_area1.style.display='block';
-  localStorage.setItem('reccmd', id_REC.checked); } 
-  else {
-  id_area1.style.display='none';
-  rcmd.value = '';	
-  localStorage.setItem('reccmd', ''); }
-  
-  if (id_MESS.checked) {
-  id_area2.style.display='block'; 
-  localStorage.setItem('mess', id_MESS.checked); }
-  else {
-  id_RMESS.checked = false;
-  id_UTT.checked = false;
-  id_area2.style.display='none';
-  localStorage.setItem('mess', ''); }
-
-  if (id_REC.checked || id_RMESS.checked) {
-  if (! rec_flag) {recognizer.start();}} else { recognizer.stop();}
 }
 
 //=============================================================================

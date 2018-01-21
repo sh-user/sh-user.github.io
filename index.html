@@ -37,6 +37,11 @@ input[type='checkbox']:checked ~ .switch { background: #9CA5D7; transition: .2s;
 .lay1 {width: 334px; padding: 0; margin: 0 auto;}
 .lay2 {width: 40px; float: right;}
 .lay3 {width: 32px; float: right;}
+.lay4 {width: 160px; float: right;}
+.lay5 {float: left; font-size: 15px; font-weight:normal;}
+.bt1 {width: 76px; float: left; margin: 0 4px;}
+.bt2 {width: 76px; float: left;}
+
 .hh {width: 334px; font-weight:normal; margin: 12px 0 12px 0;}
 
 .btn {width: 100%; height: 40px; margin: 0; background: linear-gradient(#F7F7F7, #DCDCDC);
@@ -67,7 +72,7 @@ border-radius: 4px; padding: 6px; }
   <h3 class='hh'>Авторизация</h3>
   <p><input class='ed2' id='mq_serv' type='text' placeholder='Сервер'>
 </p>			
-  <p><input class='ed2' id='mq_port' type='text' placeholder='Порт' onkeypress="return keyNUM('0123456789')"></p>
+  <p><input class='ed2' id='mq_port' type='text' placeholder='Порт' onkeypress="return NUM('0123456789')"></p>
   <p><input class='ed2' id='mq_user' type='text' placeholder='Пользователь'>
 </p>
   <p><input class='ed2' id='mq_login' type='text' placeholder='Логин'>
@@ -109,6 +114,46 @@ border-radius: 4px; padding: 6px; }
   <h3 class='hh'>Команды: включить, выключить, температура</h3>
   <textarea readonly class='ed' id='rcmd' rows='8'></textarea>
 </div>
+
+<h3 class='hh'><label title='Работает только в Google Chrome'>Голосовые команды <div class='lay2'>
+    <div class='card'><label for='id_VCMD'>
+    <input type='checkbox' id='id_VCMD' onclick="checkBX()"/><span class='switch'></span><span class='toggle'></span>
+    </label></div></div>
+  </label></h3>
+<div id='id_divcmd' style="display: none">
+  <p><input class='ed2' id='mq_SH1open' type='text' placeholder='Открыть штору 1'>
+</p>
+  <p><input class='ed2' id='mq_SH1close' type='text' placeholder='Закрыть штору 1'>
+</p>
+  <p><input class='ed2' id='mq_SH2open' type='text' placeholder='Открыть штору 2'>
+</p>
+  <p><input class='ed2' id='mq_SH2close' type='text' placeholder='Закрыть штору 2'>
+</p>
+  <p><input class='ed2' id='mq_SH3open' type='text' placeholder='Открыть штору 3'>
+</p>
+  <p><input class='ed2' id='mq_SH3close' type='text' placeholder='Закрыть штору 3'>
+</p>
+  <p><input class='ed2' id='mq_SH4open' type='text' placeholder='Открыть штору 4'>
+</p>
+  <p><input class='ed2' id='mq_SH4close' type='text' placeholder='Закрыть штору 4'>
+</p>
+  <p><input class='btn' type='button' value='Сохранить' onClick="btnVCMD()"/></p>
+</div> 
+
+<h3 class='hh'><label>Управление шторами <div class='lay2'>
+    <div class='card'><label for='id_SHCMD'>
+    <input type='checkbox' id='id_SHCMD' onclick="checkBX()"/><span class='switch'></span><span class='toggle'></span>
+    </label></div></div>
+  </label></h3>
+<div id='id_divsh' style="display: none">
+  
+<h3 class='hh'> Штора 1: </h3>
+<h3 class='hh'> Штора 2: </h3>
+<h3 class='hh'> Штора 3: </h3>
+<h3 class='hh'> Штора 4: </h3>
+
+</div>
+
 </div>
 
 <h3 class='hh'><label>MQTT Messenger <div class='lay2'>
@@ -136,7 +181,7 @@ border-radius: 4px; padding: 6px; }
 </div>
 
 </div>
-  <p class='stxt'>Версия: 20180120-2100</p>
+  <p class='stxt'>Версия: 20180121-0000</p>
 </td></tr>
 </table>
 
@@ -363,16 +408,14 @@ if (id_RMESS.checked) {
     rec_str = '';	
 }
 
-if (id_REC.checked || id_RMESS.checked) {
-  recognizer.start();} 
+if (id_REC.checked || id_RMESS.checked) { recognizer.start();} 
 }
 }
 
 //=============================================================================
 utterance.onend = function() { 
   flagSTOP = 0;
-  if (id_REC.checked || id_RMESS.checked) {
-  recognizer.start();}
+  if (id_REC.checked || id_RMESS.checked) { recognizer.start();}
 }
 
 //=============================================================================
@@ -401,9 +444,15 @@ function checkBX(){
   id_area2.style.display='none';
   localStorage.setItem('mess', ''); }
 
+  if (id_VCMD.checked) { id_divcmd.style.display='block'; }
+  else { id_divcmd.style.display='none'; }
+
+  if (id_SHCMD.checked) { id_divsh.style.display='block'; }
+  else { id_divsh.style.display='none'; }
+
 if ('webkitSpeechRecognition' in window) {
   if (id_REC.checked || id_RMESS.checked) {
-  if (! rec_flag) {recognizer.start();}} else { recognizer.stop();}
+  if (! rec_flag) {recognizer.start();} else { recognizer.stop();}}
 }
 }
 
@@ -414,18 +463,9 @@ function checkLED(){
 }
 
 //=============================================================================
-function keyNUM(AvaiableSymbol) {
+function NUM(AvaiableSymbol) {
   SearchChar=String.fromCharCode(window.event.keyCode);
   if(AvaiableSymbol.indexOf(SearchChar.toUpperCase())<0)return false;
-}
-
-//=============================================================================
-function btnReset(){
-if (confirm("Вы действительно хотите перезагрузить модуль?")) {
-  message = new Paho.MQTT.Message(' ');
-  message.destinationName = 'ESP12/Reset';
-  client.send(message);
-}
 }
 
 //=============================================================================
@@ -490,7 +530,5 @@ if (confirm("Вы действительно хотите выйти?")) {
 }
 
 </script>
-
-
 </body>
 </html>

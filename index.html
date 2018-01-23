@@ -148,6 +148,8 @@ border-radius: 4px; padding: 6px; }
 <div id='id_divsh' style="display: none">
   
 <h3 class='hh'> Штора 1: </h3>
+<p><input class='btn' type='button' value='Открыть' onClick="btnSHCMD('1')"/></p>
+<p><input class='btn' type='button' value='Закрыть' onClick="btnSHCMD('0')"/></p>
 <h3 class='hh'> Штора 2: </h3>
 <h3 class='hh'> Штора 3: </h3>
 <h3 class='hh'> Штора 4: </h3>
@@ -181,7 +183,7 @@ border-radius: 4px; padding: 6px; }
 </div>
 
 </div>
-  <p class='stxt'>Версия: 20180121-0000</p>
+  <p class='stxt'>Версия: 20180123-0000</p>
 </td></tr>
 </table>
 
@@ -244,6 +246,8 @@ function onConnect() {
     client.subscribe('ESP12/LED');
     client.subscribe('ESP12/SetLED');
     client.subscribe('ESP12/MESS');
+    client.subscribe('ESP12/SetSH1');
+    client.subscribe('ESP12/SH1');
     
     message = new Paho.MQTT.Message(' ');
     message.destinationName = 'ESP12/Status';
@@ -277,8 +281,15 @@ function onConnectionLost(responseObject) {
 }
 
 //=============================================================================
-function sendLED(set) {
-    message = new Paho.MQTT.Message(set);
+function btnSHCMD(ssh) {
+    message = new Paho.MQTT.Message(ssh);
+    message.destinationName = 'ESP12/SetSH1';
+    client.send(message);
+}
+
+//=============================================================================
+function sendLED(ms) {
+    message = new Paho.MQTT.Message(ms);
     message.destinationName = 'ESP12/SetLED';
     client.send(message);
 }
@@ -335,6 +346,16 @@ function onMessageArrived(message) {
 	if (flag == '') {flag = message.payloadString; }
 	if (message.payloadString != flag) { flag = message.payloadString; playSound();}
 	else {flag = message.payloadString; }}
+
+        //статус шторы 1
+	//if (message.destinationName == 'ESP12/SH1') {
+
+	//if (message.payloadString == '0') {stSH1.innerHTML = message.payloadString;}/
+	//else {id_LED.checked = true;}
+	//if (flag == '') {flag = message.payloadString; }
+	//if (message.payloadString != flag) { flag = message.payloadString; playSound();}
+	//else {flag = message.payloadString; }
+	//}
 
 	//мессенджер
 	if (message.destinationName == 'ESP12/MESS') {

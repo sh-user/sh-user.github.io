@@ -37,14 +37,12 @@ input[type='checkbox']:checked ~ .switch { background: #9CA5D7; transition: .2s;
 .lay1 {width: 334px; padding: 0; margin: 0 auto;}
 .lay2 {width: 40px; float: right;}
 .lay3 {width: 32px; float: right;}
-.lay4 {width: 160px; float: right;}
-.lay5 {float: left; font-size: 15px; font-weight:normal;}
-.bt1 {width: 76px; float: left; margin: 0 4px;}
-.bt2 {width: 76px; float: left;}
+.bt1 {width: 165px; float: left; margin: 0 4px 12px 0;}
+.bt2 {width: 165px; float: left; margin: 0 0 12px 0;}
 
 .hh {width: 334px; font-weight:normal; margin: 12px 0 12px 0;}
 
-.btn {width: 100%; height: 40px; margin: 0; background: linear-gradient(#F7F7F7, #DCDCDC);
+.btn {width: 100%; height: 40px; margin: 0; font-size: 15px; background: linear-gradient(#F7F7F7, #DCDCDC);
   border: 1px solid #949494; border-radius: 2px; outline: none;}
 .btn:active {background: linear-gradient(#DCDCDC, #F7F7F7);}
 .btn:hover {border: 1px solid #6E6E6E;}
@@ -146,14 +144,18 @@ border-radius: 4px; padding: 6px; }
     </label></div></div>
   </label></h3>
 <div id='id_divsh' style="display: none">
-  
-<h3 class='hh'> Штора 1: </h3>
-<p><input class='btn' type='button' value='Открыть' onClick="btnSHCMD('1')"/></p>
-<p><input class='btn' type='button' value='Закрыть' onClick="btnSHCMD('0')"/></p>
-<h3 class='hh'> Штора 2: </h3>
-<h3 class='hh'> Штора 3: </h3>
-<h3 class='hh'> Штора 4: </h3>
-
+  <h3 class='hh'>Штора 1: <a id='stSH1'></a></h3>
+  <span class='bt1'><input class='btn' type='button' value='Открыть' onClick="btnSH('ESP12/SetSH1','1')"/></span>
+  <span class='bt2'><input class='btn' type='button' value='Закрыть' onClick="btnSH('ESP12/SetSH1','0')"/></span>
+  <h3 class='hh'>Штора 2: <a id='stSH2'></a></h3>
+  <span class='bt1'><input class='btn' type='button' value='Открыть' onClick="btnSH('ESP12/SetSH2','1')"/></span>
+  <span class='bt2'><input class='btn' type='button' value='Закрыть' onClick="btnSH('ESP12/SetSH2','0')"/></span>
+  <h3 class='hh'>Штора 3: <a id='stSH3'></a></h3>
+  <span class='bt1'><input class='btn' type='button' value='Открыть' onClick="btnSH('ESP12/SetSH3','1')"/></span>
+  <span class='bt2'><input class='btn' type='button' value='Закрыть' onClick="btnSH('ESP12/SetSH3','0')"/></span>
+  <h3 class='hh'>Штора 4: <a id='stSH4'></a></h3>
+  <span class='bt1'><input class='btn' type='button' value='Открыть' onClick="btnSH('ESP12/SetSH4','1')"/></span>
+  <span class='bt2'><input class='btn' type='button' value='Закрыть' onClick="btnSH('ESP12/SetSH4','0')"/></span>
 </div>
 
 </div>
@@ -183,7 +185,7 @@ border-radius: 4px; padding: 6px; }
 </div>
 
 </div>
-  <p class='stxt'>Версия: 20180123-0000</p>
+  <p class='stxt'>Версия: 20180125-0000</p>
 </td></tr>
 </table>
 
@@ -236,22 +238,16 @@ function onConnect() {
     stMQTT.innerHTML='Подключен';
     client.subscribe('$SYS/broker/clients/inactive');
     client.subscribe('$SYS/broker/clients/connected');
-    client.subscribe('ESP12/Status');
-    client.subscribe('ESP12/Heap');
-    client.subscribe('ESP12/PIR');
-    client.subscribe('ESP12/LDR');
-    client.subscribe('ESP12/RSSI');  
-    client.subscribe('ESP12/H'); 
-    client.subscribe('ESP12/T'); 
-    client.subscribe('ESP12/LED');
-    client.subscribe('ESP12/SetLED');
-    client.subscribe('ESP12/MESS');
-    client.subscribe('ESP12/SetSH1');
-    client.subscribe('ESP12/SH1');
+    client.subscribe('ESP12/#');
     
     message = new Paho.MQTT.Message(' ');
     message.destinationName = 'ESP12/Status';
     client.send(message);
+
+    stSH1.innerHTML = 'Не определена';
+    stSH2.innerHTML = 'Не определена';
+    stSH3.innerHTML = 'Не определена';
+    stSH4.innerHTML = 'Не определена';
 
     id_login.style.display='none';
     id_mqtt.style.display='block';
@@ -281,15 +277,15 @@ function onConnectionLost(responseObject) {
 }
 
 //=============================================================================
-function btnSHCMD(ssh) {
-    message = new Paho.MQTT.Message(ssh);
-    message.destinationName = 'ESP12/SetSH1';
+function btnSH(topic, setsh) {
+    message = new Paho.MQTT.Message(setsh);
+    message.destinationName = topic;
     client.send(message);
 }
 
 //=============================================================================
-function sendLED(ms) {
-    message = new Paho.MQTT.Message(ms);
+function sendLED(ld) {
+    message = new Paho.MQTT.Message(ld);
     message.destinationName = 'ESP12/SetLED';
     client.send(message);
 }
@@ -348,14 +344,45 @@ function onMessageArrived(message) {
 	else {flag = message.payloadString; }}
 
         //статус шторы 1
-	//if (message.destinationName == 'ESP12/SH1') {
+	if (message.destinationName == 'ESP12/SH1') {
 
-	//if (message.payloadString == '0') {stSH1.innerHTML = message.payloadString;}/
-	//else {id_LED.checked = true;}
-	//if (flag == '') {flag = message.payloadString; }
-	//if (message.payloadString != flag) { flag = message.payloadString; playSound();}
-	//else {flag = message.payloadString; }
-	//}
+	var st = message.payloadString;
+	if (st == '00') {stSH1.innerHTML = 'Закрыта'}
+	if (st == '01') {stSH1.innerHTML = 'Открыта'}
+	if (st=='0'||st=='03'||st=='13') {stSH1.innerHTML = 'Закрытие'}
+	if (st=='1'||st=='02'||st=='12') {stSH1.innerHTML = 'Открытие'}
+	//if (st=='05') {stSH1.innerHTML = 'Не определена'}
+	}
+
+	//статус шторы 2
+	if (message.destinationName == 'ESP12/SH2') {
+
+	var st = message.payloadString;
+	if (st == '00') {stSH2.innerHTML = 'Закрыта'}
+	if (st == '01') {stSH2.innerHTML = 'Открыта'}
+	if (st=='0'||st=='03'||st=='13') {stSH2.innerHTML = 'Закрытие'}
+	if (st=='1'||st=='02'||st=='12') {stSH2.innerHTML = 'Открытие'}
+	}
+
+	//статус шторы 3
+	if (message.destinationName == 'ESP12/SH3') {
+
+	var st = message.payloadString;
+	if (st == '00') {stSH3.innerHTML = 'Закрыта'}
+	if (st == '01') {stSH3.innerHTML = 'Открыта'}
+	if (st=='0'||st=='03'||st=='13') {stSH3.innerHTML = 'Закрытие'}
+	if (st=='1'||st=='02'||st=='12') {stSH3.innerHTML = 'Открытие'}
+	}
+
+	//статус шторы 4
+	if (message.destinationName == 'ESP12/SH4') {
+
+	var st = message.payloadString;
+	if (st == '00') {stSH4.innerHTML = 'Закрыта'}
+	if (st == '01') {stSH4.innerHTML = 'Открыта'}
+	if (st=='0'||st=='03'||st=='13') {stSH4.innerHTML = 'Закрытие'}
+	if (st=='1'||st=='02'||st=='12') {stSH4.innerHTML = 'Открытие'}
+	}
 
 	//мессенджер
 	if (message.destinationName == 'ESP12/MESS') {

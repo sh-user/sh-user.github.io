@@ -146,7 +146,7 @@ border-radius: 4px; padding: 6px; }
 //=============================================================================
 //глобальные переменные
 var idUSER = ''; flag = ''; temp = ''; host = ''; port = 0; login = ''; pass = ''; 
-var flagSTOP = 0; rec_str = ''; rec_flag = '';
+var flagSTOP = 0; rec_str = ''; rec_flag = '' cntCMD = 0;
 
 
 function playSound() {
@@ -293,7 +293,6 @@ function onMessageArrived(message) {
 	if (st=='0'||st=='03'||st=='13') {stSH4.innerHTML = 'Закрытие'}
 	if (st=='1'||st=='02'||st=='12') {stSH4.innerHTML = 'Открытие'}
 	}
-
 }
 
 //=============================================================================
@@ -316,6 +315,8 @@ recognizer.onresult = function (event) {
     if (result.isFinal) {
       rec_str = result[0].transcript;
       if (id_REC.checked) {
+	cntCMD += 1;
+	if (cntCMD > 8) {rcmd.value='';}
         rcmd.value += new Date().toLocaleTimeString() + ': ' + result[0].transcript + '\r\n';
         rcmd.scrollTop = rcmd.scrollHeight;}
         //console.log(event);

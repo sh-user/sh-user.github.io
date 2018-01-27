@@ -136,7 +136,7 @@ border-radius: 4px; padding: 6px; }
 </div>
 
 </div>
-  <p class='stxt'>Версия: 20180127-2200</p>
+  <p class='stxt'>Версия: 20180127-2300</p>
 </td></tr>
 </table>
 
@@ -196,25 +196,14 @@ function onConnect() {
     stSH3.innerHTML = 'Не определена';
     stSH4.innerHTML = 'Не определена';
 
-    var getSH = localStorage.getItem('OSH1');
-    mq_OSH1.innerHTML = getSH;
-    getSH = localStorage.getItem('CSH1');
-    mq_CSH1.innerHTML = getSH;
-
-    getSH = localStorage.getItem('OSH2');
-    mq_OSH2.innerHTML = getSH;
-    getSH = localStorage.getItem('CSH2');
-    mq_CSH2.innerHTML = getSH;
-
-    getSH = localStorage.getItem('OSH3');
-    mq_OSH3.innerHTML = getSH;
-    getSH = localStorage.getItem('CSH3');
-    mq_CSH3.innerHTML = getSH;
-
-    getSH = localStorage.getItem('OSH4');
-    mq_OSH4.innerHTML = getSH;
-    getSH = localStorage.getItem('CSH4');
-    mq_CSH4.innerHTML = getSH;
+    mq_OSH1.value = localStorage.getItem('OSH1');
+    mq_CSH1.value = localStorage.getItem('CSH1');
+    mq_OSH2.value = localStorage.getItem('OSH2');
+    mq_CSH2.value = localStorage.getItem('CSH2');
+    mq_OSH3.value = localStorage.getItem('OSH3');
+    mq_CSH3.value = localStorage.getItem('CSH3');
+    mq_OSH4.value = localStorage.getItem('OSH4');
+    mq_CSH4.value = localStorage.getItem('CSH4');
 
     id_login.style.display='none';
     id_mqtt.style.display='block';

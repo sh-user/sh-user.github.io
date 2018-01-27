@@ -334,22 +334,22 @@ recognizer.onend = function() {
 rec_flag = false;
 if (flagSTOP == 0) {
 if (id_REC.checked) {
-  if (mq_OSH1.value != ''){
-  if (rec_str == mq_OSH1.value){btnSH('ESP12/SetSH1','1'); playSound();}}
-  if (mq_CSH1.value != ''){
-  if (rec_str == mq_CSH1.value){btnSH('ESP12/SetSH1','0'); playSound();}}
-  if (mq_OSH2.value != ''){
-  if (rec_str == mq_OSH2.value){btnSH('ESP12/SetSH2','1'); playSound();}}
-  if (mq_CSH2.value != ''){
-  if (rec_str == mq_CSH2.value){btnSH('ESP12/SetSH2','0'); playSound();}}
-  if (mq_OSH3.value != ''){
-  if (rec_str == mq_OSH3.value){btnSH('ESP12/SetSH3','1'); playSound();}}
-  if (mq_CSH3.value != ''){
-  if (rec_str == mq_CSH3.value){btnSH('ESP12/SetSH3','0'); playSound();}}
-  if (mq_OSH4.value != ''){
-  if (rec_str == mq_OSH4.value){btnSH('ESP12/SetSH4','1'); playSound();}}
-  if (mq_СSH4.value != ''){
-  if (rec_str == mq_CSH4.value){btnSH('ESP12/SetSH4','0'); playSound();}}
+var csh = mq_OSH1.value;
+  if (rec_str === csh){btnSH('ESP12/SetSH1','1'); playSound();}
+  csh = mq_CSH1.value;
+  if (rec_str === csh){btnSH('ESP12/SetSH1','0'); playSound();}
+  csh = mq_OSH2.value;
+  if (rec_str === csh){btnSH('ESP12/SetSH2','1'); playSound();}
+  csh = mq_CSH2.value;
+  if (rec_str === csh){btnSH('ESP12/SetSH2','0'); playSound();}
+  csh = mq_OSH3.value;
+  if (rec_str === csh){btnSH('ESP12/SetSH3','1'); playSound();}
+  csh = mq_CSH3.value;
+  if (rec_str === csh){btnSH('ESP12/SetSH3','0'); playSound();}
+  csh = mq_OSH4.value;
+  if (rec_str === csh){btnSH('ESP12/SetSH4','1'); playSound();}
+  csh = mq_CSH4.value;
+  if (rec_str === csh){btnSH('ESP12/SetSH4','0'); playSound();}
   rec_str = '';
 }
 

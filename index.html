@@ -241,7 +241,7 @@ function btnSH(topic, setsh) {
 //=============================================================================
 // called when a message arrives
 function onMessageArrived(message) {
-	console.log(message.destinationName + ':' + message.payloadString);
+	//console.log(message.destinationName + ':' + message.payloadString);
 
 	//статус модуля
 	if (message.destinationName == 'ESP12/Status') {
@@ -335,23 +335,23 @@ rec_flag = false;
 if (flagSTOP == 0) {
 if (id_REC.checked) {
 var csh = mq_OSH1.value;
-console.log(mq_OSH1.value);
-console.log(rec_str);
-  if (rec_str === csh){btnSH('ESP12/SetSH1','1'); playSound();}
-  csh = mq_CSH1.value;
-  if (rec_str === csh){btnSH('ESP12/SetSH1','0'); playSound();}
-  csh = mq_OSH2.value;
-  if (rec_str === csh){btnSH('ESP12/SetSH2','1'); playSound();}
-  csh = mq_CSH2.value;
-  if (rec_str === csh){btnSH('ESP12/SetSH2','0'); playSound();}
-  csh = mq_OSH3.value;
-  if (rec_str === csh){btnSH('ESP12/SetSH3','1'); playSound();}
-  csh = mq_CSH3.value;
-  if (rec_str === csh){btnSH('ESP12/SetSH3','0'); playSound();}
-  csh = mq_OSH4.value;
-  if (rec_str === csh){btnSH('ESP12/SetSH4','1'); playSound();}
-  csh = mq_CSH4.value;
-  if (rec_str === csh){btnSH('ESP12/SetSH4','0'); playSound();}
+console.log('mq_OSH1.value: ' + mq_OSH1.value);
+console.log('rec_str: ' + rec_str);
+//  if (rec_str === csh){btnSH('ESP12/SetSH1','1'); playSound();}
+//  csh = mq_CSH1.value;
+//  if (rec_str === csh){btnSH('ESP12/SetSH1','0'); playSound();}
+//  csh = mq_OSH2.value;
+//  if (rec_str === csh){btnSH('ESP12/SetSH2','1'); playSound();}
+//  csh = mq_CSH2.value;
+//  if (rec_str === csh){btnSH('ESP12/SetSH2','0'); playSound();}
+//  csh = mq_OSH3.value;
+//  if (rec_str === csh){btnSH('ESP12/SetSH3','1'); playSound();}
+//  csh = mq_CSH3.value;
+//  if (rec_str === csh){btnSH('ESP12/SetSH3','0'); playSound();}
+//  csh = mq_OSH4.value;
+//  if (rec_str === csh){btnSH('ESP12/SetSH4','1'); playSound();}
+//  csh = mq_CSH4.value;
+// if (rec_str === csh){btnSH('ESP12/SetSH4','0'); playSound();}
   rec_str = '';
 }
 

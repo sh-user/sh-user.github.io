@@ -335,6 +335,8 @@ rec_flag = false;
 if (flagSTOP == 0) {
 if (id_REC.checked) {
 var csh = mq_OSH1.value;
+console.log(mq_OSH1.value);
+console.log(rec_str);
   if (rec_str === csh){btnSH('ESP12/SetSH1','1'); playSound();}
   csh = mq_CSH1.value;
   if (rec_str === csh){btnSH('ESP12/SetSH1','0'); playSound();}

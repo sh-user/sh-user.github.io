@@ -114,21 +114,21 @@ border-radius: 4px; padding: 6px; }
     </label></div></div>
   </label></h3>
 <div id='id_divcmd' style="display: none">
-  <p><input class='ed2' id='mq_SH1open' type='text' placeholder='Открыть штору 1'>
+  <p><input class='ed2' id='mq_SH1open' type='text' placeholder='Открыть первую'>
 </p>
-  <p><input class='ed2' id='mq_SH1close' type='text' placeholder='Закрыть штору 1'>
+  <p><input class='ed2' id='mq_SH1close' type='text' placeholder='закрыть первую'>
 </p>
-  <p><input class='ed2' id='mq_SH2open' type='text' placeholder='Открыть штору 2'>
+  <p><input class='ed2' id='mq_SH2open' type='text' placeholder='открыть вторую'>
 </p>
-  <p><input class='ed2' id='mq_SH2close' type='text' placeholder='Закрыть штору 2'>
+  <p><input class='ed2' id='mq_SH2close' type='text' placeholder='закрыть вторую'>
 </p>
-  <p><input class='ed2' id='mq_SH3open' type='text' placeholder='Открыть штору 3'>
+  <p><input class='ed2' id='mq_SH3open' type='text' placeholder='открыть 3'>
 </p>
-  <p><input class='ed2' id='mq_SH3close' type='text' placeholder='Закрыть штору 3'>
+  <p><input class='ed2' id='mq_SH3close' type='text' placeholder='закрыть 3'>
 </p>
-  <p><input class='ed2' id='mq_SH4open' type='text' placeholder='Открыть штору 4'>
+  <p><input class='ed2' id='mq_SH4open' type='text' placeholder='открыть 4'>
 </p>
-  <p><input class='ed2' id='mq_SH4close' type='text' placeholder='Закрыть штору 4'>
+  <p><input class='ed2' id='mq_SH4close' type='text' placeholder='закрыть 4'>
 </p>
   <p><input class='btn' type='button' value='Сохранить' onClick="btnVCMD()"/></p>
 </div> 
@@ -327,14 +327,14 @@ rec_flag = false;
 if (flagSTOP == 0) {
 if (id_REC.checked) {
   var tmp;
-  if (rec_str === 'Открыть первую штору'){btnSH('ESP12/SetSH1','1'); speak('Выполняю');}
-  if (rec_str === 'закрыть первую штору'){btnSH('ESP12/SetSH1','0'); speak('Выполняю');}
-  if (rec_str === 'открыть вторую штору'){btnSH('ESP12/SetSH2','1'); speak('Выполняю');}
-  if (rec_str === 'закрыть вторую штору'){btnSH('ESP12/SetSH2','0'); speak('Выполняю');}
-  if (rec_str === 'открыть третью штору'){btnSH('ESP12/SetSH3','1'); speak('Выполняю');}
-  if (rec_str === 'закрыть третью штору'){btnSH('ESP12/SetSH3','0'); speak('Выполняю');}
-  if (rec_str === 'открыть четвертую штору'){btnSH('ESP12/SetSH4','1'); speak('Выполняю');}
-  if (rec_str === 'закрыть четвёртую штору'){btnSH('ESP12/SetSH4','0'); speak('Выполняю');}
+  if (rec_str === 'Открыть первую'){btnSH('ESP12/SetSH1','1'); speak('Выполняю');}
+  if (rec_str === 'закрыть первую'){btnSH('ESP12/SetSH1','0'); speak('Выполняю');}
+  if (rec_str === 'открыть вторую'){btnSH('ESP12/SetSH2','1'); speak('Выполняю');}
+  if (rec_str === 'закрыть вторую'){btnSH('ESP12/SetSH2','0'); speak('Выполняю');}
+  if (rec_str === 'открыть 3'){btnSH('ESP12/SetSH3','1'); speak('Выполняю');}
+  if (rec_str === 'закрыть 3'){btnSH('ESP12/SetSH3','0'); speak('Выполняю');}
+  if (rec_str === 'открыть 4'){btnSH('ESP12/SetSH4','1'); speak('Выполняю');}
+  if (rec_str === 'закрыть 4'){btnSH('ESP12/SetSH4','0'); speak('Выполняю');}
   var time = new Date().toLocaleTimeString();
   if (rec_str === 'Сколько время'){ speak(time);}
   rec_str = '';

@@ -196,14 +196,25 @@ function onConnect() {
     stSH3.innerHTML = 'Не определена';
     stSH4.innerHTML = 'Не определена';
 
-    mq_OSH1.innerHTML = localStorage.getItem('OSH1');
-    mq_CSH1.innerHTML = localStorage.getItem('CSH1');
-    mq_OSH2.innerHTML = localStorage.getItem('OSH2');
-    mq_CSH2.innerHTML = localStorage.getItem('CSH2');
-    mq_OSH3.innerHTML = localStorage.getItem('OSH3');
-    mq_CSH3.innerHTML = localStorage.getItem('CSH3');
-    mq_OSH4.innerHTML = localStorage.getItem('OSH4');
-    mq_CSH4.innerHTML = localStorage.getItem('CSH4');
+    var getSH = localStorage.getItem('OSH1');
+    mq_OSH1.innerHTML = getSH;
+    getSH = localStorage.getItem('CSH1');
+    mq_CSH1.innerHTML = getSH;
+
+    getSH = localStorage.getItem('OSH2');
+    mq_OSH2.innerHTML = getSH;
+    getSH = localStorage.getItem('CSH2');
+    mq_CSH2.innerHTML = getSH;
+
+    getSH = localStorage.getItem('OSH3');
+    mq_OSH3.innerHTML = getSH;
+    getSH = localStorage.getItem('CSH3');
+    mq_CSH3.innerHTML = getSH;
+
+    getSH = localStorage.getItem('OSH4');
+    mq_OSH4.innerHTML = getSH;
+    getSH = localStorage.getItem('CSH4');
+    mq_CSH4.innerHTML = getSH;
 
     id_login.style.display='none';
     id_mqtt.style.display='block';
@@ -334,24 +345,14 @@ recognizer.onend = function() {
 rec_flag = false;
 if (flagSTOP == 0) {
 if (id_REC.checked && rec_str != '') {
-  console.log('mq_OSH1.value:' + mq_OSH1.value);
-  console.log('mq_СSH1.value:' + mq_CSH1.value);
-  console.log('rec_str:' + rec_str);
   if (rec_str === mq_OSH1.value){btnSH('ESP12/SetSH1','1'); playSound();}
   if (rec_str === mq_CSH1.value){btnSH('ESP12/SetSH1','0'); playSound();}
-
-
-//  if (rec_str === csh){btnSH('ESP12/SetSH2','1'); playSound();}
-//  csh = mq_CSH2.value;
-//  if (rec_str === csh){btnSH('ESP12/SetSH2','0'); playSound();}
-//  csh = mq_OSH3.value;
-//  if (rec_str === csh){btnSH('ESP12/SetSH3','1'); playSound();}
-//  csh = mq_CSH3.value;
-//  if (rec_str === csh){btnSH('ESP12/SetSH3','0'); playSound();}
-//  csh = mq_OSH4.value;
-//  if (rec_str === csh){btnSH('ESP12/SetSH4','1'); playSound();}
-//  csh = mq_CSH4.value;
-// if (rec_str === csh){btnSH('ESP12/SetSH4','0'); playSound();}
+  if (rec_str === mq_OSH2.value){btnSH('ESP12/SetSH2','1'); playSound();}
+  if (rec_str === mq_CSH2.value){btnSH('ESP12/SetSH2','0'); playSound();}
+  if (rec_str === mq_OSH3.value){btnSH('ESP12/SetSH3','1'); playSound();}
+  if (rec_str === mq_CSH3.value){btnSH('ESP12/SetSH3','0'); playSound();}
+  if (rec_str === mq_OSH4.value){btnSH('ESP12/SetSH4','1'); playSound();}
+  if (rec_str === mq_CSH4.value){btnSH('ESP12/SetSH4','0'); playSound();}
   rec_str = '';
 }
 
@@ -431,6 +432,7 @@ function btnVCMD(){
   localStorage.setItem('CSH3', mq_CSH3.value);
   localStorage.setItem('OSH4', mq_OSH4.value);
   localStorage.setItem('CSH4', mq_CSH4.value);
+  alert('Настройки сохранены');
 }
 
 //=============================================================================

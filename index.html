@@ -316,7 +316,7 @@ recognizer.onresult = function (event) {
       rec_str = result[0].transcript;
       if (id_REC.checked) {
 	cntREC += 1;
-	if (cntREC > 6) {cntREC = 0; rcmd.value='';}
+	if (cntREC > 5) {cntREC = 0; rcmd.value='';}
         rcmd.value += new Date().toLocaleTimeString() + ': ' + result[0].transcript + '\r\n';
         rcmd.scrollTop = rcmd.scrollHeight;}
         //console.log(event);

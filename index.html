@@ -114,21 +114,21 @@ border-radius: 4px; padding: 6px; }
     </label></div></div>
   </label></h3>
 <div id='id_divcmd' style="display: none">
-  <p><input class='ed2' id='mq_SH1open' type='text' placeholder='Открыть первую'>
+  <p><input class='ed2' id='mq_OSH1' type='text' placeholder='Открыть первую'>
 </p>
-  <p><input class='ed2' id='mq_SH1close' type='text' placeholder='закрыть первую'>
+  <p><input class='ed2' id='mq_CSH1' type='text' placeholder='закрыть первую'>
 </p>
-  <p><input class='ed2' id='mq_SH2open' type='text' placeholder='открыть вторую'>
+  <p><input class='ed2' id='mq_OSH2' type='text' placeholder='открыть вторую'>
 </p>
-  <p><input class='ed2' id='mq_SH2close' type='text' placeholder='закрыть вторую'>
+  <p><input class='ed2' id='mq_CSH2' type='text' placeholder='закрыть вторую'>
 </p>
-  <p><input class='ed2' id='mq_SH3open' type='text' placeholder='открыть третью'>
+  <p><input class='ed2' id='mq_OSH3' type='text' placeholder='открыть третью'>
 </p>
-  <p><input class='ed2' id='mq_SH3close' type='text' placeholder='закрыть 3'>
+  <p><input class='ed2' id='mq_CSH3' type='text' placeholder='закрыть 3'>
 </p>
-  <p><input class='ed2' id='mq_SH4open' type='text' placeholder='открыть четвертую'>
+  <p><input class='ed2' id='mq_OSH4' type='text' placeholder='открыть четвертую'>
 </p>
-  <p><input class='ed2' id='mq_SH4close' type='text' placeholder='закрыть 4'>
+  <p><input class='ed2' id='mq_CSH4' type='text' placeholder='закрыть 4'>
 </p>
   <p><input class='btn' type='button' value='Сохранить' onClick="btnVCMD()"/></p>
 </div> 
@@ -136,7 +136,7 @@ border-radius: 4px; padding: 6px; }
 </div>
 
 </div>
-  <p class='stxt'>Версия: 20180127-2000</p>
+  <p class='stxt'>Версия: 20180127-2050</p>
 </td></tr>
 </table>
 
@@ -196,6 +196,15 @@ function onConnect() {
     stSH3.innerHTML = 'Не определена';
     stSH4.innerHTML = 'Не определена';
 
+    mq_OSH1.innerHTML = localStorage.getItem('OSH1');
+    mq_CSH1.innerHTML = localStorage.getItem('CSH1');
+    mq_OSH2.innerHTML = localStorage.getItem('OSH2');
+    mq_CSH2.innerHTML = localStorage.getItem('CSH2');
+    mq_OSH3.innerHTML = localStorage.getItem('OSH3');
+    mq_CSH3.innerHTML = localStorage.getItem('CSH3');
+    mq_OSH4.innerHTML = localStorage.getItem('OSH4');
+    mq_CSH4.innerHTML = localStorage.getItem('CSH4');
+
     id_login.style.display='none';
     id_mqtt.style.display='block';
     if (id_SAVE.checked) {
@@ -253,7 +262,6 @@ function onMessageArrived(message) {
 	if (st == '01') {stSH1.innerHTML = 'Открыта'}
 	if (st=='0'||st=='03'||st=='13') {stSH1.innerHTML = 'Закрытие'}
 	if (st=='1'||st=='02'||st=='12') {stSH1.innerHTML = 'Открытие'}
-	//if (st=='05') {stSH1.innerHTML = 'Не определена'}
 	}
 
 	//статус шторы 2
@@ -326,17 +334,14 @@ recognizer.onend = function() {
 rec_flag = false;
 if (flagSTOP == 0) {
 if (id_REC.checked) {
-  var tmp;
-  if (rec_str === 'Открыть первую'){btnSH('ESP12/SetSH1','1'); speak('Выполняю');}
-  if (rec_str === 'закрыть первую'){btnSH('ESP12/SetSH1','0'); speak('Выполняю');}
-  if (rec_str === 'открыть вторую'){btnSH('ESP12/SetSH2','1'); speak('Выполняю');}
-  if (rec_str === 'закрыть вторую'){btnSH('ESP12/SetSH2','0'); speak('Выполняю');}
-  if (rec_str === 'открыть 3'){btnSH('ESP12/SetSH3','1'); speak('Выполняю');}
-  if (rec_str === 'закрыть 3'){btnSH('ESP12/SetSH3','0'); speak('Выполняю');}
-  if (rec_str === 'открыть 4'){btnSH('ESP12/SetSH4','1'); speak('Выполняю');}
-  if (rec_str === 'закрыть 4'){btnSH('ESP12/SetSH4','0'); speak('Выполняю');}
-  var time = new Date().toLocaleTimeString();
-  if (rec_str === 'Сколько время'){ speak(time);}
+  if (rec_str === mq_OSH1.value){btnSH('ESP12/SetSH1','1'); speak('Выполняю');}
+  if (rec_str === mq_CSH1.value){btnSH('ESP12/SetSH1','0'); speak('Выполняю');}
+  if (rec_str === mq_OSH2.value){btnSH('ESP12/SetSH2','1'); speak('Выполняю');}
+  if (rec_str === mq_CSH2.value){btnSH('ESP12/SetSH2','0'); speak('Выполняю');}
+  if (rec_str === mq_OSH3.value){btnSH('ESP12/SetSH3','1'); speak('Выполняю');}
+  if (rec_str === mq_CSH3.value){btnSH('ESP12/SetSH3','0'); speak('Выполняю');}
+  if (rec_str === mq_OSH4.value){btnSH('ESP12/SetSH4','1'); speak('Выполняю');}
+  if (rec_str === mq_CSH4.value){btnSH('ESP12/SetSH4','0'); speak('Выполняю');}
   rec_str = '';
 }
 
@@ -407,7 +412,19 @@ if (id_SAVE.checked) {
 }
 
 //=============================================================================
-function loadPAGE() {
+function btnVCMD(){
+  localStorage.setItem('OSH1', mq_OSH1.value);
+  localStorage.setItem('CSH1', mq_CSH1.value);
+  localStorage.setItem('OSH2', mq_OSH2.value);
+  localStorage.setItem('CSH2', mq_CSH2.value);
+  localStorage.setItem('OSH3', mq_OSH3.value);
+  localStorage.setItem('CSH3', mq_CSH3.value);
+  localStorage.setItem('OSH4', mq_OSH4.value);
+  localStorage.setItem('CSH4', mq_CSH4.value);
+}
+
+//=============================================================================
+function loadPAGE(){
   host = localStorage.getItem('serv');
   port = localStorage.getItem('port');
   login = localStorage.getItem('login');

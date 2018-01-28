@@ -70,6 +70,8 @@ border-radius: 4px; padding: 6px; }
   <p><input class='ed2' id='mq_serv' type='text' placeholder='Сервер'>
 </p>			
   <p><input class='ed2' id='mq_port' type='text' placeholder='Порт' onkeypress="return NUM('0123456789')"></p>
+  <p><input class='ed2' id='mq_user' type='text' placeholder='Пользователь'>
+</p>
   <p><input class='ed2' id='mq_login' type='text' placeholder='Логин'>
 </p>			
   <p><input class='ed2' id='mq_pass' type='password' placeholder='Пароль'></p>
@@ -84,8 +86,63 @@ border-radius: 4px; padding: 6px; }
 <div id='id_mqtt' style="display: none">
   <h3 class='hh'>Статус сервера: <a id='stMQTT'></a></h3>
   <h3 class='hh'>Статус модуля: <a id='stESP'></a></h3>
-
+  <h3 class='hh'>Пользователей на сайте: <a id='stUSERS'></a></h3>
 <div id='id_info' style="display: none">
+  <h3 class='hh'>Последнее обновление: <a id='time'></a></h3>
+  <h3 class='hh'>Уровень сигнала: <a id='stRSSI'></a> dBm</h3>
+  <h3 class='hh'>Свободная память: <a id='stHeap'></a> байт</h3>
+  <h3 class='hh'>Датчик движения: <a id='stPIR'></a></h3>
+  <h3 class='hh'>Уровень освещенности: <a id='stLDR'></a></h3>
+  <h3 class='hh'>Температура: <a id='stT'></a> &degC</h3>
+  <h3 class='hh'>Влажность: <a id='stH'></a> %</h3>
+
+  <h3 class='hh'><label title='Не оставляйте светодиод включенным'>Управление светодиодом <div class='lay2'>
+    <div class='card'><label for='id_LED'>
+    <input type='checkbox' id='id_LED' onclick="checkLED()"/><span class='switch'></span><span class='toggle'></span>
+    </label></div></div>
+  </label></h3>
+
+  <h3 class='hh'><label title='Работает только в Google Chrome'>Голосовое управление <div class='lay2'>
+    <div class='card'><label for='id_REC'>
+    <input type='checkbox' id='id_REC' onclick="checkBX()"/><span class='switch'></span><span class='toggle'></span>
+    </label></div></div>
+  </label></h3>
+<div id='id_area1' style="display: none">
+  <h3 class='hh'>Команды: включить, выключить, температура</h3>
+  <textarea readonly class='ed' id='rcmd' rows='8'></textarea>
+</div>
+
+<h3 class='hh'><label title='Работает только в Google Chrome'>Голосовые команды <div class='lay2'>
+    <div class='card'><label for='id_VCMD'>
+    <input type='checkbox' id='id_VCMD' onclick="checkBX()"/><span class='switch'></span><span class='toggle'></span>
+    </label></div></div>
+  </label></h3>
+<div id='id_divcmd' style="display: none">
+  <p><input class='ed2' id='mq_SH1open' type='text' placeholder='Открыть штору 1'>
+</p>
+  <p><input class='ed2' id='mq_SH1close' type='text' placeholder='Закрыть штору 1'>
+</p>
+  <p><input class='ed2' id='mq_SH2open' type='text' placeholder='Открыть штору 2'>
+</p>
+  <p><input class='ed2' id='mq_SH2close' type='text' placeholder='Закрыть штору 2'>
+</p>
+  <p><input class='ed2' id='mq_SH3open' type='text' placeholder='Открыть штору 3'>
+</p>
+  <p><input class='ed2' id='mq_SH3close' type='text' placeholder='Закрыть штору 3'>
+</p>
+  <p><input class='ed2' id='mq_SH4open' type='text' placeholder='Открыть штору 4'>
+</p>
+  <p><input class='ed2' id='mq_SH4close' type='text' placeholder='Закрыть штору 4'>
+</p>
+  <p><input class='btn' type='button' value='Сохранить' onClick="btnVCMD()"/></p>
+</div> 
+
+<h3 class='hh'><label>Управление шторами <div class='lay2'>
+    <div class='card'><label for='id_SHCMD'>
+    <input type='checkbox' id='id_SHCMD' onclick="checkBX()"/><span class='switch'></span><span class='toggle'></span>
+    </label></div></div>
+  </label></h3>
+<div id='id_divsh' style="display: none">
   <h3 class='hh'>Штора 1: <a id='stSH1'></a></h3>
   <span class='bt1'><input class='btn' type='button' value='Открыть' onClick="btnSH('ESP12/SetSH1','1')"/></span>
   <span class='bt2'><input class='btn' type='button' value='Закрыть' onClick="btnSH('ESP12/SetSH1','0')"/></span>
@@ -98,45 +155,36 @@ border-radius: 4px; padding: 6px; }
   <h3 class='hh'>Штора 4: <a id='stSH4'></a></h3>
   <span class='bt1'><input class='btn' type='button' value='Открыть' onClick="btnSH('ESP12/SetSH4','1')"/></span>
   <span class='bt2'><input class='btn' type='button' value='Закрыть' onClick="btnSH('ESP12/SetSH4','0')"/></span>
+</div>
 
-  <h3 class='hh'><label title='Работает только в Google Chrome'>Голосовое управление <div class='lay2'>
-    <div class='card'><label for='id_REC'>
-    <input type='checkbox' id='id_REC' onclick="checkBX()"/><span class='switch'></span><span class='toggle'></span>
+</div>
+
+<h3 class='hh'><label>MQTT Messenger <div class='lay2'>
+    <div class='card'><label for='id_MESS'>
+    <input type='checkbox' id='id_MESS' onclick="checkBX()"/><span class='switch'></span><span class='toggle'></span>
     </label></div></div>
   </label></h3>
-<div id='id_area1' style="display: none">
-  <textarea readonly class='ed' id='rcmd' rows='6'></textarea>
-</div>
-
-<h3 class='hh'><label title='Работает только в Google Chrome'>Голосовые команды <div class='lay2'>
-    <div class='card'><label for='id_VCMD'>
-    <input type='checkbox' id='id_VCMD' onclick="checkBX()"/><span class='switch'></span><span class='toggle'></span>
+<div id='id_area2' style="display: none">
+   <h3 class='hh'>Пользователь: <a id='stUSER1'></a></h3>
+   <textarea readonly class='ed' id='rmess' rows='8'></textarea>
+<form onsubmit="btnSendMESS(); return false">
+   <p class='hh'><input class='ed2' id='mq_mess' autocomplete='off' type='text' placeholder='Сообщение'>
+</p>
+</form>
+<h3 class='hh'><label title='Работает только в Google Chrome'>Голосовой набор сообщения<div class='lay2'>
+    <div class='card'><label for='id_RMESS'>
+    <input type='checkbox' id='id_RMESS' onclick="checkBX()"/><span class='switch'></span><span class='toggle'></span>
     </label></div></div>
   </label></h3>
-<div id='id_divcmd' style="display: none">
-  <p><input class='ed2' id='mq_OSH1' type='text' placeholder='Открыть первую'>
-</p>
-  <p><input class='ed2' id='mq_CSH1' type='text' placeholder='закрыть первую'>
-</p>
-  <p><input class='ed2' id='mq_OSH2' type='text' placeholder='открыть вторую'>
-</p>
-  <p><input class='ed2' id='mq_CSH2' type='text' placeholder='закрыть вторую'>
-</p>
-  <p><input class='ed2' id='mq_OSH3' type='text' placeholder='открыть третью'>
-</p>
-  <p><input class='ed2' id='mq_CSH3' type='text' placeholder='закрыть 3'>
-</p>
-  <p><input class='ed2' id='mq_OSH4' type='text' placeholder='открыть четвертую'>
-</p>
-  <p><input class='ed2' id='mq_CSH4' type='text' placeholder='закрыть 4'>
-</p>
-  <p><input class='btn' type='button' value='Сохранить' onClick="btnVCMD()"/></p>
-</div> 
-
+  <h3 class='hh'><label>Голосовой ответ<div class='lay2'>
+    <div class='card'><label for='id_UTT'>
+    <input type='checkbox' id='id_UTT'/><span class='switch'></span><span class='toggle'></span>
+    </label></div></div>
+  </label></h3>
 </div>
 
 </div>
-  <p class='stxt'>Версия: 20180128-0000</p>
+  <p class='stxt'>Версия: 20180125-0000</p>
 </td></tr>
 </table>
 
@@ -145,9 +193,8 @@ border-radius: 4px; padding: 6px; }
 <script type="text/javascript">
 //=============================================================================
 //глобальные переменные
-var idUSER = ''; flag = ''; temp = ''; host = ''; port = 0; login = ''; pass = ''; 
-var flagSTOP = 0; rec_str = ''; rec_flag = ''; cntREC = 0;
-
+var idUSER = ''; flag = ''; temp = ''; host = ''; port = 0; user = ''; 
+var login = ''; pass = ''; txtUTT = ''; flagSTOP = 0; rec_str = ''; rec_flag = '';
 
 function playSound() {
   if (typeof window.Audio === 'function') {
@@ -166,10 +213,15 @@ function MQTTconnect() {
   client.onConnectionLost = onConnectionLost;
   client.onMessageArrived = onMessageArrived;
 
+  // Connect the client, with a Last-Will-and-Testament
+  //var lwt = new Paho.MQTT.Message('-');  
+  //lwt.destinationName = 'ESP12/Users';
+
   var options = {
     useSSL: true,
     userName: login,
     password: pass,
+    //willMessage: lwt,
     onSuccess: onConnect,
     onFailure: doFail,
   }
@@ -196,20 +248,12 @@ function onConnect() {
     stSH3.innerHTML = 'Не определена';
     stSH4.innerHTML = 'Не определена';
 
-    mq_OSH1.value = localStorage.getItem('OSH1');
-    mq_CSH1.value = localStorage.getItem('CSH1');
-    mq_OSH2.value = localStorage.getItem('OSH2');
-    mq_CSH2.value = localStorage.getItem('CSH2');
-    mq_OSH3.value = localStorage.getItem('OSH3');
-    mq_CSH3.value = localStorage.getItem('CSH3');
-    mq_OSH4.value = localStorage.getItem('OSH4');
-    mq_CSH4.value = localStorage.getItem('CSH4');
-
     id_login.style.display='none';
     id_mqtt.style.display='block';
     if (id_SAVE.checked) {
     id_EX.style.display='block';
     id_REC.checked = localStorage.getItem('reccmd'); 
+    id_MESS.checked = localStorage.getItem('mess'); 
     checkBX(); }
 }
 
@@ -239,20 +283,64 @@ function btnSH(topic, setsh) {
 }
 
 //=============================================================================
+function sendLED(ld) {
+    message = new Paho.MQTT.Message(ld);
+    message.destinationName = 'ESP12/SetLED';
+    client.send(message);
+}
+
+//=============================================================================
 // called when a message arrives
 function onMessageArrived(message) {
-	//console.log(message.destinationName + ':' + message.payloadString);
+	console.log(message.destinationName + ':' + message.payloadString);
 
 	//статус модуля
 	if (message.destinationName == 'ESP12/Status') {
 
 	if (message.payloadString == '1') {stESP.innerHTML = 'Подключен'; id_info.style.display='block';}}
 
+	//статус heap
+	if (message.destinationName == 'ESP12/Heap') { stHeap.innerHTML = message.payloadString; }
+
 	//статус модуля от брокера
         if (message.destinationName == '$SYS/broker/clients/connected') {
 
 	if (message.payloadString == '0') { stESP.innerHTML = 'Не подключен'; id_info.style.display='none';}
 	else {stESP.innerHTML = 'Подключен'; id_info.style.display='block';}}
+
+	//пользователей на сайте
+        if (message.destinationName == '$SYS/broker/clients/inactive') {
+
+	if (message.payloadString == '0') {stUSERS.innerHTML = '1';}
+	else {stUSERS.innerHTML = message.payloadString;}}
+
+	//уровень сигнала
+	if (message.destinationName == 'ESP12/RSSI') {stRSSI.innerHTML = message.payloadString; 
+	time.innerHTML = new Date().toLocaleTimeString();}
+
+        //датчик движения
+	if (message.destinationName == 'ESP12/PIR') {stPIR.innerHTML = message.payloadString; 
+        //if (message.payloadString == '1') { playSound2();}
+	}
+
+	//уровень освещенности
+	if (message.destinationName == 'ESP12/LDR') {stLDR.innerHTML = message.payloadString; }
+
+	//температура
+	if (message.destinationName == 'ESP12/T') {stT.innerHTML = message.payloadString; temp = message.payloadString;}
+
+	//влажность
+	if (message.destinationName == 'ESP12/H') {stH.innerHTML = message.payloadString; }
+
+	//статус светодиода
+	if (message.destinationName == 'ESP12/LED') {
+
+	//stLED.innerHTML = message.payloadString; 
+	if (message.payloadString == '0') {id_LED.checked = false;}
+	else {id_LED.checked = true;}
+	if (flag == '') {flag = message.payloadString; }
+	if (message.payloadString != flag) { flag = message.payloadString; playSound();}
+	else {flag = message.payloadString; }}
 
         //статус шторы 1
 	if (message.destinationName == 'ESP12/SH1') {
@@ -262,6 +350,7 @@ function onMessageArrived(message) {
 	if (st == '01') {stSH1.innerHTML = 'Открыта'}
 	if (st=='0'||st=='03'||st=='13') {stSH1.innerHTML = 'Закрытие'}
 	if (st=='1'||st=='02'||st=='12') {stSH1.innerHTML = 'Открытие'}
+	//if (st=='05') {stSH1.innerHTML = 'Не определена'}
 	}
 
 	//статус шторы 2
@@ -293,6 +382,21 @@ function onMessageArrived(message) {
 	if (st=='0'||st=='03'||st=='13') {stSH4.innerHTML = 'Закрытие'}
 	if (st=='1'||st=='02'||st=='12') {stSH4.innerHTML = 'Открытие'}
 	}
+
+	//мессенджер
+	if (message.destinationName == 'ESP12/MESS') {
+   	rmess.value += new Date().toLocaleTimeString() + ': ' + message.payloadString + '\r\n';
+      	rmess.scrollTop = rmess.scrollHeight; 
+        var txtUSER = message.payloadString;
+        txtUSER = txtUSER.substring(0,txtUSER.indexOf('\r'));
+	if (id_UTT.checked && txtUSER != user) { 
+	  txtUSER = message.payloadString;
+          txtUSER = txtUSER.substring(txtUSER.indexOf('\n'),txtUSER.length);
+	  recognizer.stop();
+	  flagSTOP = 1;
+	  setTimeout(function(){speak(txtUSER);}, 2000);} 
+	else { playSound();}  
+	}
 }
 
 //=============================================================================
@@ -315,8 +419,6 @@ recognizer.onresult = function (event) {
     if (result.isFinal) {
       rec_str = result[0].transcript;
       if (id_REC.checked) {
-	cntREC += 1;
-	if (cntREC > 5) {cntREC = 0; rcmd.value='';}
         rcmd.value += new Date().toLocaleTimeString() + ': ' + result[0].transcript + '\r\n';
         rcmd.scrollTop = rcmd.scrollHeight;}
         //console.log(event);
@@ -334,26 +436,33 @@ recognizer.onstart = function() {
 recognizer.onend = function() {
 rec_flag = false;
 if (flagSTOP == 0) {
-if (id_REC.checked && rec_str != '') {
-  if (rec_str === mq_OSH1.value){btnSH('ESP12/SetSH1','1'); playSound();}
-  if (rec_str === mq_CSH1.value){btnSH('ESP12/SetSH1','0'); playSound();}
-  if (rec_str === mq_OSH2.value){btnSH('ESP12/SetSH2','1'); playSound();}
-  if (rec_str === mq_CSH2.value){btnSH('ESP12/SetSH2','0'); playSound();}
-  if (rec_str === mq_OSH3.value){btnSH('ESP12/SetSH3','1'); playSound();}
-  if (rec_str === mq_CSH3.value){btnSH('ESP12/SetSH3','0'); playSound();}
-  if (rec_str === mq_OSH4.value){btnSH('ESP12/SetSH4','1'); playSound();}
-  if (rec_str === mq_CSH4.value){btnSH('ESP12/SetSH4','0'); playSound();}
+if (id_REC.checked) {
+  var tmp;
+  if (rec_str === 'включить'){sendLED('1');}
+  if (rec_str === 'выключить'){sendLED('0');}
+  tmp = temp.replace('.',' и ');
+  //tmp = temp.substring(0,temp.indexOf('.'));
+  //tmp = tmp + ' °';
+  if (rec_str === 'температура') {speak(tmp);}
   rec_str = '';
 }
 
-if (id_REC.checked) { recognizer.start();} 
+if (id_RMESS.checked) {
+  if (rec_str != '') {
+    message = new Paho.MQTT.Message(user + '\r\n' + rec_str + '\r\n');
+    message.destinationName = 'ESP12/MESS';
+    client.send(message);} 
+    rec_str = '';	
+}
+
+if (id_REC.checked || id_RMESS.checked) { recognizer.start();} 
 }
 }
 
 //=============================================================================
 utterance.onend = function() { 
   flagSTOP = 0;
-  if (id_REC.checked) { recognizer.start();}
+  if (id_REC.checked || id_RMESS.checked) { recognizer.start();}
 }
 
 //=============================================================================
@@ -373,13 +482,31 @@ function checkBX(){
   rcmd.value = '';	
   localStorage.setItem('reccmd', ''); }
   
+  if (id_MESS.checked) {
+  id_area2.style.display='block'; 
+  localStorage.setItem('mess', id_MESS.checked); }
+  else {
+  id_RMESS.checked = false;
+  id_UTT.checked = false;
+  id_area2.style.display='none';
+  localStorage.setItem('mess', ''); }
+
   if (id_VCMD.checked) { id_divcmd.style.display='block'; }
   else { id_divcmd.style.display='none'; }
 
+  if (id_SHCMD.checked) { id_divsh.style.display='block'; }
+  else { id_divsh.style.display='none'; }
+
 if ('webkitSpeechRecognition' in window) {
-  if (id_REC.checked) {
+  if (id_REC.checked || id_RMESS.checked) {
   if (! rec_flag) {recognizer.start();} else { recognizer.stop();}}
 }
+}
+
+//=============================================================================
+function checkLED(){
+  if (id_LED.checked) {sendLED('1');} 
+  else {sendLED('0');}
 }
 
 //=============================================================================
@@ -392,15 +519,17 @@ function NUM(AvaiableSymbol) {
 function btnConnect(){
   host = mq_serv.value; 
   port = parseInt(mq_port.value);
+  user = mq_user.value; 
   login = mq_login.value;
   pass = mq_pass.value;
 
-if (host=='' || mq_port.value=='' || login=='' || pass=='') 
+if (host=='' || mq_port.value=='' || user=='' || login=='' || pass=='') 
   {id_login.style.display='block'; alert('Ошибка\r\nЗаполните все поля формы'); return;}
 
 if (id_SAVE.checked) {
   localStorage.setItem('serv', mq_serv.value);
   localStorage.setItem('port', mq_port.value);
+  localStorage.setItem('user', mq_user.value);
   localStorage.setItem('login', mq_login.value);
   localStorage.setItem('pass', mq_pass.value);
   localStorage.setItem('save', id_SAVE.checked);}
@@ -408,36 +537,35 @@ if (id_SAVE.checked) {
   localStorage.setItem('pass', '');
   localStorage.setItem('save', '');
   localStorage.setItem('reccmd', '');
+  localStorage.setItem('mess', '');
 }
   MQTTconnect();
 }
 
 //=============================================================================
-function btnVCMD(){
-  localStorage.setItem('OSH1', mq_OSH1.value);
-  localStorage.setItem('CSH1', mq_CSH1.value);
-  localStorage.setItem('OSH2', mq_OSH2.value);
-  localStorage.setItem('CSH2', mq_CSH2.value);
-  localStorage.setItem('OSH3', mq_OSH3.value);
-  localStorage.setItem('CSH3', mq_CSH3.value);
-  localStorage.setItem('OSH4', mq_OSH4.value);
-  localStorage.setItem('CSH4', mq_CSH4.value);
-  alert('Настройки сохранены');
+function btnSendMESS(){
+    message = new Paho.MQTT.Message(user + '\r\n' + mq_mess.value + '\r\n');
+    message.destinationName = 'ESP12/MESS';
+    client.send(message);
+    mq_mess.value = '';
 }
 
 //=============================================================================
-function loadPAGE(){
+function loadPAGE() {
   host = localStorage.getItem('serv');
   port = localStorage.getItem('port');
+  user = localStorage.getItem('user');
   login = localStorage.getItem('login');
   pass = localStorage.getItem('pass');
   mq_serv.value = host;
   mq_port.value = port;
+  mq_user.value = user;
   mq_login.value = login;
   mq_pass.value = pass;
   id_SAVE.checked = localStorage.getItem('save');
   if (id_SAVE.checked) {btnConnect();}
   else {id_login.style.display='block';}
+  stUSER1.innerHTML = user; 
 }
 
 //=============================================================================

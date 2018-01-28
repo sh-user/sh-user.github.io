@@ -1,0 +1,146 @@
+<html>
+
+<head>
+  <title>Температура</title>
+
+<style>
+body{ background-color: #F5F5F5; color: #2F4F4F; font-family: Helvetica; font-size: 15px; }
+</style>
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" ></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js"></script>
+
+</head>
+
+<body>
+
+<div id="connstatus">-----</div>
+<h1>Температура в комнате</h1>
+<div id="chart_div" style="height: 300px; width: 300px;"></div>
+
+
+
+</body>
+
+<script>
+google.charts.load('current', {'packages':['gauge']});
+//google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+
+var myMsg = 0; // where I put my message
+var cnt = 0;
+
+// gauge variables.
+
+// Google Charts Stuff
+     function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['My Value', 'Value'],
+          ['', 0],
+        ]);
+
+        var options = {
+          min: 0, max: 40,
+          width: 300, height: 300,
+          redFrom: 0, redTo: 12,
+          yellowFrom:12, yellowTo: 18,
+          minorTicks: 5,
+          majorTicks: ["0","5","10","15","20","25","30", "35", "40"]
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+        chart.draw(data, options);
+
+        setInterval(function() {
+          data.setValue(0, 1, myMsg );
+          chart.draw(data, options);
+        }, 400);
+      }
+
+
+function drawChart2() {
+        var data = google.visualization.arrayToDataTable([
+          ['20:13',  10],
+          ['20:14',  20],
+          ['20:15',  15],
+          ['20:16',  30]
+        ]);
+
+        var options = {
+          hAxis: {titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0}
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+
+
+ // Create a client instance
+  client = new Paho.MQTT.Client("m23.cloudmqtt.com", 33492, "web_" + parseInt(Math.random() * 100, 10));
+
+  // set callback handlers
+  client.onConnectionLost = onConnectionLost;
+  client.onMessageArrived = onMessageArrived;
+  var options = {
+    useSSL: true,
+    userName: "ivtjhrii",
+    password: "_Gnt6HJ2ncka",
+    onSuccess:onConnect,
+    onFailure:doFail,
+  }
+
+  // connect the client
+    client.connect(options);
+
+
+  // called when the client connects
+  function onConnect() {
+    // Once a connection has been made, make a subscription and send a message.
+    connstatus.innerHTML = "Connected";
+    console.log("onConnect");
+    client.subscribe("ESP12/T");
+
+    message = new Paho.MQTT.Message(' ');
+    message.destinationName = 'ESP12/Status';
+    client.send(message);
+  }
+
+  function doFail(e){
+    console.log(e);
+  }
+
+  // called when the client loses its connection
+  function onConnectionLost(responseObject) {
+    connstatus.innerHTML = "Not Connected";
+    if (responseObject.errorCode !== 0) {
+      console.log("onConnectionLost:"+responseObject.errorMessage);
+    }
+  }
+
+  // called when a message arrives
+  function onMessageArrived(message) {
+    console.log(message.destinationName + ':' + message.payloadString);
+    myMsg = message.payloadString; 
+
+    //var polyline= document.getElementById('polyline-id');
+    //points = polyline.getAttribute('points');
+    //cnt += 10;
+    //if (cnt > 350) {cnt = 0;}
+    //var pt = myMsg * 10;
+    //pt = 250 - pt;
+    //points += cnt + "," + pt + " ";
+    //polyline.setAttribute('points', points );
+
+  }
+
+  function updateChart(){
+    data.setValue(0, 1, 30);
+    chart.draw(data, options);
+  }
+
+</script>
+
+</html>

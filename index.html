@@ -192,6 +192,8 @@ function onConnect() {
     // Once a connection has been made, make a subscription and send a message.
     console.log('onConnect');
     stMQTT.innerHTML='Подключен';
+    stESP01.innerHTML='Не подключен';
+    stESP12.innerHTML='Не подключен';
     client.subscribe('$SYS/broker/clients/inactive');
     client.subscribe('$SYS/broker/clients/connected');
     client.subscribe('ESP12/#');

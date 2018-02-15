@@ -54,7 +54,7 @@ border: 1px solid gray; border-radius: 4px; padding: 6px;}
 border-radius: 4px; padding: 6px; }
 .stxt {margin: 12px 0 12px 0; font-size: 14px;}
 
-.ram0 {margin:4px 0; padding: 0 12px 0 12px; border: 1px solid gray; border-radius: 4px; box-shadow: 0 0 10px rgba(0,0,0,0.2); -moz-box-shadow: 0 0 10px rgba(0,0,0,0.2); -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.2);}
+#ram0 {margin:4px 0; padding: 0 12px 0 12px; border: 1px solid gray; border-radius: 4px; box-shadow: 0 0 10px rgba(0,0,0,0.2); -moz-box-shadow: 0 0 10px rgba(0,0,0,0.2); -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.2);}
 
 </style>
 </head> 
@@ -62,7 +62,7 @@ border-radius: 4px; padding: 6px; }
 <body onload='loadPAGE()'>
 
 <table class='lay1'>
-<tr><td><div class='ram0'>
+<tr><td><div id='ram0'>
   <h1 class='hh'>MQTT Websocket 
   <div class='lay3' id='id_EX' style="display: none"><div class='ex1' title='Выход' onclick="divEX()"></div></div>
   </h1></h1>
@@ -144,7 +144,7 @@ border-radius: 4px; padding: 6px; }
 </div>
 
 </div>
-  <p class='stxt'>Версия: 20180201-0000</p>
+  <p class='stxt'>Версия: 20180215-1700</p>
 </div>
 </td></tr>
 </table>
@@ -478,6 +478,13 @@ function btnSendMESS(){
 
 //=============================================================================
 function loadPAGE() {
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  //alert('код для мобильных устройств');
+  ram0.style.border = '0'; 
+  ram0.style.boxShadow = 'none'; 
+  ram0.style.MozBoxShadow = 'none';
+  ram0.style.webkitBoxShadow = 'none';
+}
   host = localStorage.getItem('serv');
   port = localStorage.getItem('port');
   user = localStorage.getItem('user');

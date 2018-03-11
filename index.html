@@ -18,19 +18,14 @@ background-attachment: fixed; background-color: #2e4d50; color: #2F4F4F; font-fa
 .ex1:active {background-color: #2F4F4F;}
 
 input[type='checkbox'] { display: none;}
-input[type='checkbox']:checked ~ .toggle { background: #009688; left: 15px; transition: .2s;}
-input[type='checkbox']:checked ~ .switch { background: #77c0b9; transition: .2s;}
-.switch {
-  display: block; width: 32px; height: 14px; background: #939393; border-radius: 10px;
-  position: absolute; top: 0; transition: .2s;
-}
-.toggle {
-  height: 21px; width: 21px; border-radius: 50%; background: white; position: absolute;
-  top: -4px; left: -4px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); transition: .2s;
-}
-.card {
-  display: inline-block; margin: 0 4px 0 4px; width: 25px; height: 13px; text-align: center; position: relative;
-}
+input[type='checkbox']:checked ~ .toggle { background: #4169e1; left: 15px; transition: .2s;}
+input[type='checkbox']:checked ~ .switch { background: #93AEFF; transition: .2s;}
+.switch {display: block; width: 32px; height: 14px; background: #939393; border-radius: 10px;
+  position: absolute; top: 0; transition: .2s;}
+.toggle {height: 21px; width: 21px; border-radius: 50%; background: white; position: absolute;
+  top: -4px; left: -4px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); transition: .2s;}
+.card {display: inline-block; margin: 0 4px 0 4px; width: 25px; height: 13px; text-align: center; position: relative;}
+
 
 h1, h3 {width: 334px; font-weight:normal; margin: 12px 0 12px 0;}
 audio {width: 334px;}
@@ -48,16 +43,16 @@ audio {width: 334px;}
 .btn:hover {border: 1px solid #6E6E6E;}
 
 .ed {width: 320px; outline: none; resize: none; font-family: Helvetica; font-size: 14px; 
-border: 1px solid gray; border-radius: 4px; padding: 6px; background-color:#F0FFF0;}
+border: 1px solid gray; border-radius: 4px; padding: 6px;}
 .ed2 {width: 320px; height: 24px; border: 1px solid gray; font-family: Helvetica; font-size: 15px; 
-border-radius: 4px; padding: 6px; background-color:#F0FFF0;}
+border-radius: 4px; padding: 6px;}
 .stxt {margin: 12px 0 12px 0; font-size: 14px;}
 
-#ram0 {margin:4px 0; padding: 2px 14px 2px 14px; border-radius: 4px; 
+#ram0 {margin:4px 0; padding: 2px 14px 2px 14px; border: 1px solid gray; border-radius: 4px; 
 box-shadow: 0 0 10px rgba(0,0,0,0.2); -moz-box-shadow: 0 0 10px rgba(0,0,0,0.2); 
 -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.2);
-background: rgba(40,141,153,0.2); /* Цвет фона и значение прозрачности */
-color: #F0FFF0; /* Цвет текста */
+background: rgba(216,216,216,0.8); /* Цвет фона и значение прозрачности */
+color: #2F4F4F; /* Цвет текста */
 }
 
 </style>

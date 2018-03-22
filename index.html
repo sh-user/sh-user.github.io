@@ -148,7 +148,7 @@ color: #455a64;
 </div>
 
 </div>
-<p class='stxt'>Версия: 20180322-1700</p>
+<p class='stxt'>Версия: 20180322-2104</p>
 </div>
 </td></tr>
 </table>
@@ -288,8 +288,7 @@ function onMessageArrived(message) {
 	if (m01==1) {esp01(1);} else {esp01(0);}
         if (m12==1) {esp12(1);} else {esp12(0);}}
 	//пользователей на сайте
-        var md 
-        md = Number(m01) + Number(m12);
+        var md = Number(m01) + Number(m12);
 	stUSERS.innerHTML = message.payloadString - md;
 	}
 

@@ -30,7 +30,14 @@ h1, h3 {width: 334px; font-weight:normal; margin: 12px 0 12px 0;}
 audio {width: 334px;}
 
 .block1 { border: solid 1px #2F4F4F; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);}
-.lay1 {width: 334px; padding: 0; margin: 0 auto;}
+
+#lay1 {width: 334px; padding: 0; margin: 6px auto; border: 1px solid gray; border-radius: 4px; 
+box-shadow: 0 0 10px rgba(0,0,0,0.3); -moz-box-shadow: 0 0 10px rgba(0,0,0,0.3); -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.3); 
+background: rgba(207,216,220,1); /* Цвет фона и значение прозрачности */
+color: #455a64;}
+
+.ram0 {width: 334px; margin: 0; padding: 0 10px 0 10px;}
+
 .lay2 {width: 40px; float: right;}
 .lay3 {width: 32px; float: right;}
 .bt1 {width: 165px; float: left; margin: 0 4px 12px 0;}
@@ -47,20 +54,13 @@ border: 1px solid gray; border-radius: 4px; padding: 6px;}
 border-radius: 4px; padding: 6px;}
 .stxt {margin: 12px 0 12px 0; font-size: 14px;}
 
-#ram0 {margin:4px 0; padding: 2px 14px 2px 14px; border: 1px solid gray; border-radius: 4px; 
-box-shadow: 0 0 10px rgba(0,0,0,0.3); -moz-box-shadow: 0 0 10px rgba(0,0,0,0.3); 
--webkit-box-shadow: 0 0 10px rgba(0,0,0,0.3);
-background: rgba(207,216,220,1); /* Цвет фона и значение прозрачности */
-color: #455a64;
-}
-
 </style>
 </head> 
 
 <body onload='loadPAGE()'>
 
-<table class='lay1'>
-<tr><td><div id='ram0'>
+<table id='lay1'>
+<tr><td><div class='ram0'>
   <h1>MQTT Websocket 
   <div class='lay3' id='id_EX' style="display: none"><div class='ex1' title='Выход' onclick="divEX()"></div></div>
   </h1></h1>
@@ -500,10 +500,15 @@ function btnSendMESS(){
 function loadPAGE() {
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
   //alert('код для мобильных устройств');
-  ram0.style.border = '0'; 
-  ram0.style.boxShadow = 'none'; 
-  ram0.style.MozBoxShadow = 'none';
-  ram0.style.webkitBoxShadow = 'none';
+  document.body.style.backgroundColor = '#cfd8dc';
+  lay1.style.border = '0'; 
+  lay1.style.margin = '0';
+  lay1.style.width = '100%';
+  lay1.style.boxShadow = 'none'; 
+  lay1.style.MozBoxShadow = 'none';
+  lay1.style.webkitBoxShadow = 'none';
+} else {
+  //alert('код для обычных устройств');
 }
   host = localStorage.getItem('serv');
   port = localStorage.getItem('port');

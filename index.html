@@ -291,7 +291,7 @@ function onMessageArrived(message) {
 	//пользователей на сайте
 	var md = Number(message.payloadString);
 	md = md - (m01 + m12);
-	stUSERS.innerHTML = md;
+	stUSERS.innerHTML = String(md);
 	}
 
 	//пользователей на сайте

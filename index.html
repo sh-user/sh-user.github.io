@@ -290,7 +290,8 @@ function onMessageArrived(message) {
 	}
 	//пользователей на сайте
 	var md = Number(message.payloadString);
-	md = md - (m01 + m12);
+	md = md - m01;
+	md = md - m12;
 	stUSERS.innerHTML = String(md);
 	}
 

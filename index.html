@@ -287,13 +287,15 @@ function onMessageArrived(message) {
 	else {
 	if (m01==1) {esp01(1);} else {esp01(0);}
         if (m12==1) {esp12(1);} else {esp12(0);}}
+	//пользователей на сайте	
+	stUSERS.innerHTML = message.payloadString;
 	}
 
 	//пользователей на сайте
-        if (message.destinationName == '$SYS/broker/clients/inactive') {
+        //if (message.destinationName == '$SYS/broker/clients/inactive') {
 
-	if (message.payloadString == '0') {stUSERS.innerHTML = '1';}
-	else {stUSERS.innerHTML = message.payloadString;}}
+	//if (message.payloadString == '0') {stUSERS.innerHTML = '1';}
+	//else {stUSERS.innerHTML = message.payloadString;}}
 
         //уровень сигнала ESP01
 	if (message.destinationName == 'ESP12/RSSI2') {stRSSI2.innerHTML = message.payloadString; }

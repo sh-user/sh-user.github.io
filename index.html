@@ -288,8 +288,7 @@ function onMessageArrived(message) {
 	if (m01==1) {esp01(1);} else {esp01(0);}
         if (m12==1) {esp12(1);} else {esp12(0);}}
 	//пользователей на сайте
-	var md = m01 + m12;
-	stUSERS.innerHTML = message.payloadString - md;
+	stUSERS.innerHTML = Number(message.payloadString) - (m01 + m12);
 	}
 
 	//пользователей на сайте

@@ -148,7 +148,7 @@ color: #455a64;
 </div>
 
 </div>
-<p class='stxt'>Версия: 20180322-2200</p>
+<p class='stxt'>Версия: 20180323-0000</p>
 </div>
 </td></tr>
 </table>
@@ -291,7 +291,9 @@ function onMessageArrived(message) {
 	}
 	//пользователей на сайте
 	if (md != '1' && md != '2'){ stUSERS.innerHTML = md - 2;}
-	else { stUSERS.innerHTML = md - 1;}
+	else { 
+	if (md == '1') {stUSERS.innerHTML = md;} else {stUSERS.innerHTML = md - 1;}
+	}
 	}
 
 	//пользователей на сайте

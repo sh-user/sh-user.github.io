@@ -148,7 +148,7 @@ color: #455a64;
 </div>
 
 </div>
-<p class='stxt'>Версия: 20180323-0000</p>
+<p class='stxt'>Версия: 20180323-0100</p>
 </div>
 </td></tr>
 </table>
@@ -285,15 +285,12 @@ function onMessageArrived(message) {
 
 	md = message.payloadString;
 	if (md == '1') {m01=0; m12=0; esp01(0); esp12(0);}
-	else {
+	if (md == '2' && md == '3') {
 	if (m01==1) {esp01(1);} else {esp01(0);}
-        if (m12==1) {esp12(1);} else {esp12(0);}
-	}
+        if (m12==1) {esp12(1);} else {esp12(0);}}
 	//пользователей на сайте
 	if (md != '1' && md != '2'){ stUSERS.innerHTML = md - 2;}
-	else { 
-	if (md == '1') {stUSERS.innerHTML = md;} else {stUSERS.innerHTML = md - 1;}
-	}
+	else { if (md == '1') {stUSERS.innerHTML = md;} else {stUSERS.innerHTML = md - 1;}}
 	}
 
 	//пользователей на сайте

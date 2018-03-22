@@ -148,7 +148,7 @@ color: #455a64;
 </div>
 
 </div>
-<p class='stxt'>Версия: 20180322-2052</p>
+<p class='stxt'>Версия: 20180322-1700</p>
 </div>
 </td></tr>
 </table>
@@ -287,9 +287,17 @@ function onMessageArrived(message) {
 	else {
 	if (m01==1) {esp01(1);} else {esp01(0);}
         if (m12==1) {esp12(1);} else {esp12(0);}}
-	//пользователей на сайте	
-	stUSERS.innerHTML = message.payloadString - m01 - m12;
+	//пользователей на сайте
+        var md 
+        md = Number(m01) + Number(m12);
+	stUSERS.innerHTML = message.payloadString - md;
 	}
+
+	//пользователей на сайте
+        //if (message.destinationName == '$SYS/broker/clients/inactive') {
+
+	//if (message.payloadString == '0') {stUSERS.innerHTML = '1';}
+	//else {stUSERS.innerHTML = message.payloadString;}}
 
         //уровень сигнала ESP01
 	if (message.destinationName == 'ESP12/RSSI2') {stRSSI2.innerHTML = message.payloadString; }

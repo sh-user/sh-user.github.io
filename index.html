@@ -284,13 +284,15 @@ function onMessageArrived(message) {
         if (message.destinationName == '$SYS/broker/clients/connected') {
 
 	md = message.payloadString;
+	md2 = '';
 	if (md == '1') {m01=0; m12=0; esp01(0); esp12(0);}
 	else {
 	if (m01==1) {esp01(1);} else {esp01(0);}
         if (m12==1) {esp12(1);} else {esp12(0);}
 	}
 	//пользователей на сайте
-	stUSERS.innerHTML = md - (m01 + m12);
+	if (md != '1' && md != '2'){ stUSERS.innerHTML = md - 1;}
+	else { stUSERS.innerHTML = md - 2;}
 	}
 
 	//пользователей на сайте

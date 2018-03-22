@@ -205,7 +205,7 @@ function onConnect() {
     stMQTT.innerHTML='Подключен';
     stESP01.innerHTML='Не подключен';
     stESP12.innerHTML='Не подключен';
-    client.subscribe('$SYS/broker/clients/inactive');
+    //client.subscribe('$SYS/broker/clients/inactive');
     client.subscribe('$SYS/broker/clients/connected');
     client.subscribe('ESP12/#');
     
@@ -288,7 +288,7 @@ function onMessageArrived(message) {
 	if (m01==1) {esp01(1);} else {esp01(0);}
         if (m12==1) {esp12(1);} else {esp12(0);}}
 	//пользователей на сайте	
-	stUSERS.innerHTML = message.payloadString;
+	stUSERS.innerHTML = message.payloadString - 2;
 	}
 
 	//пользователей на сайте

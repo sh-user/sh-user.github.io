@@ -276,10 +276,10 @@ function onMessageArrived(message) {
 	if (message.destinationName == 'ESP12/Status') {
 
 	m01=0; m12=0;
-	if (message.payloadString == '1') {m12=1; esp12(1);}
-	if (message.payloadString == '2') {m01=1; esp01(1);}
+	if (message.payloadString == '1') {m12=1; md = md - 1; esp12(1);}
+	if (message.payloadString == '2') {m01=1; md = md - 1; esp01(1);}
 	//пользователей на сайте
-	stUSERS.innerHTML = md - (m01 + m12);
+	stUSERS.innerHTML = md;
 	}
 
 	//статус модуля от брокера

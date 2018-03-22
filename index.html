@@ -148,7 +148,7 @@ color: #455a64;
 </div>
 
 </div>
-<p class='stxt'>Версия: 20180322-2104</p>
+<p class='stxt'>Версия: 20180322-2200</p>
 </div>
 </td></tr>
 </table>
@@ -159,7 +159,7 @@ color: #455a64;
 //=============================================================================
 //глобальные переменные
 var idUSER = ''; flag = ''; temp = ''; host = ''; port = 0; user = ''; cntREC = 0;
-var login = ''; pass = ''; txtUTT = ''; flagSTOP = 0; rec_str = ''; rec_flag = ''; m01 = 0; m12 = 0;
+var login = ''; pass = ''; txtUTT = ''; flagSTOP = 0; rec_str = ''; rec_flag = ''; md = ''; m01 = 0; m12 = 0;
 
 //var audio = document.getElementById('id_radio');
 //audio.volume = 0.1;
@@ -275,23 +275,24 @@ function onMessageArrived(message) {
 	//статус модуля
 	if (message.destinationName == 'ESP12/Status') {
 
-	//m01=0; m12=0;
+	m01=0; m12=0;
 	if (message.payloadString == '1') {m12=1; esp12(1);}
 	if (message.payloadString == '2') {m01=1; esp01(1);}
+	//пользователей на сайте
+	stUSERS.innerHTML = md - (m01 + m12);
 	}
 
 	//статус модуля от брокера
         if (message.destinationName == '$SYS/broker/clients/connected') {
 
+	md = message.payloadString;
 	if (message.payloadString == '1') {m01=0; m12=0; esp01(0); esp12(0);}
 	else {
 	if (m01==1) {esp01(1);} else {esp01(0);}
         if (m12==1) {esp12(1);} else {esp12(0);}
 	}
 	//пользователей на сайте
-	var md = Number(message.payloadString);
-	md = md - (m01 + m12);
-	stUSERS.innerHTML = String(md);
+	stUSERS.innerHTML = '1';
 	}
 
 	//пользователей на сайте

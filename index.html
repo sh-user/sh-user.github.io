@@ -70,7 +70,7 @@ border-radius: 4px; padding: 6px;}
   <h3>Авторизация</h3>
   <p><input class='ed2' id='mq_serv' type='text' placeholder='Сервер'>
 </p>			
-  <p><input class='ed2' id='mq_port' type='text' placeholder='Порт' onkeypress="return NUM('0123456789')"></p>
+  <p><input class='ed2' id='mq_port' type='text' placeholder='Порт' onkeypress="return num()"></p>
   <p><input class='ed2' id='mq_user' type='text' placeholder='Пользователь'>
 </p>
   <p><input class='ed2' id='mq_login' type='text' placeholder='Логин'>
@@ -456,9 +456,10 @@ function checkLED(){
 }
 
 //=============================================================================
-function NUM(AvaiableSymbol) {
-  SearchChar=String.fromCharCode(window.event.keyCode);
-  if(AvaiableSymbol.indexOf(SearchChar.toUpperCase())<0)return false;
+function num() {
+var AvaiableSymbol = '0123456789';
+SearchChar=String.fromCharCode(window.event.keyCode);
+if(AvaiableSymbol.indexOf(SearchChar.toUpperCase())<0)return false;
 }
 
 //=============================================================================
@@ -510,6 +511,7 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 } else {
   //alert('код для обычных устройств');
 }
+
   host = localStorage.getItem('serv');
   port = localStorage.getItem('port');
   user = localStorage.getItem('user');

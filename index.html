@@ -148,7 +148,7 @@ border-radius: 4px; padding: 6px;}
 </div>
 
 </div>
-<p class='stxt'>Версия: 20180323-0100</p>
+<p class='stxt'>Версия: 20180324-2144</p>
 </div>
 </td></tr>
 </table>
@@ -205,7 +205,6 @@ function onConnect() {
     stMQTT.innerHTML='Подключен';
     stESP01.innerHTML='Не подключен';
     stESP12.innerHTML='Не подключен';
-    //client.subscribe('$SYS/broker/clients/inactive');
     client.subscribe('$SYS/broker/clients/connected');
     client.subscribe('ESP12/#');
     
@@ -285,7 +284,7 @@ function onMessageArrived(message) {
 
 	md = message.payloadString;
 	if (md == '1') {m01=0; m12=0; esp01(0); esp12(0);}
-	if (md == '2' && md == '3') {
+	if (md == '2' || md == '3') {
 	if (m01==1) {esp01(1);} else {esp01(0);}
         if (m12==1) {esp12(1);} else {esp12(0);}}
 	//пользователей на сайте

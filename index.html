@@ -289,7 +289,7 @@ function onMessageArrived(message) {
         if (m12==1) {esp12(1);} else {esp12(0);}}
 	//пользователей на сайте
 	if ((md-US) != '1' && (md-US) != '2'){ US = md - 2; }
-	else { if (md == '1') {US = md;} else { US = md - 1;}}
+	else { if ((md-US) == '1') {US = md;} else { US = md - 1;}}
 	stUSERS.innerHTML = US;
 	}
 

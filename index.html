@@ -148,7 +148,7 @@ border-radius: 4px; padding: 6px;}
 </div>
 
 </div>
-<p class='stxt'>Версия: 20180324-2144</p>
+<p class='stxt'>Версия: 20180325-0000</p>
 </div>
 </td></tr>
 </table>
@@ -158,7 +158,7 @@ border-radius: 4px; padding: 6px;}
 <script type="text/javascript">
 //=============================================================================
 //глобальные переменные
-var idUSER = ''; flag = ''; temp = ''; host = ''; port = 0; user = ''; cntREC = 0;
+var idUSER = ''; flag = ''; temp = ''; host = ''; port = 0; user = ''; US = '1'; cntREC = 0;
 var login = ''; pass = ''; txtUTT = ''; flagSTOP = 0; rec_str = ''; rec_flag = ''; md = ''; m01 = 0; m12 = 0;
 
 //var audio = document.getElementById('id_radio');
@@ -284,12 +284,12 @@ function onMessageArrived(message) {
 
 	md = message.payloadString;
 	if (md == '1') {m01=0; m12=0; esp01(0); esp12(0);}
-	if (md == '2' || md == '3') {
+	if (md == US) {
 	if (m01==1) {esp01(1);} else {esp01(0);}
         if (m12==1) {esp12(1);} else {esp12(0);}}
 	//пользователей на сайте
-	if (md != '1' && md != '2'){ stUSERS.innerHTML = md - 2;}
-	else { if (md == '1') {stUSERS.innerHTML = md;} else {stUSERS.innerHTML = md - 1;}}
+	if (md != '1' && md != '2'){ stUSERS.innerHTML = md - 2; US = md - 2; }
+	else { if (md == '1') {stUSERS.innerHTML = md; US = md;} else {stUSERS.innerHTML = md - 1; US = md - 1;}}
 	}
 
 	//пользователей на сайте

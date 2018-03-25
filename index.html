@@ -205,6 +205,7 @@ function onConnect() {
     stMQTT.innerHTML='Подключен';
     stESP01.innerHTML='Не подключен';
     stESP12.innerHTML='Не подключен';
+    stUSERS.innerHTML = '1';
     client.subscribe('$SYS/broker/clients/connected');
     client.subscribe('ESP12/#');
     

@@ -94,11 +94,7 @@ if ('webkitSpeechRecognition' in window) {
 recognizer.onresult = function (event) {
     var result = event.results[event.resultIndex];
     if (result.isFinal) {
-      rec_str = result[0].transcript;
-      if (id_REC.checked) {
-        cntREC += 1;
-        txtIN.value = result[0].transcript;
-	
+      txtIN.value = result[0].transcript;
     } else {
       console.log('Промежуточный результат: ', result[0].transcript);
     }

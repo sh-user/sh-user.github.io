@@ -45,7 +45,7 @@ var login = ''; pass = ''; txtUTT = ''; flagSTOP = 0; rec_str = ''; rec_flag = '
 
  var URL = '';
  var ENRU = 'https://translate.googleapis.com/translate_a/single?client=gtx1&sl=en&tl=ru&dt=t&q=';
- var RUEN = 'https://translate.googleapis.com/translate_a/single?client=gtx1&sl=ru&tl=en&dt=t&q=';
+ var RUEN = 'https://translate.googleapis.com/translate_a/single?&sl=ru&tl=en&q=';
  var xhr = new XMLHttpRequest();
 
 //================================================================
@@ -57,8 +57,6 @@ function btn_TR() {
   xhr.onreadystatechange = processRequest;
   function processRequest(e) {
    if (xhr.readyState == 4 && xhr.status == 200) {
-   //var response1 = JSON.parse(xhr.responseText);
-   //console.log(xhr.responseText);
    var str = xhr.responseText;
    var idxS = 0, idxE = 0;
    

@@ -31,8 +31,8 @@ background: rgba(207,216,220,1); color: #455a64;}
 <div id='lay1'>
   <div id='lay2'>
     <h1>Javascript Google Translate</h1>
-    <p><textarea class='ed' id='txtIN' rows='8'>Привет мир!</textarea></p>
-    <p><textarea class='ed' id='txtOUT' rows='8'></textarea> </p>
+    <p><textarea class='ed' id='txtIN' rows='8'></textarea></p>
+    <p><textarea class='ed' id='txtOUT' rows='8'></textarea></p>
     <p><input class='btn' type='button' value='Translate' onClick="btn_TR()"/></p>
   </div>
 </div>
@@ -41,21 +41,22 @@ background: rgba(207,216,220,1); color: #455a64;}
 <script type="text/javascript">
 //================================================================
 //глобальные переменные
-  var flag = ''; temp = ''; US = '1'; cntREC = 0;
-  var txtUTT = ''; flagSTOP = 0; rec_str = ''; rec_flag = '';
-  var URL = '';
+  var URL = ''; flagSTOP = 0; rec_str = ''; rec_flag = '';
   var ENRU = 'https://script.google.com/macros/s/AKfycby8c8rf4LMdx4UqUGe61RRUqRYi5dSwirwmNYRq5i6axxhdbRQ/exec?from=en&to=ru&str=';
   var RUEN = 'https://script.google.com/macros/s/AKfycby8c8rf4LMdx4UqUGe61RRUqRYi5dSwirwmNYRq5i6axxhdbRQ/exec?from=ru&to=en&str=';
-  
+
   var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
   var xhr = new XHR();
 
 //================================================================
 function btn_TR() {
-  txtOUT.value = '';
-  URL = RUEN + txtIN.value; 
-  xhr.open('GET', URL, true);
-  xhr.send();
+  if (txtIN.value != '') {
+    URL = RUEN + txtIN.value; 
+    xhr.open('GET', URL, true);
+    xhr.send();
+  } else { 
+   recognizer.start();
+  }
 }
 
 //================================================================
@@ -97,23 +98,18 @@ recognizer.onstart = function() {
 
 //================================================================
 recognizer.onend = function() {
-rec_flag = false;
-if (flagSTOP == 0) {
-  btn_TR();
-  //recognizer.start();
-}
+  rec_flag = false;
+  if (rec_str !== txtIN.value) {rec_str == txtIN.value; btn_TR();}
 }
 
 //================================================================
 utterance.onend = function() { 
-  flagSTOP = 0;
   recognizer.start();
 }
 
 //================================================================
 function speak(str){
   recognizer.stop();
-  flagSTOP = 1;
   if (speechSynthesis.speaking) return; 
   utterance.text = str;
   speechSynthesis.speak(utterance);   //воспроизведение фразы

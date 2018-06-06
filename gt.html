@@ -50,6 +50,7 @@ background: rgba(207,216,220,1); color: #455a64;}
 
 //================================================================
 function btn_TR() {
+  rec_str = txtIN.value; 
   if (txtIN.value != '') {
     URL = RUEN + txtIN.value; 
     xhr.open('GET', URL, true);
@@ -97,7 +98,7 @@ recognizer.onstart = function() {
 //================================================================
 recognizer.onend = function() {
   rec_flag = false;
-  if (rec_str !== txtIN.value) { rec_str = txtIN.value; btn_TR();}
+  if (rec_str !== txtIN.value) { btn_TR();}
   else { recognizer.start();}
 }
 

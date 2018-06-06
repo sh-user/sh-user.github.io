@@ -2,7 +2,7 @@
 <html lang='ru'>
 <head>
 <meta charset='utf-8'>
-<meta http-equiv='Access-Control-Allow-Origin' content='https://sh-user.github.io'>
+<meta http-equiv='Access-Control-Allow-Origin' content='*'>
 <meta name='viewport' content='width=700'>
 <title>Javascript Google Translate</title>
 
@@ -54,7 +54,7 @@ background: rgba(207,216,220,1); color: #455a64;}
 function btn_TR() {
   txtOUT.value = '';
   URL = RUEN + txtIN.value; 
-  xhr.open('POST', URL, true);
+  xhr.open('GET', URL, true);
   xhr.send();
 //  xhr.onreadystatechange = processRequest;
 //  function processRequest(e) {

@@ -56,20 +56,13 @@ function btn_TR() {
   URL = RUEN + txtIN.value; 
   xhr.open('GET', URL, true);
   xhr.send();
-//  xhr.onreadystatechange = processRequest;
-//  function processRequest(e) {
-//   if (xhr.readyState == 4 && xhr.status == 200) {
-//   txtOUT.value = xhr.responseText;
-//   }
-//  }
-//  setTimeout(function(){speak(txtOUT.value);},500);
 }
 
 //================================================================
 xhr.onload = function() {
   //alert( this.responseText );
   txtOUT.value = this.responseText;
-  setTimeout(function(){speak(txtOUT.value);},500);
+  speak(txtOUT.value);
 }
 
 //================================================================
@@ -94,7 +87,7 @@ recognizer.onresult = function (event) {
     if (result.isFinal) {
       txtIN.value = result[0].transcript;
     } else {
-      console.log('Промежуточный результат: ', result[0].transcript);
+      console.log('result: ', result[0].transcript);
     }
 }
 
@@ -107,7 +100,6 @@ recognizer.onstart = function() {
 recognizer.onend = function() {
 rec_flag = false;
 if (flagSTOP == 0) {
-  //btn_TR();
   recognizer.start();
 }
 }
@@ -115,11 +107,14 @@ if (flagSTOP == 0) {
 //================================================================
 utterance.onend = function() { 
   flagSTOP = 0;
-  //recognizer.start();
+  recognizer.start();
 }
 
 //================================================================
 function speak(str){ 
+  recognizer.stop();
+  flagSTOP = 1;
+  //btn_TR();
   if (speechSynthesis.speaking) return; 
   utterance.text = str;
   speechSynthesis.speak(utterance);   //воспроизведение фразы

@@ -68,7 +68,7 @@ function btn_TR() {
 //================================================================
 xhr.onload = function() {
   //alert( this.responseText );
-  txtOUT.value = xhr.responseText;
+  txtOUT.value = this.responseText;
   setTimeout(function(){speak(txtOUT.value);},500);
 }
 

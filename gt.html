@@ -103,7 +103,7 @@ recognizer.onend = function() {
 
 //================================================================
 utterance.onend = function() { 
-  recognizer.start();
+  if (rec_flag == flase) {recognizer.start();}
 }
 
 //================================================================

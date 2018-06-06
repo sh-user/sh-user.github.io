@@ -97,7 +97,7 @@ recognizer.onstart = function() {
 //================================================================
 recognizer.onend = function() {
   rec_flag = false;
-  if (rec_str !== txtIN.value) { rec_str == txtIN.value; btn_TR();}
+  if (rec_str !== txtIN.value) { rec_str = txtIN.value; btn_TR();}
   else { recognizer.start();}
 }
 

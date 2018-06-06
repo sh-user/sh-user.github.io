@@ -60,7 +60,6 @@ function btn_TR() {
 
 //================================================================
 xhr.onload = function() {
-  //alert( this.responseText );
   txtOUT.value = this.responseText;
   speak(txtOUT.value);
 }
@@ -100,7 +99,8 @@ recognizer.onstart = function() {
 recognizer.onend = function() {
 rec_flag = false;
 if (flagSTOP == 0) {
-  recognizer.start();
+  btn_TR();
+  //recognizer.start();
 }
 }
 
@@ -111,10 +111,9 @@ utterance.onend = function() {
 }
 
 //================================================================
-function speak(str){ 
+function speak(str){
   recognizer.stop();
   flagSTOP = 1;
-  //btn_TR();
   if (speechSynthesis.speaking) return; 
   utterance.text = str;
   speechSynthesis.speak(utterance);   //воспроизведение фразы

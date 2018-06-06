@@ -46,7 +46,9 @@ background: rgba(207,216,220,1); color: #455a64;}
   var URL = '';
   var ENRU = 'https://script.google.com/macros/s/AKfycby8c8rf4LMdx4UqUGe61RRUqRYi5dSwirwmNYRq5i6axxhdbRQ/exec?from=en&to=ru&str=';
   var RUEN = 'https://script.google.com/macros/s/AKfycby8c8rf4LMdx4UqUGe61RRUqRYi5dSwirwmNYRq5i6axxhdbRQ/exec?from=ru&to=en&str=';
-  var xhr = new XMLHttpRequest();
+  
+  var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+  var xhr = new XHR();
 
 //================================================================
 function btn_TR() {
@@ -54,12 +56,19 @@ function btn_TR() {
   URL = RUEN + txtIN.value; 
   xhr.open('POST', URL, true);
   xhr.send();
-  xhr.onreadystatechange = processRequest;
-  function processRequest(e) {
-   if (xhr.readyState == 4 && xhr.status == 200) {
-   txtOUT.value = xhr.responseText;
-   }
-  }
+//  xhr.onreadystatechange = processRequest;
+//  function processRequest(e) {
+//   if (xhr.readyState == 4 && xhr.status == 200) {
+//   txtOUT.value = xhr.responseText;
+//   }
+//  }
+//  setTimeout(function(){speak(txtOUT.value);},500);
+}
+
+//================================================================
+xhr.onload = function() {
+  //alert( this.responseText );
+  txtOUT.value = xhr.responseText;
   setTimeout(function(){speak(txtOUT.value);},500);
 }
 

@@ -10,7 +10,13 @@
 body{background-color: #9ea7aa; color: #455a64; font-family: helvetica; font-size: 15px;}
 h1 { font-weight:normal; margin-top: 30px;}
 
-.ed {width: 486px; border: 1px solid gray; color: #455a64; font-family: Helvetica; font-size: 18px; 
+::selection {background: #a0bbbb;}
+::-moz-selection {background: #a0bbbb;}
+input, textarea, button {outline: none;}
+
+.ed1 {width: 120px;}
+.ed2 {width: 486px;}
+.ed1, .ed2 {border: 1px solid gray; color: #455a64; font-family: Helvetica; font-size: 18px; 
 border-radius: 4px; padding: 6px;}
 
 .btn {width: 100%; height: 40px; color: #455a64; font-family: Helvetica; font-size: 18px;
@@ -23,7 +29,12 @@ box-shadow: 0 0 10px rgba(0,0,0,0.3); -moz-box-shadow: 0 0 10px rgba(0,0,0,0.3);
 background: rgba(207,216,220,1); color: #455a64;}
 #lay2 {width: 500px; margin-top: -8px; padding: 0 10px 0 10px;}
 
-.txtver {font-size: 14px;}
+input[type=radio] {display:none; margin:10px;}
+input[type=radio] + label {display:inline-block; margin:-2px; padding: 8px 12px; background-color: #fff; border-color: #ddd; 
+font-family: Helvetica; font-size: 18px; }
+input[type=radio]:checked + label { background-image: none; color: #fff; background-color: #3CB371;}
+
+.ver {font-size: 14px;}
 
 </style>
 </head>
@@ -34,11 +45,15 @@ background: rgba(207,216,220,1); color: #455a64;}
   <center>
   <div id='lay2'>
     <h1>Voice Translator</h1>
-    <p><a class= id='txtStatus'></a></p>
-    <p><textarea class='ed' id='txtIN' rows='6'></textarea></p>
-    <p><textarea class='ed' id='txtOUT' rows='6'></textarea></p>
+    <p>
+    <input type="radio" id="radio1" name="radios" value="all" checked><label for="radio1"> RU ► EN </label>
+    <input type="radio" id="radio2" name="radios"value="false"><label for="radio2"> EN ► RU </label>
+    </p>
+
+    <p><textarea class='ed2' id='txtIN' rows='6'></textarea></p>
+    <p><textarea class='ed2' id='txtOUT' rows='6'></textarea></p>
     <p><input class='btn' type='button' value='Translate' onClick="btn_TR()"/></p>
-    <p class='txtver'>Версия: 20180606-1750</p>
+    <p class='ver'>Версия: 20180611-0240</p>
   </div>
   </center> 
 </div>

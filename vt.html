@@ -32,7 +32,7 @@ background: rgba(207,216,220,1); color: #455a64;}
 input[type=radio] {display:none; margin:10px;}
 input[type=radio] + label {display:inline-block; margin:-2px; padding: 8px 12px; background-color: #fff; border-color: #ddd; 
 font-family: Helvetica; font-size: 18px; }
-input[type=radio]:checked + label { background-image: none; color: #fff; background-color: #3CB371;}
+input[type=radio]:checked + label { background-image: none; color: #fff; background-color: #2aa79e;}
 
 .ver {font-size: 14px;}
 
@@ -46,26 +46,25 @@ input[type=radio]:checked + label { background-image: none; color: #fff; backgro
   <div id='lay2'>
     <h1>Voice Translator</h1>
     <p>
-    <input type="radio" id="radio1" name="radios" value="all" checked><label for="radio1"> RU ► EN </label>
-    <input type="radio" id="radio2" name="radios"value="false"><label for="radio2"> EN ► RU </label>
+    <input type='radio' id='r1' name='radios' value='1' checked onClick='ru-en()'><label for='r1'> RU ► EN </label>
+    <input type='radio' id='r2' name='radios' value='2' onClick='en-ru()'><label for='r2'> EN ► RU </label>
     </p>
 
     <p><textarea class='ed2' id='txtIN' rows='6'></textarea></p>
     <p><textarea class='ed2' id='txtOUT' rows='6'></textarea></p>
-    <p><input class='btn' type='button' value='Translate' onClick="btn_TR()"/></p>
-    <p class='ver'>Версия: 20180611-0240</p>
+    <p><input class='btn' type='button' value='Translate' onClick='btn_TR()'/></p>
+    <p class='ver'>Версия: 20180611-2255</p>
   </div>
   </center> 
 </div>
-
-
 
 <script type="text/javascript">
 //================================================================
 //глобальные переменные
   var URL = ''; flagSTOP = 0; rec_str = ''; rec_flag = '';
-  var ENRU = 'https://script.google.com/macros/s/AKfycby8c8rf4LMdx4UqUGe61RRUqRYi5dSwirwmNYRq5i6axxhdbRQ/exec?from=en&to=ru&str=';
-  var RUEN = 'https://script.google.com/macros/s/AKfycby8c8rf4LMdx4UqUGe61RRUqRYi5dSwirwmNYRq5i6axxhdbRQ/exec?from=ru&to=en&str=';
+  var key = 'AKfycby8c8rf4LMdx4UqUGe61RRUqRYi5dSwirwmNYRq5i6axxhdbRQ';
+  var ENRU = 'https://script.google.com/macros/s/' + key + '/exec?from=en&to=ru&str=';
+  var RUEN = 'https://script.google.com/macros/s/' + key + '/exec?from=ru&to=en&str=';
 
   var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
   var xhr = new XHR();
@@ -74,10 +73,28 @@ input[type=radio]:checked + label { background-image: none; color: #fff; backgro
 function btn_TR() {
   rec_str = txtIN.value; 
   if (txtIN.value != '') {
-    URL = RUEN + txtIN.value; 
+    if (r1.value == '1') { URL = RUEN + txtIN.value; }
+    else {URL = ENRU + txtIN.value;}
+
     xhr.open('GET', URL, true);
     xhr.send();
   } else { recognizer.start();}
+}
+
+//================================================================
+function ru-en() {
+  recognizer.stop();
+  recognizer.lang = 'ru-Ru';
+  utterance.lang = 'en-US'; 
+  recognizer.start();
+}
+
+//================================================================
+function en-ru() {
+  recognizer.stop();
+  recognizer.lang = 'en-US';
+  utterance.lang = 'ru-Ru'; 
+  recognizer.start();
 }
 
 //================================================================
@@ -92,6 +109,7 @@ if ('webkitSpeechRecognition' in window) {
   // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
   recognizer.interimResults = true;
   recognizer.lang = 'ru-Ru';
+  //recognizer.lang = 'en-US';
   //recognizer.continuous = true;
   //recognizer.maxAlternatives = 1;
   recognizer.start();

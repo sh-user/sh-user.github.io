@@ -46,14 +46,14 @@ input[type=radio]:checked + label { background-image: none; color: #fff; backgro
   <div id='lay2'>
     <h1>Voice Translator</h1>
     <p>
-    <input type='radio' id='r1' name='radios' value='1' checked onClick='sw_ruen'><label for='r1'> RU ► EN </label>
-    <input type='radio' id='r2' name='radios' value='2' onClick='sw_enru'><label for='r2'> EN ► RU </label>
+    <input type='radio' id='r1' name='radios' value='1' checked onClick='SW1()'><label for='r1'> RU ► EN </label>
+    <input type='radio' id='r2' name='radios' value='2' onClick='SW2()'><label for='r2'> EN ► RU </label>
     </p>
 
     <p><textarea class='ed2' id='txtIN' rows='6'></textarea></p>
     <p><textarea class='ed2' id='txtOUT' rows='6'></textarea></p>
     <p><input class='btn' type='button' value='Translate' onClick='btn_TR()'/></p>
-    <p class='ver'>Версия: 20180612-0014</p>
+    <p class='ver'>Версия: 20180612-0017</p>
   </div>
   </center> 
 </div>
@@ -99,7 +99,7 @@ function btn_TR() {
 }
 
 //================================================================
-function sw_ruen() {
+function SW1() {
   recognizer.stop();
   recognizer.lang = 'ru-Ru';
   utterance.voice = voices[1];
@@ -109,7 +109,7 @@ function sw_ruen() {
 }
 
 //================================================================
-function sw_enru() {
+function SW2() {
   recognizer.stop();
   recognizer.lang = 'en-US';
   utterance.voice = voices[0];

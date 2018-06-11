@@ -53,7 +53,7 @@ input[type=radio]:checked + label { background-image: none; color: #fff; backgro
     <p><textarea class='ed2' id='txtIN' rows='6'></textarea></p>
     <p><textarea class='ed2' id='txtOUT' rows='6'></textarea></p>
     <p><input class='btn' type='button' value='Translate' onClick='btn_TR()'/></p>
-    <p class='ver'>Версия: 20180611-2302</p>
+    <p class='ver'>Версия: 20180611-2312</p>
   </div>
   </center> 
 </div>
@@ -73,7 +73,7 @@ input[type=radio]:checked + label { background-image: none; color: #fff; backgro
 function btn_TR() {
   rec_str = txtIN.value; 
   if (txtIN.value != '') {
-    if (r1.value == '1') { URL = RUEN + txtIN.value; }
+    if (r1.checked) { URL = RUEN + txtIN.value; }
     else {URL = ENRU + txtIN.value;}
 
     xhr.open('GET', URL, true);

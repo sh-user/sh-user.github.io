@@ -53,7 +53,7 @@ input[type=radio]:checked + label { background-image: none; color: #fff; backgro
     <p><textarea class='ed2' id='txtIN' rows='6'></textarea></p>
     <p><textarea class='ed2' id='txtOUT' rows='6'></textarea></p>
     <p><input class='btn' type='button' value='Translate' onClick='btn_TR()'/></p>
-    <p class='ver'>Версия: 20180611-2312</p>
+    <p class='ver'>Версия: 20180611-2338</p>
   </div>
   </center> 
 </div>
@@ -68,6 +68,23 @@ input[type=radio]:checked + label { background-image: none; color: #fff; backgro
 
   var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
   var xhr = new XHR();
+
+//================================================================
+if ('webkitSpeechRecognition' in window) {
+  var recognizer = new webkitSpeechRecognition();
+  // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
+  recognizer.interimResults = true;
+  recognizer.lang = 'ru-Ru';
+  //recognizer.lang = 'en-US';
+  //recognizer.continuous = true;
+  //recognizer.maxAlternatives = 1;
+  recognizer.start();
+}
+  var voices = speechSynthesis.getVoices();
+  var utterance = new SpeechSynthesisUtterance();
+  //utterance.voice = voices[0];
+  //utterance.voice = voices[1];
+  utterance.lang = 'en-US'; 
 
 //================================================================
 function btn_TR() {
@@ -102,22 +119,6 @@ xhr.onload = function() {
   txtOUT.value = this.responseText;
   speak(txtOUT.value);
 }
-
-//================================================================
-if ('webkitSpeechRecognition' in window) {
-  var recognizer = new webkitSpeechRecognition();
-  // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
-  recognizer.interimResults = true;
-  recognizer.lang = 'ru-Ru';
-  //recognizer.lang = 'en-US';
-  //recognizer.continuous = true;
-  //recognizer.maxAlternatives = 1;
-  recognizer.start();
-}
-  var voices = speechSynthesis.getVoices();
-  var utterance = new SpeechSynthesisUtterance();
-  //utterance.voice = voices[0];
-  utterance.lang = 'en-US'; 
 
 //================================================================
 //Используем колбек для обработки результатов

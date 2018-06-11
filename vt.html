@@ -49,11 +49,10 @@ input[type=radio]:checked + label { background-image: none; color: #fff; backgro
     <input type='radio' id='r1' name='radios' value='1' checked onClick='SW1()'><label for='r1'> RU ► EN </label>
     <input type='radio' id='r2' name='radios' value='2' onClick='SW2()'><label for='r2'> EN ► RU </label>
     </p>
-
     <p><textarea class='ed2' id='txtIN' rows='6'></textarea></p>
     <p><textarea class='ed2' id='txtOUT' rows='6'></textarea></p>
     <p><input class='btn' type='button' value='Translate' onClick='btn_TR()'/></p>
-    <p class='ver'>Версия: 20180612-0017</p>
+    <p class='ver'>Версия: 20180612-0024</p>
   </div>
   </center> 
 </div>
@@ -105,7 +104,7 @@ function SW1() {
   utterance.voice = voices[1];
   utterance.lang = 'en-US'; 
   console.log('voice: ' + utterance.voice);
-  recognizer.start();
+  //recognizer.start();
 }
 
 //================================================================
@@ -115,7 +114,7 @@ function SW2() {
   utterance.voice = voices[0];
   utterance.lang = 'ru-Ru'; 
   console.log('voice: ' + utterance.voice);
-  recognizer.start();
+  //recognizer.start();
 }
 
 //================================================================

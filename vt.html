@@ -53,7 +53,7 @@ input[type=radio]:checked + label { background-image: none; color: #fff; backgro
     <p><textarea class='ed2' id='txtIN' rows='6'></textarea></p>
     <p><textarea class='ed2' id='txtOUT' rows='6'></textarea></p>
     <p><input class='btn' type='button' value='Translate' onClick='btn_TR()'/></p>
-    <p class='ver'>Версия: 20180611-2338</p>
+    <p class='ver'>Версия: 20180611-2350</p>
   </div>
   </center> 
 </div>
@@ -83,7 +83,7 @@ if ('webkitSpeechRecognition' in window) {
   var voices = speechSynthesis.getVoices();
   var utterance = new SpeechSynthesisUtterance();
   //utterance.voice = voices[0];
-  //utterance.voice = voices[1];
+  utterance.voice = voices[1];
   utterance.lang = 'en-US'; 
 
 //================================================================
@@ -102,6 +102,7 @@ function btn_TR() {
 function sw_ruen() {
   recognizer.stop();
   recognizer.lang = 'ru-Ru';
+  utterance.voice = voices[1];
   utterance.lang = 'en-US'; 
   recognizer.start();
 }
@@ -110,6 +111,7 @@ function sw_ruen() {
 function sw_enru() {
   recognizer.stop();
   recognizer.lang = 'en-US';
+  utterance.voice = voices[0];
   utterance.lang = 'ru-Ru'; 
   recognizer.start();
 }

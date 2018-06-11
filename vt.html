@@ -52,7 +52,7 @@ input[type=radio]:checked + label { background-image: none; color: #fff; backgro
     <p><textarea class='ed2' id='txtIN' rows='6'></textarea></p>
     <p><textarea class='ed2' id='txtOUT' rows='6'></textarea></p>
     <p><input class='btn' type='button' value='Translate' onClick='btn_TR()'/></p>
-    <p class='ver'>Версия: 20180612-0024</p>
+    <p class='ver'>Версия: 20180612-0035</p>
   </div>
   </center> 
 </div>
@@ -103,7 +103,7 @@ function SW1() {
   recognizer.lang = 'ru-Ru';
   utterance.voice = voices[1];
   utterance.lang = 'en-US'; 
-  console.log('voice: ' + utterance.voice);
+  console.log('voice: ' + voices[1]);
   //recognizer.start();
 }
 
@@ -113,7 +113,7 @@ function SW2() {
   recognizer.lang = 'en-US';
   utterance.voice = voices[0];
   utterance.lang = 'ru-Ru'; 
-  console.log('voice: ' + utterance.voice);
+  console.log('voice: ' + voices[0]);
   //recognizer.start();
 }
 

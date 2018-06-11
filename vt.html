@@ -7,8 +7,8 @@
 <title>Voice Translator</title>
 
 <style>
-body{background-color: #9ea7aa; color: #455a64; font-family: helvetica; font-size: 15px;}
-h1 { font-weight:normal; margin-top: 30px;}
+body{background-color: #9ea7aa; color: #455a64; font-family: helvetica; font-size: 18px;}
+h1 { font-weight:normal; margin-top: 30px; font-size: 30px;}
 
 ::selection {background: #a0bbbb;}
 ::-moz-selection {background: #a0bbbb;}
@@ -16,8 +16,8 @@ input, textarea, button {outline: none;}
 
 .ed1 {width: 120px;}
 .ed2 {width: 486px;}
-.ed1, .ed2 {border: 1px solid gray; color: #455a64; font-family: Helvetica; font-size: 18px; 
-border-radius: 4px; padding: 6px;}
+.ed1, .ed2 {border: 1px solid gray; color: #455a64; font-family: Helvetica; font-size: 18px;
+border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
 
 .btn {width: 100%; height: 40px; color: #455a64; font-family: Helvetica; font-size: 18px;
 background: linear-gradient(#F7F7F7, #DCDCDC);  border: 1px solid #949494; 
@@ -46,13 +46,14 @@ input[type=radio]:checked + label { background-image: none; color: #fff; backgro
   <div id='lay2'>
     <h1>Voice Translator</h1>
     <p>
-    <input type='radio' id='r1' name='radios' value='1' checked onClick='SW1()'><label for='r1'> RU ► EN </label>
-    <input type='radio' id='r2' name='radios' value='2' onClick='SW2()'><label for='r2'> EN ► RU </label>
+    <input type='radio' id='r1' name='rad' value='1' checked onClick='SW1()'><label for='r1'> RU ► EN </label>
+    <input type='radio' id='r2' name='rad' value='2' onClick='SW2()'><label for='r2'> EN ► RU </label>
     </p>
+    <p>Voice: <a id='txtVoice'></a></p>
     <p><textarea class='ed2' id='txtIN' rows='6'></textarea></p>
     <p><textarea class='ed2' id='txtOUT' rows='6'></textarea></p>
     <p><input class='btn' type='button' value='Translate' onClick='btn_TR()'/></p>
-    <p class='ver'>Версия: 20180612-0035</p>
+    <p class='ver'>Версия: 20180612-0204</p>
   </div>
   </center> 
 </div>
@@ -79,19 +80,20 @@ if ('webkitSpeechRecognition' in window) {
   //recognizer.maxAlternatives = 1;
   recognizer.start();
 }
+  var synth = window.speechSynthesis;
   var voices = speechSynthesis.getVoices();
   var utterance = new SpeechSynthesisUtterance();
   //utterance.voice = voices[0];
   utterance.voice = voices[1];
   utterance.lang = 'en-US'; 
-
+  setTimeout(function(){ txtVoice.innerHTML = synth.getVoices()[1].name;},100);
+  
 //================================================================
 function btn_TR() {
   rec_str = txtIN.value; 
   if (txtIN.value != '') {
     if (r1.checked) { URL = RUEN + txtIN.value; }
     else {URL = ENRU + txtIN.value;}
-
     xhr.open('GET', URL, true);
     xhr.send();
   } else { recognizer.start();}
@@ -102,8 +104,9 @@ function SW1() {
   recognizer.stop();
   recognizer.lang = 'ru-Ru';
   utterance.voice = voices[1];
-  utterance.lang = 'en-US'; 
-  console.log('voice: ' + voices[1]);
+  utterance.lang = 'en-US';
+  txtVoice.innerHTML = synth.getVoices()[1].name;
+  //console.log('Voice: ' + synth.getVoices()[1].name);
   //recognizer.start();
 }
 
@@ -113,7 +116,8 @@ function SW2() {
   recognizer.lang = 'en-US';
   utterance.voice = voices[0];
   utterance.lang = 'ru-Ru'; 
-  console.log('voice: ' + voices[0]);
+  txtVoice.innerHTML = synth.getVoices()[0].name;
+  //console.log('Voice: ' + synth.getVoices()[0].name);
   //recognizer.start();
 }
 

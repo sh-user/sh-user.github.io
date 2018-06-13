@@ -31,7 +31,7 @@ audio {width: 334px;}
 
 .block1 { border: solid 1px #2F4F4F; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);}
 
-#lay1 {width: 334px; padding: 0; margin: 6px auto; border: 1px solid gray; border-radius: 4px; 
+#lay1 {width: 334px; padding: 0; margin: 12px auto; border: 1px solid gray; border-radius: 4px; 
 box-shadow: 0 0 10px rgba(0,0,0,0.3); -moz-box-shadow: 0 0 10px rgba(0,0,0,0.3); -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.3); 
 background: rgba(207,216,220,1); /* Цвет фона и значение прозрачности */
 color: #455a64;}
@@ -48,11 +48,11 @@ color: #455a64;}
 .btn:active {background: linear-gradient(#DCDCDC, #F7F7F7);}
 .btn:hover {border: 1px solid #6E6E6E;}
 
-.ed {width: 320px; outline: none; resize: none; font-family: Helvetica; font-size: 14px; 
-border: 1px solid gray; border-radius: 4px; padding: 6px;}
-.ed2 {width: 320px; height: 24px; border: 1px solid gray; font-family: Helvetica; font-size: 15px; 
-border-radius: 4px; padding: 6px;}
-.stxt {margin: 12px 0 12px 0; font-size: 14px;}
+.ed {width: 320px; outline: none; resize: none; сolor: #455a64; font-family: Helvetica; font-size: 18px; 
+border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
+.ed2 {width: 320px; height: 24px; border: 1px solid gray; сolor: #455a64; font-family: Helvetica; font-size: 18px; 
+border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
+.ver {margin: 12px 0 12px 0; font-size: 14px;}
 
 </style>
 </head> 
@@ -86,10 +86,10 @@ border-radius: 4px; padding: 6px;}
 </div>
 <div id='id_mqtt' style="display: none">
   <h3>Статус сервера: <a id='stMQTT'></a></h3>
+  <h3>Клиентов на сервере: <a id='stUSERS'></a></h3>
+  <h3>Последнее обновление: <a id='time'></a></h3>
   <h3>Статус ESP01: <a id='stESP01'></a></h3>
   <h3>Статус ESP12: <a id='stESP12'></a></h3>
-  <h3>Пользователей на сайте: <a id='stUSERS'></a></h3>
-  <h3>Последнее обновление: <a id='time'></a></h3>
 <div id='id_m1' style="display: none">
   <h3>Уровень сигнала ESP01: <a id='stRSSI2'></a> dBm</h3>
 </div>
@@ -148,7 +148,7 @@ border-radius: 4px; padding: 6px;}
 </div>
 
 </div>
-<p class='stxt'>Версия: 20180326-0000</p>
+<p class='ver'>Версия: 20180613-1416</p>
 </div>
 </td></tr>
 </table>
@@ -279,21 +279,12 @@ function onMessageArrived(message) {
 	if (message.payloadString == '2') {m01=1; esp01(1);}
 	}
 
-	//статус модуля от брокера
+	//клиентов на сервере
         if (message.destinationName == '$SYS/broker/clients/connected') {
-	md = message.payloadString;
-	US = m01+m12;
-	if (US != '0'){
-	if (md-US == '0') {m01=0; m12=0; esp01(0); esp12(0);}
-	if (md-US == '1' || md-US == '1') {
-	if (m01==1) {esp01(1);} else {esp01(0);}
-        if (m12==1) {esp12(1);} else {esp12(0);}}
-	//пользователей на сайте
-	stUSERS.innerHTML = md-US;}
-	m01=0; m12=0;
+	stUSERS.innerHTML = message.payloadString;
 	}
 
-	//пользователей на сайте
+	//клиентов на сервере
         //if (message.destinationName == '$SYS/broker/clients/inactive') {
 
 	//if (message.payloadString == '0') {stUSERS.innerHTML = '1';}

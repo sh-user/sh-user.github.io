@@ -37,34 +37,38 @@ background: rgba(207,216,220,1); /* Цвет фона и значение про
 color: #455a64;}
 
 .ram0 {width: 334px; margin: 0; padding: 0 10px 0 10px;}
+.ram1 {width: 334px; overflow: hidden; margin-top: -8px; padding: 0 10px 0 10px;}
 
 .lay2 {width: 40px; float: right;}
 .lay3 {width: 32px; float: right;}
 .bt1 {width: 165px; float: left; margin: 0 4px 12px 0;}
 .bt2 {width: 165px; float: left; margin: 0 0 12px 0;}
 
-.btn {width: 100%; height: 40px; margin: 0; font-size: 15px; background: linear-gradient(#F7F7F7, #DCDCDC);
-  border: 1px solid #949494; border-radius: 2px; outline: none;}
+.btn {width: 100%; height: 40px; margin: 0; сolor: #455a64; font-family: Helvetica; font-size: 18px;
+ background: linear-gradient(#F7F7F7, #DCDCDC); border: 1px solid #949494; border-radius: 2px; outline: none;}
 .btn:active {background: linear-gradient(#DCDCDC, #F7F7F7);}
 .btn:hover {border: 1px solid #6E6E6E;}
 
-.ed {width: 320px; outline: none; resize: none; сolor: #455a64; font-family: Helvetica; font-size: 18px; 
+.ed {outline: none; resize: none;}
+.ed2 {height: 24px;}
+.ed,.ed2 {width: 320px; сolor: #455a64; font-family: Helvetica; font-size: 18px; 
 border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
-.ed2 {width: 320px; height: 24px; border: 1px solid gray; сolor: #455a64; font-family: Helvetica; font-size: 18px; 
-border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
+
 .ver {margin: 12px 0 12px 0; font-size: 14px;}
 
 </style>
 </head> 
 
 <body onload='loadPAGE()'>
-
 <table id='lay1'>
-<tr><td><div class='ram0'>
+<tr><td>
+<div class='ram0'>
   <h1>MQTT Websocket 
   <div class='lay3' id='id_EX' style="display: none"><div class='ex1' title='Выход' onclick="divEX()"></div></div>
   </h1></h1>
   <hr>
+</div>
+<div class='ram1'>
 <div id='id_login' style="display: none">
 <form>
   <h3>Авторизация</h3>
@@ -85,11 +89,11 @@ border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
 </form>
 </div>
 <div id='id_mqtt' style="display: none">
-  <h3>Статус сервера: <a id='stMQTT'></a></h3>
+  <h3>MQTT сервер: <a id='stMQTT'></a></h3>
   <h3>Клиентов на сервере: <a id='stUSERS'></a></h3>
   <h3>Последнее обновление: <a id='time'></a></h3>
-  <h3>Статус ESP01: <a id='stESP01'></a></h3>
-  <h3>Статус ESP12: <a id='stESP12'></a></h3>
+  <h3>Модуль ESP01: <a id='stESP01'></a></h3>
+  <h3>Модуль ESP12: <a id='stESP12'></a></h3>
 <div id='id_m1' style="display: none">
   <h3>Уровень сигнала ESP01: <a id='stRSSI2'></a> dBm</h3>
 </div>
@@ -148,7 +152,7 @@ border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
 </div>
 
 </div>
-<p class='ver'>Версия: 20180613-1416</p>
+<p class='ver'>Версия: 20180613-1512</p>
 </div>
 </td></tr>
 </table>

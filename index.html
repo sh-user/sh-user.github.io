@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html><html lang='ru'>
 <head>
 <meta charset='utf-8'>
-<meta name='viewport' content='width=364'>
+<meta name='viewport' content='width=384'>
 <title>MQTT Websocket</title>
 
 <style>
@@ -11,23 +11,24 @@ body{margin:0; position:relative; background-color: #9ea7aa; }
 
 .icoT{background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQ2NC42MDEgNDY0LjYwMSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDY0LjYwMSA0NjQuNjAxOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCI+CjxwYXRoIGQ9Ik0zMTMuNDgsMjc2LjU2OFY4MS4xNzJDMzEzLjQ4LDM2LjQxMSwyNzcuMDY5LDAsMjMyLjMwOCwwYy00NC43NiwwLTgxLjE4OCwzNi40MTEtODEuMTg4LDgxLjE3MnYxOTUuMzggIGMtMTkuNDA4LDIwLjYwNC0zMC40MjIsNDguMDUzLTMwLjQzNyw3Ni40MjVjMC4wMTUsNjEuNTM2LDUwLjA4OSwxMTEuNjA4LDExMS42MjQsMTExLjYyNCAgYzYxLjUyMS0wLjAxNiwxMTEuNTk0LTUwLjA4OCwxMTEuNjA4LTExMS42NDFDMzQzLjkwMiwzMjQuNjIxLDMzMi44ODgsMjk3LjE4OCwzMTMuNDgsMjc2LjU2OHogTTE1My43NTMsMzUyLjk5MSAgYzAuMDE1LTIyLjAwOCw4Ljk0NS00Mi40MTgsMjUuMTQxLTU3LjQzNWMzLjM3NS0zLjEzNCw1LjI5Ni03LjUyNSw1LjI5Ni0xMi4xMjZWODEuMTcyYzAtMjYuNTMsMjEuNTg4LTQ4LjEwMiw0OC4xMTgtNDguMTAyICBjMjYuNTI5LDAsNDguMTAzLDIxLjU3Miw0OC4xMDMsNDguMTAydjY2LjI2OGgtNTkuNTE5djEzNS45OTFjLTE4LjY4MywxNy4zNDEtMzAuNDIsNDIuMDQ3LTMwLjQzNyw2OS41NjEgIGMwLjAxNywzMi42NjYsMTYuNTUyLDYxLjQyNSw0MS42NzUsNzguNTI1QzE4OC45MDQsNDMxLjM4NiwxNTMuNzY4LDM5Ni4yMDIsMTUzLjc1MywzNTIuOTkxeiIgZmlsbD0iIzQ1NWE2NCIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K);}
 
-.icoT, .icoH {float: left; width: 32px; height: 32px; margin: -3px 10px 0 0;}
+.icoSign {background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCIgdmlld0JveD0iMCAwIDIyNC43MiAyMjQuNzIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDIyNC43MiAyMjQuNzI7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8cGF0aCBkPSJNMTQyLjcxOSwxNzMuMDExYzAsMTYuNzY0LTEzLjU2NywzMC4zMjctMzAuMzMxLDMwLjMyN2MtMTYuNzQ2LDAtMzAuMzIyLTEzLjU2My0zMC4zMjItMzAuMzI3ICAgYzAtMTYuNzYsMTMuNTc3LTMwLjMyNywzMC4zMjItMzAuMzI3QzEyOS4xNTEsMTQyLjY4NCwxNDIuNzE5LDE1Ni4yNTEsMTQyLjcxOSwxNzMuMDExeiBNNDIuNjA0LDExNC42NGwyMy4yNDQsMTkuNDg1ICAgYzIzLjE5LTI3LjY4OCw2OS45NjQtMjcuNjg4LDkzLjEyNywwLjAzMmwyMy4yNzktMTkuNDI5Yy0xNy4zODUtMjAuNzktNDIuODQ0LTMyLjY5My02OS44NjEtMzIuNjkzICAgQzg1LjM4Miw4Mi4wMzUsNTkuOTQxLDkzLjkxMSw0Mi42MDQsMTE0LjY0eiBNMCw3MS4xOThsMjIuNDc5LDIwLjM3NGMyMi45NTEtMjUuMzUyLDU1LjcyMy0zOS44NjQsODkuOTA5LTM5Ljg2NCAgIGMzNC4xNzcsMCw2Ni45MzEsMTQuNTEyLDg5Ljg4MywzOS44MDNsMjIuNDQ5LTIwLjM3NGMtMjguNjk4LTMxLjYyOS02OS42MjMtNDkuNzU2LTExMi4zMjctNDkuNzU2ICAgQzY5LjY1NiwyMS4zODIsMjguNjk4LDM5LjU2OSwwLDcxLjE5OHoiIGZpbGw9IiM0NTVhNjQiLz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K)}
 
-#lay1 {width: 334px; padding: 0; margin: 12px auto; border: 1px solid gray; border-radius: 4px;
+.icoFoto {background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCAyOTAgMjkwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAyOTAgMjkwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCI+CjxnIGlkPSJYTUxJRF80ODJfIj4KCTxwYXRoIGlkPSJYTUxJRF80ODNfIiBkPSJNMjEwLjAwNCwxNDUuMDAxYzAtMzUuODQxLTI5LjE2LTY1LjAwMS02NS4wMDItNjUuMDAxYy0zNS44NCwwLTY0Ljk5OCwyOS4xNTktNjQuOTk4LDY1LjAwMSAgIGMwLDM1Ljg0MSwyOS4xNTgsNjQuOTk5LDY0Ljk5OCw2NC45OTlDMTgwLjg0NCwyMTAsMjEwLjAwNCwxODAuODQxLDIxMC4wMDQsMTQ1LjAwMXoiIGZpbGw9IiM0NTVhNjQiLz4KCTxwYXRoIGlkPSJYTUxJRF80ODRfIiBkPSJNMTYwLDM1VjE1YzAtOC4yODQtNi43MTYtMTUtMTUtMTVzLTE1LDYuNzE2LTE1LDE1djIwYzAsOC4yODQsNi43MTYsMTUsMTUsMTVTMTYwLDQzLjI4NCwxNjAsMzV6IiBmaWxsPSIjNDU1YTY0Ii8+Cgk8cGF0aCBpZD0iWE1MSURfNDg2XyIgZD0iTTEzMCwyNTV2MjBjMCw4LjI4NCw2LjcxNiwxNSwxNSwxNXMxNS02LjcxNiwxNS0xNXYtMjBjMC04LjI4NC02LjcxNi0xNS0xNS0xNVMxMzAsMjQ2LjcxNiwxMzAsMjU1eiIgZmlsbD0iIzQ1NWE2NCIvPgoJPHBhdGggaWQ9IlhNTElEXzQ4N18iIGQ9Ik0yNDAsMTQ1YzAsOC4yODQsNi43MTYsMTUsMTUsMTVoMjBjOC4yODQsMCwxNS02LjcxNiwxNS0xNXMtNi43MTYtMTUtMTUtMTVoLTIwICAgQzI0Ni43MTYsMTMwLDI0MCwxMzYuNzE2LDI0MCwxNDV6IiBmaWxsPSIjNDU1YTY0Ii8+Cgk8cGF0aCBpZD0iWE1MSURfNDg4XyIgZD0iTTE1LDE2MGgyMGM4LjI4NCwwLDE1LTYuNzE2LDE1LTE1cy02LjcxNi0xNS0xNS0xNUgxNWMtOC4yODQsMC0xNSw2LjcxNi0xNSwxNVM2LjcxNiwxNjAsMTUsMTYweiIgZmlsbD0iIzQ1NWE2NCIvPgoJPHBhdGggaWQ9IlhNTElEXzQ4OV8iIGQ9Ik0yMjYuMzE3LDQyLjQ2OWwtMTQuMTQzLDE0LjE0MmMtNS44NTgsNS44NTgtNS44NTgsMTUuMzU1LDAsMjEuMjEzYzIuOTI5LDIuOTI5LDYuNzY4LDQuMzk0LDEwLjYwNiw0LjM5NCAgIGMzLjgzOCwwLDcuNjc4LTEuNDY1LDEwLjYwNi00LjM5M2wxNC4xNDMtMTQuMTQyYzUuODU4LTUuODU4LDUuODU4LTE1LjM1NSwwLTIxLjIxM0MyNDEuNjc0LDM2LjYxMSwyMzIuMTc2LDM2LjYxMiwyMjYuMzE3LDQyLjQ2OSAgIHoiIGZpbGw9IiM0NTVhNjQiLz4KCTxwYXRoIGlkPSJYTUxJRF80OTBfIiBkPSJNNTYuNjEyLDIxMi4xNzRMNDIuNDcsMjI2LjMxNmMtNS44NTgsNS44NTgtNS44NTgsMTUuMzU1LDAsMjEuMjEzYzIuOTI5LDIuOTI5LDYuNzY4LDQuMzkzLDEwLjYwNiw0LjM5MyAgIGMzLjgzOCwwLDcuNjc4LTEuNDY1LDEwLjYwNi00LjM5M2wxNC4xNDMtMTQuMTQyYzUuODU4LTUuODU4LDUuODU4LTE1LjM1NSwwLTIxLjIxM0M3MS45NjksMjA2LjMxNyw2Mi40NzEsMjA2LjMxNyw1Ni42MTIsMjEyLjE3NCAgIHoiIGZpbGw9IiM0NTVhNjQiLz4KCTxwYXRoIGlkPSJYTUxJRF80OTFfIiBkPSJNMjI2LjMxNywyNDcuNTNjMi45MjksMi45MjksNi43NjgsNC4zOTMsMTAuNjA2LDQuMzkzYzMuODM5LDAsNy42NzgtMS40NjQsMTAuNjA3LTQuMzkzICAgYzUuODU4LTUuODU4LDUuODU4LTE1LjM1NSwwLTIxLjIxM2wtMTQuMTQzLTE0LjE0MmMtNS44NTctNS44NTctMTUuMzU1LTUuODU4LTIxLjIxMywwLjAwMWMtNS44NTgsNS44NTgtNS44NTgsMTUuMzU1LDAsMjEuMjEzICAgTDIyNi4zMTcsMjQ3LjUzeiIgZmlsbD0iIzQ1NWE2NCIvPgoJPHBhdGggaWQ9IlhNTElEXzQ5M18iIGQ9Ik01Ni42MTIsNzcuODI1YzIuOTI5LDIuOTI5LDYuNzY4LDQuMzkzLDEwLjYwNyw0LjM5M2MzLjgzOSwwLDcuNjc4LTEuNDY0LDEwLjYwNi00LjM5NCAgIGM1Ljg1OC01Ljg1OCw1Ljg1OC0xNS4zNTUsMC0yMS4yMTNMNjMuNjgzLDQyLjQ2OWMtNS44NTctNS44NTctMTUuMzU1LTUuODU4LTIxLjIxMywwYy01Ljg1OCw1Ljg1OC01Ljg1OCwxNS4zNTUsMCwyMS4yMTMgICBMNTYuNjEyLDc3LjgyNXoiIGZpbGw9IiM0NTVhNjQiLz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K)}
+
+.icoT, .icoH, .icoSign, .icoFoto {float: left; width: 32px; height: 32px; margin: -3px 10px 0 0;}
+
+#lay1 {width: 354px; padding: 0; margin: 12px auto; border: 1px solid gray; border-radius: 4px;
 box-shadow: 0 0 10px rgba(0,0,0,0.3); -moz-box-shadow: 0 0 10px rgba(0,0,0,0.3); -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.3); 
 background: rgba(207,216,220,1); /* Цвет фона и значение прозрачности */
 color: #455a64; font-family: Helvetica; font-size: 18px;}
 
-.ram0 {width: 334px; padding: 14px 12px 0 12px; font-family: Helvetica; font-size: 15px;}
-
-h1 {font-size: 30px; margin: -4px 0 0 0; }
-h3 {width: 334px; margin: 0 4px 12px 0;}
-h1, h3 {font-weight:normal;}
-
 .lay2 {width: 40px; float: right;}
 .lay3 {width: 32px; float: right;}
-.bt1 {width: 165px; float: left; margin: 0 4px 12px 0;}
-.bt2 {width: 165px; float: left; margin: 0 0 12px 0;}
+.ram0 {width: 354px; padding: 14px 12px 0 12px; font-family: Helvetica; font-size: 15px;}
+
+h1 {font-size: 30px; margin: -4px 0 0 0; }
+h3 {width: 354px; margin: 0 4px 12px 0;}
+h1, h3 {font-weight:normal;}
 
 .lab1 {width: 50%; float: left;  margin: 0 0 12px 0;}
 .lab2 {width: 100%; float: left;  margin: 0 0 12px 0;}
@@ -35,7 +36,7 @@ h1, h3 {font-weight:normal;}
 
 .ex1 {position: relative; width: 30px; height: 30px; background-color: white; border-radius: 50%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);}
-.ex1::before, .ex1::after { position: absolute;	top: 14px; left: 8px; width: 14px; height: 3px;	content: "";
+.ex1::before, .ex1::after { position: absolute;	top: 14px; left: 8px; width: 14px; height: 3px;	content: '';
     background-color: #2F4F4F;}
 .ex1::before {-ms-transform: rotate(-45deg); -webkit-transform: rotate(-45deg); transform: rotate(-45deg);}
 .ex1::after {-ms-transform: rotate(45deg); -webkit-transform: rotate(45deg);	transform: rotate(45deg);}
@@ -58,7 +59,7 @@ input[type='checkbox']:checked ~ .switch { background: #93AEFF; transition: .2s;
 
 .ed {outline: none; resize: none;}
 .ed2 {height: 24px;}
-.ed,.ed2 {width: 320px; color: #455a64; font-family: Helvetica; font-size: 18px; 
+.ed,.ed2 {width: 340px; color: #455a64; font-family: Helvetica; font-size: 18px; 
 border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
 
 .ver {font-size: 14px; margin: 12px 0 12px 0;}
@@ -101,17 +102,15 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
   <h3>Модуль ESP01: <a id='stESP01'></a></h3>
   <h3>Модуль ESP12: <a id='stESP12'></a></h3>
 <div id='id_m1' style='display: none'>
-  <h3>Уровень сигнала ESP01: <a id='stRSSI2'></a> dBm</h3>
-  <div class='lab2'><h3>Температура на улице</h3><div class='icoT'></div><h1><a id='stT2'></a> &degC</h1></div>
+  <div class='lab1'><h3>Уровень сигнала</h3><div class='icoSign'></div><h1><a id='stRSSI2'></a> dBm</h1></div>
+  <div class='lab1'><h3>Температура</h3><div class='icoT'></div><h1><a id='stT2'></a> &degC</h1></div>
 </div>
 <div id='id_m2' style='display: none'>
-  <h3>Уровень сигнала ESP12: <a id='stRSSI'></a> dBm</h3>
-  <h3>Датчик движения: <a id='stPIR'></a></h3>
-  <h3>Освещенность в комнате: <a id='stLDR'></a></h3>
+  <div class='lab1'><h3>Уровень сигнала</h3><div class='icoSign'></div><h1><a id='stRSSI'></a> dBm</h1></div>
+  <div class='lab1'><h3>Освещенность</h3><div class='icoFoto'></div><h1><a id='stLDR'></a></h1></div>
   <div class='lab1'><h3>Влажность</h3><div class='icoH'></div><h1><a id='stH'></a> %</h1></div>
   <div class='lab1'><h3>Температура</h3><div class='icoT'></div><h1><a id='stT'></a> &degC</h1></div>
-</div>
-
+  <h3>Датчик движения: <a id='stPIR'></a></h3>
   <h3><label title='Не оставляйте светодиод включенным'>Управление светодиодом ESP12<div class='lay2'>
     <div class='card'><label for='id_LED'>
     <input type='checkbox' id='id_LED' onclick="checkLED()"/><span class='switch'></span><span class='toggle'></span>
@@ -126,8 +125,9 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
 <div id='id_area1' style="display: none">
   <h3>Команды: включить, выключить, температура</h3>
   <textarea readonly class='ed' id='rcmd' rows='6'></textarea>
+  <div class='lab2'></div>
 </div>
-
+</div>
 <h3><label>MQTT Messenger <div class='lay2'>
     <div class='card'><label for='id_MESS'>
     <input type='checkbox' id='id_MESS' onclick="checkBX()"/><span class='switch'></span><span class='toggle'></span>
@@ -153,7 +153,7 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
 </div>
 
 </div>
-<p class='ver'>Версия: 20180619-1616</p>
+<p class='ver'>Версия: 20180619-1750</p>
 </div>
 </td></tr>
 </table>
@@ -169,6 +169,7 @@ var login = ''; pass = ''; txtUTT = ''; flagSTOP = 0; rec_str = ''; rec_flag = '
 stT.innerHTML = '00.0';
 stH.innerHTML = '00.0';
 stT2.innerHTML = '00.0';
+stRSSI2.innerHTML = '-00';
 
 //var audio = document.getElementById('id_radio');
 //audio.volume = 0.1;
@@ -285,7 +286,7 @@ function onMessageArrived(message) {
 
 	//статус модуля
 	if (message.destinationName == 'ESP12/Status') {
-
+        m12=0; m01=0;
 	if (message.payloadString == '1') {m12=1; esp12(1);}
 	if (message.payloadString == '2') {m01=1; esp01(1);}
 	}
@@ -293,11 +294,12 @@ function onMessageArrived(message) {
 	//клиентов на сервере
         if (message.destinationName == '$SYS/broker/clients/connected') {
 	stUSERS.innerHTML = message.payloadString;
+        if (m12 == '1') {esp12(1);} else {esp12(0);}
+	if (m01 == '1') {esp01(1);} else {esp01(0);}
 	}
 
 	//клиентов на сервере
         //if (message.destinationName == '$SYS/broker/clients/inactive') {
-
 	//if (message.payloadString == '0') {stUSERS.innerHTML = '1';}
 	//else {stUSERS.innerHTML = message.payloadString;}}
 

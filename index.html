@@ -5,7 +5,10 @@
 <title>MQTT Websocket</title>
 
 <style>
-body{margin:0; position:relative; background-color: #9ea7aa; }
+body{margin:0; position:relative; background-color: #9ea7aa;}
+::selection {background: #a0bbbb;}
+::-moz-selection {background: #a0bbbb;}
+input, textarea, button {outline: none;}
 
 .icoH{background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCIgdmlld0JveD0iMCAwIDM4My4zNDQgMzgzLjM0NSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzgzLjM0NCAzODMuMzQ1OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggZD0iTTI3My4yMTcsMTA2Ljg5OWMtMjcuMTgxLTQ0Ljg2NC01Ny40MTMtODMuNjkzLTczLjAxNi0xMDIuODQ2Yy0yLjA4OC0yLjU2NS01LjIyMS00LjA1NC04LjUyOC00LjA1MyAgIGMtMy4zMDgsMC02LjQ0LDEuNDg5LTguNTI5LDQuMDU0Yy0xNS42MDIsMTkuMTU5LTQ1LjgzNCw1OC4wMDEtNzMuMDE1LDEwMi44NjljLTM1LjAyOCw1Ny44MjMtNTIuNzg5LDEwNS42My01Mi43ODksMTQyLjA5ICAgYzAsNzQuMDcxLDYwLjI2MSwxMzQuMzMyLDEzNC4zMzIsMTM0LjMzMnMxMzQuMzMyLTYwLjI2MSwxMzQuMzMyLTEzNC4zMzJDMzI2LjAwNSwyMTIuNTI5LDMwOC4yNDYsMTY0LjcxNSwyNzMuMjE3LDEwNi44OTl6ICAgIE0yMTAuMTA2LDMzMy44NjhjLTcuODQ0LDIuMDA2LTE1Ljk4NiwzLjAyMi0yNC4yMDUsMy4wMjJjLTUwLjE4NiwwLTkxLjAxNS0zNy45MjktOTEuMDE1LTg0LjU1ICAgYzAtMTEuMjU1LDIuOTctMjQuNDA1LDguODI1LTM5LjA4M2MwLjk4OS0yLjQ4LDMuODA3LTMuODk1LDYuNTg1LTMuMjk1YzIuNzc2LDAuNTk4LDQuNjQsMy4wMTgsNC4zNTQsNS42NSAgIGMtMC4zNDIsMy4xNDgtMC41MTYsNi4yMjMtMC41MTYsOS4xMzZjMCw1MC43MzUsNDAuODgxLDkzLjIyMSw5NS4wOTMsOTguODIxYzIuNjk4LDAuMjc5LDQuODAzLDIuMjk3LDUuMDE4LDQuODEyICAgQzIxNC40NjEsMzMwLjg5NiwyMTIuNzIzLDMzMy4xOTgsMjEwLjEwNiwzMzMuODY4eiIgZmlsbD0iIzQ1NWE2NCIvPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=);}
 
@@ -100,13 +103,13 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
   <h3>Модуль ESP12: <a id='stESP12'></a></h3>
 <div id='id_m1' style='display: none'>
   <div class='lab1'><h3>Уровень сигнала</h3><div class='icoSign'></div><h1><a id='stRSSI2'></a> dBm</h1></div>
-  <div class='lab1'><h3>Температура</h3><div class='icoT'></div><h1><a id='stT2'></a> &degC</h1></div>
+  <div class='lab1' title='На улице'><h3>Температура</h3><div class='icoT'></div><h1><a id='stT2'></a> &degC</h1></div>
 </div>
 <div id='id_m2' style='display: none'>
   <div class='lab1'><h3>Уровень сигнала</h3><div class='icoSign'></div><h1><a id='stRSSI'></a> dBm</h1></div>
   <div class='lab1'><h3>Освещенность</h3><div class='icoFoto'></div><h1><a id='stLDR'></a></h1></div>
-  <div class='lab1'><h3>Влажность</h3><div class='icoH'></div><h1><a id='stH'></a> %</h1></div>
-  <div class='lab1'><h3>Температура</h3><div class='icoT'></div><h1><a id='stT'></a> &degC</h1></div>
+  <div class='lab1' title='В комнате'><h3>Влажность</h3><div class='icoH'></div><h1><a id='stH'></a> %</h1></div>
+  <div class='lab1' title='В комнате'><h3>Температура</h3><div class='icoT'></div><h1><a id='stT'></a> &degC</h1></div>
   <h3>Датчик движения: <a id='stPIR'></a></h3>
   <h3><label title='Не оставляйте светодиод включенным'>Управление светодиодом ESP12<div class='lay2'>
     <div class='card'><label for='id_LED'>

@@ -24,7 +24,7 @@ color: #455a64; font-family: Helvetica; font-size: 18px;}
 
 .lay2 {width: 40px; float: right;}
 .lay3 {width: 32px; float: right;}
-.ram0 {width: 354px; padding: 14px 12px 0 12px; font-family: Helvetica; font-size: 15px;}
+.ram0 {width: 354px; margin: 0; overflow: hidden; padding: 14px 12px 0 12px; font-family: Helvetica; font-size: 15px;}
 
 h1 {font-size: 30px; margin: -4px 0 0 0; }
 h3 {width: 354px; margin: 0 4px 12px 0;}
@@ -79,19 +79,16 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
 <div id='id_login' style="display: none">
 <form>
   <h3>Авторизация</h3>
-  <p><input class='ed2' id='mq_serv' type='text' placeholder='Сервер'>
-</p>			
+  <p><input class='ed2' id='mq_serv' type='text' placeholder='Сервер'></p>			
   <p><input class='ed2' id='mq_port' type='text' placeholder='Порт' onkeypress="return num()"></p>
-  <p><input class='ed2' id='mq_user' type='text' placeholder='Пользователь'>
-</p>
-  <p><input class='ed2' id='mq_login' type='text' placeholder='Логин'>
-</p>			
+  <p><input class='ed2' id='mq_user' type='text' placeholder='Пользователь'></p>
+  <p><input class='ed2' id='mq_login' type='text' placeholder='Логин'></p>			
   <p><input class='ed2' id='mq_pass' type='password' placeholder='Пароль'></p>
   <h3><label>Запомнить меня <div class='lay2'>
     <div class='card'><label for='id_SAVE'>
     <input type='checkbox' id='id_SAVE'/><span class='switch'></span><span class="toggle"></span>
     </label></div></div>
-  </label></h3>		  
+  </label></h3>	  
   <p><input class='btn' type='button' value='Войти' onClick="btnConnect()"/></p>
 </form>
 </div>
@@ -153,7 +150,7 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
 </div>
 
 </div>
-<p class='ver'>Версия: 20180619-1750</p>
+<p class='ver'>Версия: 20180619-1935</p>
 </div>
 </td></tr>
 </table>

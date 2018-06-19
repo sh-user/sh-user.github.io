@@ -5,7 +5,33 @@
 <title>MQTT Websocket</title>
 
 <style>
-body{margin:0; position:relative; background-color: #9ea7aa; сolor: #455a64; font-family: helvetica; font-size: 15px;}
+body{margin:0; position:relative; background-color: #9ea7aa; }
+
+.icoH{background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCIgdmlld0JveD0iMCAwIDM4My4zNDQgMzgzLjM0NSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzgzLjM0NCAzODMuMzQ1OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggZD0iTTI3My4yMTcsMTA2Ljg5OWMtMjcuMTgxLTQ0Ljg2NC01Ny40MTMtODMuNjkzLTczLjAxNi0xMDIuODQ2Yy0yLjA4OC0yLjU2NS01LjIyMS00LjA1NC04LjUyOC00LjA1MyAgIGMtMy4zMDgsMC02LjQ0LDEuNDg5LTguNTI5LDQuMDU0Yy0xNS42MDIsMTkuMTU5LTQ1LjgzNCw1OC4wMDEtNzMuMDE1LDEwMi44NjljLTM1LjAyOCw1Ny44MjMtNTIuNzg5LDEwNS42My01Mi43ODksMTQyLjA5ICAgYzAsNzQuMDcxLDYwLjI2MSwxMzQuMzMyLDEzNC4zMzIsMTM0LjMzMnMxMzQuMzMyLTYwLjI2MSwxMzQuMzMyLTEzNC4zMzJDMzI2LjAwNSwyMTIuNTI5LDMwOC4yNDYsMTY0LjcxNSwyNzMuMjE3LDEwNi44OTl6ICAgIE0yMTAuMTA2LDMzMy44NjhjLTcuODQ0LDIuMDA2LTE1Ljk4NiwzLjAyMi0yNC4yMDUsMy4wMjJjLTUwLjE4NiwwLTkxLjAxNS0zNy45MjktOTEuMDE1LTg0LjU1ICAgYzAtMTEuMjU1LDIuOTctMjQuNDA1LDguODI1LTM5LjA4M2MwLjk4OS0yLjQ4LDMuODA3LTMuODk1LDYuNTg1LTMuMjk1YzIuNzc2LDAuNTk4LDQuNjQsMy4wMTgsNC4zNTQsNS42NSAgIGMtMC4zNDIsMy4xNDgtMC41MTYsNi4yMjMtMC41MTYsOS4xMzZjMCw1MC43MzUsNDAuODgxLDkzLjIyMSw5NS4wOTMsOTguODIxYzIuNjk4LDAuMjc5LDQuODAzLDIuMjk3LDUuMDE4LDQuODEyICAgQzIxNC40NjEsMzMwLjg5NiwyMTIuNzIzLDMzMy4xOTgsMjEwLjEwNiwzMzMuODY4eiIgZmlsbD0iIzQ1NWE2NCIvPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=);}
+
+.icoT{background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQ2NC42MDEgNDY0LjYwMSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDY0LjYwMSA0NjQuNjAxOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCI+CjxwYXRoIGQ9Ik0zMTMuNDgsMjc2LjU2OFY4MS4xNzJDMzEzLjQ4LDM2LjQxMSwyNzcuMDY5LDAsMjMyLjMwOCwwYy00NC43NiwwLTgxLjE4OCwzNi40MTEtODEuMTg4LDgxLjE3MnYxOTUuMzggIGMtMTkuNDA4LDIwLjYwNC0zMC40MjIsNDguMDUzLTMwLjQzNyw3Ni40MjVjMC4wMTUsNjEuNTM2LDUwLjA4OSwxMTEuNjA4LDExMS42MjQsMTExLjYyNCAgYzYxLjUyMS0wLjAxNiwxMTEuNTk0LTUwLjA4OCwxMTEuNjA4LTExMS42NDFDMzQzLjkwMiwzMjQuNjIxLDMzMi44ODgsMjk3LjE4OCwzMTMuNDgsMjc2LjU2OHogTTE1My43NTMsMzUyLjk5MSAgYzAuMDE1LTIyLjAwOCw4Ljk0NS00Mi40MTgsMjUuMTQxLTU3LjQzNWMzLjM3NS0zLjEzNCw1LjI5Ni03LjUyNSw1LjI5Ni0xMi4xMjZWODEuMTcyYzAtMjYuNTMsMjEuNTg4LTQ4LjEwMiw0OC4xMTgtNDguMTAyICBjMjYuNTI5LDAsNDguMTAzLDIxLjU3Miw0OC4xMDMsNDguMTAydjY2LjI2OGgtNTkuNTE5djEzNS45OTFjLTE4LjY4MywxNy4zNDEtMzAuNDIsNDIuMDQ3LTMwLjQzNyw2OS41NjEgIGMwLjAxNywzMi42NjYsMTYuNTUyLDYxLjQyNSw0MS42NzUsNzguNTI1QzE4OC45MDQsNDMxLjM4NiwxNTMuNzY4LDM5Ni4yMDIsMTUzLjc1MywzNTIuOTkxeiIgZmlsbD0iIzQ1NWE2NCIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K);}
+
+.icoT, .icoH {float: left; width: 32px; height: 32px; margin: -3px 10px 0 0;}
+
+#lay1 {width: 334px; padding: 0; margin: 12px auto; border: 1px solid gray; border-radius: 4px;
+box-shadow: 0 0 10px rgba(0,0,0,0.3); -moz-box-shadow: 0 0 10px rgba(0,0,0,0.3); -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.3); 
+background: rgba(207,216,220,1); /* Цвет фона и значение прозрачности */
+color: #455a64; font-family: Helvetica; font-size: 18px;}
+
+.ram0 {width: 334px; padding: 14px 12px 0 12px; font-family: Helvetica; font-size: 15px;}
+
+h1 {font-size: 30px; margin: -4px 0 0 0; }
+h3 {width: 334px; margin: 0 4px 12px 0;}
+h1, h3 {font-weight:normal;}
+
+.lay2 {width: 40px; float: right;}
+.lay3 {width: 32px; float: right;}
+.bt1 {width: 165px; float: left; margin: 0 4px 12px 0;}
+.bt2 {width: 165px; float: left; margin: 0 0 12px 0;}
+
+.lab1 {width: 50%; float: left;  margin: 0 0 12px 0;}
+.lab2 {width: 100%; float: left;  margin: 0 0 12px 0;}
+.block1 { border: solid 1px #2F4F4F; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);}
 
 .ex1 {position: relative; width: 30px; height: 30px; background-color: white; border-radius: 50%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);}
@@ -25,36 +51,17 @@ input[type='checkbox']:checked ~ .switch { background: #93AEFF; transition: .2s;
   top: -4px; left: -4px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); transition: .2s;}
 .card {display: inline-block; margin: 0 4px 0 4px; width: 25px; height: 13px; text-align: center; position: relative;}
 
-
-h1, h3 {width: 334px; font-weight:normal; margin: 12px 0 12px 0;}
-audio {width: 334px;}
-
-.block1 { border: solid 1px #2F4F4F; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);}
-
-#lay1 {width: 334px; padding: 0; margin: 12px auto; border: 1px solid gray; border-radius: 4px; 
-box-shadow: 0 0 10px rgba(0,0,0,0.3); -moz-box-shadow: 0 0 10px rgba(0,0,0,0.3); -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.3); 
-background: rgba(207,216,220,1); /* Цвет фона и значение прозрачности */
-color: #455a64;}
-
-.ram0 {width: 334px; margin: 0; padding: 0 10px 0 10px;}
-.ram1 {width: 334px; overflow: hidden; margin-top: -8px; padding: 0 10px 0 10px;}
-
-.lay2 {width: 40px; float: right;}
-.lay3 {width: 32px; float: right;}
-.bt1 {width: 165px; float: left; margin: 0 4px 12px 0;}
-.bt2 {width: 165px; float: left; margin: 0 0 12px 0;}
-
-.btn {width: 100%; height: 40px; margin: 0; сolor: #455a64; font-family: Helvetica; font-size: 18px;
+.btn {width: 100%; height: 40px; margin: 0; color: #455a64; font-family: Helvetica; font-size: 18px;
  background: linear-gradient(#F7F7F7, #DCDCDC); border: 1px solid #949494; border-radius: 2px; outline: none;}
 .btn:active {background: linear-gradient(#DCDCDC, #F7F7F7);}
 .btn:hover {border: 1px solid #6E6E6E;}
 
 .ed {outline: none; resize: none;}
 .ed2 {height: 24px;}
-.ed,.ed2 {width: 320px; сolor: #455a64; font-family: Helvetica; font-size: 18px; 
+.ed,.ed2 {width: 320px; color: #455a64; font-family: Helvetica; font-size: 18px; 
 border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
 
-.ver {margin: 12px 0 12px 0; font-size: 14px;}
+.ver {font-size: 14px; margin: 12px 0 12px 0;}
 
 </style>
 </head> 
@@ -64,11 +71,10 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
 <tr><td>
 <div class='ram0'>
   <h1>MQTT Websocket 
-  <div class='lay3' id='id_EX' style="display: none"><div class='ex1' title='Выход' onclick="divEX()"></div></div>
+  <div class='lay3' id='id_EX' style='display: none'><div class='ex1' title='Выход' onclick="divEX()"></div></div>
   </h1></h1>
   <hr>
-</div>
-<div class='ram1'>
+<div id='id_conn'><h3>Подключение...</h3></div>
 <div id='id_login' style="display: none">
 <form>
   <h3>Авторизация</h3>
@@ -88,26 +94,23 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
   <p><input class='btn' type='button' value='Войти' onClick="btnConnect()"/></p>
 </form>
 </div>
-<div id='id_mqtt' style="display: none">
-  <h3>MQTT сервер: <a id='stMQTT'></a></h3>
+<div id='id_mqtt' style='display: none'>
+  <h3>Статус сервера: <a id='stMQTT'></a></h3>
   <h3>Клиентов на сервере: <a id='stUSERS'></a></h3>
   <h3>Последнее обновление: <a id='time'></a></h3>
   <h3>Модуль ESP01: <a id='stESP01'></a></h3>
   <h3>Модуль ESP12: <a id='stESP12'></a></h3>
-<div id='id_m1' style="display: none">
+<div id='id_m1' style='display: none'>
   <h3>Уровень сигнала ESP01: <a id='stRSSI2'></a> dBm</h3>
+  <div class='lab2'><h3>Температура на улице</h3><div class='icoT'></div><h1><a id='stT2'></a> &degC</h1></div>
 </div>
-<div id='id_m2' style="display: none">
+<div id='id_m2' style='display: none'>
   <h3>Уровень сигнала ESP12: <a id='stRSSI'></a> dBm</h3>
   <h3>Датчик движения: <a id='stPIR'></a></h3>
   <h3>Освещенность в комнате: <a id='stLDR'></a></h3>
+  <div class='lab1'><h3>Влажность</h3><div class='icoH'></div><h1><a id='stH'></a> %</h1></div>
+  <div class='lab1'><h3>Температура</h3><div class='icoT'></div><h1><a id='stT'></a> &degC</h1></div>
 </div>
-<div id='id_m01' style="display: none">
-  <h3>Температура на улице: <a id='stT2'></a> &degC</h3>
-</div>
-<div id='id_m02' style="display: none">
-  <h3>Температура в комнате: <a id='stT'></a> &degC</h3>
-  <h3>Влажность в комнате: <a id='stH'></a> %</h3>
 
   <h3><label title='Не оставляйте светодиод включенным'>Управление светодиодом ESP12<div class='lay2'>
     <div class='card'><label for='id_LED'>
@@ -123,8 +126,6 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
 <div id='id_area1' style="display: none">
   <h3>Команды: включить, выключить, температура</h3>
   <textarea readonly class='ed' id='rcmd' rows='6'></textarea>
-</div>
-
 </div>
 
 <h3><label>MQTT Messenger <div class='lay2'>
@@ -152,7 +153,7 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
 </div>
 
 </div>
-<p class='ver'>Версия: 20180613-1512</p>
+<p class='ver'>Версия: 20180619-1616</p>
 </div>
 </td></tr>
 </table>
@@ -164,6 +165,10 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
 //глобальные переменные
 var idUSER = ''; flag = ''; temp = ''; host = ''; port = 0; user = ''; US = '1'; cntREC = 0;
 var login = ''; pass = ''; txtUTT = ''; flagSTOP = 0; rec_str = ''; rec_flag = ''; md = ''; m01 = 0; m12 = 0;
+
+stT.innerHTML = '00.0';
+stH.innerHTML = '00.0';
+stT2.innerHTML = '00.0';
 
 //var audio = document.getElementById('id_radio');
 //audio.volume = 0.1;
@@ -230,7 +235,8 @@ function onConnect() {
 function doFail(e){
     console.log(e);
     //stMQTT.innerHTML='Не подключен';
-    id_login.style.display='block';   
+    id_login.style.display='block';
+    id_conn.style.display='none';
     alert('Ошибка подключения к серверу\r\nПроверьте правильность введенных параметров и соединение с интернетом');
 }
 
@@ -260,14 +266,14 @@ function sendLED(ld) {
 
 //=============================================================================
 function esp01(set) {
- if (set == 1) {stESP01.innerHTML = 'Подключен'; id_m1.style.display='block'; id_m01.style.display='block';}
- else {stESP01.innerHTML = 'Не подключен'; id_m1.style.display='none'; id_m01.style.display='none';}
+ if (set == 1) {stESP01.innerHTML = 'Подключен'; id_m1.style.display='block'; }
+ else {stESP01.innerHTML = 'Не подключен'; id_m1.style.display='none'; }
 }
 
 //=============================================================================
 function esp12(set) {
- if (set == 1) {stESP12.innerHTML = 'Подключен'; id_m2.style.display='block'; id_m02.style.display='block';}
- else {stESP12.innerHTML = 'Не подключен'; id_m2.style.display='none'; id_m02.style.display='none';}
+ if (set == 1) {stESP12.innerHTML = 'Подключен'; id_m2.style.display='block'; }
+ else {stESP12.innerHTML = 'Не подключен'; id_m2.style.display='none'; }
 }
 
 //=============================================================================
@@ -518,8 +524,8 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
   mq_login.value = login;
   mq_pass.value = pass;
   id_SAVE.checked = localStorage.getItem('save');
-  if (id_SAVE.checked) {btnConnect();}
-  else {id_login.style.display='block';}
+  if (id_SAVE.checked) {id_conn.style.display='blok'; btnConnect();}
+  else {id_login.style.display='block'; id_conn.style.display='none';}
   stUSER1.innerHTML = user; 
 }
 

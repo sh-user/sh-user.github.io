@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang='ru'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=450'>
+<meta http-equiv='Access-Control-Allow-Origin' content='*'>
+<title>UV index</title>
+
+<style>
+body{ background: #cfd8dc; color: #455a64; font-family: Helvetica; font-size: 15px; }
+::selection {background: #a0bbbb;}
+::-moz-selection {background: #a0bbbb;}
+input, textarea, button {outline: none;}
+h1 {font-size: 30px; font-weight:normal; margin: 12px 0 12px 0;}
+
+</style>
+
+
+<body>
+	<center>
+		<h1>Время: <a id='stTime'></a></h1>
+		<h1>УФ-индекс сейчас: <a id='stUV'></a></h1>
+		<h1>УФ-индекс макс. за день: <a id='stUVmax'></a></h1>
+		<h1>Озон: <a id='stOZ'></a> du</h1> 
+		<h1>Уровень воздействия: <a id='stLevel'></a></h1>
+	</center>
+</body>
+
+
+<script type="text/javascript">
+
+stTime.innerHTML = '00:00:00';
+stUV.innerHTML = '0.0000';
+stUVmax.innerHTML = '0.0000';
+stOZ.innerHTML = '000.0';
+stLevel.innerHTML = 'низкий';
+
+var d = new Date();
+var isodate = d.toISOString();
+var key = '6bdd5e5fff7f5883bea5b6e2afd36c7c';
+var URL = 'https://api.openuv.io/api/v1/uv?lat=48.87&lng=38.56&dt=' + isodate;
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.open('GET', URL, true);
+xmlhttp.setRequestHeader('x-access-token', key);
+
+xmlhttp.onload = function() {
+	console.log(this.responseText);
+	var myObj = JSON.parse(this.responseText);
+	var strUV = myObj.result.uv;
+	var intUV = parseInt(strUV);
+	
+	stTime.innerHTML = new Date().toLocaleTimeString();
+	stUV.innerHTML = strUV;
+	stUVmax.innerHTML = myObj.result.uv_max;
+	stOZ.innerHTML = myObj.result.ozone;
+	if (intUV < 3) {stLevel.innerHTML = 'низкий';} 
+	if (intUV > 2 && intUV < 6) {stLevel.innerHTML = 'средний';}
+	if (intUV > 5 && intUV < 8) {stLevel.innerHTML = 'высокий';}
+	if (intUV > 7 && intUV < 10) {stLevel.innerHTML = 'очень высокий';}
+	if (intUV > 9) {stLevel.innerHTML = 'экстремальный';}
+}
+
+xmlhttp.send();
+
+</script>
+</html>

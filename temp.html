@@ -55,23 +55,20 @@ var cnt = 0;
         var options = {
           min: 0, max: 40,
           width: 300, height: 300,
+          yellowFrom:27.5, yellowTo: 30,
           redFrom: 30, redTo: 40,
-          yellowFrom:27, yellowTo: 30,
           minorTicks: 5,
           majorTicks: ["0","5","10","15","20","25","30", "35", "40"]
         };
 
         var chart1 = new google.visualization.Gauge(document.getElementById('chart_div1'));
-        chart1.draw(data1, options);
         var chart2 = new google.visualization.Gauge(document.getElementById('chart_div2'));
+        chart1.draw(data1, options);
         chart2.draw(data2, options);
 
         setInterval(function() {
           data1.setValue(0, 1, Temp1 );
           chart1.draw(data1, options);
-        }, 400);
-
-        setInterval(function() {
           data2.setValue(0, 1, Temp2 );
           chart2.draw(data2, options);
         }, 400);

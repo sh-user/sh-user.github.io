@@ -31,15 +31,14 @@ color: #455a64; font-family: Helvetica; font-size: 18px;}
 .ram0 {width: 354px; margin: 0; overflow: hidden; padding: 14px 12px 0 12px; font-family: Helvetica; font-size: 15px;}
 .lab1 {width: 50%; float: left;  margin: 0 0 12px 0;}
 
-.b1 {background: #00b050; color: #fdfdfe; display: block;}
+.b1 {background: #00b050; color: #fdfdfe; display: none;}
 .b2 {background: #fff300; color: #455a64; display: none;}
 .b3 {background: #ff9933; color: #455a64; display: none;}
 .b4 {background: #c00000; color: #fdfdfe; display: none;}
 .b5 {background: #b567a4; color: #fdfdfe; display: none;}
 
 .b1, .b2, .b3, .b4, .b5 {width: 336px; float: left;  margin: 12px 0 12px 0; padding: 8px 8px; border-radius: 4px;}
-
-
+.ver {font-size: 14px; margin: 12px 0 12px 0;}
 
 </style>
 
@@ -78,6 +77,8 @@ color: #455a64; font-family: Helvetica; font-size: 18px;}
 	<h3>Требуется повышенная защита</h3>
 	<h3>Пережидайте внутри помещения!<br>Вне помещения оставайтесь в тени!<br>Обязательно носите одежду с <br>длинными рукавами, шляпу, <br>пользуйтесь солнцезащитным кремом!</h3>
 	</div>
+
+	<p class='ver'>Версия: 20180621-1338</p>
 </div>
 </td></tr>
 </table>
@@ -90,6 +91,21 @@ stUV.innerHTML = '0.0000';
 stUVmax.innerHTML = '0.0000';
 stOZ.innerHTML = '000.0';
 
+//=============================================================================
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  //alert('код для мобильных устройств');
+  document.body.style.backgroundColor = '#cfd8dc';
+  lay1.style.border = '0'; 
+  lay1.style.margin = '0';
+  lay1.style.width = '100%';
+  lay1.style.boxShadow = 'none'; 
+  lay1.style.MozBoxShadow = 'none';
+  lay1.style.webkitBoxShadow = 'none';
+} else {
+  //alert('код для обычных устройств');
+}
+
+//=============================================================================
 var d = new Date();
 var isodate = d.toISOString();
 var key = '6bdd5e5fff7f5883bea5b6e2afd36c7c';
@@ -110,21 +126,17 @@ xmlhttp.onload = function() {
 	stUV.innerHTML = strUV;
 	stUVmax.innerHTML = myObj.result.uv_max;
 	stOZ.innerHTML = myObj.result.ozone;
-	 
-	if (intUV < 3) {id_b1.style.display='block'; id_b2.style.display='none';
-	id_b3.style.display='none'; id_b4.style.display='none'; id_b5.style.display='none';} 
-	 
-	if (intUV > 2 && intUV < 6) {id_b1.style.display='none'; id_b2.style.display='block';
-	id_b3.style.display='none'; id_b4.style.display='none'; id_b5.style.display='none';}
-	 
-	if (intUV > 5 && intUV < 8) {id_b1.style.display='none'; id_b2.style.display='none';
-	id_b3.style.display='block'; id_b4.style.display='none'; id_b5.style.display='none';}
-	 
-	if (intUV > 7 && intUV < 11) {id_b1.style.display='none'; id_b2.style.display='none';
-	id_b3.style.display='none'; id_b4.style.display='block'; id_b5.style.display='none';}
-	 
-	if (intUV > 10) {id_b1.style.display='none'; id_b2.style.display='none';
-	id_b3.style.display='none'; id_b4.style.display='none'; id_b5.style.display='block';}
+	
+	id_b1.style.display='none';
+	id_b2.style.display='none';
+	id_b3.style.display='none';
+	id_b4.style.display='none';
+	id_b5.style.display='none';
+	if (intUV < 3) {id_b1.style.display='block';} 
+	if (intUV > 2 && intUV < 6) {id_b2.style.display='block';}
+	if (intUV > 5 && intUV < 8) {id_b3.style.display='block';}
+	if (intUV > 7 && intUV < 11) {id_b4.style.display='block';}
+	if (intUV > 10) {id_b5.style.display='block';}
 }
 xmlhttp.send();
 

@@ -31,13 +31,13 @@ color: #455a64; font-family: Helvetica; font-size: 18px;}
 .ram0 {width: 354px; margin: 0; overflow: hidden; padding: 14px 12px 0 12px; font-family: Helvetica; font-size: 15px;}
 .lab1 {width: 50%; float: left;  margin: 0 0 12px 0;}
 
-.block1 {background: #00b050; color: #fdfdfe; display: block;}
-.block2 {background: #fff300; color: #455a64; display: none;}
-.block3 {background: #ff9933; color: #455a64; display: none;}
-.block4 {background: #c00000; color: #fdfdfe; display: none;}
-.block5 {background: #b567a4; color: #fdfdfe; display: none;}
+.b1 {background: #00b050; color: #fdfdfe; display: block;}
+.b2 {background: #fff300; color: #455a64; display: none;}
+.b3 {background: #ff9933; color: #455a64; display: none;}
+.b4 {background: #c00000; color: #fdfdfe; display: none;}
+.b5 {background: #b567a4; color: #fdfdfe; display: none;}
 
-.block1, .block2, .block3, .block4, .block5 {width: 336px; float: left;  margin: 12px 0 12px 0; padding: 8px 8px; border-radius: 4px;}
+.b1, .b2, .b3, .b4, .b5 {width: 336px; float: left;  margin: 12px 0 12px 0; padding: 8px 8px; border-radius: 4px;}
 
 
 
@@ -53,27 +53,27 @@ color: #455a64; font-family: Helvetica; font-size: 18px;}
 	<div class='lab1'><h3>Время</h3><div class='icoTime'></div><h1><a id='stTime'></a></h1></div>
     <div class='lab1'><h3>Максимум за день</h3><div class='icoUV'></div><h1><a id='stUVmax'></a></h1></div>
 	<div class='lab1'><h3>Озоновый слой</h3><div class='icoOzon'></div><h1><a id='stOZ'></a> DU</h1></div>
-    <div class='block1'>
+    <div class='b1' id='id_b1'>
     <h3>Уровень воздействия: низкий</h3>
 	<h3>Защита не требуется</h3>
 	<h3>Пребывание вне помещения не представляет опасности</h3>
 	</div>
-	<div class='block2'>
+	<div class='b2' id='id_b2'>
     <h3>Уровень воздействия: средний</h3>
 	<h3>Требуется защита</h3>
 	<h3>Оставайтесь в тени! Носите одежду с длинными рукавами и шляпу!<br>Пользуйтесь солнцезащитным кремом!</h3>
 	</div>
-	<div class='block3'>
+	<div class='b3' id='id_b3'>
     <h3>Уровень воздействия: высокий</h3>
 	<h3>Требуется защита</h3>
 	<h3>Оставайтесь в тени! Носите одежду с длинными рукавами и шляпу!<br>Пользуйтесь солнцезащитным кремом!</h3>
 	</div>
-	<div class='block4'>
+	<div class='b4' id='id_b4'>
     <h3>Уровень воздействия: очень высокий</h3>
 	<h3>Требуется повышенная защита</h3>
 	<h3>Пережидайте внутри помещения!<br>Вне помещения оставайтесь в тени!<br>Обязательно носите одежду с <br>длинными рукавами, шляпу, <br>пользуйтесь солнцезащитным кремом!</h3>
 	</div>
-	<div class='block5'>
+	<div class='b5' id='id_b5'>
     <h3>Уровень воздействия: экстремальный</h3>
 	<h3>Требуется повышенная защита</h3>
 	<h3>Пережидайте внутри помещения!<br>Вне помещения оставайтесь в тени!<br>Обязательно носите одежду с <br>длинными рукавами, шляпу, <br>пользуйтесь солнцезащитным кремом!</h3>
@@ -103,26 +103,28 @@ xmlhttp.onload = function() {
 	var myObj = JSON.parse(this.responseText);
 	var strUV = myObj.result.uv;
 	var intUV = parseInt(strUV);
+
+	console.log(intUV);
 	
 	stTime.innerHTML = new Date().toLocaleTimeString();
 	stUV.innerHTML = strUV;
 	stUVmax.innerHTML = myObj.result.uv_max;
 	stOZ.innerHTML = myObj.result.ozone;
 	 
-	if (intUV < 3) {block1.style.display='block'; block2.style.display='none';
-	block3.style.display='none'; block4.style.display='none'; block5.style.display='none';} 
+	if (intUV < 3) {id_b1.style.display='block'; id_b2.style.display='none';
+	id_b3.style.display='none'; id_b4.style.display='none'; id_b5.style.display='none';} 
 	 
-	if (intUV > 2 && intUV < 6) {block1.style.display='none'; block2.style.display='block';
-	block3.style.display='none'; block4.style.display='none'; block5.style.display='none';}
+	if (intUV > 2 && intUV < 6) {id_b1.style.display='none'; id_b2.style.display='block';
+	id_b3.style.display='none'; id_b4.style.display='none'; id_b5.style.display='none';}
 	 
-	if (intUV > 5 && intUV < 8) {block1.style.display='none'; block2.style.display='none';
-	block3.style.display='block'; block4.style.display='none'; block5.style.display='none';}
+	if (intUV > 5 && intUV < 8) {id_b1.style.display='none'; id_b2.style.display='none';
+	id_b3.style.display='block'; id_b4.style.display='none'; id_b5.style.display='none';}
 	 
-	if (intUV > 7 && intUV < 11) {block1.style.display='none'; block2.style.display='none';
-	block3.style.display='none'; block4.style.display='block'; block5.style.display='none';}
+	if (intUV > 7 && intUV < 11) {id_b1.style.display='none'; id_b2.style.display='none';
+	id_b3.style.display='none'; id_b4.style.display='block'; id_b5.style.display='none';}
 	 
-	if (intUV > 10) {block1.style.display='none'; block2.style.display='none';
-	block3.style.display='none'; block4.style.display='none'; block5.style.display='block';}
+	if (intUV > 10) {id_b1.style.display='none'; id_b2.style.display='none';
+	id_b3.style.display='none'; id_b4.style.display='none'; id_b5.style.display='block';}
 }
 xmlhttp.send();
 

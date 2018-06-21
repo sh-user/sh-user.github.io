@@ -42,7 +42,7 @@ color: #455a64; font-family: Helvetica; font-size: 18px;}
 
 </style>
 
-<body>
+<body onload='GetUV()'>
 <table id='lay1'>
 <tr><td>
 <div class='ram0'>
@@ -78,7 +78,7 @@ color: #455a64; font-family: Helvetica; font-size: 18px;}
 	<h3>Пережидайте внутри помещения!<br>Вне помещения оставайтесь в тени!<br>Обязательно носите одежду с <br>длинными рукавами, шляпу, <br>пользуйтесь солнцезащитным кремом!</h3>
 	</div>
 
-	<p class='ver'>Версия: 20180621-1346</p>
+	<p class='ver'>Версия: 20180621-1619</p>
 </div>
 </td></tr>
 </table>
@@ -111,22 +111,19 @@ var isodate = d.toISOString();
 var key = '6bdd5e5fff7f5883bea5b6e2afd36c7c';
 var URL = 'https://api.openuv.io/api/v1/uv?lat=48.87&lng=38.56&dt=' + isodate;
 var xmlhttp = new XMLHttpRequest();
-xmlhttp.open('GET', URL, true);
-xmlhttp.setRequestHeader('x-access-token', key);
 
-xmlhttp.onload = function() {
+function GetUV() {
+	xmlhttp.open('GET', URL, true);
+	xmlhttp.setRequestHeader('x-access-token', key);
+	xmlhttp.onload = function() {
 	//console.log(this.responseText);
 	var myObj = JSON.parse(this.responseText);
 	var strUV = myObj.result.uv;
 	var intUV = parseInt(strUV);
-
-	console.log(intUV);
-	
 	stTime.innerHTML = new Date().toLocaleTimeString();
 	stUV.innerHTML = strUV;
 	stUVmax.innerHTML = myObj.result.uv_max;
 	stOZ.innerHTML = myObj.result.ozone;
-	
 	id_b1.style.display='none';
 	id_b2.style.display='none';
 	id_b3.style.display='none';
@@ -137,8 +134,11 @@ xmlhttp.onload = function() {
 	if (intUV > 5 && intUV < 8) {id_b3.style.display='block';}
 	if (intUV > 7 && intUV < 11) {id_b4.style.display='block';}
 	if (intUV > 10) {id_b5.style.display='block';}
+	}
+	xmlhttp.send();
 }
-xmlhttp.send();
+
+var timerId = setInterval(function() {GetUV();}, 600000);	//обновление каждые 10 минут.
 
 </script>
 </html>

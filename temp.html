@@ -9,12 +9,12 @@ body{ background: #cfd8dc; color: #455a64; font-family: Helvetica; font-size: 15
 ::selection {background: #a0bbbb;}
 ::-moz-selection {background: #a0bbbb;}
 input, textarea, button {outline: none;}
-h1 {font-weight:normal; margin: 12px 0 12px 0;}
+h1 {font-size: 30px; font-weight:normal; margin: 0;}
 
 </style>
 
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" ></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" ></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js"></script>
 
 </head>
 
@@ -25,6 +25,7 @@ h1 {font-weight:normal; margin: 12px 0 12px 0;}
 	<div id="chart_div1" style="height: 300px; width: 300px;"></div>
 	<h1>Температура на улице</h1>
 	<div id="chart_div2" style="height: 300px; width: 300px;"></div>
+	<h1>Разница температур: <a id='stRT'></a> &degC</h1>
 </center>
 </body>
 
@@ -71,9 +72,10 @@ var cnt = 0;
           chart1.draw(data1, options);
           data2.setValue(0, 1, Temp2 );
           chart2.draw(data2, options);
+          var RT = parseFloat(Temp2) - parseFloat(Temp1);
+          stRT.innerHTML = RT.toFixed(1);
         }, 400);
       }
-
 
 // function drawChart2() {
 //         var data = google.visualization.arrayToDataTable([
@@ -109,7 +111,6 @@ var cnt = 0;
 
   // connect the client
     client.connect(options);
-
 
   // called when the client connects
   function onConnect() {

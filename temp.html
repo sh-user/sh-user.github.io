@@ -73,7 +73,9 @@ var cnt = 0;
           data2.setValue(0, 1, Temp2 );
           chart2.draw(data2, options);
           var RT = parseFloat(Temp2) - parseFloat(Temp1);
-          stRT.innerHTML = RT.toFixed(1);
+          RT = RT.toFixed(1);
+          if (RT < 0) {RT = RT/-1;}  
+          stRT.innerHTML = RT;
         }, 400);
       }
 

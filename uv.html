@@ -134,14 +134,13 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 }
 
 //=============================================================================
-var isodate = new Date().toISOString();
-var key = '6bdd5e5fff7f5883bea5b6e2afd36c7c';
-var URL = 'https://api.openuv.io/api/v1/uv?lat=48.87&lng=38.56&dt=' + isodate;
 var xmlhttp = new XMLHttpRequest();
 
 function GetUV() {
+	var isodate = new Date().toISOString();
+	var URL = 'https://api.openuv.io/api/v1/uv?lat=48.87&lng=38.56&dt=' + isodate;
 	xmlhttp.open('GET', URL, true);
-	xmlhttp.setRequestHeader('x-access-token', key);
+	xmlhttp.setRequestHeader('x-access-token','6bdd5e5fff7f5883bea5b6e2afd36c7c');
 	xmlhttp.onload = function() {
 	//console.log(this.responseText);
 	var myObj = JSON.parse(this.responseText);

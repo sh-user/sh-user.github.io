@@ -114,7 +114,7 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
   <div class='lab1' title='В комнате'><h3>Освещенность</h3><div class='icoFoto'></div><h1><a id='stLDR'></a></h1></div>
   <div class='lab1' title='В комнате'><h3>Влажность</h3><div class='icoH'></div><h1><a id='stH'></a> %</h1></div>
   <div class='lab1' title='В комнате'><h3>Температура</h3><div class='icoT'></div><h1><a id='stT'></a> &degC</h1></div>
-  <div class='lab1'><h3>Напряжение в сети</h3><div class='icoV'></div><h1><a id='stPZEM'></a> V</h1></div>
+  <div class='lab1' title='Pzem-004'><h3>Напряжение в сети</h3><div class='icoV'></div><h1><a id='stPZEM'></a> V</h1></div>
   <div class='lab1' title='HC-SR501'><h3>Датчик движения</h3><div class='icoPIR'></div><h1><a id='stPIR'></a></h1></div>
   <h3><label title='Не оставляйте светодиод включенным'>Управление светодиодом ESP12<div class='lay2'>
     <div class='card'><label for='id_LED'>
@@ -158,7 +158,7 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
 </div>
 
 </div>
-<p class='ver'>Версия: 20180622-0031</p>
+<p class='ver'>Версия: 20180624-1314</p>
 </div>
 </td></tr>
 </table>
@@ -176,7 +176,7 @@ var login = ''; pass = ''; txtUTT = ''; flagSTOP = 0; rec_str = ''; rec_flag = '
 //stT2.innerHTML = '00.0';
 //stRSSI.innerHTML = '-00';
 //stRSSI2.innerHTML = '-00';
-stPW.innerHTML = '000.0';
+//stPZEM.innerHTML = '000.0';
 
 function playSound() {
   if (typeof window.Audio === 'function') {

@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html><html lang='ru'>
 <head>
 <meta charset='utf-8'>
-<meta name='viewport' content='width=450'>
-<title>Температура</title>
+<meta name='viewport' content='width=700'>
+<title>Home 181</title>
 
 <style>
 body{ background: #cfd8dc; color: #455a64; font-family: Helvetica; font-size: 15px; }
@@ -11,49 +11,50 @@ body{ background: #cfd8dc; color: #455a64; font-family: Helvetica; font-size: 15
 input, textarea, button {outline: none;}
 h1 {font-size: 30px; font-weight:normal; margin: 0;}
 
+.ram0 {width: 700px;}
+.lab1 {width: 50%; float: left;  margin: 0 0 12px 0;}
+.lab2 {width: 100%; float: left;  margin: 0 0 12px 0;}
+.ch {height: 300px; width: 300px;}
+
 </style>
-
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" ></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js"></script>
-
 </head>
 
 <body>
 <center>
-	<div id="connstatus">-----</div>
-	<h1>Температура в комнате</h1>
-	<div id="chart_div1" style="height: 300px; width: 300px;"></div>
-	<h1>Температура на улице</h1>
-	<div id="chart_div2" style="height: 300px; width: 300px;"></div>
-	<h1>Разница температур: <a id='stRT'></a> &degC</h1>
+	<div class='ram0'>
+	<div id='connstatus' class='lab2'>-----</div>
+	<div class='lab1'><h1>Температура в комнате</h1><div id='chart_T' class='ch'></div></div>
+	<div class='lab1'><h1>Температура на улице</h1><div id='chart_T2' class='ch'></div></div>
+	<div class='lab2'><h1>Разница температур: <a id='stRT'></a> &degC</h1></div>
+	<div class='lab1'><h1>Влажность в комнате</h1><div id='chart_H' class='ch'></div></div>
+	<div class='lab1'><h1>Напряжение в сети</h1><div id='chart_V' class='ch'></div></div>
+	</div>
 </center>
 </body>
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" ></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js"></script>
 <script type="text/javascript">
 google.charts.load('current', {'packages':['gauge']});
 //google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart);
 
-var Temp1 = 0; // where I put my message
-var Temp2 = 0; // where I put my message
-var cnt = 0;
+var temp1 = 0;
+var temp2 = 0;
+var volt = 0;
+var humidity = 0;
+//var cnt = 0;
 
 // gauge variables.
-
 // Google Charts Stuff
      function drawChart() {
 
-        var data1 = google.visualization.arrayToDataTable([
-          ['My Value', 'Value'],
-          ['', 0],
-        ]);
+        var dataT = google.visualization.arrayToDataTable([['My Value', 'Value'], ['', 0],]);
+        var dataT2 = google.visualization.arrayToDataTable([['My Value', 'Value'], ['', 0],]);
+        var dataH = google.visualization.arrayToDataTable([['My Value', 'Value'], ['', 0],]);
+        var dataV = google.visualization.arrayToDataTable([['My Value', 'Value'], ['', 0],]);
 
-        var data2 = google.visualization.arrayToDataTable([
-          ['My Value', 'Value'],
-          ['', 0],
-        ]);
-
-        var options = {
+        var opT = {
           min: 0, max: 40,
           width: 300, height: 300,
           yellowFrom:27.5, yellowTo: 30,
@@ -62,20 +63,42 @@ var cnt = 0;
           majorTicks: ["0","5","10","15","20","25","30", "35", "40"]
         };
 
-        var chart1 = new google.visualization.Gauge(document.getElementById('chart_div1'));
-        var chart2 = new google.visualization.Gauge(document.getElementById('chart_div2'));
-        chart1.draw(data1, options);
-        chart2.draw(data2, options);
+		var opH = {
+          min: 0, max: 100,
+          width: 300, height: 300,
+          minorTicks: 10,
+          majorTicks: ["0","10","20","30","40","50","60","70","80","90","100"]
+        };
+
+        var opV = {
+          min: 160, max: 240,
+          width: 300, height: 300,
+          minorTicks: 10,
+          majorTicks: ["160","","180","","200","","220","","240"]
+        };
+
+        var chart1 = new google.visualization.Gauge(document.getElementById('chart_T'));
+        var chart2 = new google.visualization.Gauge(document.getElementById('chart_T2'));
+        var chart3 = new google.visualization.Gauge(document.getElementById('chart_H'));
+        var chart4 = new google.visualization.Gauge(document.getElementById('chart_V'));
+        chart1.draw(dataT, opT);
+        chart2.draw(dataT2, opT);
+        chart3.draw(dataH, opH);
+        chart4.draw(dataV, opV);
 
         setInterval(function() {
-          data1.setValue(0, 1, Temp1 );
-          chart1.draw(data1, options);
-          data2.setValue(0, 1, Temp2 );
-          chart2.draw(data2, options);
-          var RT = parseFloat(Temp2) - parseFloat(Temp1);
+          dataT.setValue(0, 1, temp1);
+          chart1.draw(dataT, opT);
+          dataT2.setValue(0, 1, temp2);
+          chart2.draw(dataT2, opT);
+          var RT = parseFloat(temp2) - parseFloat(temp1);
           RT = RT.toFixed(1);
           if (RT < 0) {RT = RT/-1;}  
           stRT.innerHTML = RT;
+          dataH.setValue(0, 1, humidity);
+          chart3.draw(dataH, opH);
+          dataV.setValue(0, 1, volt);
+          chart4.draw(dataV, opV);
         }, 400);
       }
 
@@ -121,6 +144,8 @@ var cnt = 0;
     console.log("onConnect");
     client.subscribe("ESP12/T");
     client.subscribe("ESP12/T2");
+    client.subscribe("ESP12/H");
+    client.subscribe("ESP12/V");
 
     message = new Paho.MQTT.Message(' ');
     message.destinationName = 'ESP12/Status';
@@ -144,9 +169,13 @@ var cnt = 0;
     console.log(message.destinationName + ':' + message.payloadString);
 
     //температура на улице
-	if (message.destinationName == 'ESP12/T2') {Temp2 = message.payloadString;}
+	if (message.destinationName == 'ESP12/T2') {temp2 = message.payloadString;}
 	//температура в комнате
-	if (message.destinationName == 'ESP12/T') {Temp1 = message.payloadString;}
+	if (message.destinationName == 'ESP12/T') {temp1 = message.payloadString;}
+	//влажность в комнате
+	if (message.destinationName == 'ESP12/H') {humidity = message.payloadString;}
+	//напряжение в сети
+	if (message.destinationName == 'ESP12/V') {volt = message.payloadString;}
 
     //var polyline= document.getElementById('polyline-id');
     //points = polyline.getAttribute('points');
@@ -156,16 +185,18 @@ var cnt = 0;
     //pt = 250 - pt;
     //points += cnt + "," + pt + " ";
     //polyline.setAttribute('points', points );
-
   }
 
   function updateChart(){
-    data1.setValue(0, 1, 30);
-    chart1.draw(data1, options);
-    data2.setValue(0, 1, 30);
-    chart2.draw(data2, options);
+    dataT.setValue(0, 1, 30);
+    chart1.draw(dataT, opT);
+    dataT2.setValue(0, 1, 30);
+    chart2.draw(dataT2, opT);
+    dataH.setValue(0, 1, 30);
+    chart3.draw(dataH, opH);
+    dataV.setValue(0, 1, 30);
+    chart4.draw(dataV, opV);
   }
 
 </script>
-
 </html>

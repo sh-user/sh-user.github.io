@@ -52,14 +52,14 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 
 </style>
 
-<body onload='GetUV()'>
+<body onload='GeоCity()'>
 <table id='lay1'>
 <tr><td>
 <div class='ram0'>
 	<h1>UV index</h1>
 	<hr>
-	<form onsubmit="Geocode(); return false">
-	<p><input class='ed2' id='id_city' type='text' placeholder='Город' autocomplete='off'></p>
+	<form onsubmit="GeоCity(); return false">
+	<p><input class='ed2' id='id_city' type='text' size='50' placeholder='Город' autocomplete='off'></p>
 	</form>
 	<div class='lab1'><h3>УФ-индекс</h3><div class='icoUV'></div><h1><a id='stUV'></a></h1></div> 
 	<div class='lab1'><h3>Время измерения</h3><div class='icoTime'></div><h1><a id='stUVTime'></a></h1></div>
@@ -103,7 +103,7 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 	<h3>Требуется повышенная защита</h3>
 	<h3>Пережидайте внутри помещения!<br>Вне помещения оставайтесь в тени!<br>Обязательно носите одежду с <br>длинными рукавами, шляпу, <br>пользуйтесь солнцезащитным кремом!</h3>
 	</div>
-	<p class='ver'>Версия: 20180729-1150</p>
+	<p class='ver'>Версия: 20180729-1500</p>
 </div>
 </td></tr>
 </table>
@@ -113,6 +113,7 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 //=============================================================================
 var sf, lat, lng, sf1 = '000', sf2 = '000', sf3 = '000', sf4 = '000', sf5 = '000', sf6 = '000';
 
+id_city.value = 'Северодонецк'
 stUV.innerHTML = '0.0000';
 stUVTime.innerHTML = '00:00:00';
 stUVmax.innerHTML = '0.0000';
@@ -137,8 +138,10 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 
 //=============================================================================
 var xmlhttp = new XMLHttpRequest();
-var xmlhttp2 = new XMLHttpRequest();
+var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+var xhr = new XHR();
 
+//=============================================================================
 function GetUV() {
 	if (lat != undefined) {
 	var isodate = new Date().toISOString();
@@ -194,20 +197,24 @@ function MenuSF() {
 	else {stUVTimeSF.innerHTML = '000';}
 }
 
-function Geocode() {
-	var URL2 = 'http://maps.googleapis.com/maps/api/geocode/json?address=' + id_city.value + '&sensor=false&language=ru';
-	xmlhttp2.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-		var myObj2 = JSON.parse(this.responseText);
-		//console.log(this.responseText);
-		var st = myObj2.status;
+//=============================================================================
+function GeоCity() {
+	var URL2 = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + id_city.value + '&sensor=false&language=ru';
+	xhr.open('GET', URL2, true);
+    xhr.send();
+}
+
+//================================================================
+xhr.onload = function() {
+  	//console.log(this.responseText);
+  	var myObj2 = JSON.parse(this.responseText);
+	var st = myObj2.status;
 		if (st == 'OK') {
 			var la = myObj2.results[0].geometry.location.lat;
 			var ln = myObj2.results[0].geometry.location.lng;
 			lat = la.toFixed(2);
 			lng = ln.toFixed(2);
-			console.log('lat:'+lat);
-			console.log('lng:'+lng);
+			console.log('city:'+id_city.value+' lat:'+lat+' lng:'+lng);
 		} else {
 			stUV.innerHTML = '0.0000';
 			stUVTime.innerHTML = '00:00:00';
@@ -217,11 +224,8 @@ function Geocode() {
 			stSunset.innerHTML = '00:00:00';
 			stUVTimeSF.innerHTML = '000';
 		}
-		}
-	}	
-	xmlhttp2.open("GET", URL2, true);
-  	xmlhttp2.send();
-  	setTimeout(function(){GetUV();}, 1000); 
+	GetUV();
+  	//setTimeout(function(){GetUV();}, 1000);
 }
 
 </script>

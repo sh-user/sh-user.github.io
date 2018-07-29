@@ -29,8 +29,9 @@ h1 {font-size: 30px; margin: -4px 0 0 0; }
 h3 {width: 354px; margin: 0 4px 12px 0;}
 h1, h3 {font-weight:normal;}
 
-.ed {height: 36px; width: 72px; margin: -5px 0 0 0; background: #fdfdfe; color: #455a64; 
-font-family: Helvetica; font-size: 18px; 
+.ed {height: 36px; width: 72px; margin: -5px 0 0 0; }
+.ed2 {height: 24px; width: 340px;}
+.ed, .ed2 {background: #fdfdfe; color: #455a64; font-family: Helvetica; font-size: 18px; 
 border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
 
 #lay1 {width: 354px; padding: 0; margin: 12px auto;  border-radius: 4px;
@@ -57,15 +58,17 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 <div class='ram0'>
 	<h1>UV index</h1>
 	<hr>
+	<form onsubmit="Geocode(); return false">
+	<p><input class='ed2' id='id_city' type='text' placeholder='Город' autocomplete='off'></p>
+	</form>
 	<div class='lab1'><h3>УФ-индекс</h3><div class='icoUV'></div><h1><a id='stUV'></a></h1></div> 
 	<div class='lab1'><h3>Время измерения</h3><div class='icoTime'></div><h1><a id='stUVTime'></a></h1></div>
     <div class='lab1'><h3>Максимум за день</h3><div class='icoUV'></div><h1><a id='stUVmax'></a></h1></div>
 	<div class='lab1'><h3>Озоновый слой</h3><div class='icoOzon'></div><h1><a id='stOzon'></a> DU</h1></div>
 	<div class='lab1'><h3>Восход солнца</h3><div class='icoSunrise'></div><h1><a id='stSunrise'></a></h1></div>
 	<div class='lab1'><h3>Заход солнца</h3><div class='icoSunset'></div><h1><a id='stSunset'></a></h1></div>
-	<!-- <div class='lab1'><h3>Фототип кожи</h3><div class='icoSkin'></div><h1><a id='stSkin'></a></h1></div> -->
 	<div class='lab1'><h3>Тип кожи</h3><div class='icoSkin'></div>
-    <select id='menuSkin' class='ed' onChange="menuSF();">
+    <select id='menuSkin' class='ed' onChange="MenuSF();">
   	<option value='1'>1</option>
   	<option value='2'>2</option>
   	<option value='3'>3</option>
@@ -100,7 +103,7 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 	<h3>Требуется повышенная защита</h3>
 	<h3>Пережидайте внутри помещения!<br>Вне помещения оставайтесь в тени!<br>Обязательно носите одежду с <br>длинными рукавами, шляпу, <br>пользуйтесь солнцезащитным кремом!</h3>
 	</div>
-	<p class='ver'>Версия: 20180623-1734</p>
+	<p class='ver'>Версия: 20180729-1150</p>
 </div>
 </td></tr>
 </table>
@@ -108,7 +111,7 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 
 <script type="text/javascript">
 //=============================================================================
-var sf, sf1 = '000', sf2 = '000', sf3 = '000', sf4 = '000', sf5 = '000', sf6 = '000';
+var sf, lat, lng, sf1 = '000', sf2 = '000', sf3 = '000', sf4 = '000', sf5 = '000', sf6 = '000';
 
 stUV.innerHTML = '0.0000';
 stUVTime.innerHTML = '00:00:00';
@@ -116,7 +119,6 @@ stUVmax.innerHTML = '0.0000';
 stOzon.innerHTML = '000.0';
 stSunrise.innerHTML = '00:00:00';
 stSunset.innerHTML = '00:00:00';
-//stSkin.innerHTML = '1';
 stUVTimeSF.innerHTML = sf1;
 
 //=============================================================================
@@ -135,10 +137,12 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 
 //=============================================================================
 var xmlhttp = new XMLHttpRequest();
+var xmlhttp2 = new XMLHttpRequest();
 
 function GetUV() {
+	if (lat != undefined) {
 	var isodate = new Date().toISOString();
-	var URL = 'https://api.openuv.io/api/v1/uv?lat=48.87&lng=38.56&dt=' + isodate;
+	var URL = 'https://api.openuv.io/api/v1/uv?lat=' + lat + '&lng='+ lng + '&dt=' + isodate;
 	xmlhttp.open('GET', URL, true);
 	xmlhttp.setRequestHeader('x-access-token','6bdd5e5fff7f5883bea5b6e2afd36c7c');
 	xmlhttp.onload = function() {
@@ -161,7 +165,7 @@ function GetUV() {
 	sf4 = myObj.result.safe_exposure_time.st4;
 	sf5 = myObj.result.safe_exposure_time.st5;
 	sf6 = myObj.result.safe_exposure_time.st6;
-	menuSF();
+	MenuSF();
 	id_b1.style.display='none';
 	id_b2.style.display='none';
 	id_b3.style.display='none';
@@ -174,11 +178,12 @@ function GetUV() {
 	if (intUV > 10) {id_b5.style.display='block';}
 	}
 	xmlhttp.send();
+	}
 }
 var timerId = setInterval(function() {GetUV();}, 300000); //обновление каждые 5 мин.
 
 //=============================================================================
-function menuSF() {
+function MenuSF() {
 	if (menuSkin.value == '1') {sf = sf1;}
 	if (menuSkin.value == '2') {sf = sf2;}
 	if (menuSkin.value == '3') {sf = sf3;}
@@ -187,6 +192,36 @@ function menuSF() {
 	if (menuSkin.value == '6') {sf = sf6;}
 	if (sf != null) {stUVTimeSF.innerHTML = sf;}
 	else {stUVTimeSF.innerHTML = '000';}
+}
+
+function Geocode() {
+	var URL2 = 'http://maps.googleapis.com/maps/api/geocode/json?address=' + id_city.value + '&sensor=false&language=ru';
+	xmlhttp2.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+		var myObj2 = JSON.parse(this.responseText);
+		//console.log(this.responseText);
+		var st = myObj2.status;
+		if (st == 'OK') {
+			var la = myObj2.results[0].geometry.location.lat;
+			var ln = myObj2.results[0].geometry.location.lng;
+			lat = la.toFixed(2);
+			lng = ln.toFixed(2);
+			console.log('lat:'+lat);
+			console.log('lng:'+lng);
+		} else {
+			stUV.innerHTML = '0.0000';
+			stUVTime.innerHTML = '00:00:00';
+			stUVmax.innerHTML = '0.0000';
+			stOzon.innerHTML = '000.0';
+			stSunrise.innerHTML = '00:00:00';
+			stSunset.innerHTML = '00:00:00';
+			stUVTimeSF.innerHTML = '000';
+		}
+		}
+	}	
+	xmlhttp2.open("GET", URL2, true);
+  	xmlhttp2.send();
+  	setTimeout(function(){GetUV();}, 1000); 
 }
 
 </script>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html><html lang='ru'>
 <head>
 <meta charset='utf-8'>
@@ -47,7 +48,7 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 .b4 {background: #c00000; color: #fdfdfe; display: none;}
 .b5 {background: #b567a4; color: #fdfdfe; display: none;}
 
-.b1, .b2, .b3, .b4, .b5 {width: 336px; float: left;  margin: 12px 0 12px 0; padding: 8px 8px; border-radius: 4px;}
+.b1, .b2, .b3, .b4, .b5 {width: 336px; margin: 12px 0 12px 0; padding: 8px 8px; border-radius: 4px;}
 .ver {font-size: 14px; margin: 12px 0 12px 0;}
 
 </style>
@@ -103,7 +104,7 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 	<h3>Требуется повышенная защита</h3>
 	<h3>Пережидайте внутри помещения!<br>Вне помещения оставайтесь в тени!<br>Обязательно носите одежду с <br>длинными рукавами, шляпу, <br>пользуйтесь солнцезащитным кремом!</h3>
 	</div>
-	<p class='ver'>Версия: 20180729-1500</p>
+	<p class='ver'>Версия: 20180802-1122</p>
 </div>
 </td></tr>
 </table>
@@ -143,7 +144,7 @@ var xhr = new XHR();
 
 //=============================================================================
 function GetUV() {
-	if (lat != undefined) {
+	if (lat != null) {
 	var isodate = new Date().toISOString();
 	var URL = 'https://api.openuv.io/api/v1/uv?lat=' + lat + '&lng='+ lng + '&dt=' + isodate;
 	xmlhttp.open('GET', URL, true);

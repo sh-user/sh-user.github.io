@@ -104,7 +104,7 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 	<h3>Требуется повышенная защита</h3>
 	<h3>Пережидайте внутри помещения!<br>Вне помещения оставайтесь в тени!<br>Обязательно носите одежду с <br>длинными рукавами, шляпу, <br>пользуйтесь солнцезащитным кремом!</h3>
 	</div>
-	<p class='ver'>Версия: 20180802-1122</p>
+	<p class='ver'>Версия: 20180802-1214</p>
 </div>
 </td></tr>
 </table>
@@ -112,7 +112,7 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 
 <script type="text/javascript">
 //=============================================================================
-var sf, lat, lng, sf1 = '000', sf2 = '000', sf3 = '000', sf4 = '000', sf5 = '000', sf6 = '000';
+var sf=0, lat=0, lng=0, sf1 = '000', sf2 = '000', sf3 = '000', sf4 = '000', sf5 = '000', sf6 = '000';
 
 id_city.value = 'Северодонецк'
 stUV.innerHTML = '0.0000';
@@ -144,7 +144,7 @@ var xhr = new XHR();
 
 //=============================================================================
 function GetUV() {
-	if (lat != undefined) {
+	if (lat != 0) {
 	var isodate = new Date().toISOString();
 	var URL = 'https://api.openuv.io/api/v1/uv?lat=' + lat + '&lng='+ lng + '&dt=' + isodate;
 	xmlhttp.open('GET', URL, true);
@@ -194,7 +194,7 @@ function MenuSF() {
 	if (menuSkin.value == '4') {sf = sf4;}
 	if (menuSkin.value == '5') {sf = sf5;}
 	if (menuSkin.value == '6') {sf = sf6;}
-	if (sf != undefined) {stUVTimeSF.innerHTML = sf;}
+	if (sf != 0) {stUVTimeSF.innerHTML = sf;}
 	else {stUVTimeSF.innerHTML = '000';}
 }
 
@@ -210,12 +210,13 @@ xhr.onload = function() {
   	//console.log(this.responseText);
   	var myObj2 = JSON.parse(this.responseText);
 	var st = myObj2.status;
-		if (st == 'OK') {
+		if (st.indexOf('OK')==0) {
 			var la = myObj2.results[0].geometry.location.lat;
 			var ln = myObj2.results[0].geometry.location.lng;
 			lat = la.toFixed(2);
 			lng = ln.toFixed(2);
-			console.log('city:'+id_city.value+' lat:'+lat+' lng:'+lng);
+			console.log('status:'+myObj2.status+' city:'+myObj2.results[0].formatted_address+' lat:'+lat+' lng:'+lng);
+			GetUV();
 		} else {
 			stUV.innerHTML = '0.0000';
 			stUVTime.innerHTML = '00:00:00';
@@ -224,8 +225,10 @@ xhr.onload = function() {
 			stSunrise.innerHTML = '00:00:00';
 			stSunset.innerHTML = '00:00:00';
 			stUVTimeSF.innerHTML = '000';
+			console.log('status:'+myObj2.status);
+			alert('Город не найден\r\n' + myObj2.status)
 		}
-	GetUV();
+	
   	//setTimeout(function(){GetUV();}, 1000);
 }
 

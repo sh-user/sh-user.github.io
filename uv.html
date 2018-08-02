@@ -48,8 +48,8 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 .b4 {background: #c00000; color: #fdfdfe; display: none;}
 .b5 {background: #b567a4; color: #fdfdfe; display: none;}
 
-.b1, .b2, .b3, .b4, .b5 {width: 336px; margin: 12px 0 12px 0; padding: 8px 8px; border-radius: 4px;}
-.ver {font-size: 14px; margin: 12px 0 12px 0;}
+.b1, .b2, .b3, .b4, .b5 {width: 336px; float: left; margin: 12px 0 12px 0; padding: 8px 8px; border-radius: 4px;}
+.ver {font-size: 14px; float: left; margin: 12px 0 12px 0;}
 
 </style>
 
@@ -144,7 +144,7 @@ var xhr = new XHR();
 
 //=============================================================================
 function GetUV() {
-	if (lat != null) {
+	if (lat != undefined) {
 	var isodate = new Date().toISOString();
 	var URL = 'https://api.openuv.io/api/v1/uv?lat=' + lat + '&lng='+ lng + '&dt=' + isodate;
 	xmlhttp.open('GET', URL, true);
@@ -194,7 +194,7 @@ function MenuSF() {
 	if (menuSkin.value == '4') {sf = sf4;}
 	if (menuSkin.value == '5') {sf = sf5;}
 	if (menuSkin.value == '6') {sf = sf6;}
-	if (sf != null) {stUVTimeSF.innerHTML = sf;}
+	if (sf != undefined) {stUVTimeSF.innerHTML = sf;}
 	else {stUVTimeSF.innerHTML = '000';}
 }
 

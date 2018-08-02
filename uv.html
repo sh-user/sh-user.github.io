@@ -207,7 +207,7 @@ function GeоCity() {
 
 //================================================================
 xhr.onload = function() {
-  	console.log(this.responseText);
+  	//console.log(this.responseText);
   	var myObj2 = JSON.parse(this.responseText);
 	var st = myObj2.status;
 		if (st.indexOf('OK')==0) {

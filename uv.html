@@ -104,7 +104,7 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 	<h3>Требуется повышенная защита</h3>
 	<h3>Пережидайте внутри помещения!<br>Вне помещения оставайтесь в тени!<br>Обязательно носите одежду с <br>длинными рукавами, шляпу, <br>пользуйтесь солнцезащитным кремом!</h3>
 	</div>
-	<p class='ver'>Версия: 20180802-1214</p>
+	<p class='ver'>Версия: 20180802-1242</p>
 </div>
 </td></tr>
 </table>
@@ -207,17 +207,20 @@ function GeоCity() {
 
 //================================================================
 xhr.onload = function() {
-  	//console.log(this.responseText);
+  	console.log(this.responseText);
   	var myObj2 = JSON.parse(this.responseText);
 	var st = myObj2.status;
 		if (st.indexOf('OK')==0) {
 			var la = myObj2.results[0].geometry.location.lat;
 			var ln = myObj2.results[0].geometry.location.lng;
+			id_city.value = myObj2.results[0].formatted_address;
+			//id_city.value = myObj2.results[0].address_components[0].long_name;
 			lat = la.toFixed(2);
 			lng = ln.toFixed(2);
-			console.log('status:'+myObj2.status+' city:'+myObj2.results[0].formatted_address+' lat:'+lat+' lng:'+lng);
-			GetUV();
+			console.log('status:'+myObj2.status);
+			console.log('city:'+myObj2.results[0].formatted_address+' lat:'+lat+' lng:'+lng);
 		} else {
+			lat = 0;
 			stUV.innerHTML = '0.0000';
 			stUVTime.innerHTML = '00:00:00';
 			stUVmax.innerHTML = '0.0000';
@@ -228,8 +231,8 @@ xhr.onload = function() {
 			console.log('status:'+myObj2.status);
 			alert('Город не найден\r\n' + myObj2.status)
 		}
-	
-  	//setTimeout(function(){GetUV();}, 1000);
+		//GetUV();
+  		setTimeout(function(){GetUV();}, 500);
 }
 
 </script>

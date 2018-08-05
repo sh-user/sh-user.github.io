@@ -1,0 +1,367 @@
+﻿<!DOCTYPE html><html lang='ru'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=700'>
+<title>Home 181</title>
+
+<style>
+  body{ background: #cfd8dc; color: #455a64; font-family: Helvetica; font-size: 15px; }
+  ::selection {background: #a0bbbb;}
+  ::-moz-selection {background: #a0bbbb;}
+  input, textarea, button {outline: none;}
+  h1 {font-size: 30px; font-weight:normal; margin: 0 0 12px 0;}
+  .ram0 {width: 700px;}
+  .lab1 {width: 50%;}
+  .lab2 {width: 100%;}
+  .lab1, .lab2 {float: left;  margin: 0 0 12px 0;}
+</style>
+</head>
+
+<body>
+<center>
+	<div class='ram0'>
+	<div id='connstatus' class='lab2'>Status: Connenting</div>
+	<div class='lab1'><h1>Температура в комнате</h1><canvas id='chart_T'></canvas></div>
+	<div class='lab1'><h1>Температура на улице</h1><canvas id='chart_T2'></canvas></div>
+	<div class='lab2'><h1>Разница температур: <a id='stRT'></a> &degC</h1></div>
+	<div class='lab1'><h1>Влажность в комнате</h1><canvas id='chart_H'></canvas></div>
+	<div class='lab1'><h1>Напряжение в сети</h1><canvas id='chart_V'></canvas></div>
+	<p>Версия: 20180805-2345</p>
+	</div>
+</center>
+</body>
+
+<script type="text/javascript" src="gauge.min.js"></script>
+<script type="text/javascript" src="mqttws31.js"></script>
+<script type="text/javascript">
+var temp1 = 0, temp2 = 0, volt = 0, humidity = 0;
+
+var PS1 = new RadialGauge({
+    renderTo: 'chart_T',
+    width: 260,
+    height: 260,
+    minValue: 0,
+    maxValue: 40,
+    majorTicks: ['0','5','10','15','20','25','30','35','40'],
+    minorTicks: 5,
+    strokeTicks: false,
+    highlights  : [
+        { from : 27.5,  to : 30, color : 'rgba(255,153,0,.8)' },
+        { from : 30, to : 40, color : 'rgba(220,57,18,.8)' }
+    ],
+    valueInt: 1,
+    valueDec: 1,
+    colorPlate: "#f7f7f7",
+    colorMajorTicks: "#333333",
+    colorMinorTicks: "#333333",
+    colorNumbers: "#333333",
+    colorValueText: "#333333",
+    colorValueBoxRect: "transparent",
+    colorValueBoxRectEnd: "transparent",
+    colorValueBoxBackground: "transparent",
+    colorValueBoxShadow: false,
+    colorValueTextShadow: false,
+    colorNeedleShadowUp: true,
+    colorNeedleShadowDown: false,
+    colorNeedle: "rgba(200, 50, 50, .75)",
+    colorNeedleEnd: "rgba(200, 50, 50, .75)",
+    borderShadowWidth: 6,
+    needleType: "arrow",
+    needleWidth: 6,
+    needleCircleSize: 12,
+    animationDuration: 300,
+    animationRule: "dequint",
+    fontNumbersSize: 24,
+    fontValueSize: 46,
+    animatedValue: true
+});
+
+var PS2 = new RadialGauge({
+    renderTo: 'chart_T2',
+    width: 260,
+    height: 260,
+    minValue: 0,
+    maxValue: 40,
+    majorTicks: ['0','5','10','15','20','25','30','35','40'],
+    minorTicks: 5,
+    strokeTicks: false,
+    highlights  : [
+        { from : 27.5,  to : 30, color : 'rgba(255,153,0,.8)' },
+        { from : 30, to : 40, color : 'rgba(220,57,18,.8)' }
+    ],
+    valueInt: 1,
+    valueDec: 1,
+	colorPlate: "#f7f7f7",
+    colorMajorTicks: "#333333",
+    colorMinorTicks: "#333333",
+    colorNumbers: "#333333",
+    colorValueText: "#333333",    
+    colorValueBoxRect: "transparent",
+    colorValueBoxRectEnd: "transparent",
+    colorValueBoxBackground: "transparent",
+    colorValueBoxShadow: false,
+    colorValueTextShadow: false,
+    colorNeedleShadowUp: true,
+    colorNeedleShadowDown: false,
+    colorNeedle: "rgba(200, 50, 50, .75)",
+    colorNeedleEnd: "rgba(200, 50, 50, .75)",
+    borderShadowWidth: 6,
+    needleType: "arrow",
+    needleWidth: 6,
+    needleCircleSize: 12,
+    animationDuration: 300,
+    animationRule: "dequint",
+    fontNumbersSize: 24,
+    fontValueSize: 46,
+    animatedValue: true
+  });
+
+var PS3 = new RadialGauge({
+    renderTo: 'chart_H',
+    width: 260,
+    height: 260,
+    minValue: 0,
+    maxValue: 100,
+    majorTicks: ['0','10','20','30','40','50','60','70','80','90','100'],
+    minorTicks: 5,
+    strokeTicks: false,
+    highlights: false,
+    valueInt: 1,
+    valueDec: 1,
+    colorPlate: "#f7f7f7",
+    colorMajorTicks: "#333333",
+    colorMinorTicks: "#333333",
+    colorNumbers: "#333333",
+    colorValueText: "#333333",
+    colorValueBoxRect: "transparent",
+    colorValueBoxRectEnd: "transparent",
+    colorValueBoxBackground: "transparent",
+    colorValueBoxShadow: false,
+    colorValueTextShadow: false,
+    colorNeedleShadowUp: true,
+    colorNeedleShadowDown: false,
+    colorNeedle: "rgba(200, 50, 50, .75)",
+    colorNeedleEnd: "rgba(200, 50, 50, .75)",
+    borderShadowWidth: 6,
+    needleType: "arrow",
+    needleWidth: 6,
+    needleCircleSize: 12,
+    animationDuration: 300,
+    animationRule: "dequint",
+    fontNumbersSize: 24,
+    fontValueSize: 46,
+    animatedValue: true
+  });
+
+  var PS4 = new RadialGauge({
+    renderTo: 'chart_V',
+    width: 260,
+    height: 260,
+    minValue: 160,
+    maxValue: 240,
+    majorTicks: ['160','','180','','200','','220','','240'],
+    minorTicks: 5,
+    strokeTicks: false,
+    highlights: false,
+    valueInt: 1,
+    valueDec: 1,
+    colorPlate: "#f7f7f7",
+    colorMajorTicks: "#333333",
+    colorMinorTicks: "#333333",
+    colorNumbers: "#333333",
+    colorValueText: "#333333",
+    colorValueBoxRect: "transparent",
+    colorValueBoxRectEnd: "transparent",
+    colorValueBoxBackground: "transparent",
+    colorValueBoxShadow: false,
+    colorValueTextShadow: false,
+    colorNeedleShadowUp: true,
+    colorNeedleShadowDown: false,
+    colorNeedle: "rgba(200, 50, 50, .75)",
+    colorNeedleEnd: "rgba(200, 50, 50, .75)",
+    borderShadowWidth: 6,
+    needleType: "arrow",
+    needleWidth: 6,
+    needleCircleSize: 12,
+    animationDuration: 300,
+    animationRule: "dequint",
+    fontNumbersSize: 24,
+    fontValueSize: 46,
+    animatedValue: true
+  });
+
+  setInterval(function() {
+    PS1.draw();
+    PS1.value = temp1;
+    PS2.draw();
+    PS2.value = temp2;
+    var RT = parseFloat(temp2) - parseFloat(temp1);
+    RT = RT.toFixed(1);
+    if (RT < 0) {RT = RT/-1;}  
+    stRT.innerHTML = RT;
+    PS3.draw();
+    PS3.value = humidity;
+    PS4.draw();
+    PS4.value = volt;
+  }, 400);
+
+document.body.style.background ='#2e2e2e';
+document.body.style.color = '#a0bbbb';
+//PS1.value = 10;
+
+PS1.update({
+  colorNeedle: "#a0bbbb",
+  colorNeedleEnd: "#a0bbbb",
+  colorNeedleShadowUp: "gray",
+  colorNeedleCircleOuter: "#a0bbbb",
+  colorNeedleCircleOuterEnd: "#a0bbbb",
+  colorNeedleCircleInner: "#a0bbbb",
+  colorNeedleCircleInnerEnd: "gray",
+  colorBorderOuter: "#a0bbbb",
+  colorBorderOuterEnd: "#2e2e2e",
+  colorBorderInner: "#2e2e2e",
+  colorBorderInnerEnd: "#a0bbbb",
+  colorBorderMiddle: "#a0bbbb",
+  colorBorderMiddleEnd: "#a0bbbb",
+  colorPlate: "#2e2e2e",
+  colorMajorTicks: "#a0bbbb",
+  colorMinorTicks: "#a0bbbb",
+  colorNumbers: "#a0bbbb",
+  colorValueText: "#a0bbbb"
+});
+
+PS2.update({
+  colorNeedle: "#a0bbbb",
+  colorNeedleEnd: "#a0bbbb",
+  colorNeedleShadowUp: "gray",
+  colorNeedleCircleOuter: "#a0bbbb",
+  colorNeedleCircleOuterEnd: "#a0bbbb",
+  colorNeedleCircleInner: "#a0bbbb",
+  colorNeedleCircleInnerEnd: "gray",
+  colorBorderOuter: "#a0bbbb",
+  colorBorderOuterEnd: "#2e2e2e",
+  colorBorderInner: "#2e2e2e",
+  colorBorderInnerEnd: "#a0bbbb",
+  colorBorderMiddle: "#a0bbbb",
+  colorBorderMiddleEnd: "#a0bbbb",
+  colorPlate: "#2e2e2e",
+  colorMajorTicks: "#a0bbbb",
+  colorMinorTicks: "#a0bbbb",
+  colorNumbers: "#a0bbbb",
+  colorValueText: "#a0bbbb"
+});
+
+PS3.update({
+  colorNeedle: "#a0bbbb",
+  colorNeedleEnd: "#a0bbbb",
+  colorNeedleShadowUp: "gray",
+  colorNeedleCircleOuter: "#a0bbbb",
+  colorNeedleCircleOuterEnd: "#a0bbbb",
+  colorNeedleCircleInner: "#a0bbbb",
+  colorNeedleCircleInnerEnd: "gray",
+  colorBorderOuter: "#a0bbbb",
+  colorBorderOuterEnd: "#2e2e2e",
+  colorBorderInner: "#2e2e2e",
+  colorBorderInnerEnd: "#a0bbbb",
+  colorBorderMiddle: "#a0bbbb",
+  colorBorderMiddleEnd: "#a0bbbb",
+  colorPlate: "#2e2e2e",
+  colorMajorTicks: "#a0bbbb",
+  colorMinorTicks: "#a0bbbb",
+  colorNumbers: "#a0bbbb",
+  colorValueText: "#a0bbbb"
+});
+
+PS4.update({
+  colorNeedle: "#a0bbbb",
+  colorNeedleEnd: "#a0bbbb",
+  colorNeedleShadowUp: "gray",
+  colorNeedleCircleOuter: "#a0bbbb",
+  colorNeedleCircleOuterEnd: "#a0bbbb",
+  colorNeedleCircleInner: "#a0bbbb",
+  colorNeedleCircleInnerEnd: "gray",
+  colorBorderOuter: "#a0bbbb",
+  colorBorderOuterEnd: "#2e2e2e",
+  colorBorderInner: "#2e2e2e",
+  colorBorderInnerEnd: "#a0bbbb",
+  colorBorderMiddle: "#a0bbbb",
+  colorBorderMiddleEnd: "#a0bbbb",
+  colorPlate: "#2e2e2e",
+  colorMajorTicks: "#a0bbbb",
+  colorMinorTicks: "#a0bbbb",
+  colorNumbers: "#a0bbbb",
+  colorValueText: "#a0bbbb"
+});
+
+ // Create a client instance
+  client = new Paho.MQTT.Client("m23.cloudmqtt.com", 33492, "web_" + parseInt(Math.random() * 100, 10));
+  // set callback handlers
+  client.onConnectionLost = onConnectionLost;
+  client.onMessageArrived = onMessageArrived;
+  var options = {
+    useSSL: true,
+    userName: "ivtjhrii",
+    password: "_Gnt6HJ2ncka",
+    onSuccess: onConnect,
+    onFailure: doFail
+  }
+  // connect the client
+  client.connect(options);
+
+  // called when the client connects
+  function onConnect() {
+    // Once a connection has been made, make a subscription and send a message.
+    connstatus.innerHTML = "Status: Connected";
+    console.log("onConnect");
+    client.subscribe("ESP12/T");
+    client.subscribe("ESP12/T2");
+    client.subscribe("ESP12/H");
+    client.subscribe("ESP12/V");
+
+    message = new Paho.MQTT.Message(' ');
+    message.destinationName = 'ESP12/Status';
+    client.send(message);
+  }
+
+  function doFail(e){
+    console.log('doFail:' + e.errorMessage);
+    connstatus.innerHTML = 'Status: ' + e.errorMessage;
+    setTimeout(function(){location.reload();}, 10000);
+  }
+
+  // called when the client loses its connection
+  function onConnectionLost(e) {
+    if (e.errorCode !== 0) {
+      console.log('onConnectionLost:' + e.errorMessage);
+      connstatus.innerHTML = 'Status: ' + e.errorMessage;
+      setTimeout(function(){location.reload();}, 10000);
+    }
+  }
+
+  // called when a message arrives
+  function onMessageArrived(message) {
+    console.log(message.destinationName + ':' + message.payloadString);
+
+    //температура на улице
+	if (message.destinationName == 'ESP12/T2') {temp2 = message.payloadString;}
+	//температура в комнате
+	if (message.destinationName == 'ESP12/T') {temp1 = message.payloadString;}
+	//влажность в комнате
+	if (message.destinationName == 'ESP12/H') {humidity = message.payloadString;}
+	//напряжение в сети
+	if (message.destinationName == 'ESP12/V') {volt = message.payloadString;}
+  }
+
+  // function updateChart(){
+  //   dataT.setValue(0, 1, 30);
+  //   chart1.draw(dataT, opT);
+  //   dataT2.setValue(0, 1, 30);
+  //   chart2.draw(dataT2, opT);
+  //   dataH.setValue(0, 1, 30);
+  //   chart3.draw(dataH, opH);
+  //   dataV.setValue(0, 1, 30);
+  //   chart4.draw(dataV, opV);
+  // }
+
+</script>
+</html>

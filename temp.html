@@ -19,12 +19,13 @@
 <body>
 <center>
 	<div class='ram0'>
-	<div id='connstatus' class='lab2'>-----</div>
+	<div id='connstatus' class='lab2'>Status: Connenting</div>
 	<div class='lab1'><h1>Температура в комнате</h1><canvas id='chart_T'></canvas></div>
 	<div class='lab1'><h1>Температура на улице</h1><canvas id='chart_T2'></canvas></div>
 	<div class='lab2'><h1>Разница температур: <a id='stRT'></a> &degC</h1></div>
 	<div class='lab1'><h1>Влажность в комнате</h1><canvas id='chart_H'></canvas></div>
 	<div class='lab1'><h1>Напряжение в сети</h1><canvas id='chart_V'></canvas></div>
+	<p>Версия: 20180805-2345</p>
 	</div>
 </center>
 </body>
@@ -216,7 +217,7 @@ var PS3 = new RadialGauge({
     userName: "ivtjhrii",
     password: "_Gnt6HJ2ncka",
     onSuccess:onConnect,
-    onFailure:doFail,
+    onFailure:doFail
   }
   // connect the client
   client.connect(options);
@@ -224,7 +225,7 @@ var PS3 = new RadialGauge({
   // called when the client connects
   function onConnect() {
     // Once a connection has been made, make a subscription and send a message.
-    connstatus.innerHTML = "Connected";
+    connstatus.innerHTML = "Status: Connected";
     console.log("onConnect");
     client.subscribe("ESP12/T");
     client.subscribe("ESP12/T2");
@@ -237,14 +238,17 @@ var PS3 = new RadialGauge({
   }
 
   function doFail(e){
-    console.log(e);
+    console.log('doFail:' + e.errorMessage);
+    connstatus.innerHTML = 'Status: ' + e.errorMessage;
+    setTimeout(function(){location.reload();}, 10000);
   }
 
   // called when the client loses its connection
-  function onConnectionLost(responseObject) {
-    if (responseObject.errorCode !== 0) {
-      console.log("onConnectionLost:"+responseObject.errorMessage);
-      connstatus.innerHTML = responseObject.errorMessage;
+  function onConnectionLost(e) {
+    if (e.errorCode !== 0) {
+      console.log('onConnectionLost:' + e.errorMessage);
+      connstatus.innerHTML = 'Status: ' + e.errorMessage;
+      setTimeout(function(){location.reload();}, 10000);
     }
   }
 

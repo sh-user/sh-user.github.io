@@ -207,7 +207,6 @@ var PS3 = new RadialGauge({
 
 document.body.style.background ='#2e2e2e';
 document.body.style.color = '#a0bbbb';
-//PS1.value = 10;
 
 PS1.update({
   colorNeedle: "#a0bbbb",
@@ -229,7 +228,6 @@ PS1.update({
   colorNumbers: "#a0bbbb",
   colorValueText: "#a0bbbb"
 });
-
 PS2.update({
   colorNeedle: "#a0bbbb",
   colorNeedleEnd: "#a0bbbb",
@@ -250,7 +248,6 @@ PS2.update({
   colorNumbers: "#a0bbbb",
   colorValueText: "#a0bbbb"
 });
-
 PS3.update({
   colorNeedle: "#a0bbbb",
   colorNeedleEnd: "#a0bbbb",
@@ -271,7 +268,6 @@ PS3.update({
   colorNumbers: "#a0bbbb",
   colorValueText: "#a0bbbb"
 });
-
 PS4.update({
   colorNeedle: "#a0bbbb",
   colorNeedleEnd: "#a0bbbb",
@@ -351,17 +347,6 @@ PS4.update({
 	//напряжение в сети
 	if (message.destinationName == 'ESP12/V') {volt = message.payloadString;}
   }
-
-  // function updateChart(){
-  //   dataT.setValue(0, 1, 30);
-  //   chart1.draw(dataT, opT);
-  //   dataT2.setValue(0, 1, 30);
-  //   chart2.draw(dataT2, opT);
-  //   dataH.setValue(0, 1, 30);
-  //   chart3.draw(dataH, opH);
-  //   dataV.setValue(0, 1, 30);
-  //   chart4.draw(dataV, opV);
-  // }
 
 </script>
 </html>

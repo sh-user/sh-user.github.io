@@ -11,8 +11,9 @@
   input, textarea, button {outline: none;}
   h1 {font-size: 30px; font-weight:normal; margin: 0 0 12px 0;}
   .ram0 {width: 700px;}
-  .lab1 {width: 50%; float: left;  margin: 0 0 12px 0;}
-  .lab2 {width: 100%; float: left;  margin: 0 0 12px 0;}
+  .lab1 {width: 50%;}
+  .lab2 {width: 100%;}
+  .lab1, .lab2 {float: left;  margin: 0 0 12px 0;}
 </style>
 </head>
 
@@ -33,10 +34,7 @@
 <script type="text/javascript" src="gauge.min.js"></script>
 <script type="text/javascript" src="mqttws31.js"></script>
 <script type="text/javascript">
-var temp1 = 0,
-    temp2 = 0,
-    volt = 0,
-    humidity = 0;
+var temp1 = 0, temp2 = 0, volt = 0, humidity = 0;
 
 var PS1 = new RadialGauge({
     renderTo: 'chart_T',
@@ -93,11 +91,11 @@ var PS2 = new RadialGauge({
     ],
     valueInt: 1,
     valueDec: 1,
-    colorPlate: "#f7f7f7",
+	colorPlate: "#f7f7f7",
     colorMajorTicks: "#333333",
     colorMinorTicks: "#333333",
     colorNumbers: "#333333",
-    colorValueText: "#333333",
+    colorValueText: "#333333",    
     colorValueBoxRect: "transparent",
     colorValueBoxRectEnd: "transparent",
     colorValueBoxBackground: "transparent",
@@ -264,17 +262,6 @@ var PS3 = new RadialGauge({
 	if (message.destinationName == 'ESP12/H') {humidity = message.payloadString;}
 	//напряжение в сети
 	if (message.destinationName == 'ESP12/V') {volt = message.payloadString;}
-  }
-
-  function updateChart(){
-    dataT.setValue(0, 1, 30);
-    chart1.draw(dataT, opT);
-    dataT2.setValue(0, 1, 30);
-    chart2.draw(dataT2, opT);
-    dataH.setValue(0, 1, 30);
-    chart3.draw(dataH, opH);
-    dataV.setValue(0, 1, 30);
-    chart4.draw(dataV, opV);
   }
 
 </script>

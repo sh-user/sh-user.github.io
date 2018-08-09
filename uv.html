@@ -104,7 +104,7 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 	<h3>Требуется повышенная защита</h3>
 	<h3>Пережидайте внутри помещения!<br>Вне помещения оставайтесь в тени!<br>Обязательно носите одежду с <br>длинными рукавами, шляпу, <br>пользуйтесь солнцезащитным кремом!</h3>
 	</div>
-	<p class='ver'>Версия: 20180802-1242</p>
+	<p class='ver'>Версия: 20180809-1547</p>
 </div>
 </td></tr>
 </table>
@@ -200,7 +200,8 @@ function MenuSF() {
 
 //=============================================================================
 function GeоCity() {
-	var URL2 = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + id_city.value + '&sensor=false&language=ru';
+	//var URL2 = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + id_city.value + '&sensor=false&language=ru';
+	var URL2 = 'https://script.google.com/macros/s/AKfycbw4DtA4Q4pCN4bXvJ1gpN9ZYTLy6-Hm12_vxjLJlXv6LZ94BoY/exec?city=' + id_city.value;
 	xhr.open('GET', URL2, true);
     xhr.send();
 }
@@ -211,14 +212,13 @@ xhr.onload = function() {
   	var myObj2 = JSON.parse(this.responseText);
 	var st = myObj2.status;
 		if (st.indexOf('OK')==0) {
-			var la = myObj2.results[0].geometry.location.lat;
-			var ln = myObj2.results[0].geometry.location.lng;
-			id_city.value = myObj2.results[0].formatted_address;
-			//id_city.value = myObj2.results[0].address_components[0].long_name;
+			var la = myObj2.lat;
+			var ln = myObj2.lng;
+			id_city.value = myObj2.address;
 			lat = la.toFixed(2);
 			lng = ln.toFixed(2);
 			console.log('status:'+myObj2.status);
-			console.log('city:'+myObj2.results[0].formatted_address+' lat:'+lat+' lng:'+lng);
+			console.log('city:'+myObj2.address+' lat:'+lat+' lng:'+lng);
 		} else {
 			lat = 0;
 			stUV.innerHTML = '0.0000';
@@ -234,6 +234,5 @@ xhr.onload = function() {
 		//GetUV();
   		setTimeout(function(){GetUV();}, 500);
 }
-
 </script>
 </html>

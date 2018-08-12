@@ -26,7 +26,7 @@
 	<div class='lab2'><h1>Разница температур: <a id='stRT'></a> &degC</h1></div>
 	<div class='lab1'><h1>Влажность в комнате</h1><canvas id='chart_H'></canvas></div>
 	<div class='lab1'><h1>Напряжение в сети</h1><canvas id='chart_V'></canvas></div>
-	<p>Версия: 20180805-2345</p>
+	<p>Версия: 20180812-2318</p>
 	</div>
 </center>
 </body>
@@ -54,8 +54,8 @@ var PS1 = new RadialGauge({
     minorTicks: 5,
     strokeTicks: false,
     highlights  : [
-        { from : 27.5,  to : 30, color : 'rgba(255,153,0,.8)' },
-        { from : 30, to : 40, color : 'rgba(220,57,18,.8)' }
+        { from : 27.5,  to : 30, color: 'rgba(255,153,0,.75)' },
+        { from : 30, to : 40, color: 'rgba(220,57,18,.75)' }
     ],
     valueInt: 1,
     valueDec: 1,
@@ -94,8 +94,8 @@ var PS2 = new RadialGauge({
     minorTicks: 5,
     strokeTicks: false,
     highlights  : [
-        { from : 27.5,  to : 30, color : 'rgba(255,153,0,.8)' },
-        { from : 30, to : 40, color : 'rgba(220,57,18,.8)' }
+        { from : 27.5,  to : 30, color: 'rgba(255,153,0,.75)' },
+        { from : 30, to : 40, color: 'rgba(220,57,18,.75)' }
     ],
     valueInt: 1,
     valueDec: 1,
@@ -170,7 +170,11 @@ var PS3 = new RadialGauge({
     majorTicks: ['160','','180','','200','','220','','240'],
     minorTicks: 5,
     strokeTicks: false,
-    highlights: false,
+    //highlights: false,
+    highlights  : [
+        { from : 160,  to : 170, color: 'rgba(220,57,18,.75)' },
+        { from : 170, to : 180, color: 'rgba(255,153,0,.75)'  }
+    ],
     valueInt: 1,
     valueDec: 1,
     colorPlate: "#f7f7f7",

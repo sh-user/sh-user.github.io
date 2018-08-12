@@ -5,7 +5,8 @@
 <title>Home 181</title>
 
 <style>
-  body{ background: #cfd8dc; color: #455a64; font-family: Helvetica; font-size: 15px; }
+  /*body{ background: #cfd8dc; color: #455a64; font-family: Helvetica; font-size: 15px; }*/
+  body{ background: #2e2e2e; color: #a0bbbb; font-family: Helvetica; font-size: 15px; }
   ::selection {background: #a0bbbb;}
   ::-moz-selection {background: #a0bbbb;}
   input, textarea, button {outline: none;}
@@ -88,9 +89,12 @@ var PS2 = new RadialGauge({
     renderTo: 'chart_T2',
     width: 260,
     height: 260,
-    minValue: 0,
+    //minValue: 0,
+    minValue: -20,
     maxValue: 40,
-    majorTicks: ['0','5','10','15','20','25','30','35','40'],
+    //majorTicks: ['0','5','10','15','20','25','30','35','40'],
+    //majorTicks: ['-20','-15','-10','-5','0','5','10','15','20','25','30','35','40'],
+    majorTicks: ['-20','','-10','','0','','10','','20','','30','','40'],
     minorTicks: 5,
     strokeTicks: false,
     highlights  : [
@@ -165,14 +169,17 @@ var PS3 = new RadialGauge({
     renderTo: 'chart_V',
     width: 260,
     height: 260,
-    minValue: 160,
-    maxValue: 240,
-    majorTicks: ['160','','180','','200','','220','','240'],
+    minValue: 150,
+    maxValue: 250,
+    //minValue: 160,
+    //maxValue: 240,
+    //majorTicks: ['160','','180','','200','','220','','240'],
+    majorTicks: ['150','','170','','190','','210','','230','','250'],
     minorTicks: 5,
     strokeTicks: false,
     //highlights: false,
     highlights  : [
-        { from : 160,  to : 170, color: 'rgba(220,57,18,.75)' },
+        { from : 150,  to : 170, color: 'rgba(220,57,18,.75)' },
         { from : 170, to : 180, color: 'rgba(255,153,0,.75)'  }
     ],
     valueInt: 1,

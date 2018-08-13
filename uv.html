@@ -112,7 +112,7 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 
 <script type="text/javascript">
 //=============================================================================
-var sf=0, lat=0, lng=0, sf1 = '000', sf2 = '000', sf3 = '000', sf4 = '000', sf5 = '000', sf6 = '000';
+var sf=0, lat=0, lng=0, sf1 = '0', sf2 = '0', sf3 = '0', sf4 = '0', sf5 = '0', sf6 = '0';
 
 id_city.value = 'Северодонецк'
 stUV.innerHTML = '0.0000';
@@ -194,8 +194,9 @@ function MenuSF() {
 	if (menuSkin.value == '4') {sf = sf4;}
 	if (menuSkin.value == '5') {sf = sf5;}
 	if (menuSkin.value == '6') {sf = sf6;}
-	if (sf != 0) {stUVTimeSF.innerHTML = sf;}
-	else {stUVTimeSF.innerHTML = '000';}
+	//console.log(sf);
+	if (sf != null) {stUVTimeSF.innerHTML = sf;}
+	else {stUVTimeSF.innerHTML = '0';}
 }
 
 //=============================================================================

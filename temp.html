@@ -10,6 +10,7 @@
   ::selection {background: #a0bbbb;}
   ::-moz-selection {background: #a0bbbb;}
   input, textarea, button {outline: none;}
+  a {color: #606770}
   h1 {font-size: 30px; font-weight:normal; margin: 0 0 12px 0;}
   .ram0 {width: 700px;}
   .lab1 {width: 50%;}
@@ -21,14 +22,14 @@
 <body>
 <center>
 	<div class='ram0'>
-	<div id='connstatus' class='lab2'>Status: Connenting</div>
-	<div class='lab1'><h1>Температура в комнате</h1><canvas id='chart_T'></canvas></div>
+	<div class='lab1' id='connstatus'>Status: Connenting</div>
+	<div class='lab1'><a href="temp2.html">Ночной режим</a></div>
+	<div class='lab1'><h1>Температура в комнате</h1><canvas id='chart_T1'></canvas></div>
 	<div class='lab1'><h1>Температура на улице</h1><canvas id='chart_T2'></canvas></div>
 	<div class='lab2'><h1>Разница температур: <a id='stRT'></a> &degC</h1></div>
 	<div class='lab1'><h1>Влажность в комнате</h1><canvas id='chart_H'></canvas></div>
 	<div class='lab1'><h1>Напряжение в сети</h1><canvas id='chart_V'></canvas></div>
-	<p>Версия: 20180813-1409</p>
-	</div>
+	<p>Версия: 20180813-1515</p>
 </center>
 </body>
 
@@ -38,7 +39,7 @@
 var temp1 = 0, temp2 = -20, humidity = 0, volt = 150;
 
 var PS1 = new RadialGauge({
-    renderTo: 'chart_T',
+    renderTo: 'chart_T1',
     width: 260,
     height: 260,
     minValue: 0,

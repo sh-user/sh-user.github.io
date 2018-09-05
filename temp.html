@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html><html lang='ru'>
 <head>
 <meta charset='utf-8'>
-<meta name='viewport' content='width=700'>
+<meta name='viewport' content='width=600'>
 <title>Home 181</title>
 
 <style>
@@ -12,37 +12,48 @@
   input, textarea, button {outline: none;}
   /*a {color: #606770}*/
   a {color: #455a64}
-  h1 {font-size: 30px; font-weight:normal; margin: 0 0 12px 0;}
-  .ram0 {width: 700px;}
+  h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
+  .ram0 {width: 600px;}
   .lab1 {width: 50%;}
   .lab2 {width: 100%;}
   .lab1, .lab2 {float: left;  margin: 0 0 12px 0;}
+  #id_modT1, #id_modT2, #id_modH, #id_modV
+  {width: 234px; height: 234px; margin: 18px 0 8px 0; border:1px solid #455a64; -webkit-border-radius: 117px; 
+  	-moz-border-radius: 117px; border-radius: 117px;}
+  .inn { margin: 108px 0 0 0;}
 </style>
 </head>
 
 <body>
 <center>
 	<div class='ram0'>
-	<div class='lab1' id='connstatus'>Status: Connenting</div>
-	<div class='lab1'><a href="temp2.html">Ночной режим</a></div>
-	<div class='lab1'><h1>Температура в комнате</h1><canvas id='chart_T1'></canvas></div>
-	<div class='lab1'><h1>Температура на улице</h1><canvas id='chart_T2'></canvas></div>
+	<div class='lab2' id='connstatus'>Status: Connenting</div>
+	<div class='lab1'><h1>Температура в комнате</h1>
+	<div id='id_modT1'><div class="inn">Модуль не подключен</div></div><canvas id='chart_T1'></canvas></div>
+	<div class='lab1'><h1>Температура на улице</h1>
+	<div id='id_modT2'><div class="inn">Модуль не подключен</div></div><canvas id='chart_T2'></canvas></div>
 	<div class='lab2'><h1>Разница температур: <a id='stRT'></a> &degC</h1></div>
-	<div class='lab1'><h1>Влажность в комнате</h1><canvas id='chart_H'></canvas></div>
-	<div class='lab1'><h1>Напряжение в сети</h1><canvas id='chart_V'></canvas></div>
-	<p>Версия: 20180813-1515</p>
+	<div class='lab1'><h1>Влажность в комнате</h1>
+	<div id='id_modH'><div class="inn">Модуль не подключен</div></div><canvas id='chart_H'></canvas></div>
+	<div class='lab1'><h1>Напряжение в сети</h1>
+	<div id='id_modV'><div class="inn">Модуль не подключен</div></div><canvas id='chart_V'></canvas></div>
+	<div class='lab2'>Версия: 20180905-1451</div>
 </center>
 </body>
 
 <script type="text/javascript" src="gauge.min.js"></script>
 <script type="text/javascript" src="mqttws31.js"></script>
 <script type="text/javascript">
-var temp1 = 0, temp2 = -20, humidity = 0, volt = 150;
+var mod1 = 0, mod2 = 0, temp1 = 0, temp2 = -20, humidity = 0, volt = 150;
+chart_T1.style.display = 'none';
+chart_T2.style.display = 'none';
+chart_H.style.display = 'none';
+chart_V.style.display = 'none';
 
 var PS1 = new RadialGauge({
     renderTo: 'chart_T1',
-    width: 260,
-    height: 260,
+    width: 250,
+    height: 250,
     minValue: 0,
     maxValue: 40,
     majorTicks: ['0','5','10','15','20','25','30','35','40'],
@@ -81,8 +92,8 @@ var PS1 = new RadialGauge({
 
 var PS2 = new RadialGauge({
     renderTo: 'chart_T2',
-    width: 260,
-    height: 260,
+    width: 250,
+    height: 250,
     //minValue: 0,
     value: -20,
     minValue: -20,
@@ -124,8 +135,8 @@ var PS2 = new RadialGauge({
 
 var PS3 = new RadialGauge({
     renderTo: 'chart_H',
-    width: 260,
-    height: 260,
+    width: 250,
+    height: 250,
     minValue: 0,
     maxValue: 100,
     majorTicks: ['0','10','20','30','40','50','60','70','80','90','100'],
@@ -161,8 +172,8 @@ var PS3 = new RadialGauge({
 
   var PS4 = new RadialGauge({
     renderTo: 'chart_V',
-    width: 260,
-    height: 260,
+    width: 250,
+    height: 250,
     //minValue: 160,
     //maxValue: 240,
     //majorTicks: ['160','','180','','200','','220','','240'],
@@ -239,6 +250,7 @@ var PS3 = new RadialGauge({
     // Once a connection has been made, make a subscription and send a message.
     connstatus.innerHTML = "Status: Connected";
     console.log("onConnect");
+    client.subscribe("ESP12/Status");
     client.subscribe("ESP12/T");
     client.subscribe("ESP12/T2");
     client.subscribe("ESP12/H");
@@ -267,14 +279,30 @@ var PS3 = new RadialGauge({
   // called when a message arrives
   function onMessageArrived(message) {
     console.log(message.destinationName + ':' + message.payloadString);
+    
+  //   if (message.destinationName == 'ESP12/Status') {
+		// if (message.payloadString = '1')
+		// mod1 = 0; mod2 = 0;
+		// console.log('mod1=' + mod1 + ' mod2=' + mod2);
+  //   }
     //температура на улице
-	if (message.destinationName == 'ESP12/T2') {temp2 = message.payloadString;}
+	if (message.destinationName == 'ESP12/T2') {temp2 = message.payloadString; 
+		id_modT2.style.display = 'none'; chart_T2.style.display = 'block';}
 	//температура в комнате
-	if (message.destinationName == 'ESP12/T') {temp1 = message.payloadString;}
+	if (message.destinationName == 'ESP12/T') {temp1 = message.payloadString; 
+		id_modT1.style.display = 'none'; chart_T1.style.display = 'block';}
 	//влажность в комнате
-	if (message.destinationName == 'ESP12/H') {humidity = message.payloadString;}
+	if (message.destinationName == 'ESP12/H') {humidity = message.payloadString; 
+		id_modH.style.display = 'none'; chart_H.style.display = 'block';}
 	//напряжение в сети
-	if (message.destinationName == 'ESP12/V') {volt = message.payloadString;}
+	if (message.destinationName == 'ESP12/V') {volt = message.payloadString; 
+		id_modV.style.display = 'none'; chart_V.style.display = 'block'; 
+	}
+
+	//setTimeout(function(){
+		//if (mod1 = 0) { id_modT1.style.display = 'block'; chart_T1.style.display = 'none';}
+		//if (mod2 = 0) { id_modT2.style.display = 'block'; chart_T2.style.display = 'none';}
+	//},30000);}
   }
 
 </script>

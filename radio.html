@@ -1,0 +1,82 @@
+﻿<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>Radio</title>
+  </head>
+  <script src="gauge.min.js"></script>
+
+<style>
+body{ background: #cfd8dc; color: #455a64; font-family: Helvetica; font-size: 18px; }
+
+.ran {color: #455a64; background: #cfd8dc;}
+
+.btn {width: 40px; height: 40px; color: #455a64; font-family: Helvetica; font-size: 18px; font-weight: bold;
+background: linear-gradient(#F7F7F7, #DCDCDC);  border: 1px solid #949494; 
+border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; outline: none; margin: 0px 0 8px 0;}
+.btn:active {background: linear-gradient(#DCDCDC, #F7F7F7);}
+
+</style>
+
+<body>
+	<p>Радио</p>
+    <audio id="audioElement" crossOrigin="anonymous" preload="auto" src="http://sc-atr.1.fm:7704/"></audio>
+    <div>
+      	<button class='btn' onclick="audioElement.play()"> ► </button>
+      	<button class='btn' onclick="audioElement.pause()"> ΙΙ </button>
+		
+ 		<input type='range' class='ran' id='a' min='0' max='100' value='10' 
+		oninput="audioElement.volume=parseInt(a.value)/100" 
+		onchange="gaugePS.value = parseInt(a.value)">
+    </div>
+
+<canvas id="gauge-ps"></canvas>
+
+
+<script>
+audioElement.volume = 0.1;
+
+var gaugePS = new RadialGauge({
+    renderTo: 'gauge-ps',
+    width: 250,
+    height: 250,
+    minValue: 0,
+    maxValue: 100,
+    majorTicks: ['0','10','20','30','40','50','60','70','80','90','100'],
+    minorTicks: 5,
+    strokeTicks: false,
+    highlights: false,
+    valueInt: 1,
+    valueDec: 1,
+    colorPlate: "#f7f7f7",
+    colorMajorTicks: "#333333",
+    colorMinorTicks: "#333333",
+    colorNumbers: "#333333",
+    valueBox: true,
+    colorValueText: "#333333",
+    colorValueBoxRect: "transparent",
+    colorValueBoxRectEnd: "transparent",
+    colorValueBoxBackground: "transparent",
+    colorValueBoxShadow: false,
+    colorValueTextShadow: false,
+    colorNeedleShadowUp: true,
+    colorNeedleShadowDown: false,
+    colorNeedle: "rgba(200, 50, 50, .75)",
+    colorNeedleEnd: "rgba(200, 50, 50, .75)",
+    borderShadowWidth: 5,
+    needleType: "arrow",
+    needleWidth: 6,
+    needleCircleSize: 12,
+    animationDuration: 300,
+    animationRule: "dequint",
+    fontNumbersSize: 24,
+    fontValueSize: 46,
+    animatedValue: true
+});
+gaugePS.draw();
+gaugePS.value = "10";
+
+
+</script>
+</body>
+</html>

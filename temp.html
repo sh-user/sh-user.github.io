@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html><html lang='ru'>
 <head>
 <meta charset='utf-8'>
-<meta name='viewport' content='width=600'>
+<meta name='viewport' content='width=860'>
 <title>Home 181</title>
 
 <style>
@@ -13,12 +13,13 @@
   /*a {color: #606770}*/
   a {color: #455a64}
   h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
-  .ram0 {width: 600px;}
-  .lab1 {width: 50%;}
+  .ram0 {width: 860px;}
+  .lab1 {width: 33.3%;}
   .lab2 {width: 100%;}
   .lab1, .lab2 {float: left;  margin: 0 0 12px 0;}
-  #id_modT1, #id_modT2, #id_modH, #id_modV
-  {width: 234px; height: 234px; margin: 18px 0 8px 0; background: #a0bbbb; border:1px solid #455a64; -webkit-border-radius: 117px; -moz-border-radius: 117px; border-radius: 117px;}
+  #id_modT1, #id_modT2, #id_modH, #id_modV, #id_modMM, #id_modP
+  {width: 234px; height: 234px; margin: 18px 0 8px 0; background: #f7f7f7; 
+  	border:1px solid #455a64; -webkit-border-radius: 117px; -moz-border-radius: 117px; border-radius: 117px;}
   .inn { margin: 108px 0 0 0;}
 </style>
 </head>
@@ -31,12 +32,16 @@
 	<div id='id_modT1'><div class="inn">Модуль не подключен</div></div><canvas id='chart_T1'></canvas></div>
 	<div class='lab1'><h1>Температура на улице</h1>
 	<div id='id_modT2'><div class="inn">Модуль не подключен</div></div><canvas id='chart_T2'></canvas></div>
+	<div class='lab1'><h1>Атмосферное давление</h1>
+	<div id='id_modMM'><div class="inn">Модуль не подключен</div></div><canvas id='chart_MM'></canvas></div>
 	<div class='lab2'><h1>Разница температур: <a id='stRT'></a> &degC</h1></div>
 	<div class='lab1'><h1>Влажность в комнате</h1>
 	<div id='id_modH'><div class="inn">Модуль не подключен</div></div><canvas id='chart_H'></canvas></div>
 	<div class='lab1'><h1>Напряжение в сети</h1>
 	<div id='id_modV'><div class="inn">Модуль не подключен</div></div><canvas id='chart_V'></canvas></div>
-	<div class='lab2'>Версия: 20180921-2244</div>
+	<div class='lab1'><h1>Потребляемая мощность</h1>
+	<div id='id_modP'><div class="inn">Модуль не подключен</div></div><canvas id='chart_P'></canvas></div>
+	<div class='lab2'>Версия: 20180922-0012</div>
 </center>
 </body>
 
@@ -48,6 +53,8 @@ chart_T1.style.display = 'none';
 chart_T2.style.display = 'none';
 chart_H.style.display = 'none';
 chart_V.style.display = 'none';
+chart_MM.style.display = 'none';
+chart_P.style.display = 'none';
 
 var PS1 = new RadialGauge({
     renderTo: 'chart_T1',
@@ -172,9 +179,6 @@ var PS3 = new RadialGauge({
     renderTo: 'chart_V',
     width: 250,
     height: 250,
-    //minValue: 160,
-    //maxValue: 240,
-    //majorTicks: ['160','','180','','200','','220','','240'],
     value:150,
     minValue: 150,
     maxValue: 250,
@@ -186,6 +190,80 @@ var PS3 = new RadialGauge({
         { from : 150,  to : 170, color: 'rgba(220,57,18,.75)' },
         { from : 170, to : 180, color: 'rgba(255,153,0,.75)'  }
     ],
+    valueInt: 1,
+    valueDec: 1,
+    colorPlate: "#f7f7f7",
+    colorMajorTicks: "#333333",
+    colorMinorTicks: "#333333",
+    colorNumbers: "#333333",
+    colorValueText: "#333333",
+    colorValueBoxRect: "transparent",
+    colorValueBoxRectEnd: "transparent",
+    colorValueBoxBackground: "transparent",
+    colorValueBoxShadow: false,
+    colorValueTextShadow: false,
+    colorNeedleShadowUp: true,
+    colorNeedleShadowDown: false,
+    colorNeedle: "rgba(200, 50, 50, .75)",
+    colorNeedleEnd: "rgba(200, 50, 50, .75)",
+    borderShadowWidth: 6,
+    needleType: "arrow",
+    needleWidth: 6,
+    needleCircleSize: 12,
+    animationDuration: 300,
+    animationRule: "dequint",
+    fontNumbersSize: 24,
+    fontValueSize: 46,
+    animatedValue: true
+  });
+
+var PS5 = new RadialGauge({
+    renderTo: 'chart_MM',
+    width: 250,
+    height: 250,
+    minValue: 0,
+    maxValue: 100,
+    majorTicks: ['0','10','20','30','40','50','60','70','80','90','100'],
+    minorTicks: 10,
+    strokeTicks: false,
+    highlights: false,
+    valueInt: 1,
+    valueDec: 1,
+    colorPlate: "#f7f7f7",
+    colorMajorTicks: "#333333",
+    colorMinorTicks: "#333333",
+    colorNumbers: "#333333",
+    colorValueText: "#333333",
+    colorValueBoxRect: "transparent",
+    colorValueBoxRectEnd: "transparent",
+    colorValueBoxBackground: "transparent",
+    colorValueBoxShadow: false,
+    colorValueTextShadow: false,
+    colorNeedleShadowUp: true,
+    colorNeedleShadowDown: false,
+    colorNeedle: "rgba(200, 50, 50, .75)",
+    colorNeedleEnd: "rgba(200, 50, 50, .75)",
+    borderShadowWidth: 6,
+    needleType: "arrow",
+    needleWidth: 6,
+    needleCircleSize: 12,
+    animationDuration: 300,
+    animationRule: "dequint",
+    fontNumbersSize: 24,
+    fontValueSize: 46,
+    animatedValue: true
+  });
+
+var PS6 = new RadialGauge({
+    renderTo: 'chart_P',
+    width: 250,
+    height: 250,
+    minValue: 0,
+    maxValue: 100,
+    majorTicks: ['0','10','20','30','40','50','60','70','80','90','100'],
+    minorTicks: 10,
+    strokeTicks: false,
+    highlights: false,
     valueInt: 1,
     valueDec: 1,
     colorPlate: "#f7f7f7",
@@ -226,6 +304,8 @@ var PS3 = new RadialGauge({
     PS3.draw();
     PS4.value = volt;
     PS4.draw();
+    PS5.draw();
+    PS6.draw();
   }, 400);
 
  // Create a client instance

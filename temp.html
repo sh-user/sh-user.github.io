@@ -17,7 +17,7 @@
   .lab1 {width: 33.3%;}
   .lab2 {width: 100%;}
   .lab1, .lab2 {float: left;  margin: 0 0 12px 0;}
-  #id_modT1, #id_modT2, #id_modH, #id_modV, #id_modMM, #id_modP
+  #id_modT1, #id_modT2, #id_modH, #id_modV, #id_modBMP, #id_modP
   {width: 234px; height: 234px; margin: 18px 0 8px 0; background: #f7f7f7; 
   	border:1px solid #455a64; -webkit-border-radius: 117px; -moz-border-radius: 117px; border-radius: 117px;}
   .inn { margin: 108px 0 0 0;}
@@ -33,7 +33,7 @@
 	<div class='lab1'><h1>Температура на улице</h1>
 	<div id='id_modT2'><div class="inn">Модуль не подключен</div></div><canvas id='chart_T2'></canvas></div>
 	<div class='lab1'><h1>Атмосферное давление</h1>
-	<div id='id_modMM'><div class="inn">Модуль не подключен</div></div><canvas id='chart_MM'></canvas></div>
+	<div id='id_modBMP'><div class="inn">Модуль не подключен</div></div><canvas id='chart_BMP'></canvas></div>
 	<div class='lab2'><h1>Разница температур: <a id='stRT'></a> &degC</h1></div>
 	<div class='lab1'><h1>Влажность в комнате</h1>
 	<div id='id_modH'><div class="inn">Модуль не подключен</div></div><canvas id='chart_H'></canvas></div>
@@ -41,19 +41,19 @@
 	<div id='id_modV'><div class="inn">Модуль не подключен</div></div><canvas id='chart_V'></canvas></div>
 	<div class='lab1'><h1>Потребляемая мощность</h1>
 	<div id='id_modP'><div class="inn">Модуль не подключен</div></div><canvas id='chart_P'></canvas></div>
-	<div class='lab2'>Версия: 20180922-0012</div>
+	<div class='lab2'>Версия: 20180923-1933</div>
 </center>
 </body>
 
 <script type="text/javascript" src="gauge.min.js"></script>
 <script type="text/javascript" src="mqttws31.js"></script>
 <script type="text/javascript">
-var mod1 = 0, mod2 = 0, temp1 = 0, temp2 = -20, humidity = 0, volt = 150;
+var mod1 = 0, mod2 = 0, temp1 = 0, temp2 = -20, humidity = 0, volt = 150, bmp = 0;
 chart_T1.style.display = 'none';
 chart_T2.style.display = 'none';
 chart_H.style.display = 'none';
 chart_V.style.display = 'none';
-chart_MM.style.display = 'none';
+chart_BMP.style.display = 'none';
 chart_P.style.display = 'none';
 
 var PS1 = new RadialGauge({
@@ -218,12 +218,12 @@ var PS3 = new RadialGauge({
   });
 
 var PS5 = new RadialGauge({
-    renderTo: 'chart_MM',
+    renderTo: 'chart_BMP',
     width: 250,
     height: 250,
-    minValue: 0,
-    maxValue: 100,
-    majorTicks: ['0','10','20','30','40','50','60','70','80','90','100'],
+    minValue: 720,
+    maxValue: 790,
+    majorTicks: ['720','730','740','750','760','770','780','790'],
     minorTicks: 10,
     strokeTicks: false,
     highlights: false,
@@ -304,6 +304,7 @@ var PS6 = new RadialGauge({
     PS3.draw();
     PS4.value = volt;
     PS4.draw();
+    PS5.value = bmp;
     PS5.draw();
     PS6.draw();
   }, 400);
@@ -333,6 +334,7 @@ var PS6 = new RadialGauge({
     client.subscribe("ESP12/T2");
     client.subscribe("ESP12/H");
     client.subscribe("ESP12/V");
+    client.subscribe("ESP12/BMP180");
 
     message = new Paho.MQTT.Message(' ');
     message.destinationName = 'ESP12/Status';
@@ -375,6 +377,10 @@ var PS6 = new RadialGauge({
 	//напряжение в сети
 	if (message.destinationName == 'ESP12/V') {volt = message.payloadString; 
 		id_modV.style.display = 'none'; chart_V.style.display = 'block'; 
+	}
+	//атмосферное давление
+	if (message.destinationName == 'ESP12/BMP180') {bmp = message.payloadString; 
+		id_modBMP.style.display = 'none'; chart_BMP.style.display = 'block'; 
 	}
 
 	//setTimeout(function(){

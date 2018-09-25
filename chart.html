@@ -22,7 +22,7 @@ h1 { font-size: 18px; font-weight:normal; padding: 6px 0 0 42px;}
 	<div id='id_h1'><h1 id='id_prorgess'></h1></div>
 	<div style="width: 90%"><canvas id="canvas"></canvas></div>
 	<br>
-	<label>Версия: 20180925-1808</label>
+	<label>Версия: 20180925-1900</label>
 	
 <script type="text/javascript" src="moment.min.js"></script>
 <script type="text/javascript" src="сhart.min.js"></script>
@@ -89,7 +89,7 @@ h1 { font-size: 18px; font-weight:normal; padding: 6px 0 0 42px;}
         var res = tab["result"];
         //var dx = moment(res[0][1]).format('DD.MM.YYYY HH:mm:ss');
         //console.log(dx); 
-        for (var i = 15600; i < res.length ; i++) {
+        for (var i = res.length-335; i < res.length ; i++) {
 		 	config.data.datasets[0].data.push({ x: res[i][0], y: res[i][2] });
 		 }
         window.myLine.update();

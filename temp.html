@@ -13,6 +13,13 @@
   /*a {color: #606770}*/
   a {color: #455a64}
   h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
+
+.btn {width: 230px; height: 40px; margin: 0; color: #455a64; font-family: Helvetica; 
+    font-size: 18px; background: linear-gradient(#F7F7F7, #DCDCDC); border: 1px solid #949494; 
+    -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; outline: none;}
+.btn:active {background: linear-gradient(#DCDCDC, #F7F7F7);}
+.btn:hover {border: 1px solid #6E6E6E;}
+
   .ram0 {width: 860px;}
   .lab1 {width: 33.3%;}
   .lab2 {width: 100%;}
@@ -38,10 +45,12 @@
 	<div class='lab1'><h1>Влажность в комнате</h1>
 	<div id='id_modH'><div class="inn">Модуль не подключен</div></div><canvas id='chart_H'></canvas></div>
 	<div class='lab1'><h1>Напряжение в сети</h1>
-	<div id='id_modV'><div class="inn">Модуль не подключен</div></div><canvas id='chart_V'></canvas></div>
+	<div id='id_modV'><div class="inn">Модуль не подключен</div></div><canvas id='chart_V'></canvas>
+    <p><input class='btn' type='button' value='Открыть график' 
+    onClick='location.href="https://sh-user.github.io/сhart"'/></p></div>
 	<div class='lab1'><h1>Потребляемая мощность</h1>
 	<div id='id_modP'><div class="inn">Модуль не подключен</div></div><canvas id='chart_P'></canvas></div>
-	<div class='lab2'>Версия: 20180923-1933</div>
+	<div class='lab2'>Версия: 20180925-1346</div>
 </center>
 </body>
 

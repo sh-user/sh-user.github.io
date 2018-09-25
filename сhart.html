@@ -19,15 +19,15 @@ h1 { font-size: 18px; font-weight:normal; padding: 6px 0 0 42px;}
 
 <body>
 	<div class='loader' id='id_loader'></div>
-	<div id='id_h1'><h1>Загрузка...</h1></div>
-	<div style="width:85%"><canvas id="canvas"></canvas></div>
+	<div id='id_h1'><h1 id='id_prorgess'></h1></div>
+	<div style="width: 90%"><canvas id="canvas"></canvas></div>
 	
 <script type="text/javascript" src="moment.min.js"></script>
 <script type="text/javascript" src="сhart.min.js"></script>
 <script type="text/javascript">
 
-		var color = Chart.helpers.color;
-		var config = {
+	var color = Chart.helpers.color;
+	var config = {
 			type: 'line',
 			data: {
 				datasets: [{
@@ -43,9 +43,9 @@ h1 { font-size: 18px; font-weight:normal; padding: 6px 0 0 42px;}
 			},
 			options: {
 				responsive: true,
-				responsiveAnimationDuration: 0, // animation duration after a resize
-				animation: { duration: 0,  }, // general animation time    
-        		hover: { animationDuration: 0, }, // duration of animations when hovering an item
+				responsiveAnimationDuration: 0, 	// animation duration after a resize
+				animation: { duration: 0, }, 		// general animation time    
+        		hover: { animationDuration: 0, }, 	// duration of animations when hovering an item
                 legend: { display: false, },
                 tooltips: { displayColors: false, },
 
@@ -54,7 +54,7 @@ h1 { font-size: 18px; font-weight:normal; padding: 6px 0 0 42px;}
 					text: 'Напряжение в сети'
 				},
 				elements: {
-            		line: {	tension: 0, }	// disables bezier curves
+            		line: {	tension: 0, }			// disables bezier curves
         		},
 				scales: {
 					xAxes: [{
@@ -71,10 +71,9 @@ h1 { font-size: 18px; font-weight:normal; padding: 6px 0 0 42px;}
 	window.onload = function() {
 		var ctx = document.getElementById('canvas').getContext('2d');
 		window.myLine = new Chart(ctx, config);
-		id_loader.style.display='block';
-		id_h1.style.display='block';
 	};
 
+	id_prorgess.innerHTML = 'Загрузка...';
 	var app = "https://script.google.com/macros/s/AKfycbymMHRBn2a39ObPxFhRYussNWejaEgDpCjf6FF4OlWsLHbScOR3/exec";
    	xhr = new XMLHttpRequest();
    	xhr.open('GET', app);
@@ -87,10 +86,8 @@ h1 { font-size: 18px; font-weight:normal; padding: 6px 0 0 42px;}
         var res = tab["result"];
         //var dx = moment(res[0][1]).format('DD.MM.YYYY HH:mm:ss');
         //console.log(dx); 
-        for (var i1 = 0; i1 < res.length; i1++) {
-        	for (var i2 = 0; i2 < config.data.datasets.length; ++i2) {
-			config.data.datasets[i2].data.push({ x: res[i1][1],	y: res[i1][2] });
-			}
+        for (var i1 = 0; i1 < res.length ; i1++) {
+			config.data.datasets[0].data.push({ x: res[i1][1], y: res[i1][2] });
 		}
         window.myLine.update();
         id_loader.style.display='none';

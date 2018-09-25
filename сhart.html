@@ -74,20 +74,21 @@ h1 { font-size: 18px; font-weight:normal; padding: 6px 0 0 42px;}
 	};
 
 	id_prorgess.innerHTML = 'Загрузка...';
-	var app = "https://script.google.com/macros/s/AKfycbymMHRBn2a39ObPxFhRYussNWejaEgDpCjf6FF4OlWsLHbScOR3/exec";
+	//var app = "https://script.google.com/macros/s/AKfycbymMHRBn2a39ObPxFhRYussNWejaEgDpCjf6FF4OlWsLHbScOR3/exec";
+   	var app = "https://script.google.com/macros/s/AKfycbzcBzCF1UHLopqIbyHNvfEjMEnpuhjR5lFIM6H-WxX1xiH-dSE/exec";
    	xhr = new XMLHttpRequest();
    	xhr.open('GET', app);
    	xhr.onreadystatechange = function() {
      if (xhr.readyState !== 4) return;
      if (xhr.status == 200) {
         try {
-        //console.log(xhr.responseText);
+        console.log(xhr.responseText);
         var tab = JSON.parse(xhr.responseText);
         var res = tab["result"];
         //var dx = moment(res[0][1]).format('DD.MM.YYYY HH:mm:ss');
         //console.log(dx); 
-        for (var i = 0; i < res.length ; i++) {
-		 	config.data.datasets[0].data.push({ x: res[i][0], y: res[i][1] });
+        for (var i = 15600; i < res.length ; i++) {
+		 	config.data.datasets[0].data.push({ x: res[i][0], y: res[i][2] });
 		 }
         window.myLine.update();
         id_loader.style.display='none';

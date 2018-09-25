@@ -81,14 +81,14 @@ h1 { font-size: 18px; font-weight:normal; padding: 6px 0 0 42px;}
      if (xhr.readyState !== 4) return;
      if (xhr.status == 200) {
         try {
-        //console.log(xhr.responseText);
+        console.log(xhr.responseText);
         var tab = JSON.parse(xhr.responseText);
         var res = tab["result"];
         //var dx = moment(res[0][1]).format('DD.MM.YYYY HH:mm:ss');
         //console.log(dx); 
-        for (var i1 = 0; i1 < res.length ; i1++) {
-			config.data.datasets[0].data.push({ x: res[i1][1], y: res[i1][2] });
-		}
+        for (var i = 0; i < res.length ; i++) {
+		 	config.data.datasets[0].data.push({ x: res[i][0], y: res[i][1] });
+		 }
         window.myLine.update();
         id_loader.style.display='none';
         id_h1.style.display='none';

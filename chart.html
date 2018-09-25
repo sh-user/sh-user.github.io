@@ -22,7 +22,7 @@ h1 { font-size: 18px; font-weight:normal; padding: 6px 0 0 42px;}
 	<div id='id_h1'><h1 id='id_prorgess'></h1></div>
 	<div style="width: 90%"><canvas id="canvas"></canvas></div>
 	<br>
-	<label>Версия: 20180925-1900</label>
+	<label>Версия: 20180925-1924</label>
 	
 <script type="text/javascript" src="moment.min.js"></script>
 <script type="text/javascript" src="сhart.min.js"></script>
@@ -30,45 +30,45 @@ h1 { font-size: 18px; font-weight:normal; padding: 6px 0 0 42px;}
 
 	var color = Chart.helpers.color;
 	var config = {
-			type: 'line',
-			data: {
-				datasets: [{
-					label: 'Volt',
-					backgroundColor: color('#455a64').alpha(0.1).rgbString(),
-					borderColor: '#455a64',
-					pointRadius: 0,
-					hitRadius: 4,
-					borderWidth: 1,
-					fill: false,
-					data: [],
-				}]
-			},
-			options: {
-				responsive: true,
-				responsiveAnimationDuration: 0, 	// animation duration after a resize
-				animation: { duration: 0, }, 		// general animation time    
-        		hover: { animationDuration: 0, }, 	// duration of animations when hovering an item
-                legend: { display: false, },
-                tooltips: { displayColors: false, },
+		type: 'line',
+		data: {
+			datasets: [{
+				label: 'Volt',
+				backgroundColor: color('#455a64').alpha(0.1).rgbString(),
+				borderColor: '#455a64',
+				pointRadius: 0,
+				hitRadius: 4,
+				borderWidth: 1,
+				fill: false,
+				data: [],
+			}]
+		},
+		options: {
+			responsive: true,
+			responsiveAnimationDuration: 0, 	// animation duration after a resize
+			animation: { duration: 0, }, 		// general animation time    
+        	hover: { animationDuration: 0, }, 	// duration of animations when hovering an item
+            legend: { display: false, },
+            tooltips: { displayColors: false, },
 
-				title: {
+			title: {
+				display: true,
+				text: 'Напряжение в сети'
+			},
+			elements: {
+            	line: {	tension: 0, }			// disables bezier curves
+        	},
+			scales: {
+				xAxes: [{
+					type: 'time',
 					display: true,
-					text: 'Напряжение в сети'
-				},
-				elements: {
-            		line: {	tension: 0, }			// disables bezier curves
-        		},
-				scales: {
-					xAxes: [{
-						type: 'time',
-						display: true,
-					}],
-					yAxes: [{
-						display: true,
-					}]
-				}
+				}],
+				yAxes: [{
+					display: true,
+				}]
 			}
-		};
+		}
+	};
 
 	window.onload = function() {
 		var ctx = document.getElementById('canvas').getContext('2d');
@@ -81,22 +81,22 @@ h1 { font-size: 18px; font-weight:normal; padding: 6px 0 0 42px;}
    	xhr = new XMLHttpRequest();
    	xhr.open('GET', app);
    	xhr.onreadystatechange = function() {
-     if (xhr.readyState !== 4) return;
-     if (xhr.status == 200) {
+    if (xhr.readyState !== 4) return;
+    if (xhr.status == 200) {
         try {
-        console.log(xhr.responseText);
-        var tab = JSON.parse(xhr.responseText);
-        var res = tab["result"];
-        //var dx = moment(res[0][1]).format('DD.MM.YYYY HH:mm:ss');
-        //console.log(dx); 
-        for (var i = res.length-335; i < res.length ; i++) {
-		 	config.data.datasets[0].data.push({ x: res[i][0], y: res[i][2] });
-		 }
-        window.myLine.update();
-        id_loader.style.display='none';
-        id_h1.style.display='none';
+        	console.log(xhr.responseText);
+        	var tab = JSON.parse(xhr.responseText);
+        	var res = tab["result"];
+        	//var dx = moment(res[0][1]).format('DD.MM.YYYY HH:mm:ss');
+        	//console.log(dx); 
+        	for (var i = res.length-1340; i < res.length ; i++) {
+		 		config.data.datasets[0].data.push({ x: res[i][0], y: res[i][2] });
+			}
+        	window.myLine.update();
+        	id_loader.style.display='none';
+        	id_h1.style.display='none';
         } catch(e) {}
-     } 
+     	} 
    }
    xhr.send();
 

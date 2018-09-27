@@ -6,8 +6,14 @@
 
 <style>
 body {color: #455a64; font-family: Helvetica; font-size: 15px;}
+input, textarea, button, select, select:focus {outline: none;}
+
 canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none;}
-h1 { font-size: 18px; font-weight:normal; padding: 6px 0 0 42px;}
+h1 { font-size: 18px; padding: 6px 0 0 42px;}
+h1, h3 {font-weight:normal; margin: 8px 10px 8px 0;}
+
+.ed {height: 36px; background: #fdfdfe; color: #455a64; font-family: Helvetica; font-size: 18px; border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
+.lab1 {float: left; margin: 0 0 12px 0;}
 
 @-webkit-keyframes loader { 100% {-webkit-transform: rotate(360deg); transform: rotate(360deg);}}
 @-moz-keyframes loader { 100% {-moz-transform: rotate(360deg); transform: rotate(360deg);}}
@@ -19,14 +25,21 @@ h1 { font-size: 18px; font-weight:normal; padding: 6px 0 0 42px;}
 
 <body>
 	<div class='loader' id='id_loader'></div>
-	<div id='id_h1'><h1 id='id_prorgess'></h1></div>
+	<div id='id_h1'><h1>Загрузка...</h1></div>
+	<div class='lab1'><h3>Интервал</h3></div>
+    <select id='id_menu' class='ed' onChange="MenuSel();">
+  	<option value='1'>За сутки</option>
+  	<option value='2'>За неделю</option>
+  	<option value='3'>За месяц</option>
+	</select></div>
 	<div style="width: 90%"><canvas id="canvas"></canvas></div>
 	<br>
-	<label>Версия: 20180925-1924</label>
+	<label>Версия: 20180927-1000</label>
 	
 <script type="text/javascript" src="moment.min.js"></script>
 <script type="text/javascript" src="сhart.min.js"></script>
 <script type="text/javascript">
+	var inter = 1340;
 
 	var color = Chart.helpers.color;
 	var config = {
@@ -44,38 +57,65 @@ h1 { font-size: 18px; font-weight:normal; padding: 6px 0 0 42px;}
 			}]
 		},
 		options: {
+
 			responsive: true,
 			responsiveAnimationDuration: 0, 	// animation duration after a resize
-			animation: { duration: 0, }, 		// general animation time    
-        	hover: { animationDuration: 0, }, 	// duration of animations when hovering an item
-            legend: { display: false, },
-            tooltips: { displayColors: false, },
+			animation: { duration: 0 }, 		// general animation time    
+        	hover: { animationDuration: 0 }, 	// duration of animations when hovering an item
+            legend: { display: false },
+            tooltips: { displayColors: false },
 
 			title: {
-				display: true,
-				text: 'Напряжение в сети'
+				display: false
+				//text: 'Напряжение в сети'
 			},
 			elements: {
-            	line: {	tension: 0, }			// disables bezier curves
+            	line: {	tension: 0 }			// disables bezier curves
         	},
 			scales: {
 				xAxes: [{
-					type: 'time',
+					distribution: 'linear',
 					display: true,
+					type: 'time',
+					time: {	tooltipFormat: "DD.MM.YYYY, h:mm:ss a" }
 				}],
 				yAxes: [{
-					display: true,
+					ticks: { beginAtZero:true },
+					ticks: {
+        				min: 150,
+        				max: 260,
+        				stepSize: 10
+      				},
+					display: true
 				}]
 			}
 		}
 	};
 
 	window.onload = function() {
-		var ctx = document.getElementById('canvas').getContext('2d');
-		window.myLine = new Chart(ctx, config);
+		
+		LoadChart();
 	};
 
-	id_prorgess.innerHTML = 'Загрузка...';
+
+//=============================================================================
+function MenuSel() {
+	if (id_menu.value == '1') {inter = 1340;}
+	if (id_menu.value == '2') {inter = 9380;}
+	if (id_menu.value == '3') {inter = 0;}
+	LoadChart();
+}
+
+//=============================================================================
+function LoadChart() {
+	// if (typeof myLine != 'undefined') {
+ //     window.myLine.destroy();
+	// } 
+	var ctx = document.getElementById('canvas').getContext('2d');
+	window.myLine = new Chart(ctx, config);
+
+	id_loader.style.display='block';
+    id_h1.style.display='block';
 	//var app = "https://script.google.com/macros/s/AKfycbymMHRBn2a39ObPxFhRYussNWejaEgDpCjf6FF4OlWsLHbScOR3/exec";
    	var app = "https://script.google.com/macros/s/AKfycbzcBzCF1UHLopqIbyHNvfEjMEnpuhjR5lFIM6H-WxX1xiH-dSE/exec";
    	xhr = new XMLHttpRequest();
@@ -87,18 +127,18 @@ h1 { font-size: 18px; font-weight:normal; padding: 6px 0 0 42px;}
         	console.log(xhr.responseText);
         	var tab = JSON.parse(xhr.responseText);
         	var res = tab["result"];
-        	//var dx = moment(res[0][1]).format('DD.MM.YYYY HH:mm:ss');
-        	//console.log(dx); 
-        	for (var i = res.length-1340; i < res.length ; i++) {
+        	if (inter == 0) {inter = res.length};
+        	for (var i = res.length-inter; i < res.length ; i++) {
 		 		config.data.datasets[0].data.push({ x: res[i][0], y: res[i][2] });
 			}
         	window.myLine.update();
-        	id_loader.style.display='none';
-        	id_h1.style.display='none';
         } catch(e) {}
+        id_loader.style.display='none';
+        id_h1.style.display='none';
      	} 
    }
    xhr.send();
+}
 
 </script>
 </body>

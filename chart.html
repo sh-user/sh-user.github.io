@@ -9,18 +9,20 @@ body {color: #455a64; font-family: Helvetica; font-size: 15px;}
 input, textarea, button, select, select:focus {outline: none;}
 
 canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none;}
-h1 { font-size: 18px; padding: 6px 0 0 42px;}
-h1, h3 {font-weight:normal; margin: 8px 10px 8px 0;}
+h1 { font-size: 18px; font-weight:normal; padding: 0 0 0 42px; margin: 24px 10px 24px 0;}
+h3 {font-weight:normal; margin: 8px 10px 12px 0;}
 
-.ed {height: 36px; background: #fdfdfe; color: #455a64; font-family: Helvetica; font-size: 18px; border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
-.lab1 {float: left; margin: 0 0 12px 0;}
+.ed {margin:12px 0 12px 0; height: 36px; background: #fdfdfe; color: #455a64; font-family: Helvetica; 
+	font-size: 18px; border: 1px solid gray; border-radius: 4px; padding: 6px; 
+	box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
+.lab1 {float: left; margin: 12px 0 12px 0;}
 
 #id_Inter {display: none;}
 
 @-webkit-keyframes loader { 100% {-webkit-transform: rotate(360deg); transform: rotate(360deg);}}
 @-moz-keyframes loader { 100% {-moz-transform: rotate(360deg); transform: rotate(360deg);}}
 @keyframes loader { 100% { transform: rotate(360deg);}}
-.loader {margin: 0 0 12px 0; float: left; width: 24px; height: 24px; border: 4px solid #000; 
+.loader {margin: -6px 0 12px 0; float: left; width: 24px; height: 24px; border: 4px solid #000; 
 	border-left-color: #333; border-bottom-color: #555; border-right-color: transparent; 
 	border-radius: 100%; -webkit-animation: loader 0.8s infinite linear; -moz-animation: 
 	loader 0.8s infinite linear; animation: loader 0.8s infinite linear;}
@@ -36,14 +38,14 @@ h1, h3 {font-weight:normal; margin: 8px 10px 8px 0;}
   	<option value='2'>За неделю</option>
   	<option value='3'>За месяц</option>
 	</select></div>
-	<div style="width: 90%"><canvas id="canvas"></canvas></div>
+	<div style="width: 90%"><canvas id="id_canvas"></canvas></div>
 	<br>
-	<label>Версия: 20180927-1251</label>
+	<label>Версия: 20180928-0000</label>
 	
 <script type="text/javascript" src="moment.min.js"></script>
 <script type="text/javascript" src="сhart.min.js"></script>
 <script type="text/javascript">
-	var inter = 1340;
+	var inter = 1340, clear=0;
 
 	var color = Chart.helpers.color;
 	var config = {
@@ -84,7 +86,6 @@ h1, h3 {font-weight:normal; margin: 8px 10px 8px 0;}
 					time: {	tooltipFormat: "DD.MM.YYYY, hh:mm:ss" }
 				}],
 				yAxes: [{
-					ticks: { beginAtZero:true },
 					ticks: {
         				min: 150,
         				max: 260,
@@ -96,14 +97,16 @@ h1, h3 {font-weight:normal; margin: 8px 10px 8px 0;}
 		}
 	};
 
-	window.onload = function() {
-		
-		LoadChart();
-	};
-
+//=============================================================================
+window.onload = function() {
+	var ctx = document.getElementById('id_canvas').getContext('2d');
+	window.myLine = new Chart(ctx, config);
+	LoadChart();
+};
 
 //=============================================================================
 function MenuInter() {
+	clear = inter;
 	if (id_menu.value == '1') {inter = 1340;}
 	if (id_menu.value == '2') {inter = 9380;}
 	if (id_menu.value == '3') {inter = 0;}
@@ -112,12 +115,6 @@ function MenuInter() {
 
 //=============================================================================
 function LoadChart() {
-	// if (typeof myLine != 'undefined') {
- //     window.myLine.destroy();
-	// } 
-	var ctx = document.getElementById('canvas').getContext('2d');
-	window.myLine = new Chart(ctx, config);
-
 	id_Inter.style.display='none';
     id_Load.style.display='block';
 	//var app = "https://script.google.com/macros/s/AKfycbymMHRBn2a39ObPxFhRYussNWejaEgDpCjf6FF4OlWsLHbScOR3/exec";
@@ -128,10 +125,15 @@ function LoadChart() {
     if (xhr.readyState !== 4) return;
     if (xhr.status == 200) {
         try {
-        	console.log(xhr.responseText);
+        	//console.log(xhr.responseText);
         	var tab = JSON.parse(xhr.responseText);
         	var res = tab["result"];
         	if (inter == 0) {inter = res.length};
+        	for (var i = 0; i < clear ; i++) {
+    			config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
+    		}
+			window.myLine.update();
+
         	for (var i = res.length-inter; i < res.length ; i++) {
 		 		config.data.datasets[0].data.push({ x: res[i][0], y: res[i][2] });
 			}

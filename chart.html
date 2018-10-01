@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-  <title>ESP Chart</title>
+  <title>ESP chart</title>
 
 <style>
 body {color: #455a64; font-family: Helvetica; font-size: 15px;}
@@ -41,7 +41,7 @@ h3 { font-weight:normal; margin: 5px 10px 12px 0;}
 	</select>
 	</div>
 	<div class='canv'><canvas id="id_canvas"></canvas></div>
-	<p>Версия: 20180930-1325</p>
+	<p>Версия: 20181001-1230</p>
 	
 <script type="text/javascript" src="moment.min.js"></script>
 <script type="text/javascript" src="сhart.min.js"></script>
@@ -81,10 +81,7 @@ h3 { font-weight:normal; margin: 5px 10px 12px 0;}
             	line: {	tension: 0 }			// disables bezier curves
         	},
 			scales: {
-				//offsetGridLines: false,
 				xAxes: [{
-					//bounds: 'ticks',
-
 					type: 'time',
 					time: {	
 		                //min: '2018-09-29',
@@ -159,6 +156,7 @@ function LoadChart() {
         	var res = tab["result"];
         	//console.log(momemt(res[res.length-1][0]).format('DD.MM.YYYY, HH:mm:ss'));
         	if (Interval == 0) {Interval = res.length};
+        	if (res.length < 1350) {Interval = res.length};
         	for (var i = 0; i < clear ; i++) {
     			config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
     		}

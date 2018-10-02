@@ -161,7 +161,7 @@ function LoadChart() {
     			config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
     		}
         	for (var i = res.length-Interval; i < res.length ; i++) {
-		 		config.data.datasets[0].data.push({ x: res[i][0], y: res[i][2] });
+		 		config.data.datasets[0].data.push({ x: res[i][0], y: res[i][3] });
 			}
         	window.myLine.update();
         } catch(e) {}

@@ -9,21 +9,22 @@ body {color: #455a64; font-family: Helvetica; font-size: 15px;}
 input, textarea, button, select, select:focus {outline: none;}
 
 canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none;}
-h1 { font-size: 18px; font-weight:normal; padding: 0 0 0 42px; margin: 24px 10px 24px 0;}
+h1 { float: right; font-size: 18px; font-weight:normal; padding: 0 0 0 12px; margin: 16px 0 12px 0;}
 h3 { font-weight:normal; margin: 5px 10px 12px 0;}
 
-.ed { margin:10px 0 12px 0; height: 36px; background: #fdfdfe; color: #455a64; font-family: Helvetica; 
+.ed { margin:8px 0 10px 0; height: 36px; background: #fdfdfe; color: #455a64; font-family: Helvetica; 
 	font-size: 18px; border: 1px solid gray; border-radius: 4px; padding: 6px; 
 	box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
-.lab1 { float: left; margin: 12px 0 12px 0;}
 
-#id_Interval { display: none; }
-.canv { width: 90%; }
+.lab0 { float: left; margin:10px 0 12px 0;}
+#id_Interval { display: none; float: right;}
+#id_Load { float: right;}
+.ram { width: 80%; }
 
 @-webkit-keyframes loader { 100% {-webkit-transform: rotate(360deg); transform: rotate(360deg);}}
 @-moz-keyframes loader { 100% {-moz-transform: rotate(360deg); transform: rotate(360deg);}}
 @keyframes loader { 100% { transform: rotate(360deg);}}
-.loader { margin: -6px 0 12px 0; float: left; width: 24px; height: 24px; border: 4px solid #000; 
+.loader { margin: 10px 0 0 0; float: left; width: 24px; height: 24px; border: 4px solid #000; 
 	border-left-color: #333; border-bottom-color: #555; border-right-color: transparent; 
 	border-radius: 100%; -webkit-animation: loader 0.8s infinite linear; -moz-animation: 
 	loader 0.8s infinite linear; animation: loader 0.8s infinite linear;}
@@ -32,16 +33,17 @@ h3 { font-weight:normal; margin: 5px 10px 12px 0;}
 </head>
 
 <body>
+	<div class='ram'>
+	<div class='lab0'><h3>Напряжение в сети</h3></div>
 	<div id='id_Load'><div class='loader' id='id_loader'></div><h1>Загрузка...</h1></div>
-	<div id='id_Interval'><div class='lab1'><h3>Интервал</h3></div>
+	<div id='id_Interval'><div class='lab0'><h3>Интервал</h3></div>
     <select id='id_menu' class='ed' onChange="MenuInterval();">
   	<option value='1'>За сутки</option>
   	<option value='2'>За неделю</option>
   	<option value='3'>За месяц</option>
-	</select>
-	</div>
-	<div class='canv'><canvas id="id_canvas"></canvas></div>
-	<p>Версия: 20181001-1230</p>
+	</select></div>
+	<canvas id="id_canvas"></canvas></div>
+	<p>Версия: 20181002-1706</p>
 	
 <script type="text/javascript" src="moment.min.js"></script>
 <script type="text/javascript" src="сhart.min.js"></script>
@@ -113,7 +115,7 @@ h3 { font-weight:normal; margin: 5px 10px 12px 0;}
 window.onload = function() {
 	var ctx = document.getElementById('id_canvas').getContext('2d');
 	window.myLine = new Chart(ctx, config);
-	LoadChart();
+	LoadChart(1);
 };
 
 //=============================================================================
@@ -137,16 +139,24 @@ function MenuInterval() {
 		Interval = 0;
 		GetMaxMin(30);		//30 days
 	}
-	LoadChart();
+	LoadChart(1);
 }
 
 //=============================================================================
-function LoadChart() {
+function LoadChart(mod) {
 	id_Interval.style.display='none';
     id_Load.style.display='block';
-   	var app = "https://script.google.com/macros/s/AKfycbzcBzCF1UHLopqIbyHNvfEjMEnpuhjR5lFIM6H-WxX1xiH-dSE/exec";
+   	var appURL = "https://script.google.com/macros/s/AKfycbzcBzCF1UHLopqIbyHNvfEjMEnpuhjR5lFIM6H-WxX1xiH-dSE/exec";
+   	if (mod == 1) {
+   		appURL = appURL + '?mod=1';
+   		var tidx = 3;
+   	}
+   	if (mod == 2) {
+   		appURL = appURL + '?mod=2';
+   		var tidx = 1;
+   	}
    	xhr = new XMLHttpRequest();
-   	xhr.open('GET', app);
+   	xhr.open('GET', appURL);
    	xhr.onreadystatechange = function() {
     if (xhr.readyState !== 4) return;
     if (xhr.status == 200) {
@@ -154,14 +164,16 @@ function LoadChart() {
         	//console.log(xhr.responseText);
         	var tab = JSON.parse(xhr.responseText);
         	var res = tab["result"];
-        	//console.log(momemt(res[res.length-1][0]).format('DD.MM.YYYY, HH:mm:ss'));
         	if (Interval == 0) {Interval = res.length};
         	if (res.length < 1350) {Interval = res.length};
+        	// config.options.scales.yAxes[0].ticks.min = 0;
+        	// config.options.scales.yAxes[0].ticks.max = 30;
+        	// config.options.scales.yAxes[0].ticks.stepSize = 1;
         	for (var i = 0; i < clear ; i++) {
     			config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
     		}
         	for (var i = res.length-Interval; i < res.length ; i++) {
-		 		config.data.datasets[0].data.push({ x: res[i][0], y: res[i][3] });
+		 		config.data.datasets[0].data.push({ x: res[i][0], y: res[i][tidx] });
 			}
         	window.myLine.update();
         } catch(e) {}

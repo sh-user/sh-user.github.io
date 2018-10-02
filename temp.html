@@ -9,15 +9,23 @@ body{ background: #cfd8dc; color: #455a64; font-family: Helvetica; font-size: 15
 /*body{ background: #e9ebee; color: #606770; font-family: Helvetica; font-size: 15px; }*/
 ::selection {background: #a0bbbb;}
 ::-moz-selection {background: #a0bbbb;}
-input, textarea, button {outline: none;}
+input, textarea, button, select, select:focus {outline: none;}
 
 .icoCH {width: 24px; height: 24px; margin: 6px 0 0 0; 
 background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDI0Ni44ODkgMjQ2Ljg4OSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjQ2Ljg4OSAyNDYuODg5OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjI0cHgiIGhlaWdodD0iMjRweCI+CjxwYXRoIGQ9Ik0yNy43NzcsMTk0LjA0NmgyMTkuMTExdjI3Ljc3N0gwVjI1LjA2NWgyNy43NzdWMTk0LjA0NnogTTEzNy4zMDgsMTQzLjIzM2w4My44MTEtNjMuNzlMMjA0LjI5Niw1Ny4zNGwtNjMuODUsNDguNTk3ICBsLTI0LjAyOC0yNS42NzFsLTY2LjkxMSw1Mi40MDZsMTcuMTI4LDIxLjg2OWw0Ni44ODYtMzYuNzIzTDEzNy4zMDgsMTQzLjIzM3oiIGZpbGw9IiM0NTVhNjQiLz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==)}
 
+.icoBack {width: 24px; height: 24px; margin: 6px 0 0 0;
+background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA0OTIgNDkyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0OTIgNDkyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjI0cHgiIGhlaWdodD0iMjRweCI+CjxnPgoJPGc+CgkJPHBhdGggZD0iTTQ2NC4zNDQsMjA3LjQxOGwwLjc2OCwwLjE2OEgxMzUuODg4bDEwMy40OTYtMTAzLjcyNGM1LjA2OC01LjA2NCw3Ljg0OC0xMS45MjQsNy44NDgtMTkuMTI0ICAgIGMwLTcuMi0yLjc4LTE0LjAxMi03Ljg0OC0xOS4wODhMMjIzLjI4LDQ5LjUzOGMtNS4wNjQtNS4wNjQtMTEuODEyLTcuODY0LTE5LjAwOC03Ljg2NGMtNy4yLDAtMTMuOTUyLDIuNzgtMTkuMDE2LDcuODQ0ICAgIEw3Ljg0NCwyMjYuOTE0QzIuNzYsMjMxLjk5OC0wLjAyLDIzOC43NywwLDI0NS45NzRjLTAuMDIsNy4yNDQsMi43NiwxNC4wMiw3Ljg0NCwxOS4wOTZsMTc3LjQxMiwxNzcuNDEyICAgIGM1LjA2NCw1LjA2LDExLjgxMiw3Ljg0NCwxOS4wMTYsNy44NDRjNy4xOTYsMCwxMy45NDQtMi43ODgsMTkuMDA4LTcuODQ0bDE2LjEwNC0xNi4xMTJjNS4wNjgtNS4wNTYsNy44NDgtMTEuODA4LDcuODQ4LTE5LjAwOCAgICBjMC03LjE5Ni0yLjc4LTEzLjU5Mi03Ljg0OC0xOC42NTJMMTM0LjcyLDI4NC40MDZoMzI5Ljk5MmMxNC44MjgsMCwyNy4yODgtMTIuNzgsMjcuMjg4LTI3LjZ2LTIyLjc4OCAgICBDNDkyLDIxOS4xOTgsNDc5LjE3MiwyMDcuNDE4LDQ2NC4zNDQsMjA3LjQxOHoiIGZpbGw9IiM0NTVhNjQiLz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K)}
+
 .ram1{float:right; width: 36px; height: 36px; margin: -6px 18px 0 0; 
-    background: #f7f7f7; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); 
+    background: #f7f7f7; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
     -moz-border-radius: 18px; -webkit-border-radius: 18px; border-radius: 18px;}
 .ram1:active {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.0);}
+
+.ram2 { float: left; width: 36px; height: 36px; margin: 8px 12px 0 0; 
+    background: #f7f7f7; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
+    -moz-border-radius: 18px; -webkit-border-radius: 18px; border-radius: 18px;}
+.ram2:active {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.0);}
 
 a {color: #455a64}
 h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
@@ -28,9 +36,30 @@ h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
 .lab1, .lab2 {float: left;  margin: 0 0 12px 0;}
 #id_modT1, #id_modT2, #id_modH, #id_modV, #id_modBMP, #id_modP
   {display: table; width: 234px; height: 234px; margin: 18px 0 8px 0; background: #f7f7f7;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); -webkit-border-radius: 117px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); -webkit-border-radius: 117px; 
     -moz-border-radius: 117px; border-radius: 117px;}
 .inn { display: table-cell; vertical-align: middle; }
+
+.ed { margin:10px 0px 10px 0; height: 36px; background: #fdfdfe; color: #455a64; font-family: Helvetica; 
+	font-size: 18px; border: 1px solid gray; border-radius: 4px; padding: 6px; 
+	box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
+
+canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none;}
+#id_ram_canvas { display: none; float: left; margin:12px 0 12px 0; padding: 6px 10px 0 10px;
+	background: #f7f7f7; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);}
+.b0 { float: left; font-size: 18px; margin: 0 8px 0 0;}
+.b1 { float: right; font-size: 18px; padding: 4px 0 0 10px; margin: 14px 0 10px 0;}
+
+#id_Interval { display: none; float: right;}
+#id_Load { float: right;}
+
+@-webkit-keyframes loader { 100% {-webkit-transform: rotate(360deg); transform: rotate(360deg);}}
+@-moz-keyframes loader { 100% {-moz-transform: rotate(360deg); transform: rotate(360deg);}}
+@keyframes loader { 100% { transform: rotate(360deg);}}
+.loader { margin: 12px 0 0 0; float: left; width: 24px; height: 24px; border: 4px solid #000; 
+	border-left-color: #333; border-bottom-color: #555; border-right-color: transparent; 
+	border-radius: 100%; -webkit-animation: loader 0.5s infinite linear; -moz-animation: 
+	loader 0.5s infinite linear; animation: loader 0.5s infinite linear;}
 
 </style>
 </head>
@@ -38,39 +67,254 @@ h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
 <body>
 <center>
 	<div class='ram0'>
+	<div id='id_ram0'>
 	<div class='lab2' id='connstatus'>Status: Connenting</div>
-	<div class='lab1'><h1>Температура в комнате<div class='ram1' 
-    onClick='alert("График скоро будет")'><div class='icoCH'></div></div></h1>
+	<div class='lab1'><h1>Температура в комнате<div class='ram1' onClick="EnableChart(1)">
+	<div class='icoCH'></div></div></h1>
     <div id='id_modT1'><div class="inn">Модуль не подключен</div></div><canvas id='chart_T1'></canvas></div>
 	
-    <div class='lab1'><h1>Температура на улице<div class='ram1' 
-    onClick='location.href="https://sh-user.github.io/chartT2"'><div class='icoCH'></div></div></h1>
+    <div class='lab1'><h1>Температура на улице<div class='ram1' onClick="EnableChart(2)">
+    <div class='icoCH'></div></div></h1>
 	<div id='id_modT2'><div class="inn">Модуль не подключен</div></div><canvas id='chart_T2'></canvas></div>
 	
-    <div class='lab1'><h1>Атмосферное давление<div class='ram1' 
-    onClick='alert("График скоро будет")'><div class='icoCH'></div></div></h1>
+    <div class='lab1'><h1>Атмосферное давление<div class='ram1' onClick="EnableChart(3)">
+    <div class='icoCH'></div></div></h1>
 	<div id='id_modBMP'><div class="inn">Модуль не подключен</div></div><canvas id='chart_BMP'></canvas></div>
 	
     <div class='lab2'><h1>Разница температур: <a id='stRT'></a> &degC</h1></div>
 	
-    <div class='lab1'><h1>Влажность в комнате<div class='ram1' 
-    onClick='alert("График скоро будет")'><div class='icoCH'></div></h1>
+    <div class='lab1'><h1>Влажность в комнате<div class='ram1' onClick="EnableChart(4)">
+    <div class='icoCH'></div></h1>
 	<div id='id_modH'><div class="inn">Модуль не подключен</div></div><canvas id='chart_H'></canvas></div>
 	
-    <div class='lab1'><h1>Напряжение в сети<div class='ram1' 
-    onClick='location.href="https://sh-user.github.io/chartPZEM"'><div class='icoCH'></div></div></h1>
+    <div class='lab1'><h1>Напряжение в сети<div class='ram1' onClick="EnableChart(5)">
+    <div class='icoCH'></div></div></h1>
 	<div id='id_modV'><div class="inn">Модуль не подключен</div></div><canvas id='chart_V'></canvas></div>
 	
-    <div class='lab1'><h1>Потребляемая мощность<div class='ram1' 
-    onClick='alert("График скоро будет")'><div class='icoCH'></div></div></h1>
+    <div class='lab1'><h1>Расход электроэнергии<div class='ram1'><div class='icoCH'></div></div></h1>
 	<div id='id_modP'><div class="inn">Модуль не подключен</div></div><canvas id='chart_P'></canvas></div>
-	<div class='lab2'>Версия: 20180210-1754</div>
+	<div class='lab2'></div>
+	</div>
+
+	<div id='id_ram_canvas'>
+	<div class='ram2' onClick="DisableChart()"><div class='icoBack'></div></div>
+	<div class='b0'>
+	<select id='id_menuCH' class='ed' onChange="MenuChart()">
+  	<option value='1'>Температура в комнате</option>
+  	<option value='2'>Температура на улице</option>
+  	<option value='3'>Атмосферное давление</option>
+  	<option value='4'>Влажность в комнате</option>
+  	<option value='5'>Напряжение в сети</option>
+  	<option value='6' disabled>Расход электроэнергии</option>
+	</select></div>
+	<div id='id_Load'><div class='loader' id='id_loader'></div><div class='b1'>Загрузка...</div></div>
+	<div id='id_Interval'><div class='b0'><p>Интервал</p></div>
+    <select id='id_menu' class='ed' onChange="MenuInterval()">
+  	<option value='1'>За сутки</option>
+  	<option value='2'>За неделю</option>
+  	<option value='3'>За месяц</option>
+	</select></div>
+	<canvas id='id_canvas'></canvas>
+	</div>
+	</div>
+	<div class='lab2'>Версия: 20181003-0047</div>
 </center>
 </body>
 
-<script type="text/javascript" src="gauge.min.js"></script>
 <script type="text/javascript" src="mqttws31.js"></script>
+<script type="text/javascript" src="gauge.min.js"></script>
+<script type="text/javascript" src="moment.min.js"></script>
+<script type="text/javascript" src="сhart.min.js"></script>
 <script type="text/javascript">
+	var Interval = 1350, clear=0;
+	
+	var dateOffset = (24*60*60*1000) * 1; //1 days
+	var DateMAX = new Date();
+	var DateMIN = new Date();
+	DateMIN.setTime(DateMAX.getTime() - dateOffset);
+
+	var color = Chart.helpers.color;
+	var config = {
+		type: 'line',
+		data: {
+			datasets: [{
+				label: 'Volt',
+				backgroundColor: color('#434343').alpha(0.1).rgbString(),
+				borderColor: '#434343',
+				pointRadius: 0,
+				hitRadius: 4,
+				borderWidth: 1,
+				fill: false,
+				data: [],
+			}]
+		},
+		options: {
+			title: { display: false	},
+			responsive: true,
+			responsiveAnimationDuration: 0, 	// animation duration after a resize
+			animation: { duration: 0 }, 		// general animation time    
+        	hover: { animationDuration: 0 }, 	// duration of animations when hovering an item
+            legend: { display: false },
+            tooltips: { displayColors: false },
+
+			elements: {
+            	line: {	tension: 0 }			// disables bezier curves
+        	},
+			scales: {
+				xAxes: [{
+					type: 'time',
+					time: {	
+		                min: DateMIN,
+		                max: DateMAX,
+
+						tooltipFormat: "DD.MM.YYYY, HH:mm:ss",
+						displayFormats: {
+							hour: 'DD MMM, HH:mm', 
+							day: 'DD MMM', 
+							week: 'DD MMM',
+							month: 'MMM YYYY'
+						}
+					},
+				}],
+				yAxes: [{
+					ticks: {
+        				min: 150,
+        				max: 260,
+        				stepSize: 10
+      				}
+				}]
+			}
+		}
+	};
+
+//=============================================================================
+function GetMaxMin(days) {
+	dateOffset = (24*60*60*1000) * days; //days
+	DateMAX = new Date();
+	DateMIN.setTime(DateMAX.getTime() - dateOffset);
+}
+
+//=============================================================================
+function EnableChart(num) {
+	id_ram_canvas.style.display='block';
+    id_ram0.style.display='none';
+    var ctx = document.getElementById('id_canvas').getContext('2d');
+	window.myLine = new Chart(ctx, config);
+	id_menuCH.options.selectedIndex = num-1;
+	UpdateChart(num);
+}
+
+//=============================================================================
+function DisableChart() {
+	for (var i = 0; i < Interval; i++) {
+    	config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
+    }
+	window.myLine.destroy();
+	id_ram_canvas.style.display='none';
+    id_ram0.style.display='block';
+}
+
+//=============================================================================
+function MenuChart() {
+	for (var i = 0; i < Interval; i++) {
+    	config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
+    }
+	window.myLine.destroy();
+	EnableChart(id_menuCH.options.selectedIndex+1);
+}
+
+//=============================================================================
+function MenuInterval() {
+	clear = Interval;
+	if (id_menu.value == '1') {
+		Interval = 1350;
+		GetMaxMin(1);		//1 days
+	}
+	if (id_menu.value == '2') {
+		Interval = 9440;
+		GetMaxMin(7);		//7 days
+	}
+	if (id_menu.value == '3') {
+		Interval = 0;
+		GetMaxMin(30);		//30 days
+	}
+	UpdateChart(id_menuCH.options.selectedIndex+1);
+}
+
+//=============================================================================
+function UpdateChart(ch) {
+switch (ch) {
+	case 1:
+		config.data.datasets[0].label = 'Температура'
+		config.options.scales.yAxes[0].ticks.min = 0;
+        config.options.scales.yAxes[0].ticks.max = 30;
+        config.options.scales.yAxes[0].ticks.stepSize = 5;
+		LoadChart(1, 1);
+		break;
+	case 2:
+		config.data.datasets[0].label = 'Температура'
+		config.options.scales.yAxes[0].ticks.min = -10;
+        config.options.scales.yAxes[0].ticks.max = 30;
+        config.options.scales.yAxes[0].ticks.stepSize = 5;
+		LoadChart(2, 1);
+		break;
+	case 3:
+		config.data.datasets[0].label = 'Давление'
+		config.options.scales.yAxes[0].ticks.min = 720;
+        config.options.scales.yAxes[0].ticks.max = 790;
+        config.options.scales.yAxes[0].ticks.stepSize = 10;
+		LoadChart(2, 2);
+		break;
+	case 4:
+		config.data.datasets[0].label = 'Влажность'
+		config.options.scales.yAxes[0].ticks.min = 0;
+        config.options.scales.yAxes[0].ticks.max = 100;
+        config.options.scales.yAxes[0].ticks.stepSize = 10;
+		LoadChart(1, 2);
+		break;
+	case 5:
+		config.data.datasets[0].label = 'Напряжение'
+		config.options.scales.yAxes[0].ticks.min = 150;
+        config.options.scales.yAxes[0].ticks.max = 260;
+        config.options.scales.yAxes[0].ticks.stepSize = 10;
+		LoadChart(1, 3);
+	}
+}
+
+//=============================================================================
+function LoadChart(mod, idx) {
+	id_Interval.style.display='none';
+    id_Load.style.display='block';
+   	var appURL = "https://script.google.com/macros/s/AKfycbzcBzCF1UHLopqIbyHNvfEjMEnpuhjR5lFIM6H-WxX1xiH-dSE/exec";
+   	if (mod == 1) {	appURL = appURL + '?mod=1';	}
+   	if (mod == 2) {	appURL = appURL + '?mod=2';	}
+   	xhr = new XMLHttpRequest();
+   	xhr.open('GET', appURL);
+   	xhr.onreadystatechange = function() {
+    if (xhr.readyState !== 4) return;
+    if (xhr.status == 200) {
+        try {
+        	//console.log(xhr.responseText);
+        	var tab = JSON.parse(xhr.responseText);
+        	var res = tab["result"];
+        	if (Interval == 0) {Interval = res.length};
+        	if (res.length < 1350) {Interval = res.length};
+        	for (var i = 0; i < clear ; i++) {
+    			config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
+    		}
+        	for (var i = res.length-Interval; i < res.length ; i++) {
+		 		config.data.datasets[0].data.push({ x: res[i][0], y: res[i][idx] });
+			}
+        	window.myLine.update();
+        } catch(e) {}
+        id_Interval.style.display='block';
+        id_Load.style.display='none';
+     	} 
+   }
+   xhr.send();
+}
+
+//=============================================================================
 var mod1 = 0, mod2 = 0, temp1 = 0, temp2 = -20, humidity = 0, volt = 150, bmp = 720;
 chart_T1.style.display = 'none';
 chart_T2.style.display = 'none';
@@ -347,8 +591,9 @@ var PS6 = new RadialGauge({
   // connect the client
   client.connect(options);
 
-  // called when the client connects
-  function onConnect() {
+//=============================================================================
+// called when the client connects
+function onConnect() {
     // Once a connection has been made, make a subscription and send a message.
     connstatus.innerHTML = "Status: Connected";
     console.log("onConnect");
@@ -362,25 +607,28 @@ var PS6 = new RadialGauge({
     message = new Paho.MQTT.Message(' ');
     message.destinationName = 'ESP12/Status';
     client.send(message);
-  }
+}
 
-  function doFail(e){
-    console.log('doFail:' + e.errorMessage);
+//=============================================================================
+function doFail(e){
+	console.log('doFail:' + e.errorMessage);
     connstatus.innerHTML = 'Status: ' + e.errorMessage;
     setTimeout(function(){location.reload();}, 10000);
-  }
+}
 
-  // called when the client loses its connection
-  function onConnectionLost(e) {
+//=============================================================================
+// called when the client loses its connection
+function onConnectionLost(e) {
     if (e.errorCode !== 0) {
       console.log('onConnectionLost:' + e.errorMessage);
       connstatus.innerHTML = 'Status: ' + e.errorMessage;
       setTimeout(function(){location.reload();}, 10000);
     }
-  }
+}
 
-  // called when a message arrives
-  function onMessageArrived(message) {
+//=============================================================================
+// called when a message arrives
+function onMessageArrived(message) {
     console.log(message.destinationName + ':' + message.payloadString);
     
   //   if (message.destinationName == 'ESP12/Status') {
@@ -410,7 +658,7 @@ var PS6 = new RadialGauge({
 		//if (mod1 = 0) { id_modT1.style.display = 'block'; chart_T1.style.display = 'none';}
 		//if (mod2 = 0) { id_modT2.style.display = 'block'; chart_T2.style.display = 'none';}
 	//},30000);}
-  }
+}
 
 </script>
 </html>

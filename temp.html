@@ -45,7 +45,7 @@ h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
 	box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
 
 canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none;}
-#id_ram_canvas { display: none; float: left; margin:12px 0 12px 0; padding: 6px 10px 0 10px;
+#id_ram_canvas { display: none; float: left; margin:12px 0 12px 0; padding: 6px 10px 6px 10px;
 	background: #f7f7f7; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);}
 .b0 { float: left; font-size: 18px; margin: 0 8px 0 0;}
 .b1 { float: right; font-size: 18px; padding: 4px 0 0 10px; margin: 14px 0 10px 0;}
@@ -69,25 +69,25 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 	<div class='ram0'>
 	<div id='id_ram0'>
 	<div class='lab2' id='connstatus'>Status: Connenting</div>
-	<div class='lab1'><h1>Температура в комнате<div class='ram1' onClick="EnableChart(1)">
+	<div class='lab1'><h1>Температура в комнате<div class='ram1' onClick="EnableChart(0)">
 	<div class='icoCH'></div></div></h1>
     <div id='id_modT1'><div class="inn">Модуль не подключен</div></div><canvas id='chart_T1'></canvas></div>
 	
-    <div class='lab1'><h1>Температура на улице<div class='ram1' onClick="EnableChart(2)">
+    <div class='lab1'><h1>Температура на улице<div class='ram1' onClick="EnableChart(1)">
     <div class='icoCH'></div></div></h1>
 	<div id='id_modT2'><div class="inn">Модуль не подключен</div></div><canvas id='chart_T2'></canvas></div>
 	
-    <div class='lab1'><h1>Атмосферное давление<div class='ram1' onClick="EnableChart(3)">
+    <div class='lab1'><h1>Атмосферное давление<div class='ram1' onClick="EnableChart(2)">
     <div class='icoCH'></div></div></h1>
 	<div id='id_modBMP'><div class="inn">Модуль не подключен</div></div><canvas id='chart_BMP'></canvas></div>
 	
     <div class='lab2'><h1>Разница температур: <a id='stRT'></a> &degC</h1></div>
 	
-    <div class='lab1'><h1>Влажность в комнате<div class='ram1' onClick="EnableChart(4)">
+    <div class='lab1'><h1>Влажность в комнате<div class='ram1' onClick="EnableChart(3)">
     <div class='icoCH'></div></h1>
 	<div id='id_modH'><div class="inn">Модуль не подключен</div></div><canvas id='chart_H'></canvas></div>
 	
-    <div class='lab1'><h1>Напряжение в сети<div class='ram1' onClick="EnableChart(5)">
+    <div class='lab1'><h1>Напряжение в сети<div class='ram1' onClick="EnableChart(4)">
     <div class='icoCH'></div></div></h1>
 	<div id='id_modV'><div class="inn">Модуль не подключен</div></div><canvas id='chart_V'></canvas></div>
 	
@@ -99,7 +99,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 	<div id='id_ram_canvas'>
 	<div class='ram2' onClick="DisableChart()"><div class='icoBack'></div></div>
 	<div class='b0'>
-	<select id='id_menuCH' class='ed' onChange="MenuChart()">
+	<select id='id_menuCH' class='ed' onChange="MenuInterval()">
   	<option value='1'>Температура в комнате</option>
   	<option value='2'>Температура на улице</option>
   	<option value='3'>Атмосферное давление</option>
@@ -117,7 +117,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 	<canvas id='id_canvas'></canvas>
 	</div>
 	</div>
-	<div class='lab2'>Версия: 20181003-0047</div>
+	<div class='lab2'>Версия: 20181003-1232</div>
 </center>
 </body>
 
@@ -138,7 +138,6 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 		type: 'line',
 		data: {
 			datasets: [{
-				label: 'Volt',
 				backgroundColor: color('#434343').alpha(0.1).rgbString(),
 				borderColor: '#434343',
 				pointRadius: 0,
@@ -192,6 +191,9 @@ function GetMaxMin(days) {
 	dateOffset = (24*60*60*1000) * days; //days
 	DateMAX = new Date();
 	DateMIN.setTime(DateMAX.getTime() - dateOffset);
+	config.options.scales.xAxes[0].time.max = DateMAX;
+	config.options.scales.xAxes[0].time.min = DateMIN;
+	window.myLine.update();
 }
 
 //=============================================================================
@@ -200,13 +202,13 @@ function EnableChart(num) {
     id_ram0.style.display='none';
     var ctx = document.getElementById('id_canvas').getContext('2d');
 	window.myLine = new Chart(ctx, config);
-	id_menuCH.options.selectedIndex = num-1;
+	id_menuCH.options.selectedIndex = num;
 	UpdateChart(num);
 }
 
 //=============================================================================
 function DisableChart() {
-	for (var i = 0; i < Interval; i++) {
+	for (var i = 0; i < config.data.datasets[0].data.length; i++) {
     	config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
     }
 	window.myLine.destroy();
@@ -215,69 +217,63 @@ function DisableChart() {
 }
 
 //=============================================================================
-function MenuChart() {
-	for (var i = 0; i < Interval; i++) {
-    	config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
-    }
-	window.myLine.destroy();
-	EnableChart(id_menuCH.options.selectedIndex+1);
-}
-
-//=============================================================================
 function MenuInterval() {
 	clear = Interval;
-	if (id_menu.value == '1') {
+	switch (id_menu.options.selectedIndex) {
+	case 0:
 		Interval = 1350;
 		GetMaxMin(1);		//1 days
-	}
-	if (id_menu.value == '2') {
+		break;
+	case 1:
 		Interval = 9440;
 		GetMaxMin(7);		//7 days
-	}
-	if (id_menu.value == '3') {
+		break;
+	case 2:
 		Interval = 0;
 		GetMaxMin(30);		//30 days
+		break;
 	}
-	UpdateChart(id_menuCH.options.selectedIndex+1);
+	UpdateChart(id_menuCH.options.selectedIndex);
 }
 
 //=============================================================================
 function UpdateChart(ch) {
-switch (ch) {
-	case 1:
-		config.data.datasets[0].label = 'Температура'
+	switch (ch) {
+	case 0:
+		config.data.datasets[0].label = 'Температура';
 		config.options.scales.yAxes[0].ticks.min = 0;
         config.options.scales.yAxes[0].ticks.max = 30;
         config.options.scales.yAxes[0].ticks.stepSize = 5;
 		LoadChart(1, 1);
 		break;
-	case 2:
-		config.data.datasets[0].label = 'Температура'
+	case 1:
+		config.data.datasets[0].label = 'Температура';
 		config.options.scales.yAxes[0].ticks.min = -10;
         config.options.scales.yAxes[0].ticks.max = 30;
         config.options.scales.yAxes[0].ticks.stepSize = 5;
 		LoadChart(2, 1);
 		break;
-	case 3:
-		config.data.datasets[0].label = 'Давление'
+	case 2:
+		config.data.datasets[0].label = 'Давление';
 		config.options.scales.yAxes[0].ticks.min = 730;
         config.options.scales.yAxes[0].ticks.max = 780;
         config.options.scales.yAxes[0].ticks.stepSize = 10;
 		LoadChart(2, 2);
 		break;
-	case 4:
-		config.data.datasets[0].label = 'Влажность'
+	case 3:
+		config.data.datasets[0].label = 'Влажность';
 		config.options.scales.yAxes[0].ticks.min = 0;
         config.options.scales.yAxes[0].ticks.max = 100;
         config.options.scales.yAxes[0].ticks.stepSize = 10;
 		LoadChart(1, 2);
 		break;
-	case 5:
-		config.data.datasets[0].label = 'Напряжение'
+	case 4:
+		config.data.datasets[0].label = 'Напряжение';
 		config.options.scales.yAxes[0].ticks.min = 150;
         config.options.scales.yAxes[0].ticks.max = 260;
         config.options.scales.yAxes[0].ticks.stepSize = 10;
 		LoadChart(1, 3);
+		break;
 	}
 }
 
@@ -299,10 +295,10 @@ function LoadChart(mod, idx) {
         	var res = tab["result"];
         	if (Interval == 0) {Interval = res.length};
         	if (res.length < 1350) {Interval = res.length};
-        	for (var i = 0; i < clear ; i++) {
+        	for (var i = 0; i < clear; i++) {
     			config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
     		}
-        	for (var i = res.length-Interval; i < res.length ; i++) {
+        	for (var i = res.length-Interval; i < res.length; i++) {
 		 		config.data.datasets[0].data.push({ x: res[i][0], y: res[i][idx] });
 			}
         	window.myLine.update();

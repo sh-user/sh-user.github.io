@@ -32,7 +32,7 @@ input, textarea, button, select, select:focus {outline: none;}
 a {color: #455a64}
 h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
 
-.ram0 {width: 860px; margin:12px 0 12px 0;}
+.ram0 {width: 860px; margin:12px 0 0 0;}
 .lab1 {width: 33.3%;}
 .lab2 {width: 100%;}
 .lab1, .lab2 {float: left;  margin: 0 0 12px 0;}
@@ -113,14 +113,15 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 	<div id='id_Interval'><div class='b0'><p>Интервал</p></div>
     <select id='id_menu' class='ed' onChange="MenuInterval()">
   	<option value='1'>12 часов</option>
-  	<option value='2'>24 часа</option>
-  	<option value='3'>Неделя</option>
-  	<option value='4'>Месяц</option>
+  	<option value='2'>1 день</option>
+  	<option value='3'>3 дня</option>
+  	<option value='4'>7 дней</option>
+  	<option value='5'>30 дней</option>
 	</select>
 	</div>
 	<canvas id='id_canvas'></canvas>
 	</div>
-	<div class='lab2'>Версия: 20181004-0025</div>
+	<div class='lab2'>Версия: 20181004-1024</div>
 </center>
 </body>
 
@@ -191,6 +192,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 //=============================================================================
 function FullChart(){
 	if (flag == 0) {
+		id_ram_canvas.style.minWidth = '550px';
   		id_ram_canvas.style.width = '82%';
 	} else {
   		id_ram_canvas.style.width = '860px';
@@ -238,13 +240,16 @@ function MenuInterval() {
 		GetMaxMin(0.5);		//12 часов
 		break;
 	case 1:
-		GetMaxMin(1);		//24 часа
+		GetMaxMin(1);		//1 день
 		break;
 	case 2:
-		GetMaxMin(7);		//Неделя
+		GetMaxMin(3);		//3 дня
 		break;
 	case 3:
-		GetMaxMin(30);		//Месяц
+		GetMaxMin(7);		//7 дней
+		break;
+	case 4:
+		GetMaxMin(30);		//30 дней
 		break;
 	}
 	UpdateChart(id_menuCH.options.selectedIndex);

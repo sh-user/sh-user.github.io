@@ -31,7 +31,7 @@ input, textarea, button, select, select:focus {outline: none;}
 a {color: #455a64}
 h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
 
-.ram0 {width: 860px; margin:12px 0 0 0;}
+#id_ram0 {width: 860px; margin:12px 0 0 0;}
 .lab1 {width: 33.3%;}
 .lab2 {width: 100%;}
 .lab1, .lab2 {float: left;  margin: 0 0 12px 0;}
@@ -41,7 +41,7 @@ h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
     -moz-border-radius: 117px; border-radius: 117px;}
 .inn { display: table-cell; vertical-align: middle; text-align: center;}
 
-.ed { margin:10px 0px 10px 0; height: 36px; background: #fdfdfe; color: #455a64; font-family: Helvetica; 
+.ed { margin:10px 0px 12px 0; height: 36px; background: #fdfdfe; color: #455a64; font-family: Helvetica; 
 	font-size: 18px; border: 1px solid gray; border-radius: 4px; padding: 6px; 
 	box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
 
@@ -55,7 +55,7 @@ h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
 @-moz-keyframes loader { 100% {-moz-transform: rotate(360deg); transform: rotate(360deg);}}
 @keyframes loader { 100% { transform: rotate(360deg);}}
 
-.loader { margin: 12px 0 0 0; float: left; width: 24px; height: 24px; border: 4px solid #000; 
+.loader { margin: 12px 0 12px 0; float: left; width: 24px; height: 24px; border: 4px solid #000; 
 	border-left-color: #333; border-bottom-color: #555; border-right-color: transparent; border-radius: 100%; 
 	-webkit-animation: loader 0.5s infinite linear; 
 	-moz-animation: loader 0.5s infinite linear; 
@@ -88,7 +88,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 
 <body>
 <center>
-	<div id='id_ram0' class='ram0'>
+	<div id='id_ram0'>
 	<div class='lab2' id='connstatus'>Status: Connenting</div>
 	<div class='lab1'><h1>Температура в комнате<div class='ram1' onclick="EnableChart(0)">
 	<div class='icoCH'></div></div></h1>
@@ -114,7 +114,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 	
     <div class='lab1'><h1>Расход электроэнергии<div class='ram1'><div class='icoCH'></div></div></h1>
 	<div id='id_modP'><div class="inn">Модуль не подключен</div></div><canvas id='chart_P'></canvas></div>
-	<div class='lab2'></div>
+	<!-- <div class='lab2'></div> -->
 	</div>
 
 	<div id='id_ram_canvas'>
@@ -208,6 +208,14 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 			}
 		}
 	};
+
+//=============================================================================
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  //alert('код для мобильных устройств');
+  id_ram_canvas.style.width = '0';
+} else {
+  //alert('код для обычных устройств');
+}
 
 //=============================================================================
 function FullChart(){

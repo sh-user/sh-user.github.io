@@ -114,7 +114,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     <select id='id_menu' class='ed' onChange="MenuInterval()">
   	<option value='1'>12 часов</option>
   	<option value='2'>1 день</option>
-  	<option value='3'>3 дня</option>
+  	<option value='3' selected>3 дня</option>
   	<option value='4'>7 дней</option>
   	<option value='5'>30 дней</option>
 	</select>
@@ -132,7 +132,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 <script type="text/javascript">
 	var interval = 0, clear = 0, flag = 0;
 	
-	var dateOffset = (24*60*60*1000) * 0.5; //1 days
+	var dateOffset = (24*60*60*1000) * 3; //default 3 days
 	var DateMAX = new Date();
 	var DateMIN = new Date();
 	DateMIN.setTime(DateMAX.getTime() - dateOffset);

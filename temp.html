@@ -135,7 +135,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     <div class='icoCH'></div></div></h1>
 	<div id='id_modV'><div class="inn">Модуль не подключен</div></div><canvas id='chart_V'></canvas></div>
 	
-    <div class='lab1'><h1>Расход электроэнергии<div class='ram1'><div class='icoCH'></div></div></h1>
+    <div class='lab1'><h1>Текущая мощность<div class='ram1'><div class='icoCH'></div></div></h1>
 	<div id='id_modP'><div class="inn">Модуль не подключен</div></div><canvas id='chart_P'></canvas></div>
 	</div>
 
@@ -149,7 +149,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
   	<option value='3'>Атмосферное давление</option>
   	<option value='4'>Влажность в комнате</option>
   	<option value='5'>Напряжение в сети</option>
-  	<option value='6' disabled>Расход электроэнергии</option>
+  	<option value='6' disabled>Текущая мощность</option>
 	</select></div>
 	<div id='id_Load'><div class='loader' id='id_loader'></div><div class='b1'>Загрузка... </div></div>
 	<div id='id_Interval'><div class='b0'><p>Интервал</p></div>
@@ -174,7 +174,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 <script type="text/javascript" src="config.js"></script>
 <script type="text/javascript">
 //=============================================================================
-	var interval = 0, clear = 0, flag = 0;
+	var interval = 0, clear = 0, flagCH = 0;
 	
 	var dateOffset = (24*60*60*1000) * 3; //default 3 days
 	var DateMAX = new Date();
@@ -259,6 +259,7 @@ function EnableChart(num) {
     id_ram0.style.display='none';
     var ctx = document.getElementById('id_canvas').getContext('2d');
 	window.myLine = new Chart(ctx, config);
+	flagCH = 1;
 	id_menuCH.options.selectedIndex = num;
 	UpdateChart(num);
 }
@@ -275,6 +276,7 @@ function DisableChart() {
 		window.myLine.destroy();
 		id_ram_canvas.style.display='none';
     	id_ram0.style.display='block';
+    	flagCH = 0;
 	}, 300);
 }
 
@@ -673,7 +675,7 @@ function onConnect() {
 function doFail(e){
 	console.log('doFail:' + e.errorMessage);
     connstatus.innerHTML = 'Status: ' + e.errorMessage;
-    setTimeout(function(){location.reload();}, 10000);
+    setTimeout(function(){if (flagCH == 0) {location.reload();}}, 20000);
 }
 
 //=============================================================================
@@ -682,7 +684,7 @@ function onConnectionLost(e) {
     if (e.errorCode !== 0) {
       console.log('onConnectionLost:' + e.errorMessage);
       connstatus.innerHTML = 'Status: ' + e.errorMessage;
-      setTimeout(function(){location.reload();}, 10000);
+      setTimeout(function(){if (flagCH == 0) {location.reload();}}, 20000);
     }
 }
 

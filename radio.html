@@ -8,10 +8,12 @@
 
 <style>
 body{ background: #cfd8dc; color: #455a64; font-family: Helvetica; font-size: 18px; }
+::selection {background: #a0bbbb;}
+::-moz-selection {background: #a0bbbb;}
 
 input[type="range"] {
   display: block; -webkit-appearance: none; background-color: #455a64; width: 90px; height: 5px;
-  border-radius: 5px; margin: 14px 6px 0 0; outline: 0; float: left;
+   border-radius: 5px; margin: 14px 6px 0 0; outline: 0; float: left;
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none; background-color: #f7f7f7; width: 20px; height: 20px; border-radius: 50%;
@@ -43,13 +45,12 @@ h3 {font-weight:normal; font-size: 14px; margin: 32px 0 12px 0;}
     	<div class='ram2' onclick="audioElement.pause()"><div class='icoPause'></div></div>
  		<input type='range' id='id_a' min='0' max='100' value='10' 
  		oninput="audioElement.volume=parseInt(id_a.value)/100; stVol.innerHTML=parseInt(id_a.value) + '%';"/>
- 		<div class='vol'><a id='stVol'></a></div>
+ 		<div class='vol'><a id='stVol'>20%</a></div>
     </div>
-    <h3>Версия: 20181014-2209</h3>
+    <h3>Версия: 20181014-2251</h3>
 
 <script type="text/javascript">
-	audioElement.volume = 0.1;
-	stVol.innerHTML='10%';
+	audioElement.volume = 0.2;
 
 </script>
 </body>

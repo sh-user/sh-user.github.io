@@ -2,19 +2,36 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name='viewport' content='width=384'>
     <title>Radio</title>
   </head>
-  <script src="gauge.min.js"></script>
 
 <style>
 body{ background: #cfd8dc; color: #455a64; font-family: Helvetica; font-size: 18px; }
 
-.ran {color: #455a64; background: #cfd8dc;}
+input[type="range"] {
+  display: block; -webkit-appearance: none; background-color: #455a64; width: 90px; height: 5px;
+  border-radius: 5px; margin: 14px 6px 0 0; outline: 0; float: left;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; background-color: #f7f7f7; width: 20px; height: 20px; border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); cursor: pointer;
+}​
+input[type="range"]::-webkit-slider-thumb:hover { }
 
-.btn {width: 40px; height: 40px; color: #455a64; font-family: Helvetica; font-size: 18px; font-weight: bold;
-background: linear-gradient(#F7F7F7, #DCDCDC);  border: 1px solid #949494; 
-border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; outline: none; margin: 0px 0 8px 0;}
-.btn:active {background: linear-gradient(#DCDCDC, #F7F7F7);}
+.icoPlay {background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMS4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDYwIDYwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA2MCA2MDsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIxNnB4IiBoZWlnaHQ9IjE2cHgiPgo8Zz4KCTxnPgoJCTxwYXRoIGQ9Ik01My40NzksMjcuNDM1TDEwLjY3MiwwLjkxNUM3LjU1My0xLjEzMiw1LDAuMzc0LDUsNC4yNjF2NTEuNDhjMCwzLjg4NSwyLjU1Myw1LjM5MSw1LjY3MiwzLjM0NiAgICBsNDIuODA3LTI2LjUyYzAsMCwxLjUyMS0xLjA3LDEuNTIxLTIuNTY2UzUzLjQ3OSwyNy40MzUsNTMuNDc5LDI3LjQzNXoiIGZpbGw9IiM0NTVhNjQiLz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K)}
+
+.icoPause {background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMS4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDIzMi42NzkgMjMyLjY3OSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjMyLjY3OSAyMzIuNjc5OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCI+CjxnIGlkPSJQYXVzZSI+Cgk8cGF0aCBzdHlsZT0iZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7IiBkPSJNODAuNTQzLDBIMzUuNzk3Yy05Ljg4NSwwLTE3Ljg5OCw4LjAxNC0xNy44OTgsMTcuODk4djE5Ni44ODMgICBjMCw5Ljg4NSw4LjAxMywxNy44OTgsMTcuODk4LDE3Ljg5OGg0NC43NDZjOS44ODUsMCwxNy44OTgtOC4wMTMsMTcuODk4LTE3Ljg5OFYxNy44OThDOTguNDQsOC4wMTQsOTAuNDI3LDAsODAuNTQzLDB6IE0xOTYuODgyLDAgICBoLTQ0Ljc0NmMtOS44ODYsMC0xNy44OTksOC4wMTQtMTcuODk5LDE3Ljg5OHYxOTYuODgzYzAsOS44ODUsOC4wMTMsMTcuODk4LDE3Ljg5OSwxNy44OThoNDQuNzQ2ICAgYzkuODg1LDAsMTcuODk4LTguMDEzLDE3Ljg5OC0xNy44OThWMTcuODk4QzIxNC43ODEsOC4wMTQsMjA2Ljc2NywwLDE5Ni44ODIsMHoiIGZpbGw9IiM0NTVhNjQiLz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K)}
+
+.icoPlay, .icoPause {width: 16px; height: 16px; margin: 10px 0 0 10px;}
+
+.ram2 { float: left; width: 36px; height: 36px; margin: 0 8px 0 0; 
+    background: #f7f7f7; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
+    -moz-border-radius: 18px; -webkit-border-radius: 18px; border-radius: 18px;}
+.ram2:active {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.0);}
+
+.vol {padding: 6px 0 0 0;}
+h3 {font-weight:normal; font-size: 14px; margin: 32px 0 12px 0;}
 
 </style>
 
@@ -22,60 +39,17 @@ border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; outl
 	<p>Радио</p>
     <audio id="audioElement" crossOrigin="anonymous" preload="auto" src="http://sc-atr.1.fm:7704/"></audio>
     <div>
-      	<button class='btn' onclick="audioElement.play()"> ► </button>
-      	<button class='btn' onclick="audioElement.pause()"> ΙΙ </button>
-		
- 		<input type='range' class='ran' id='a' min='0' max='100' value='10' 
-		oninput="audioElement.volume=parseInt(a.value)/100" 
-		onchange="gaugePS.value = parseInt(a.value)">
+    	<div class='ram2' onclick="audioElement.play()"><div class='icoPlay'></div></div>
+    	<div class='ram2' onclick="audioElement.pause()"><div class='icoPause'></div></div>
+ 		<input type='range' id='id_a' min='0' max='100' value='10' 
+ 		oninput="audioElement.volume=parseInt(id_a.value)/100; stVol.innerHTML=parseInt(id_a.value) + '%';"/>
+ 		<div class='vol'><a id='stVol'></a></div>
     </div>
+    <h3>Версия: 20181014-2209</h3>
 
-<canvas id="gauge-ps"></canvas>
-
-
-<script>
-audioElement.volume = 0.1;
-
-var gaugePS = new RadialGauge({
-    renderTo: 'gauge-ps',
-    width: 250,
-    height: 250,
-    minValue: 0,
-    maxValue: 100,
-    majorTicks: ['0','10','20','30','40','50','60','70','80','90','100'],
-    minorTicks: 5,
-    strokeTicks: false,
-    highlights: false,
-    valueInt: 1,
-    valueDec: 1,
-    colorPlate: "#f7f7f7",
-    colorMajorTicks: "#333333",
-    colorMinorTicks: "#333333",
-    colorNumbers: "#333333",
-    valueBox: true,
-    colorValueText: "#333333",
-    colorValueBoxRect: "transparent",
-    colorValueBoxRectEnd: "transparent",
-    colorValueBoxBackground: "transparent",
-    colorValueBoxShadow: false,
-    colorValueTextShadow: false,
-    colorNeedleShadowUp: true,
-    colorNeedleShadowDown: false,
-    colorNeedle: "rgba(200, 50, 50, .75)",
-    colorNeedleEnd: "rgba(200, 50, 50, .75)",
-    borderShadowWidth: 5,
-    needleType: "arrow",
-    needleWidth: 6,
-    needleCircleSize: 12,
-    animationDuration: 300,
-    animationRule: "dequint",
-    fontNumbersSize: 24,
-    fontValueSize: 46,
-    animatedValue: true
-});
-gaugePS.draw();
-gaugePS.value = "10";
-
+<script type="text/javascript">
+	audioElement.volume = 0.1;
+	stVol.innerHTML='10%';
 
 </script>
 </body>

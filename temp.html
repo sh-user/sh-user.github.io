@@ -419,26 +419,8 @@ var PS6 = new RadialGauge({
     animatedValue: true
   });
 
-  var stint = setInterval(function() {
-  	PS1.value = temp1;
-    PS1.draw();
-    PS2.value = temp2;
-    PS2.draw();
-    var RT = parseFloat(temp2) - parseFloat(temp1);
-    RT = RT.toFixed(1);
-    if (RT < 0) {RT = RT/-1;}  
-    stRT.innerHTML = RT;
-    PS3.value = humidity;
-    PS3.draw();
-    PS4.value = volt;
-    PS4.draw();
-    PS5.value = bmp;
-    PS5.draw();
-    PS6.draw();
-  }, 400);
-
  // Create a client instance
-  client = new Paho.MQTT.Client("m23.cloudmqtt.com", 33492, "web_" + parseInt(Math.random() * 100, 10));
+  client = new Paho.MQTT.Client(server, port, "web_" + parseInt(Math.random() * 100, 10));
   // set callback handlers
   client.onConnectionLost = onConnectionLost;
   client.onMessageArrived = onMessageArrived;
@@ -457,7 +439,7 @@ var PS6 = new RadialGauge({
 function onConnect() {
     // Once a connection has been made, make a subscription and send a message.
     connstatus.innerHTML = "Status: Connected";
-    console.log("onConnect");
+    //console.log("onConnect");
     client.subscribe("ESP12/Status");
     client.subscribe("ESP12/T");
     client.subscribe("ESP12/T2");
@@ -490,35 +472,49 @@ function onConnectionLost(e) {
 //=============================================================================
 // called when a message arrives
 function onMessageArrived(message) {
-    //console.log(message.destinationName + ':' + message.payloadString);
+    // console.log(message.destinationName + ':' + message.payloadString);
     
   //   if (message.destinationName == 'ESP12/Status') {
 		// if (message.payloadString = '1')
 		// mod1 = 0; mod2 = 0;
 		// console.log('mod1=' + mod1 + ' mod2=' + mod2);
   //   }
+
     //температура на улице
-	if (message.destinationName == 'ESP12/T2') {temp2 = message.payloadString; 
-		id_modT2.style.display = 'none'; chart_T2.style.display = 'block';}
+	if (message.destinationName == 'ESP12/T2') {
+		id_modT2.style.display = 'none'; chart_T2.style.display = 'block';
+		PS2.value = message.payloadString; PS2.draw();
+	}
 	//температура в комнате
-	if (message.destinationName == 'ESP12/T') {temp1 = message.payloadString; 
-		id_modT1.style.display = 'none'; chart_T1.style.display = 'block';}
+	if (message.destinationName == 'ESP12/T') {
+		id_modT1.style.display = 'none'; chart_T1.style.display = 'block';
+		PS1.value = message.payloadString; PS1.draw(); 
+		}
 	//влажность в комнате
-	if (message.destinationName == 'ESP12/H') {humidity = message.payloadString; 
-		id_modH.style.display = 'none'; chart_H.style.display = 'block';}
+	if (message.destinationName == 'ESP12/H') {
+		id_modH.style.display = 'none'; chart_H.style.display = 'block';
+		PS3.value = message.payloadString; PS3.draw(); 
+		}
 	//напряжение в сети
-	if (message.destinationName == 'ESP12/V') {volt = message.payloadString; 
-		id_modV.style.display = 'none'; chart_V.style.display = 'block'; 
+	if (message.destinationName == 'ESP12/V') {
+		id_modV.style.display = 'none'; chart_V.style.display = 'block';
+		PS4.value = message.payloadString; PS4.draw();	 
 	}
 	//атмосферное давление
-	if (message.destinationName == 'ESP12/BMP180') {bmp = message.payloadString; 
-		id_modBMP.style.display = 'none'; chart_BMP.style.display = 'block'; 
+	if (message.destinationName == 'ESP12/BMP180') {
+		id_modBMP.style.display = 'none'; chart_BMP.style.display = 'block';
+		PS5.value = message.payloadString; PS5.draw();
 	}
-
 	//setTimeout(function(){
 		//if (mod1 = 0) { id_modT1.style.display = 'block'; chart_T1.style.display = 'none';}
 		//if (mod2 = 0) { id_modT2.style.display = 'block'; chart_T2.style.display = 'none';}
 	//},30000);}
+
+    var RT = parseFloat(PS2.value) - parseFloat(PS1.value);
+    RT = RT.toFixed(1);
+    if (RT < 0) {RT = RT/-1;}  
+    stRT.innerHTML = RT;
+    PS6.draw();
 }
 
 //=============================================================================

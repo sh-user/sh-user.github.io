@@ -162,7 +162,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 	</div>
 	<canvas id='id_canvas'></canvas>
 	</div>
-	<div class='lab2'>Версия: 20181021-1258</div>
+	<div class='lab2'>Версия: 20181022-1850</div>
 </center>
 </body>
 
@@ -535,6 +535,7 @@ function onMessageArrived(message) {
 	var config = {
 		type: 'line',
 		data: {
+			labels: [],
 			datasets: [{
 				backgroundColor: color('#434343').alpha(0.1).rgbString(),
 				borderColor: '#434343',
@@ -667,7 +668,7 @@ function UpdateChart(ch) {
 		config.options.scales.yAxes[0].ticks.min = 0;
         config.options.scales.yAxes[0].ticks.max = 100;
         config.options.scales.yAxes[0].ticks.stepSize = 10;
-        if (f03 == 1) { LoadChart(2);} else { GetData(1, 2); f03 = 1; }
+        if (f03 == 1) { LoadChart(2);} else { GetData(1, 2); f03 = 1;}
 		break;
 	case 4:
 		config.data.datasets[0].label = 'Напряжение';
@@ -682,6 +683,8 @@ function UpdateChart(ch) {
 //=============================================================================
 function LoadChart(idx) {
 	for (var i = 0; i < interval; i++) {
+		//config.data.labels.splice(-1, 1); // remove the label first
+		config.data.labels.shift();
     	config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
     }
     switch (id_menu.options.selectedIndex) {
@@ -692,7 +695,9 @@ function LoadChart(idx) {
 	case 4: interval = in30; break;
 	}
     for (var i = res.length-interval; i < res.length; i++) {
-		config.data.datasets[0].data.push({ x: res[i][0], y: res[i][idx] });
+		config.data.labels.push(res[i][0]);					//x
+    	config.data.datasets[0].data.push(res[i][idx]);		//y
+		//config.data.datasets[0].data.push({ x: res[i][0], y: res[i][idx] });
 	}
     window.myLine.update();
     id_Interval.style.display='block';

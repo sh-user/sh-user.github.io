@@ -162,7 +162,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 	</div>
 	<canvas id='id_canvas'></canvas>
 	</div>
-	<div class='lab2'>Версия: 20181022-1850</div>
+	<div class='lab2'>Версия: 20181102-2345</div>
 </center>
 </body>
 
@@ -694,6 +694,7 @@ function LoadChart(idx) {
 	case 3: interval = in7; break;
 	case 4: interval = in30; break;
 	}
+	if (interval == 0) {interval = res.length;}
     for (var i = res.length-interval; i < res.length; i++) {
 		config.data.labels.push(res[i][0]);					//x
     	config.data.datasets[0].data.push(res[i][idx]);		//y
@@ -728,12 +729,12 @@ function GetData(mod, idx) {
         	res = tab["result"];
 			var cmp = 0;
 			for (var i = 1; cmp < 1; i++) {
-				if (off12 > new Date(res[res.length-i][0]) && in12 == 0) { in12 = i; };
-				if (off1 > new Date(res[res.length-i][0]) && in1 == 0) { in1 = i; };
-				if (off3 > new Date(res[res.length-i][0]) && in3 == 0) { in3 = i; };
-				if (off7 > new Date(res[res.length-i][0]) && in7 == 0) { in7 = i; };
-				if (off30 > new Date(res[res.length-i][0])) { cmp = 1; };
-				if (res.length-i == 0) {cmp = 1;};
+				if (off12 > new Date(res[res.length-i][0]) && in12 == 0) { in12 = i; }
+				if (off1 > new Date(res[res.length-i][0]) && in1 == 0) { in1 = i; }
+				if (off3 > new Date(res[res.length-i][0]) && in3 == 0) { in3 = i; }
+				if (off7 > new Date(res[res.length-i][0]) && in7 == 0) { in7 = i; }
+				if (off30 > new Date(res[res.length-i][0])) { cmp = 1; }
+				if (res.length-i == 0) {cmp = 1;}
 				in30 = i;
     		}
     		LoadChart(idx);

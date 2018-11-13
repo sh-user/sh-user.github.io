@@ -602,10 +602,10 @@ function DisableChart() {
 	id_ram_canvas.classList.remove("plus");
 	id_ram_canvas.classList.add("minus");
 	f00 = 0; f01 = 0; f02 = 0; f03 = 0; f04 = 0;
-	setTimeout(function(){
-		for (var i = 0; i < interval; i++) {
+	for (var i = 0; i < interval; i++) {
     		config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
     	}
+	setTimeout(function(){
     	window.myLine.update();
 		window.myLine.destroy();
 		id_ram_canvas.style.display='none';
@@ -636,7 +636,7 @@ function MenuInterval(upd) {
 	}
 	id_Interval.style.display='none';
     id_Load.style.display='block';
-	setTimeout(function(){UpdateChart(id_menuCH.options.selectedIndex);}, 10); 
+	setTimeout(function(){UpdateChart(id_menuCH.options.selectedIndex);}, 20); 
 }
 
 //=============================================================================

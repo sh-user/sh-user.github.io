@@ -89,7 +89,8 @@ function GetRoute() {
 	log.value = '';
 	myAddress(id_A1.value);
 	setTimeout( function(){myAddress(id_A2.value);}, 400);
-	setTimeout( function(){location.href=RouteURL + strRoute.slice(0,-1);}, 1500);
+	//setTimeout( function(){location.href=RouteURL + strRoute.slice(0,-1);}, 1500);
+	setTimeout( function(){window.open(RouteURL + strRoute.slice(0,-1), '_blank');}, 2000);
 }
 
 </script>

@@ -2,6 +2,7 @@
 <head>
 <meta charset='utf-8'>
 <meta name='viewport' content='width=384'>
+<meta http-equiv='Access-Control-Allow-Origin' content='*'>
 <title>Маршрут</title>
 
 <style>
@@ -57,21 +58,32 @@ var strRoute = '';
 id_A1.value = 'Гвардейский проспект, Северодонецк, Украина';
 id_A2.value = 'Хрещатик, Киев, Украина';
 
+//=============================================================================
+var xmlhttp = new XMLHttpRequest();
+var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+var xhr = new XHR();
+
+//=============================================================================
 function myAddress(strA) {
     var unicode = encodeURI(strA);
     var URL = 'http://nominatim.openstreetmap.org/search?q='+unicode+'&format=json';
-    var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
+    //var xhttp = new XMLHttpRequest();
+	//xhttp.onreadystatechange = function() {
+    //if (this.readyState == 4 && this.status == 200) {
+    //xmlhttp.open('GET', URL, true);
+    xmlhttp.onload = function() {
     	var myObj = JSON.parse(this.responseText);
 		log.value += myObj[0].display_name+'\nlat: '+myObj[0].lat+'\nlon: '+myObj[0].lon+'\n\r';
 		strRoute += myObj[0].lat+','+myObj[0].lon+';';
 	}
-	};
-	xhttp.open('GET', URL, true);
-	xhttp.send();
+	//};
+	//xhttp.open('GET', URL, true);
+	//xhttp.send();
+	xmlhttp.open('GET', URL, true);
+	xmlhttp.send();
 }
 
+//=============================================================================
 function GetRoute() {
 	strRoute ='';
 	log.value = '';

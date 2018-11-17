@@ -56,7 +56,7 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 var RouteURL = 'https://www.openstreetmap.org/directions?engine=graphhopper_bicycle&route=';
 var strRoute = '';
 id_A1.value = 'Гвардейский проспект, Северодонецк, Украина';
-id_A2.value = 'Хрещатик, Киев, Украина';
+id_A2.value = 'Харьков, Украина';
 
 //=============================================================================
 var xmlhttp = new XMLHttpRequest();
@@ -88,7 +88,7 @@ function GetRoute() {
 	strRoute ='';
 	log.value = '';
 	myAddress(id_A1.value);
-	setTimeout( function(){myAddress(id_A2.value);}, 400);
+	setTimeout( function(){myAddress(id_A2.value);}, 1000);
 	//setTimeout( function(){location.href=RouteURL + strRoute.slice(0,-1);}, 1500);
 	setTimeout( function(){window.open(RouteURL + strRoute.slice(0,-1), '_blank');}, 2000);
 }

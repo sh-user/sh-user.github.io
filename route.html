@@ -67,18 +67,11 @@ var xhr = new XHR();
 function myAddress(strA) {
     var unicode = encodeURI(strA);
     var URL = 'https://nominatim.openstreetmap.org/search?q='+unicode+'&format=json';
-    //var xhttp = new XMLHttpRequest();
-	//xhttp.onreadystatechange = function() {
-    //if (this.readyState == 4 && this.status == 200) {
-    //xmlhttp.open('GET', URL, true);
     xmlhttp.onload = function() {
     	var myObj = JSON.parse(this.responseText);
 		log.value += myObj[0].display_name+'\nlat: '+myObj[0].lat+'\nlon: '+myObj[0].lon+'\n\r';
 		strRoute += myObj[0].lat+','+myObj[0].lon+';';
 	}
-	//};
-	//xhttp.open('GET', URL, true);
-	//xhttp.send();
 	xmlhttp.open('GET', URL, true);
 	xmlhttp.send();
 }
@@ -89,8 +82,8 @@ function GetRoute() {
 	log.value = '';
 	myAddress(id_A1.value);
 	setTimeout( function(){myAddress(id_A2.value);}, 1000);
-	//setTimeout( function(){location.href=RouteURL + strRoute.slice(0,-1);}, 1500);
 	setTimeout( function(){window.open(RouteURL + strRoute.slice(0,-1), '_blank');}, 2000);
+	//setTimeout( function(){location.href=RouteURL + strRoute.slice(0,-1);}, 1500);
 }
 
 </script>

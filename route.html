@@ -59,21 +59,17 @@ id_A1.value = 'Гвардейский проспект, Северодонецк
 id_A2.value = 'Харьков, Украина';
 
 //=============================================================================
-var xmlhttp = new XMLHttpRequest();
-var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
-var xhr = new XHR();
-
-//=============================================================================
 function myAddress(strA) {
+	var xhttp = new XMLHttpRequest();
     var unicode = encodeURI(strA);
     var URL = 'https://nominatim.openstreetmap.org/search?q='+unicode+'&format=json';
-    xmlhttp.onload = function() {
+    xhttp.onload = function() {
     	var myObj = JSON.parse(this.responseText);
 		log.value += myObj[0].display_name+'\nlat: '+myObj[0].lat+'\nlon: '+myObj[0].lon+'\n\r';
 		strRoute += myObj[0].lat+','+myObj[0].lon+';';
 	}
-	xmlhttp.open('GET', URL, true);
-	xmlhttp.send();
+	xhttp.open('GET', URL, true);
+	xhttp.send();
 }
 
 //=============================================================================
@@ -84,6 +80,20 @@ function GetRoute() {
 	setTimeout( function(){myAddress(id_A2.value);}, 1000);
 	setTimeout( function(){window.open(RouteURL + strRoute.slice(0,-1), '_blank');}, 2000);
 	//setTimeout( function(){location.href=RouteURL + strRoute.slice(0,-1);}, 1500);
+}
+
+//=============================================================================
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  //alert('код для мобильных устройств');
+  document.body.style.backgroundColor = '#cfd8dc';
+  lay1.style.border = '0'; 
+  lay1.style.margin = '0';
+  lay1.style.width = '100%';
+  lay1.style.boxShadow = 'none'; 
+  lay1.style.MozBoxShadow = 'none';
+  lay1.style.webkitBoxShadow = 'none';
+} else {
+  //alert('код для обычных устройств');
 }
 
 </script>

@@ -14,11 +14,9 @@ h1 {font-size: 30px; margin: -4px 0 0 0;}
 h3 {width: 354px; margin: 0 4px 12px 0;}
 h1, h3 {font-weight:normal;}
 
-.ed {height: 36px; width: 72px; margin: -5px 0 0 0; }
-.ed2 {height: 24px; width: 340px;}
-.ed3 {width: 340px; resize: none; margin: 0 0 -5px 0;}
-.ed, .ed2, .ed3 {background: #fdfdfe; color: #455a64; font-family: Helvetica; font-size: 18px; 
-border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
+.ed0 {width: 340px; resize: none; margin: 0 0 -5px 0; background: #fdfdfe; color: #455a64; 
+	font-family: Helvetica; font-size: 18px; border: 1px solid gray; border-radius: 4px; 
+	padding: 6px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
 
 #lay1 {width: 354px; padding: 0; margin: 12px auto;  border-radius: 4px;
 box-shadow: 0 0 10px rgba(0,0,0,0.3); -moz-box-shadow: 0 0 10px rgba(0,0,0,0.3); -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.3);
@@ -41,11 +39,11 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 <div class='ram0'>
 	<h1>Маршрут</h1>
 	<hr>
-	<p><textarea class='ed3' id='id_A1' rows='2' placeholder='Старт' autocomplete='off' spellcheck='false' 
+	<p><textarea class='ed0' id='id_A1' rows='2' placeholder='Старт' autocomplete='off' spellcheck='false' 
 	onkeydown ="if (event.keyCode == 13) { log.value = ''; myAddress(id_A1.value); id_A1.blur();}"></textarea></p>
-	<p><textarea class='ed3' id='id_A2' rows='2' placeholder='Финиш' autocomplete='off' spellcheck='false' 
+	<p><textarea class='ed0' id='id_A2' rows='2' placeholder='Финиш' autocomplete='off' spellcheck='false' 
 	onkeydown ="if (event.keyCode == 13) { log.value = ''; myAddress(id_A2.value); id_A2.blur();}"></textarea></p>
-	<p><textarea readonly class='ed3' id='log' rows='14'></textarea></p>
+	<p><textarea readonly class='ed0' id='log' rows='14'></textarea></p>
 	<p><input class='btn' type='button' value='Проложить маршрут' onClick="GetRoute();"/></p>
 	<p class='ver'>Версия: 20181117-2228</p>
 </div>
@@ -56,7 +54,6 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 <script type="text/javascript">
 var RouteURL = 'https://www.openstreetmap.org/directions?engine=graphhopper_bicycle&route=';
 var strRoute = '';
-var strArea = '';
 id_A1.value = 'Гвардейский проспект, Северодонецк, Украина';
 id_A2.value = 'Хрещатик, Киев, Украина';
 
@@ -66,14 +63,9 @@ function myAddress(strA) {
     var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-    	//console.log(this.responseText);
     	var myObj = JSON.parse(this.responseText);
-    	var strAdrress = myObj[0].display_name;
-		var strLat = myObj[0].lat;
-		var strLon = myObj[0].lon;
-		strArea += strAdrress+'\nlat: '+strLat+'\nlon: '+strLon+'\n\r';
-		log.value = strArea; 
-		strRoute += strLat+','+strLon+';';
+		log.value += myObj[0].display_name+'\nlat: '+myObj[0].lat+'\nlon: '+myObj[0].lon+'\n\r';
+		strRoute += myObj[0].lat+','+myObj[0].lon+';';
 	}
 	};
 	xhttp.open('GET', URL, true);
@@ -82,7 +74,7 @@ function myAddress(strA) {
 
 function GetRoute() {
 	strRoute ='';
-	strArea = '';
+	log.value = '';
 	myAddress(id_A1.value);
 	setTimeout( function(){myAddress(id_A2.value);}, 400);
 	setTimeout( function(){location.href=RouteURL + strRoute.slice(0,-1);}, 1500);

@@ -133,7 +133,7 @@ recognizer.onresult = function (event) {
       if (id_A2.value == '') {id_A2.value = result[0].transcript;}
       if (id_A1.value == '' || id_A2.value == '') {recognizer.start();}
       if (id_A1.value != '' && id_A2.value != '') {
-            speak('Маршрут до : ' + id_A2.value;)
+            speak('Маршрут до : ' + id_A2.value);
       		GetRoute();
       }
     } else {

@@ -55,8 +55,8 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 <script type="text/javascript">
 var RouteURL = 'https://www.openstreetmap.org/directions?engine=graphhopper_bicycle&route=';
 var strRoute = '';
-id_A1.value = 'Гвардейский проспект, Северодонецк, Украина';
-id_A2.value = 'Харьков, Украина';
+id_A1.value = 'Озёрная 181, Боровское, Украина';
+//id_A2.value = 'Харьков, Украина';
 
 //=============================================================================
 function myAddress(strA) {
@@ -94,6 +94,73 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
   lay1.style.webkitBoxShadow = 'none';
 } else {
   //alert('код для обычных устройств');
+}
+
+//================================================================
+if ('webkitSpeechRecognition' in window) {
+  var recognizer = new webkitSpeechRecognition();
+  // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
+  recognizer.interimResults = true;
+  recognizer.lang = 'ru-Ru';
+  //recognizer.lang = 'en-US';
+  //recognizer.continuous = true;
+  //recognizer.maxAlternatives = 1;
+  recognizer.start();
+}
+  var synth = window.speechSynthesis;
+  var voices = speechSynthesis.getVoices();
+  var utterance = new SpeechSynthesisUtterance();
+  utterance.voice = voices[0];
+  //utterance.voice = voices[1];
+  utterance.lang = 'ru-Ru'; 
+  //setTimeout(function(){ txtVoice.innerHTML = synth.getVoices()[1].name;},100);
+  
+// //================================================================
+// function btn_TR() {
+//   rec_str = txtIN.value; 
+//   if (txtIN.value != '') {
+//     if (r1.checked) { URL = RUEN + txtIN.value; }
+//     else {URL = ENRU + txtIN.value;}
+//     xhr.open('GET', URL, true);
+//     xhr.send();
+//   } else { recognizer.start();}
+// }
+
+//================================================================
+//Используем колбек для обработки результатов
+recognizer.onresult = function (event) {
+    var result = event.results[event.resultIndex];
+    if (result.isFinal) {
+      id_A2.value = result[0].transcript + ', Боровское, Украина';
+      speak('Маршрут к : ' + result[0].transcript);
+      GetRoute();
+    } else {
+      console.log('result: ', result[0].transcript);
+    }
+}
+
+//================================================================
+recognizer.onstart = function() {
+  rec_flag = true;
+}
+
+//================================================================
+recognizer.onend = function() {
+  rec_flag = false;
+  recognizer.start();
+}
+
+//================================================================
+utterance.onend = function() { 
+  if (rec_flag == false) {recognizer.start();}
+}
+
+//================================================================
+function speak(str){
+  recognizer.stop();
+  if (speechSynthesis.speaking) return; 
+  utterance.text = str;
+  speechSynthesis.speak(utterance);   //воспроизведение фразы
 }
 
 </script>

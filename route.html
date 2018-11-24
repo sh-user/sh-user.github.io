@@ -46,7 +46,7 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 	onkeydown ="if (event.keyCode == 13) { log.value = ''; myAddress(id_A2.value); id_A2.blur();}"></textarea></p>
 	<p><textarea readonly class='ed0' id='log' rows='14'></textarea></p>
 	<p><input class='btn' type='button' value='Проложить маршрут' onClick="GetRoute();"/></p>
-	<p class='ver'>Версия: 20181117-2228</p>
+	<p class='ver'>Версия: 20181124-2216</p>
 </div>
 </td></tr>
 </table>
@@ -129,9 +129,13 @@ if ('webkitSpeechRecognition' in window) {
 recognizer.onresult = function (event) {
     var result = event.results[event.resultIndex];
     if (result.isFinal) {
-      id_A2.value = result[0].transcript + ', Боровское, Украина';
-      speak('Маршрут к : ' + result[0].transcript);
-      GetRoute();
+      if (id_A1.value == '') {id_A1.value = result[0].transcript;}
+      if (id_A2.value == '') {id_A2.value = result[0].transcript;}
+      if (id_A1.value == '' || id_A2.value == '') {recognizer.start();}
+      if (id_A1.value != '' && id_A2.value != '') {
+            speak('Маршрут до : ' + id_A2.value;)
+      		GetRoute();
+      }
     } else {
       console.log('result: ', result[0].transcript);
     }

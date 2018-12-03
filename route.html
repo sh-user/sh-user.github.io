@@ -57,7 +57,7 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 #parent {float: left; width: 100%; display: table; margin: 4px 0 8px 0;}
 .btn { text-align: center;  height: 55px; display: table-cell; vertical-align: middle; 
 	color: #FFF; font-family: Helvetica; font-size: 18px;
- 	background: #00b050; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
+ 	background: #455a64; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
 	-moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
 	-webkit-user-select: none;-moz-user-select: none; -ms-user-select: none; user-select: none;}
 .btn:active {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.0);}
@@ -96,7 +96,7 @@ input[type=radio]:checked + label { background-image: none; background: #455a64;
 	onkeydown ="if (event.keyCode == 13) { log.value = ''; myAddress(id_A2.value); id_A2.blur();}"></textarea>
 	<div class='ram2' onclick="rec = 3; recognizer.start();"><div class='icoMic'></div></div>
 	<div class='ram1'></div>
-	<textarea readonly class='ed1' id='log' rows='10'></textarea>
+	<textarea readonly class='ed1' id='log' rows='8'></textarea>
 	<div class='ram1'></div>
 	<div id='parent'><div class='btn' onclick="GetRoute()"><label>Проложить маршрут</label></div></div>
 <!-- 	<p><input class='btn' type='button' value='Проложить маршрут' onClick="GetRoute();"/></p> -->

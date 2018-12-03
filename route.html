@@ -222,11 +222,12 @@ recognizer.onresult = function (event) {
 				myAddress(id_A1.value); 
 				break;	
 		case 3: id_A2.value = result[0].transcript + ', ' + id_A0.value; 	//Финиш
-				log.value = '';
-				myAddress(id_A2.value); 		
 				if (id_A1.value != '' && id_A2.value != '') {
             		speak('Маршрут, ' + id_A2.value);
       				GetRoute();
+      			} else {
+      				log.value = '';
+					myAddress(id_A2.value); 
       			}
       			break;	
 		}

@@ -27,7 +27,7 @@ input, textarea, button, select, select:focus {outline: none;}
 
 .icoMic {width: 32px; height: 32px; margin: 10px 0 0 12px;}
 .icoMan, .icoMan2, .icoBicycle, .icoBicycle2, .icoCar, .icoCar2 {width: 32px; height: 32px; 
-	margin: 12px 40px 12px 40px;}
+	margin: 2px 40px 2px 40px;}
 
 h1 {font-size: 30px; margin: -4px 0 0 0;}
 h3 {width: 354px; margin: 0 4px 12px 0;}
@@ -63,10 +63,11 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 .btn:active {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.0);}
 
 input[type=radio] {display:none;}
-input[type=radio] + label {display:inline-block; width: 115px;
-	background: #f7f7f7; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
-    -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;}
-input[type=radio]:checked + label { background-image: none; background: #455a64; }
+input[type=radio] + label {display:inline-block; width: 115px; padding: 3px 0 3px 0;
+	background: #f7f7f7; color: #455a64; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
+    -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
+	text-align: center; font-family: Helvetica; font-size: 14px;}
+input[type=radio]:checked + label { background-image: none; color: #FFF; background: #455a64; }
 
 .ver {font-size: 14px; float: left; margin: 4px 0 12px 0;}
 </style>
@@ -78,11 +79,11 @@ input[type=radio]:checked + label { background-image: none; background: #455a64;
 	<h1>Маршрут</h1>
 	<hr>
 	<input type='radio' id='r1' name='rad1' value='1' onClick='SW1()'>
-	<label for='r1' id='id_r1'><div id='id_Man' class='icoMan'></div></label>
+	<label for='r1' id='id_r1'><div id='id_Man' class='icoMan'></div>Пешком</label>
     <input type='radio' id='r2' name='rad2' value='2' checked onClick='SW2()'>
-    <label for='r2' id='id_r2'><div id='id_Bicycle' class='icoBicycle'></div></label>
+    <label for='r2' id='id_r2'><div id='id_Bicycle' class='icoBicycle'></div>На велосипеде</label>
     <input type='radio' id='r3' name='rad3' value='3' onClick='SW3()'>
-    <label for='r3' id='id_r3'><div id='id_Car' class='icoCar'></div></label>
+    <label for='r3' id='id_r3'><div id='id_Car' class='icoCar'></div>На машине</label>
     <div class='ram1'></div>
 	<textarea class='ed0' id='id_A0' rows='2' placeholder='Город' autocomplete='off' spellcheck='false' 
 	onkeydown ="if (event.keyCode == 13) { log.value = ''; myAddress(id_A0.value); id_A0.blur();}"></textarea>
@@ -99,17 +100,15 @@ input[type=radio]:checked + label { background-image: none; background: #455a64;
 	<textarea readonly class='ed1' id='log' rows='8'></textarea>
 	<div class='ram1'></div>
 	<div id='parent'><div class='btn' onclick="GetRoute()"><label>Проложить маршрут</label></div></div>
-<!-- 	<p><input class='btn' type='button' value='Проложить маршрут' onClick="GetRoute();"/></p> -->
-	<p class='ver'>Версия: 20181203-2309</p>
+	<p class='ver'>Версия: 20181204-1550</p>
 </div>
 </td></tr>
 </table>
 </body>
 
 <script type="text/javascript">
-var RouteURL = 'https://www.openstreetmap.org/directions?engine=graphhopper_bicycle&route=';
-var strRoute = '';
-var rec = 0;
+var RouteURL = 'https://www.openstreetmap.org/directions?engine=';
+var strGraph = 'graphhopper_bicycle', strRoute = '', rec = 0;
 SW2();
 //=============================================================================
 function myAddress(strA) {
@@ -131,15 +130,20 @@ function GetRoute() {
 	log.value = '';
 	myAddress(id_A1.value);
 	setTimeout( function(){myAddress(id_A2.value);}, 1000);
-	setTimeout( function(){window.open(RouteURL + strRoute.slice(0,-1), '_blank');}, 2000);
+	strRoute = '&route=' + strRoute.slice(0,-1);
+	setTimeout( function(){window.open(RouteURL + strGraph + strRoute, '_blank');}, 2000);
 	//setTimeout( function(){location.href=RouteURL + strRoute.slice(0,-1);}, 1500);
 }
 
 //================================================================
 function SW1() {
+	strGraph = 'graphhopper_foot';
 	id_r1.style.background = '#455a64';
 	id_r2.style.background = '#f7f7f7';
 	id_r3.style.background = '#f7f7f7';
+	id_r1.style.color = '#FFF';
+	id_r2.style.color = '#455a64';
+	id_r3.style.color = '#455a64';
 	id_Car.classList.remove("icoCar2");
 	id_Car.classList.add("icoCar");
 	id_Bicycle.classList.remove("icoBicycle2");
@@ -150,9 +154,13 @@ function SW1() {
 
 //================================================================
 function SW2() {
+	strGraph = 'graphhopper_bicycle';
 	id_r1.style.background = '#f7f7f7';
 	id_r2.style.background = '#455a64';
 	id_r3.style.background = '#f7f7f7';
+	id_r1.style.color = '#455a64';
+	id_r2.style.color = '#FFF';
+	id_r3.style.color = '#455a64';
 	id_Man.classList.remove("icoMan2");
 	id_Man.classList.add("icoMan");
 	id_Car.classList.remove("icoCar2");
@@ -163,9 +171,13 @@ function SW2() {
 
 //================================================================
 function SW3() {
+	strGraph = 'graphhopper_car';
 	id_r1.style.background = '#f7f7f7';
 	id_r2.style.background = '#f7f7f7';
 	id_r3.style.background = '#455a64';
+	id_r1.style.color = '#455a64';
+	id_r2.style.color = '#455a64';
+	id_r3.style.color = '#FFF';
 	id_Man.classList.remove("icoMan2");
 	id_Man.classList.add("icoMan");
 	id_Bicycle.classList.remove("icoBicycle2");
@@ -213,15 +225,17 @@ recognizer.onresult = function (event) {
     var result = event.results[event.resultIndex];
     if (result.isFinal) {
       switch (rec) {
-		case 1: id_A0.value = result[0].transcript; log.value = ''; 		//Город
+		case 1: id_A0.value = result[0].transcript;		//Город
 				log.value = '';
 				myAddress(id_A0.value); 	
 				break;	
-		case 2:	id_A1.value = result[0].transcript + ', ' + id_A0.value; 	//Старт
+		case 2: if (id_A0.value == '') {id_A1.value = result[0].transcript; } 
+				else {id_A1.value = result[0].transcript + ', ' + id_A0.value; }
 				log.value = '';
 				myAddress(id_A1.value); 
 				break;	
-		case 3: id_A2.value = result[0].transcript + ', ' + id_A0.value; 	//Финиш
+		case 3: if (id_A0.value == '') {id_A2.value = result[0].transcript; } 
+				else {id_A2.value = result[0].transcript + ', ' + id_A0.value; }
 				if (id_A1.value != '' && id_A2.value != '') {
             		speak('Маршрут, ' + id_A2.value);
       				GetRoute();

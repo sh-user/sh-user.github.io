@@ -57,7 +57,7 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 #parent {float: left; width: 100%; display: table; margin: 4px 0 8px 0;}
 .btn { text-align: center;  height: 55px; display: table-cell; vertical-align: middle; 
 	color: #FFF; font-family: Helvetica; font-size: 18px;
- 	background: #0e88d2; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
+ 	background: #455a64; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
 	-moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
 	-webkit-user-select: none;-moz-user-select: none; -ms-user-select: none; user-select: none;}
 .btn:active {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.0);}
@@ -67,7 +67,7 @@ input[type=radio] + label {display:inline-block; width: 115px; padding: 3px 0 3p
 	background: #f7f7f7; color: #455a64; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
     -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
 	text-align: center; font-family: Helvetica; font-size: 14px;}
-input[type=radio]:checked + label { background-image: none; color: #FFF; background: #0e88d2; }
+input[type=radio]:checked + label { background-image: none; color: #FFF; background: #455a64; }
 
 .ver {font-size: 14px; float: left; margin: 4px 0 12px 0;}
 </style>
@@ -138,7 +138,7 @@ function GetRoute() {
 //================================================================
 function SW1() {
 	strGraph = 'graphhopper_foot';
-	id_r1.style.background = '#0e88d2';
+	id_r1.style.background = '#455a64';
 	id_r2.style.background = '#f7f7f7';
 	id_r3.style.background = '#f7f7f7';
 	id_r1.style.color = '#FFF';
@@ -156,7 +156,7 @@ function SW1() {
 function SW2() {
 	strGraph = 'graphhopper_bicycle';
 	id_r1.style.background = '#f7f7f7';
-	id_r2.style.background = '#0e88d2';
+	id_r2.style.background = '#455a64';
 	id_r3.style.background = '#f7f7f7';
 	id_r1.style.color = '#455a64';
 	id_r2.style.color = '#FFF';
@@ -174,7 +174,7 @@ function SW3() {
 	strGraph = 'graphhopper_car';
 	id_r1.style.background = '#f7f7f7';
 	id_r2.style.background = '#f7f7f7';
-	id_r3.style.background = '#0e88d2';
+	id_r3.style.background = '#455a64';
 	id_r1.style.color = '#455a64';
 	id_r2.style.color = '#455a64';
 	id_r3.style.color = '#FFF';

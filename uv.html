@@ -213,7 +213,8 @@ function MenuSF() {
 //=============================================================================
 function GeоCity() {
 	id_loader.style.display='block';
-	var URL2 = 'https://script.google.com/macros/s/AKfycby7nPMjjYlgPgDMP3kyYQTuSj9q-PEE4rbL13wU/exec?city=' + id_city.value;
+	var key = 'AKfycby7nPMjjYlgPgDMP3kyYQTuSj9q-PEE4rbL13wU';
+	var URL2 = 'https://script.google.com/macros/s/' + key +'/exec?city=' + id_city.value;
 	xhr.open('GET', URL2, true);
     xhr.send();
 }

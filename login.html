@@ -94,7 +94,7 @@ function login(mode) {
 				alert('Ошибка. Неправильный пароль.');
 				break;	
 		case 3: id_F1.style.display = 'block';
-				alert('Ошибка. Email не найден в базе. Зарегистрируйтесь.');
+				alert('Ошибка. Этот Email не найден в базе. Зарегистрируйтесь.');
       			break;	
       	case 4: id_F1.style.display = 'block';
     			id_F2.style.display = 'none';
@@ -108,10 +108,10 @@ function login(mode) {
       			break;
       	case 7:	id_F1.style.display = 'block';
     			id_F2.style.display = 'none';
-      	 		alert('Ошибка. Email уже занят.');
+      	 		alert('Ошибка. Этот Email уже занят.');
       			break;
       	case -1: id_F1.style.display = 'block';
-      			alert('Ошибка. Введите Email и пароль');
+      			alert('Ошибка. Введите Email и пароль.');
       			break;
 		}
 	}

@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang='ru'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=384'>
+<meta http-equiv='Access-Control-Allow-Origin' content='*'>
+<title>Login</title>
+
+<style>
+body{margin:0; background: #9ea7aa; color: #455a64; font-family: Helvetica;}
+::selection {background: #a0bbbb;}
+::-moz-selection {background: #a0bbbb;}
+input, textarea, button, select, select:focus {outline: none;}
+
+h1 {font-size: 30px; margin: -4px 0 0 0;}
+h3 {width: 354px; margin: 40px 0 40px 0;}
+h1, h3 {font-weight:normal;}
+a {color: #455a64; font-size: 18px; font-family: Helvetica;}
+
+.ed1 {height: 32px;}
+.ed0,.ed1 {display: block; float: left; width: 340px; padding: 6px; margin: 0 0 12px 0; 
+	background: #fdfdfe; color: #455a64; font-family: Helvetica; font-size: 18px; 
+	border: 1px solid gray; -moz-border-radius: 4px; -webkit-border-radius: 4px; 
+	border-radius: 4px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
+
+#lay1 {width: 354px; padding: 0; margin: 12px auto; border-radius: 4px;
+box-shadow: 0 0 10px rgba(0,0,0,0.3); -moz-box-shadow: 0 0 10px rgba(0,0,0,0.3); 
+-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.3);
+background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-size: 18px;}
+
+.ram0 {width: 354px; margin: 0; overflow: hidden; padding: 14px 12px 0 12px; 
+	font-family: Helvetica; font-size: 15px;}
+
+#id_F2, #id_F3 {display: none;}
+
+#parent {float: left; width: 50%; display: table; margin: 0 0 12px 0; }
+.btn { text-align: center; display: table-cell; vertical-align: middle;  
+	height: 46px; color: #FFF; font-family: Helvetica; font-size: 18px;
+ 	background: #455a64; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
+	-moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
+	-webkit-user-select: none;-moz-user-select: none; -ms-user-select: none; user-select: none;}
+.btn:active {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.0);}
+
+.ver {font-size: 14px; float: left; margin: 4px 0 12px 0;}
+</style>
+
+<body>
+<table id='lay1'>
+<tr><td>
+<div class='ram0'>
+	<div id='id_F1'>
+	<h1>Авторизация</h1>
+	<hr>
+	<input class='ed1' id='id_email' type='text' placeholder='Email'>
+	<input class='ed1' id='id_pass' type='password' placeholder='Пароль' 
+	onkeydown ="if (event.keyCode == 13) { login(1); id_pass.blur();}">
+	<div id='parent'><div class='btn' onclick="login(1)"><label>Войти</label></div></div>
+	<div id='parent'><div class='btn' onclick="login(2)"><label>Регистрация</label></div></div>
+	</div>
+	<div id='id_F2'>
+	<h1>Авторизация</h1>
+	<hr>
+	<h3>Подключение...</h3>
+	</div>
+	<div id='id_F3'>
+	<h1>Заголовок сайта</h1>
+	<hr>
+	<h3>Доступ разрешен</h3>
+	<textarea id='id_info' class='ed0' rows='6'></textarea>
+	</div>
+	<p class='ver'>Версия: 20181218-2140</p>
+</div>
+</td></tr>
+</table>
+</body>
+
+<script type="text/javascript">
+
+//=============================================================================
+function login(mode) {
+	var xhttp = new XMLHttpRequest();
+	var key = 'AKfycbxEaK3brfAv2DigglvTVXOHf_GFYlXqRFkKnAFaVhUZLFKDJP-4';
+    var URL = 'https://script.google.com/macros/s/' + key +'/exec?mode=' + mode + '&email=' + id_email.value + '&pass=' + id_pass.value + '&conf=0';
+    id_F1.style.display = 'none';
+    id_F2.style.display = 'block';
+    
+    xhttp.onload = function() {
+    	id_F2.style.display = 'none';
+    	var myObj = JSON.parse(this.responseText);
+		switch (myObj.result) {
+		case 1: id_F3.style.display = 'block';
+				id_info.innerText = this.responseText; 	
+				break;	
+		case 2: id_F1.style.display = 'block';	
+				alert('Ошибка. Неправильный пароль.');
+				break;	
+		case 3: id_F1.style.display = 'block';
+				alert('Ошибка. Email не найден в базе. Зарегистрируйтесь.');
+      			break;	
+      	case 4: id_F1.style.display = 'block';
+    			id_F2.style.display = 'none';
+      			alert('На почту было отправлено сообщение для подтверждения адреса.');
+      			id_info.innerText = this.responseText;
+      			break;	
+      	case 6: id_F1.style.display = 'block';
+    			id_F2.style.display = 'none';
+      			alert('Пожалуйста, проверьте свою почту и подтвердите свой адрес.');
+      			id_info.innerText = this.responseText;
+      			break;
+      	case 7:	id_F1.style.display = 'block';
+    			id_F2.style.display = 'none';
+      	 		alert('Ошибка. Email уже занят.');
+      			break;
+      	case -1: id_F1.style.display = 'block';
+      			alert('Ошибка. Введите Email и пароль');
+      			break;
+		}
+	}
+	xhttp.open('GET', URL, true);
+	xhttp.send();
+}
+
+</script>
+</body>
+</html>

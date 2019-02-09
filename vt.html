@@ -53,7 +53,7 @@ input[type=radio]:checked + label { background-image: none; color: #fff; backgro
     <p><textarea class='ed2' id='txtIN' rows='6'></textarea></p>
     <p><textarea class='ed2' id='txtOUT' rows='6'></textarea></p>
     <p><input class='btn' type='button' value='Translate' onClick='btn_TR()'/></p>
-    <p class='ver'>Версия: 20181210-2310</p>
+    <p class='ver'>Версия: 20190210-0044</p>
   </div>
   </center> 
 </div>
@@ -131,6 +131,7 @@ xhr.onload = function() {
 //Используем колбек для обработки результатов
 recognizer.onresult = function (event) {
     var result = event.results[event.resultIndex];
+    txtIN.value = result[0].transcript;
     if (result.isFinal) {
       txtIN.value = result[0].transcript;
     } else {

@@ -106,7 +106,7 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
   <h3>Модуль ESP01: <a id='stESP01'></a></h3>
   <h3>Модуль ESP12: <a id='stESP12'></a></h3>
 <div id='id_m1' style='display: none'>
-  <div class='lab1' title='ESP01'><h3>Уровень сигнала</h3><div class='icoSign'></div><h1><a id='stRSSI2'></a> dBm</h1></div>
+  <div class='lab1' title='ESP01-4M'><h3>Уровень сигнала</h3><div class='icoSign'></div><h1><a id='stRSSI2'></a> dBm</h1></div>
   <div class='lab1' title='На улице'><h3>Температура</h3><div class='icoT'></div><h1><a id='stT2'></a> &degC</h1></div>
 </div>
 <div id='id_m2' style='display: none'>
@@ -116,7 +116,7 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
   <div class='lab1' title='В комнате'><h3>Температура</h3><div class='icoT'></div><h1><a id='stT'></a> &degC</h1></div>
   <div class='lab1' title='PZEM-004'><h3>Напряжение в сети</h3><div class='icoV'></div><h1><a id='stPZEM'></a> V</h1></div>
   <div class='lab1' title='HC-SR501'><h3>Датчик движения</h3><div class='icoPIR'></div><h1><a id='stPIR'></a></h1></div>
-  <h3><label title='Не оставляйте светодиод включенным'>Управление светодиодом ESP12<div class='lay2'>
+  <h3><label title='Не оставляйте светодиод включенным'>Управление розеткой<div class='lay2'>
     <div class='card'><label for='id_LED'>
     <input type='checkbox' id='id_LED' onclick="checkLED()"/><span class='switch'></span><span class='toggle'></span>
     </label></div></div>
@@ -158,7 +158,7 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
 </div>
 
 </div>
-<p class='ver'>Версия: 20180624-1314</p>
+<p class='ver'>Версия: 20192602-1549</p>
 </div>
 </td></tr>
 </table>
@@ -177,14 +177,6 @@ var login = ''; pass = ''; txtUTT = ''; flagSTOP = 0; rec_str = ''; rec_flag = '
 //stRSSI.innerHTML = '-00';
 //stRSSI2.innerHTML = '-00';
 //stPZEM.innerHTML = '000.0';
-
-function playSound() {
-  if (typeof window.Audio === 'function') {
-    var audioElem = new Audio();
-    audioElem.src = "data:audio/ogg;base64,SUQzAwAAAAAAHlRJVDIAAAAFAAAAYmVsdFRQRTEAAAAFAAAAU2VhdP/7EGQAAABBB8cFDAAIDSAW8KCIAANwI1wZoQAANAAgAwYwAHPiIiUAEVxbgrB8P//wTD/d/ggch+NOIlUkNThRVuwbgxDYb9Ufr5zlNbLg6yfPM70M10V73Jmym+7/lPWt3Vs0ywRh//sSZAMPMI0HVwdoAAgHgAik4IgBgjAdSgRzAmAxAB+UAAAARR89ZaVesBQM81bsgAAAgHp/9TKUDrchEHTkXALwxqdjQuGzkJLvYmYZtsk9dn/+KIpJjTPSURGc/GntH5+KkZqPieR3//sQZAoD8IsHUoE8wJgNQAfAAAAAAawTeIAZ4HAzgB8AAAAAGE2xx2ju/+oAtJCkQT8Ao9gMIV4BwxePSqxTdFFrxIhXv/8vNUIAB2PEQGMAo11J1NFG/ZAOc+nIjiDp173amq7/1zv/+xJkD4PwkQbUKNx4mA9AF8AAAAACKBtKA3MCYDeAHwAAAAAcgf7MB3ACoTPP3oMC7XIw/4dCxGWo5ttkpQKkLuz/HLmFQgAFjgEbQwOkLEaACjY2AOu+GIAmAAC0tX/zf0f/qTdhc4z/+xBkEY8QjQbUKFx4mA3AGBkEIgABqBtSAXGCYDOAXwAAAAAc5uRESywwnCSi+uabY29xDl//pFx5RalYZLAWTnIMisGm3ib0KGklJLHZK3XVONQ48r/8kKLmkQp3QKY5NO0WCp7JiP/7EmQWjxCEBlIAz+iKDsAXwAAiAAIcG0gDY6IgJoBjMAAABgUAWQAoEAAwDT0f6KllYBhoRHOnOwaAM9uVJIiwJJAGGgGwOrZ3d6PUrKGgEZBhveSp1PbMoFKfQYIQVhVq9n9L/X/XSv/7EGQcDxB8BlOAeOCKDGAYOwAiAQHwHU4B8eJgM4BgJACIABXW9UMFEjzQ1CYDMXp4iTeMAVAQL/ep96Sf//69W9XaB6yCgMvK8Ibp5wrTf5XuQ6KN3KJbh//+4SpnMFvAIwua7yyD//sSZCGPsHoG04McwQgNIBgIAAAAAgAdTAxzBCAxAF9AAIgA7+RiHx6li2igAUBwAAANUuV/t/fpQhnUrrwPV9dRfegR+mqgf3vs3KSQq3/ybsXq3QDfwKjPBxAWCbuRiJl+MKXW5vGa//sQZCeDEIQG0oDcwJgOgAj9BEIBgZQbWKBpgLA2gF8AEAAA3PFV7v/vKiEBa5sSNPAyDuBLxITGDu23ADAHX0EV6uKcje+2pXvYhFWdUOQIEY6LDwrB1mkQetMgq28f18W0Wt3/987/+xJkLI8QgAbSgHjgiA4gB8AAAAACaB1CBOOiIC8AYGAAAASFlBypSCXeAiTmIlB4LXnm3iRNBpapXuFH1J3Iv/6ZSIAuiiQhZhoBCQ63YMIDaE0Dgga09z0uN9aOzR//UKNIZVZqIrz/+xBkMA/whQZRAM/oig1gF9AAIgACIBlEA2OiKDeAX0AAiACClpxA/AGBl/qV3glM71KQL3tdoeSoc/s/7o1Y+qtaOvUnaKxjdG6zAEBnxkbahLUi4iAAFrvej/Rcown/1aguhJUiC//7EmQzj/CaB1ABPcCYCuAH0AAAAAJkHUAM9wQgOQBfAAAAANPwdEkyewAVAdhkON+NuybN4SOL6XblLXVr0f2UF2kqZSFcFEGwIKxpF4JgkByc7X1qD/8Did5tKVGV6yyyEZd//VYYLv/7EGQ2D3ClB08DXckIDuAHxQQAAAKIHTwF9yJgOwAfQBAAACAIQACGGV1GZnH4P2IhhcMB8HVM1IUaY9Lz5FG6tf/qHpVVIEwAAI2/kbRsP+4UIB/p9gDLOOJtAACGAABX6laUd/d///sSZDSD8LUGzgGdyJoOQAfQBAAAAlgbVIBpgLg+AB9AAAAA+mMAWJfYd87teW+TDhsKCQzi00lhPc9k+ix+mz/sl60UDwAA3D4s5wsDT4RxKAwj2NIDfN2RVk+uMU16plCO3/+oeESE//sQZDMLkKYH0kAbeCwNgAf5AAAAAiQfToBtgLg1gB8AAAAAtiz8sGLenXobMoUIcHULQWAIAgnj/VRhhwMBZfRyahBMAACpJAGHgsM9ssB4IvfH4kmCyWewIEilL7SlBo++pViVMJ7/+xJkNIMwswdQwTx4nA5AF8AAIgAC5B0uDPsEIB6AJNAAiAaMY4otoJRQXGI3lf///2BCAEgAAKk4S3YUDJy64IKxKzLhaMh67Qg6y6YYVatu9P/4xREghAJSV6pKSoMwwV0m5xe8i1T/+xBkNQcwuAfQQNjgjAAACFAEIksCSB9HAO3gsC4AX+AQAAB8IMwAAEhuYTvCtM+65Hctqeg4cCCEAAbmVbKV///96jLBHY8Err4M2g4cEszoGZv0wACPFWf9jP//6gwEIABhT1GRn//7EmQ8g/CnB0/A3MCYDiAHwAAAAAJgHUUA44BwAAAgAAAABB/NuTFjYQOf8fdrBE8KOp6f/epwxQpGAZ2I2gkO+f1mLrdtgDZnS/U5Tk1YodvWj/+LiSK1xvzkDr8B4z7tgBIc01GULP/7EGREBzCVBtLACdgODUAH+AAAAAH4HU0DbYJwKYBgIAAAALNAqmy25exEV0Nm5lyv9WfSDEmXjrrAop2kHpMIrN4DbIkvV1/7L8u1+fr/9JwiqrNNLYeYiabHtZ4hwxEMSBMQAc+K//sSZEkD8IcHUqAaYCgNQAfQAAAAAiwdRwBtgPA3gB9AAAAAvztV2y3xE1n+2qiSYMwDVgGs3E4hGb0ZIdh1U2zB7yiEpHMi6W//rgMVGkLGtKX2WBBuxyvHYCCJ/aZyQfqexQF/fc9W//sQZEyP8J4HTAMdwQgOYBfAAAAAAkgdNATjoiArEd9AEArIxJdWr/zTAOMDaSJULVFhEIZt5cBgAA7xSBtg1WQ2uAgBCdehGi3t//+tKADMAADlBEqEsY/8vQ7cvvJZUfLawNRkNxf/+xJkToPwmgbMAx15CAzAB8AAAAACEB1JAe2CcD0AXwAAAABJk9X//DYSAJAkATETmE7zKbB34xSW1wDNEEkOT+ixeL//+y0nCAgoAGdSuvA1aFdQ01fQp3Oi+59um9ddd3/7T5FAhkD/+xBkUQ8wngdMAz3BCA6gF8AEAAACsB8uBfciYDCAX6AQAAAUfvBhnTxi/y7DDK7NLGwkoAsY2h/Z0fb/6NJAhAAApgtu4d8trcH+n4Bl3gAAD19Gi32ub//c4+MBItNoEscHGSWbJP/7EmRRAzCWB0/AcdiIDmAHwAQiSgIcHUMAbMEwL4BflBAAAH0oXY0QB6CEU+QMX/2f/66V1QgABlFCYeLYn9hMPB1Bt6SHLX//9b391L2xfpbZu/1GB1QhMAYRVWlHElrzIEDIHniww//7EGRUgzCNB1EgG3goDAAH0AAAAAIkHUEAP2BwMIAfoBAAAAWrR+/q/WqmpZU+qwQM5OtIKAwYv9SuUB4yHIIAAe2+u9VGz//01BBNGinpIQwcRramUzfnRZ1rn//ocABoAABn9r/9//sSZFkHEIYG0EA7eJwNgBflBAAAAdwbPQC/gjA0ACBkAIgAdQCEACAAMjoFZzKJSSn4yTlLNv//6ahTGDc4nVUuJBj1//3PMoEQBIwTaqBgFG7ijfxCPnOwMRgJJXoZT927/+gYyAAM//sQZF4DUKkGzJB8eJgMwBfQAAAAAdwbQwDtgnAigGBkAIgEADI4gjOavkvBAUTHM///7+vAMSK4AB3s30q78/2f311lGiADMFOsAevzgbRwCe//uF5W/r1se7Ravu/9o4VWBMQAAOP/+xJkYw0wogdKAz3BCAugB+UAAACChB0wQ3MCYCWAZfgAiAakXOdCyL/Cg4bDyg45IHiAFYtYvZf/V7//egYrq24hwBMgJ1ygG7IGchIvaz7v/8nebM0IQAAA051ewTPLiMKJjHOl4DX/+xBkZoMQrgdPSDt4nA4gB8AEAAAB9Bs7AO3iYDIAYGQAAADPIMJsMa//6EiEAhUw2mGnvGirTa6wI5Zz6qJUraA3i8f/9QshrypWUCdkLuPhwkSCU7chkvVad/96taaAeYC6cUskTv/7EmRohRCoBtFIOUicD2AYKQAAAAJMG0lA4SJwMIAfAAAAAL//2kidDcPA51mEnlhLXbhLX/2Xq/9n///rAIIIEGHAByuqPGvzTXuD2+pvRT/3/QgAAGMe1uS39XSn//ggITAHVBCKTf/7EGRphxCBBs5AO2CYDyAICQQAAAF4GUUA6SJwMoAfQAAAALISwYoCgUUAMQDdsrA3/Z0EqgSEDKgAOU2qgYqjGBWjgHd/V9X7eigAAAAAVgAAP///6Oz62swHfQQg84jeAwDu5GI2//sSZG+H8HEGTcA7SJgOwAfABAAAAZAbNKDtImA+AB8AAAAANQsPp/6RQKJQBBQK9tl/+1/VvR+I4eRTqQl9ekXv2GAgLvYh8W05mU//9ClgFPB78IAz5roGg+4kYgNDTDuN/s/2fVJk//sQZHWB8JoGygB44IgPIAfAAAAAAewbQMDlYnAVACBAAAAAYu49symyj/+NxZYIoAAAvwKdoDBydlA88uX4y9NCW7af/pqGqyiodLrHuRaRBJKNi5JEe0a/b/SBdT1UUQ7MVKRZ/9z/+xJkfAMQswbQYDlInA2AF9UAAAABZBtFA+UEMDUAI/QAAAY2dJ2EEAKgACus3E4hCQ3sC3/9y065xzidettkRgo+5USsR/1uuLpAADNZAzFMpvHSvbjV+oGn9fbR3/Z9AGoCIyi0Ot7/+xBkgAEQqgbPSDpInA4AGQ0AAAGCiBsmA3MCQDGAJHQAAAaLKtn/9aqUEDeokCZuSXLC0F6eGi2X9t1/X9/Uf//KST9OU5f/7+OsrsxBZADjL83ZhK7ZUBePsvi3/VR2Ul417RAfZv/7EmSADxBkBsuAD9gYDwAH5QQAAAK8GyQAm4AAMgAfQAAAAKTrtn0f/asoWpkOYR3MNumvvKRxq6XbT2NS9NPo/6p5pkAhAP33UcUwMydrbbxO3R5gEI9X/9P//XW8yaUCp1WIwhMXZP/7EGSDh/BlBk7AGjCYDIAHwAAAAAKAGSQB8eJAOgBfABCIAPga8BABMMSJ19FhGpbtAES9o0ROcuJD/pMgz+KC31Q8UjDouZ1SlUuq5uxZfX5UWmQeF2w+AgEASoOBgAABOuLHgafU//sSZIeBEKYGTsg6QJwPgBewAAAAAsQZLSDtgmAzAF/gAAAA7s//K2iAACSAAAKur/1PI5ZMQU1FMy45OS4zVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sQZIYP8K8GyIB8wJALxJfQBAKyAsgdIgDyAMA7gB8AAAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/+xJkhINQZAbKADt4mAvAF9AEAAACBBs5FZAAICAAIKKAIABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/+xBkjoABQxBMhmigABikB+DAiAACPAE1vACAIDSAHzOAAAZVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==";
-    audioElem.play();
-  }
-}
 
 //=============================================================================
 function MQTTconnect() {
@@ -324,17 +316,14 @@ function onMessageArrived(message) {
 	//напряжение в сети
 	if (message.destinationName == 'ESP12/V') {stPZEM.innerHTML = message.payloadString; }
 	//датчик движения
-	if (message.destinationName == 'ESP12/PIR') {stPIR.innerHTML = message.payloadString; 
-        //if (message.payloadString == '1') { playSound2();}
-	}
-
+	if (message.destinationName == 'ESP12/PIR') {stPIR.innerHTML = message.payloadString;}
 	//статус светодиода
 	if (message.destinationName == 'ESP12/LED') {
 	//stLED.innerHTML = message.payloadString; 
 	if (message.payloadString == '0') {id_LED.checked = false;}
 	else {id_LED.checked = true;}
 	if (flag == '') {flag = message.payloadString; }
-	if (message.payloadString != flag) { flag = message.payloadString; playSound();}
+	if (message.payloadString != flag) { flag = message.payloadString;}
 	else {flag = message.payloadString; }}
 
 	//мессенджер
@@ -350,7 +339,6 @@ function onMessageArrived(message) {
 	  recognizer.stop();
 	  flagSTOP = 1;
 	  setTimeout(function(){speak(txtUSER);}, 2000);} 
-	else { playSound();}  
 	}
 }
 

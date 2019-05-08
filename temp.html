@@ -162,7 +162,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 	</div>
 	<canvas id='id_canvas'></canvas>
 	</div>
-	<div class='lab2'>Версия: 20181102-2345</div>
+	<div class='lab2'>Версия: 20190508-1520</div>
 </center>
 </body>
 
@@ -651,8 +651,8 @@ function UpdateChart(ch) {
 		break;
 	case 1:
 		config.data.datasets[0].label = 'Температура';
-		config.options.scales.yAxes[0].ticks.min = -30;
-        config.options.scales.yAxes[0].ticks.max = 30;
+		config.options.scales.yAxes[0].ticks.min = -20;
+        config.options.scales.yAxes[0].ticks.max = 40;
         config.options.scales.yAxes[0].ticks.stepSize = 5;
         if (f01 == 1) { LoadChart(1);} else { GetData(2, 1); f01 = 1;}
 		break;

@@ -10,16 +10,7 @@
 body{ background: #cfd8dc; color: #455a64; font-family: Helvetica; font-size: 18px; }
 ::selection {background: #a0bbbb;}
 ::-moz-selection {background: #a0bbbb;}
-
-input[type="range"] {
-  display: block; -webkit-appearance: none; background-color: #455a64; width: 90px; height: 5px;
-   border-radius: 5px; margin: 14px 6px 0 0; outline: 0; float: left;
-}
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none; background-color: #f7f7f7; width: 20px; height: 20px; border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); cursor: pointer;
-}​
-input[type="range"]::-webkit-slider-thumb:hover { }
+input, select, select:focus {outline: none;}
 
 .icoPlay {margin: 10px 0 0 11px; background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMS4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDYwIDYwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA2MCA2MDsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIxNnB4IiBoZWlnaHQ9IjE2cHgiPgo8Zz4KCTxnPgoJCTxwYXRoIGQ9Ik01My40NzksMjcuNDM1TDEwLjY3MiwwLjkxNUM3LjU1My0xLjEzMiw1LDAuMzc0LDUsNC4yNjF2NTEuNDhjMCwzLjg4NSwyLjU1Myw1LjM5MSw1LjY3MiwzLjM0NiAgICBsNDIuODA3LTI2LjUyYzAsMCwxLjUyMS0xLjA3LDEuNTIxLTIuNTY2UzUzLjQ3OSwyNy40MzUsNTMuNDc5LDI3LjQzNXoiIGZpbGw9IiM0NTVhNjQiLz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K)}
 
@@ -27,31 +18,123 @@ input[type="range"]::-webkit-slider-thumb:hover { }
 
 .icoPlay, .icoPause {width: 16px; height: 16px;}
 
-.ram2 { float: left; width: 36px; height: 36px; margin: 0 8px 0 0; 
-    background: #f7f7f7; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
-    -moz-border-radius: 18px; -webkit-border-radius: 18px; border-radius: 18px;}
+.ram2 { float: left; width: 36px; height: 36px; margin: 0 8px 0 0; background: #f7f7f7; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); -moz-border-radius: 18px; -webkit-border-radius: 18px; border-radius: 18px; float: left;}
 .ram2:active {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.0);}
+.lab0 {width: 230px; margin: 10px 0 0 0;}
+.vol {padding: 8px 0 0 0;}
 
-.vol {padding: 6px 0 0 0;}
-h3 {font-weight:normal; font-size: 14px; margin: 32px 0 12px 0;}
+.sel {width: 226px; height: 34px; margin:16px 0px 14px 0; background-color:#fdfdfe; color:#455a64; font-family: Arial; font-size: 16px; font-weight: bold; border-radius: 4px; border: 1px solid #a0bbbb; padding: 6px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
+
+select {-moz-appearance: none; -webkit-appearance: none; appearance: none; background-repeat: no-repeat; background-size: 11px auto; background-position: right 8px center; 
+background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA2MCA0MCc+IFwgICAgICA8cG9seWdvbiBwb2ludHM9JzAsMCA2MCwwIDMwLDQwJyBzdHlsZT0nZmlsbDojNDU1YTY0OycvPiBcICAgIDwvc3ZnPg==);}
+
+option {font-family: Arial; font-size: 16px; font-weight: bold;}
+
+input[type="range"] {display: block; -webkit-appearance: none; background-color: #455a64; width: 90px; height: 5px;
+border-radius: 5px; margin: 15px 6px 0 0; outline: 0; float: left;}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; background-color: #f7f7f7; width: 20px; height: 20px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); cursor: pointer; border: 0;}​
+input[type="range"]::-webkit-slider-thumb:hover {}
+
+input[type="range"]::-moz-range-track {display: block; -moz-appearance: none; background-color: #455a64; width: 90px; height: 5px; border-radius: 5px; margin: 15px 6px 0 0; outline: 0; float: left;}
+input[type="range"]::-moz-range-thumb { -moz-appearance: none; background-color: #f7f7f7; width: 20px; height: 20px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); cursor: pointer; border: 0;}
+input[type="range"]::-moz-range-thumb:hover {}
 
 </style>
 
 <body>
-	<p>Радио</p>
-    <audio id="audioElement" crossOrigin="anonymous" preload="auto" src="http://sc-atr.1.fm:7704/"></audio>
-    <div>
-    	<div class='ram2' onclick="audioElement.play()"><div class='icoPlay'></div></div>
-    	<div class='ram2' onclick="audioElement.pause()"><div class='icoPause'></div></div>
- 		<input type='range' id='id_a' min='0' max='100' value='10' 
- 		oninput="audioElement.volume=parseInt(id_a.value)/100; stVol.innerHTML=parseInt(id_a.value) + '%';"/>
- 		<div class='vol'><a id='stVol'>20%</a></div>
-    </div>
-    <h3>Версия: 20181014-2251</h3>
+<p>Радио</p>
+<div class="lab0">
+<audio id='audioElement' preload='none' src='http://air.radiorecord.ru:805/trancehits_128'></audio>
+<div class="ram2" onclick="audioElement.play()"><div class="icoPlay"></div></div>
+<div class="ram2" onclick="audioElement.pause()"><div class="icoPause"></div></div>
+
+<input id="id_inp" min="0" max="100" value="25" oninput="audioElement.volume=parseInt(id_inp.value)/100; id_vol.innerHTML=parseInt(id_inp.value) + '%';" type="range" />
+<div class="vol"><a id="id_vol">25%</a></div>
+<select id='id_radio' class='sel' onchange="audioElement.pause(); audioElement.src=id_radio.options[id_radio.selectedIndex].value; audioElement.play();">
+    <option value='http://air.radiorecord.ru:805/trancehits_128'>Trance Hits</option>
+    <option value='http://sc-atr.1.fm:7704'>1.FM</option>
+    <option value='http://air.radiorecord.ru:8102/symph_128'>Симфония</option>
+    <option value='http://air.radiorecord.ru:8102/1970_128'>1970</option>
+    <option value='http://air.radiorecord.ru:8102/1980_128'>1980</option>
+    <option value='http://air.radiorecord.ru:8102/mdl_128'>Медляк</option>
+    <option value='http://air.radiorecord.ru:8102/hypno_128'>Hypno</option>
+    <option value='http://air.radiorecord.ru:805/drumhits_128'>Drum Hits</option>
+    <option value='http://air.radiorecord.ru:8102/goa_128'>Goa</option>
+    <option value='http://radio.bestfm.fm:8080/bestfm_mp3'>Best FM</option>
+    <option value='http://83.246.143.25:8000/HFMLow'>Heart FM</option>
+    <option value='http://nashe.streamr.ru/jazz-128.mp3'>Jazz</option>
+    <option value='http://nashe.streamr.ru/ultra-128.mp3'>Ultra</option>
+    <option value='http://air.radiorecord.ru:8102/chillhouse_128'>Chill House</option>
+    <option value='http://air.radiorecord.ru:8102/rock_128'>Rock</option>
+</select>
+</div>
+<p>Версия: 20190625-1232</p>
 
 <script type="text/javascript">
-	audioElement.volume = 0.2;
+audioElement.volume = 0.25;
+//audioElement.addEventListener('loadedmetadata', getmetadata);
+
+// audioElement.onloadedmetadata = function() {
+//   alert('Meta data for audio loaded');
+// };
+
+// audioElement.onloadeddata = function() {
+//     alert(audioElement.duration);
+// };
+
+//function getmetadata() {
+ //   console.log("duration: " + audioElement.duration);
+ //        //$("#playListSeekBar .timers#timeLeft").html(String(Math.round(activeSong.duration)).toMMSS() + "");
+//};
 
 </script>
 </body>
 </html>
+
+<!-- <?php
+
+/**
+ * Please be aware. This gist requires at least PHP 5.4 to run correctly.
+ * Otherwise consider downgrading the $opts array code to the classic "array" syntax.
+ */
+function getMp3StreamTitle($streamingUrl, $interval, $offset = 0, $headers = true)
+{
+    $needle = 'StreamTitle=';
+    $ua = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/537.36';
+
+    $opts = [
+            'http' => [
+            'method' => 'GET',
+            'header' => 'Icy-MetaData: 1',
+            'user_agent' => $ua
+        ]
+    ];
+
+    if (($headers = get_headers($streamingUrl))) {
+        foreach ($headers as $h) {
+            if (strpos(strtolower($h), 'icy-metaint') !== false && ($interval = explode(':', $h)[1])) {
+                break;
+            }
+        }
+    }
+
+    $context = stream_context_create($opts);
+
+    if ($stream = fopen($streamingUrl, 'r', false, $context)) {
+        $buffer = stream_get_contents($stream, $interval, $offset);
+        fclose($stream);
+
+        if (strpos($buffer, $needle) !== false) {
+            $title = explode($needle, $buffer)[1];
+            return substr($title, 1, strpos($title, ';') - 2);
+        } else {
+            return getMp3StreamTitle($streamingUrl, $interval, $offset + $interval, false);
+        }
+    } else {
+        throw new Exception("Unable to open stream [{$streamingUrl}]");
+    }
+}
+
+var_dump(getMp3StreamTitle('http://air.radiorecord.ru:805/trancehits_128', 19200)); ?>  -->
+
+

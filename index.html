@@ -225,8 +225,8 @@ function onConnect() {
     client.subscribe('$SYS/broker/clients/connected');
     client.subscribe('ESP12/#');
     
-    message = new Paho.MQTT.Message(' ');
-    message.destinationName = 'ESP12/Status';
+    message = new Paho.MQTT.Message('0');
+    message.destinationName = 'ESP12/GetStatus';
     client.send(message);
 
     id_login.style.display='none';

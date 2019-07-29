@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html><html lang='ru'>
 <head>
 <meta charset='utf-8'>
-<meta name='viewport' content='width=384'>
+<meta name='viewport' content='width=424'>
 <title>MQTT Websocket</title>
 
 <style>
@@ -22,26 +22,26 @@ input, textarea, button {outline: none;}
 
 .icoPIR {background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMzJweCIgaGVpZ2h0PSIzMnB4Ij4KPGc+Cgk8Zz4KCQk8Zz4KCQkJPHBhdGggZD0iTTE3MC42NjcsMjg1djEzNC4wMWMxMC4zNTQsMi43ODEsMzUuNTgzLDcuNjU2LDg1LjM1NCw3LjY1NmM0OS42NjcsMCw3NC44NzUtNC44NTQsODUuMzEzLTcuNjY3VjI4NC45OSAgICAgYy0xMC4zNDQtMi43ODEtMzUuNTYzLTcuNjU2LTg1LjMzMy03LjY1NkMyMDYuMzIzLDI3Ny4zMzMsMTgxLjExNSwyODIuMTg4LDE3MC42NjcsMjg1eiIgZmlsbD0iIzQ1NWE2NCIvPgoJCQk8cGF0aCBkPSJNNDM3LjMzMywwSDc0LjY2N0M2OC43NzEsMCw2NCw0Ljc3MSw2NCwxMC42Njd2NDIuNjY3QzY0LDU5LjIyOSw2OC43NzEsNjQsNzQuNjY3LDY0SDIyNHY0My41MSAgICAgYy02Ni40NjEsMy42NzgtOTMuMjM4LDE4LjczOC0xMTMuNDY5LDMwLjEyNWwtMy44MzMsMi4xNTZjLTEzLjE3Nyw3LjMxMy0yMS4zNjUsMjEuNDktMjEuMzY1LDM2Ljk3OXYyNjUuMTI1ICAgICBjMCwxNS40OSw4LjE4OCwyOS42NjcsMjEuMzY1LDM2Ljk3OWwzLjgzMywyLjE1NkMxMzMuNzQsNDk0LjA5NCwxNjUuNTIxLDUxMiwyNTYsNTEyczEyMi4yNi0xNy45MDYsMTQ1LjQ2OS0zMC45NjlsMy44MzMtMi4xNTYgICAgIGMxMy4xNzctNy4zMTMsMjEuMzY1LTIxLjQ5LDIxLjM2NS0zNi45NzlWMTc2Ljc3MWMwLTE1LjQ5LTguMTg4LTI5LjY2Ny0yMS4zNjUtMzYuOTc5bC0zLjgzMy0yLjE1NiAgICAgYy0yMC4yMy0xMS4zODctNDcuMDA4LTI2LjQ0Ny0xMTMuNDY5LTMwLjEyNVY2NGgxNDkuMzMzQzQ0My4yMjksNjQsNDQ4LDU5LjIyOSw0NDgsNTMuMzMzVjEwLjY2N0M0NDgsNC43NzEsNDQzLjIyOSwwLDQzNy4zMzMsMCAgICAgeiBNMjU2LDE3MC42NjdjMTEuNzYsMCwyMS4zMzMsOS41NzMsMjEuMzMzLDIxLjMzM1MyNjcuNzYsMjEzLjMzMywyNTYsMjEzLjMzM1MyMzQuNjY3LDIwMy43NiwyMzQuNjY3LDE5MiAgICAgUzI0NC4yNCwxNzAuNjY3LDI1NiwxNzAuNjY3eiBNMzU2Ljc3MSwyNjcuNzkyYzMuNjE1LDEuODEzLDUuODk2LDUuNSw1Ljg5Niw5LjU0MnYxNDkuMzMzYzAsNC4wNDItMi4yODEsNy43MjktNS44OTYsOS41NDIgICAgIEMzNTQuMzY1LDQzNy40MTcsMzMxLjA0Miw0NDgsMjU2LjAyMSw0NDhzLTk4LjM3NS0xMC41ODMtMTAwLjc5Mi0xMS43OTJjLTMuNjE1LTEuODAyLTUuODk2LTUuNS01Ljg5Ni05LjU0MlYyNzcuMzMzICAgICBjMC00LjA0MiwyLjI4MS03LjcyOSw1Ljg5Ni05LjU0MkMxNTcuNjQ2LDI2Ni41ODMsMTgwLjk3OSwyNTYsMjU2LDI1NlMzNTQuMzU0LDI2Ni41ODMsMzU2Ljc3MSwyNjcuNzkyeiIgZmlsbD0iIzQ1NWE2NCIvPgoJCTwvZz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K)}
 
-.icoExit {width: 24px; height: 24px; margin: 6px 0 0 7px; float: left;
-	background-image: url(data:application/xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0naXNvLTg4NTktMSc/Pgo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMjQuMSAyNC4xIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjQuMSAyNC4xIiBmaWxsPSIjNDU1YTY0IiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiPgogIDxnPgogICAgPHBhdGggZD0ibTEyLDIwLjA1aC03LjVjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMTVjMC0wLjMgMC4yLTAuNSAwLjUtMC41aDcuNWMwLjYsMCAxLTAuNCAxLTF2LTJjMC0wLjYtMC40LTEtMS0xaC0xMWMtMC42LDAtMSwwLjQtMSwxdjIyYzAsMC42IDAuNCwxIDEsMWgxMWMwLjYsMCAxLTAuNCAxLTF2LTJjMC0wLjYtMC40LTEtMS0xeiIvPgogICAgPHBhdGggZD0ibTIzLjcsMTEuMzVsLTYtNmMtMC4yLTAuMi0wLjQtMC4zLTAuNy0wLjMtMC4zLDAtMC41LDAuMS0wLjcsMC4zbC0xLjQsMS40Yy0wLjIsMC4yLTAuMywwLjQtMC4zLDAuNyAwLDAuMyAwLjEsMC41IDAuMywwLjdsMSwxYzAuMywwLjMgMC4xLDAuOS0wLjQsMC45aC02LjVjLTAuNiwwLTEsMC40LTEsMXYyYzAsMC42IDAuNCwxIDEsMWg2LjZjMC40LDAgMC43LDAuNSAwLjQsMC45bC0xLDFjLTAuMiwwLjItMC4zLDAuNC0wLjMsMC43czAuMSwwLjUgMC4zLDAuN2wxLjQsMS40YzAuMiwwLjIgMC40LDAuMyAwLjcsMC4zIDAuMywwIDAuNS0wLjEgMC43LTAuM2w2LTZjMC4yLTAuMiAwLjMtMC41IDAuMy0wLjdzLTAuMi0wLjUtMC40LTAuN3oiLz4KICA8L2c+Cjwvc3ZnPgo=);
-}
+.icoExit {width: 16px; height: 16px; margin: 10px 0 0 11px; float: left;
+background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxMnB0IiBoZWlnaHQ9IjEycHQiIHZpZXdCb3g9IjAgMCAxMiAxMiIgdmVyc2lvbj0iMS4xIj48ZyBpZD0ic3VyZmFjZTEiPjxwYXRoIHN0eWxlPSIgc3Ryb2tlOm5vbmU7ZmlsbC1ydWxlOm5vbnplcm87ZmlsbDpyZ2IoMjcuMDU4ODI0JSwzNS4yOTQxMTglLDM5LjIxNTY4NiUpO2ZpbGwtb3BhY2l0eToxOyIgZD0iTSA1Ljk3NjU2MiA5Ljk4NDM3NSBMIDIuMjQyMTg4IDkuOTg0Mzc1IEMgMi4wODk4NDQgOS45ODQzNzUgMS45OTIxODggOS44ODI4MTIgMS45OTIxODggOS43MzQzNzUgTCAxLjk5MjE4OCAyLjI2NTYyNSBDIDEuOTkyMTg4IDIuMTE3MTg4IDIuMDg5ODQ0IDIuMDE1NjI1IDIuMjQyMTg4IDIuMDE1NjI1IEwgNS45NzY1NjIgMi4wMTU2MjUgQyA2LjI3MzQzOCAyLjAxNTYyNSA2LjQ3MjY1NiAxLjgxNjQwNiA2LjQ3MjY1NiAxLjUxOTUzMSBMIDYuNDcyNjU2IDAuNTIzNDM4IEMgNi40NzI2NTYgMC4yMjI2NTYgNi4yNzM0MzggMC4wMjM0Mzc1IDUuOTc2NTYyIDAuMDIzNDM3NSBMIDAuNDk2MDk0IDAuMDIzNDM3NSBDIDAuMTk5MjE5IDAuMDIzNDM3NSAwIDAuMjIyNjU2IDAgMC41MjM0MzggTCAwIDExLjQ3NjU2MiBDIDAgMTEuNzc3MzQ0IDAuMTk5MjE5IDExLjk3NjU2MiAwLjQ5NjA5NCAxMS45NzY1NjIgTCA1Ljk3NjU2MiAxMS45NzY1NjIgQyA2LjI3MzQzOCAxMS45NzY1NjIgNi40NzI2NTYgMTEuNzc3MzQ0IDYuNDcyNjU2IDExLjQ3NjU2MiBMIDYuNDcyNjU2IDEwLjQ4MDQ2OSBDIDYuNDcyNjU2IDEwLjE4MzU5NCA2LjI3MzQzOCA5Ljk4NDM3NSA1Ljk3NjU2MiA5Ljk4NDM3NSBaIE0gNS45NzY1NjIgOS45ODQzNzUgIi8+PHBhdGggc3R5bGU9IiBzdHJva2U6bm9uZTtmaWxsLXJ1bGU6bm9uemVybztmaWxsOnJnYigyNy4wNTg4MjQlLDM1LjI5NDExOCUsMzkuMjE1Njg2JSk7ZmlsbC1vcGFjaXR5OjE7IiBkPSJNIDExLjgwMDc4MSA1LjY1MjM0NCBMIDguODEyNSAyLjY2NDA2MiBDIDguNzE0ODQ0IDIuNTYyNSA4LjYxMzI4MSAyLjUxNTYyNSA4LjQ2NDg0NCAyLjUxNTYyNSBDIDguMzE2NDA2IDIuNTE1NjI1IDguMjE0ODQ0IDIuNTYyNSA4LjExNzE4OCAyLjY2NDA2MiBMIDcuNDE3OTY5IDMuMzU5Mzc1IEMgNy4zMjAzMTIgMy40NjA5MzggNy4yNjk1MzEgMy41NTg1OTQgNy4yNjk1MzEgMy43MTA5MzggQyA3LjI2OTUzMSAzLjg1OTM3NSA3LjMyMDMxMiAzLjk1NzAzMSA3LjQxNzk2OSA0LjA1ODU5NCBMIDcuOTE3OTY5IDQuNTU0Njg4IEMgOC4wNjY0MDYgNC43MDcwMzEgNy45Njg3NSA1LjAwMzkwNiA3LjcxODc1IDUuMDAzOTA2IEwgNC40ODA0NjkgNS4wMDM5MDYgQyA0LjE4MzU5NCA1LjAwMzkwNiAzLjk4NDM3NSA1LjIwMzEyNSAzLjk4NDM3NSA1LjUwMzkwNiBMIDMuOTg0Mzc1IDYuNDk2MDk0IEMgMy45ODQzNzUgNi43OTY4NzUgNC4xODM1OTQgNi45OTYwOTQgNC40ODA0NjkgNi45OTYwOTQgTCA3Ljc2OTUzMSA2Ljk5NjA5NCBDIDcuOTY4NzUgNi45OTYwOTQgOC4xMTcxODggNy4yNDYwOTQgNy45Njg3NSA3LjQ0NTMxMiBMIDcuNDY4NzUgNy45NDE0MDYgQyA3LjM3MTA5NCA4LjA0Mjk2OSA3LjMyMDMxMiA4LjE0MDYyNSA3LjMyMDMxMiA4LjI4OTA2MiBDIDcuMzIwMzEyIDguNDQxNDA2IDcuMzcxMDk0IDguNTM5MDYyIDcuNDY4NzUgOC42NDA2MjUgTCA4LjE2NDA2MiA5LjMzNTkzOCBDIDguMjY1NjI1IDkuNDM3NSA4LjM2MzI4MSA5LjQ4NDM3NSA4LjUxNTYyNSA5LjQ4NDM3NSBDIDguNjY0MDYyIDkuNDg0Mzc1IDguNzYxNzE5IDkuNDM3NSA4Ljg2MzI4MSA5LjMzNTkzOCBMIDExLjg1MTU2MiA2LjM0NzY1NiBDIDExLjk0OTIxOSA2LjI1IDEyIDYuMDk3NjU2IDEyIDYgQyAxMiA1LjkwMjM0NCAxMS45MDIzNDQgNS43NSAxMS44MDA3ODEgNS42NTIzNDQgWiBNIDExLjgwMDc4MSA1LjY1MjM0NCAiLz48L2c+PC9zdmc+)}
 
 .icoT, .icoH, .icoSign, .icoFoto, .icoV, .icoPIR {float: left; width: 32px; height: 32px; margin: -3px 10px 0 0;}
 
-#lay1 {width: 354px; padding: 0; margin: 12px auto; border: 1px solid gray; border-radius: 4px;
+#lay1 {width: 410px; padding: 0; margin: 12px auto; border: 1px solid gray; border-radius: 4px;
 box-shadow: 0 0 10px rgba(0,0,0,0.3); -moz-box-shadow: 0 0 10px rgba(0,0,0,0.3); -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.3);
 background: rgba(207,216,220,1); /* Цвет фона и значение прозрачности */
 color: #455a64; font-family: Helvetica; font-size: 18px;}
 
 .lay2 {width: 40px; float: right;}
 .lay3 {width: 32px; float: right;}
-.ram0 {width: 354px; margin: 0; overflow: hidden; padding: 14px 12px 0 12px; font-family: Helvetica; font-size: 15px;}
+.ram0 {width: 410px; margin: 0; overflow: hidden; padding: 14px 12px 0 12px; font-family: Helvetica; font-size: 15px;}
 
 h1 {font-size: 30px; margin: -4px 0 0 0; }
-h3 {width: 354px; margin: 0 4px 12px 0;}
+h3 {width: 410px; margin: 0 4px 12px 0;}
 h1, h3 {font-weight:normal;}
 
 .lab1 {width: 50%; float: left;  margin: 0 0 12px 0;}
+.lab45 {width: 48%; float: left;  margin: 0 0 12px 0;}
 .lab2 {width: 100%; float: left;  margin: 0 0 12px 0;}
 .block1 { border: solid 1px #2F4F4F; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);}
 
@@ -66,7 +66,7 @@ input[type='checkbox']:checked ~ .switch { background: #93AEFF; transition: .2s;
 
 .ed {outline: none; resize: none;}
 .ed2 {height: 24px;}
-.ed,.ed2 {width: 340px; color: #455a64; font-family: Helvetica; font-size: 18px; 
+.ed,.ed2 {width: 396px; color: #455a64; font-family: Helvetica; font-size: 18px; 
 border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
 
 .ver {font-size: 14px; margin: 12px 0 12px 0;}
@@ -104,18 +104,18 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
   <h3>Статус сервера: <a id='stMQTT'></a></h3>
   <h3>Клиентов на сервере: <a id='stUSERS'></a></h3>
   <h3>Последнее обновление: <a id='time'></a></h3>
-  <h3>Модуль ESP01: <a id='stESP01'></a></h3>
+  <h3>Модуль ESP01-4M: <a id='stESP01'></a></h3>
   <h3>Модуль ESP12: <a id='stESP12'></a></h3>
 <div id='id_m1' style='display: none'>
-  <div class='lab1' title='ESP01-4M'><h3>Уровень сигнала</h3><div class='icoSign'></div><h1><a id='stRSSI2'></a> dBm</h1></div>
-  <div class='lab1' title='На улице'><h3>Температура</h3><div class='icoT'></div><h1><a id='stT2'></a> &degC</h1></div>
+  <div class='lab45'><h3>Сигнал ESP01-4M</h3><div class='icoSign'></div><h1><a id='stRSSI2'></a> dBm</h1></div>
+  <div class='lab45'><h3>Температура на улице</h3><div class='icoT'></div><h1><a id='stT2'></a> &degC</h1></div>
 </div>
 <div id='id_m2' style='display: none'>
-  <div class='lab1' title='ESP12'><h3>Уровень сигнала</h3><div class='icoSign'></div><h1><a id='stRSSI'></a> dBm</h1></div>
-  <div class='lab1' title='В комнате'><h3>Освещенность</h3><div class='icoFoto'></div><h1><a id='stLDR'></a></h1></div>
-  <div class='lab1' title='В комнате'><h3>Влажность</h3><div class='icoH'></div><h1><a id='stH'></a> %</h1></div>
-  <div class='lab1' title='В комнате'><h3>Температура</h3><div class='icoT'></div><h1><a id='stT'></a> &degC</h1></div>
-  <div class='lab1' title='PZEM-004'><h3>Напряжение в сети</h3><div class='icoV'></div><h1><a id='stPZEM'></a> V</h1></div>
+  <div class='lab45'><h3>Сигнал ESP12</h3><div class='icoSign'></div><h1><a id='stRSSI'></a> dBm</h1></div>
+  <div class='lab45'><h3>Освещенность в комнате</h3><div class='icoFoto'></div><h1><a id='stLDR'></a></h1></div>
+  <div class='lab45'><h3>Влажность в комнате</h3><div class='icoH'></div><h1><a id='stH'></a> %</h1></div>
+  <div class='lab45'><h3>Температура в комнате</h3><div class='icoT'></div><h1><a id='stT'></a> &degC</h1></div>
+  <div class='lab45' title='PZEM-004'><h3>Напряжение в сети</h3><div class='icoV'></div><h1><a id='stPZEM'></a> V</h1></div>
   <div class='lab1' title='HC-SR501'><h3>Датчик движения</h3><div class='icoPIR'></div><h1><a id='stPIR'></a></h1></div>
   <h3><label>Управление розеткой<div class='lay2'>
     <div class='card'><label for='id_LED'>
@@ -159,7 +159,7 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
 </div>
 
 </div>
-<p class='ver'>Версия: 20190626-1306</p>
+<p class='ver'>Версия: 20190729-1723</p>
 </div>
 </td></tr>
 </table>

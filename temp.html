@@ -482,28 +482,38 @@ function onMessageArrived(message) {
 
     //температура на улице
 	if (message.destinationName == 'ESP12/T2') {
+		if (message.payloadString != '') {
 		id_modT2.style.display = 'none'; chart_T2.style.display = 'block';
 		PS2.value = message.payloadString; PS2.draw();
+		}
 	}
 	//температура в комнате
 	if (message.destinationName == 'ESP12/T') {
+		if (message.payloadString != '') {
 		id_modT1.style.display = 'none'; chart_T1.style.display = 'block';
 		PS1.value = message.payloadString; PS1.draw(); 
 		}
+	}
 	//влажность в комнате
 	if (message.destinationName == 'ESP12/H') {
+		if (message.payloadString != '') {
 		id_modH.style.display = 'none'; chart_H.style.display = 'block';
 		PS3.value = message.payloadString; PS3.draw(); 
 		}
+	}
 	//напряжение в сети
 	if (message.destinationName == 'ESP12/V') {
+		if (message.payloadString != '') {
 		id_modV.style.display = 'none'; chart_V.style.display = 'block';
 		PS4.value = message.payloadString; PS4.draw();	 
+		}
 	}
 	//атмосферное давление
 	if (message.destinationName == 'ESP12/BMP180') {
+		if (message.payloadString != '') {
 		id_modBMP.style.display = 'none'; chart_BMP.style.display = 'block';
-		PS5.value = message.payloadString; PS5.draw();
+		PS5.value = message.payloadString; PS5.draw();	
+		}	
 	}
 	//setTimeout(function(){
 		//if (mod1 = 0) { id_modT1.style.display = 'block'; chart_T1.style.display = 'none';}

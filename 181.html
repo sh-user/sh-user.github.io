@@ -31,7 +31,7 @@ input, textarea, button, select, select:focus {outline: none;}
 a {color: #455a64}
 h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
 
-#id_ram0 {width: 580px; height: 934px; margin:12px 0 12px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); border-radius: 4px; padding: 24px 0 0 0;}
+#id_ram0 {width: 580px; height: 934px; margin:10px 0 12px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); border-radius: 4px; padding: 24px 0 0 0;}
 .lab1 {width: 50%;}
 .lab2 {width: 100%;}
 .lab1, .lab2 {float: left;  margin: 0 0 12px 0;}
@@ -178,7 +178,10 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
   //alert('код для мобильных устройств');
   id_ram_canvas.style.margin = '0 0 12px 0';
   id_ram_canvas.style.width = '580px';
-  id_ram.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.0)';
+  id_ram0.style.boxShadow = 'none'; 
+  id_ram0.style.MozBoxShadow = 'none';
+  id_ram0.style.webkitBoxShadow = 'none';
+  id_ram.style.margin = '0 0 12px 0';
 } else {
   //alert('код для обычных устройств');
 }

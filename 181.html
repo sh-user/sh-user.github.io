@@ -31,15 +31,14 @@ input, textarea, button, select, select:focus {outline: none;}
 a {color: #455a64}
 h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
 
-#id_ram0 {width: 550px; margin:12px 0 0 0;}
+#id_ram0 {width: 580px; height: 934px; margin:12px 0 12px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); border-radius: 4px; padding: 24px 0 0 0;}
 .lab1 {width: 50%;}
 .lab2 {width: 100%;}
-.lab3 {width: 100%; margin: 0 0 22px 0;}
 .lab1, .lab2 {float: left;  margin: 0 0 12px 0;}
 #id_modT1, #id_modT2, #id_modH, #id_modV, #id_modBMP, #id_modP
   {display: table; width: 234px; height: 234px; margin: 18px 0 8px 0; background: #f7f7f7;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); -webkit-border-radius: 117px; 
-    -moz-border-radius: 117px; border-radius: 117px;}
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); -webkit-border-radius: 50%; 
+    -moz-border-radius: 50%; border-radius: 50%;}
 
 #chart_T1, #chart_T2, #chart_H, #chart_V, #chart_BMP, #chart_P {display: none;}
 
@@ -112,30 +111,30 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 <body>
 <center>
 <div id='id_ram0'>
-    <div class='lab3' id='id_status'>Подключение</div>
     <div class='lab1'>
     <h1>Температура в комнате<div class='ram1' onclick="EnableChart(0)"><div class='icoCH'></div></div></h1>
     <div id='id_modT1'><div class="inn">Датчик не подключен</div></div><canvas id='chart_T1'></canvas></div>
     
-    <div class='lab1'><h1>Температура на улице<div class='ram1' onclick="EnableChart(1)">
-    <div class='icoCH'></div></div></h1>
+    <div class='lab1'>
+    <h1>Температура на улице<div class='ram1' onclick="EnableChart(1)"><div class='icoCH'></div></div></h1>
     <div id='id_modT2'><div class="inn">Датчик не подключен</div></div><canvas id='chart_T2'></canvas></div>
     
     <div class='lab2'><h1>Разница температур: <a id='stRT'></a> &degC</h1></div>
     
-    <div class='lab1'><h1>Атмосферное давление<div class='ram1' onclick="EnableChart(2)">
-    <div class='icoCH'></div></div></h1>
+    <div class='lab1'>
+    <h1>Атмосферное давление<div class='ram1' onclick="EnableChart(2)"><div class='icoCH'></div></div></h1>
     <div id='id_modBMP'><div class="inn">Датчик не подключен</div></div><canvas id='chart_BMP'></canvas></div>
     
-    <div class='lab1'><h1>Влажность в комнате<div class='ram1' onclick="EnableChart(3)">
-    <div class='icoCH'></div></h1>
+    <div class='lab1'>
+    <h1>Влажность в комнате<div class='ram1' onclick="EnableChart(3)"><div class='icoCH'></div></h1>
     <div id='id_modH'><div class="inn">Датчик не подключен</div></div><canvas id='chart_H'></canvas></div>
     
-    <div class='lab1'><h1>Напряжение в сети<div class='ram1' onclick="EnableChart(4)">
-    <div class='icoCH'></div></div></h1>
+    <div class='lab1'>
+    <h1>Напряжение в сети<div class='ram1' onclick="EnableChart(4)"><div class='icoCH'></div></div></h1>
     <div id='id_modV'><div class="inn">Датчик не подключен</div></div><canvas id='chart_V'></canvas></div>
     
-    <div class='lab1'><h1>Текущая мощность<div class='ram1'><div class='icoCH'></div></div></h1>
+    <div class='lab1'>
+    <h1>Текущая мощность<div class='ram1'><div class='icoCH'></div></div></h1>
     <div id='id_modP'><div class="inn">Датчик не подключен</div></div><canvas id='chart_P'></canvas></div>
 </div>
 
@@ -152,7 +151,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     <option value='6' disabled>Текущая мощность</option>
     </select></div>
     <div id='id_Load'><div class='loader' id='id_loader'></div><div class='b1'>Загрузка... </div></div>
-    <div id='id_Interval'><div class='b0'><p>Интервал</p></div>
+    <div id='id_Interval'>
     <select id='id_menu' class='ed' onchange="MenuInterval(0)">
     <option value='1'>12 часов</option>
     <option value='2'>1 день</option>
@@ -178,7 +177,8 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
   //alert('код для мобильных устройств');
   id_ram_canvas.style.margin = '0 0 12px 0';
-  id_ram_canvas.style.width = '550px';
+  id_ram_canvas.style.width = '580px';
+  id_ram.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.0)';
 } else {
   //alert('код для обычных устройств');
 }
@@ -439,7 +439,7 @@ var PS6 = new RadialGauge({
 // called when the client connects
 function onConnect() {
     // Once a connection has been made, make a subscription and send a message.
-    id_status.innerHTML = "Подключен";
+    //id_status.innerHTML = "Подключен";
     //console.log("onConnect");
     client.subscribe("ESP12/Status");
     client.subscribe("ESP12/T");
@@ -456,7 +456,7 @@ function onConnect() {
 //=============================================================================
 function doFail(e){
     //console.log('doFail:' + e.errorMessage);
-    id_status.innerHTML = e.errorMessage;
+    //id_status.innerHTML = e.errorMessage;
     setTimeout(function(){if (flagCH == 0) {location.reload();}}, 20000);
 }
 
@@ -465,7 +465,7 @@ function doFail(e){
 function onConnectionLost(e) {
     if (e.errorCode !== 0) {
       //console.log('onConnectionLost:' + e.errorMessage);
-      id_status.innerHTML = e.errorMessage;
+      //id_status.innerHTML = e.errorMessage;
       setTimeout(function(){if (flagCH == 0) {location.reload();}}, 20000);
     }
 }

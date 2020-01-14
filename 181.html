@@ -48,12 +48,21 @@ h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
 .ed1 {width: 240px;}
 .ed2 {width: 110px;}
 select {margin:10px 0px 12px 0; height: 48px; background: #fdfdfe; color: #455a64; font-family: Helvetica; 
-    font-size: 18px; border: 1px solid gray; border-radius: 4px; padding: 6px; 
+    font-size: 18px; border: 1px solid #455a64; border-radius: 4px; padding: 6px; 
     box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset; -moz-appearance: none; -webkit-appearance: none; appearance: none; background-repeat: no-repeat; background-size: 11px auto; background-position: right 8px center; 
 background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA2MCA0MCc+IFwgICAgICA8cG9seWdvbiBwb2ludHM9JzAsMCA2MCwwIDMwLDQwJyBzdHlsZT0nZmlsbDojNDU1YTY0OycvPiBcICAgIDwvc3ZnPg==);}
 
 .b0 {float: left; font-size: 18px; margin: 0 8px 0 0;}
 .b1 {float: right; font-size: 18px; padding: 4px 0 0 10px; margin: 16px 0 10px 0;}
+
+input[type='checkbox'] { display: none;}
+input[type='checkbox']:checked ~ .toggle { background: white; left: 31px; transition: .2s;}
+input[type='checkbox']:checked ~ .switch { background: #0097fe; transition: .2s;}
+.switch {display: block; width: 62px; height: 36px; background: #939393; border-radius: 20px;
+  position: absolute; top: -12px; transition: .2s;}
+.toggle {height: 26px; width: 26px; border-radius: 50%; background: white; position: absolute;
+  top: -7px; left: 5px; transition: .2s;}
+.card {display: inline-block; margin: 20px 4px 0 12px; width: 25px; height: 13px; text-align: center; position: relative;}
 
 #id_Interval, #id_Load { float: right;}
 
@@ -140,6 +149,16 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     <div class='lab1'>
     <h1>Текущая мощность<div class='ram1'><div class='icoCH'></div></div></h1>
     <div id='id_modP'><div class="inn">Датчик не подключен</div></div><canvas id='chart_P'></canvas></div>
+
+    <div class='lab2'><div class='lab2'>
+    <h1>Управление розеткой
+    <div class='card'>
+        <label for='id_LED'><input type='checkbox' id='id_LED' onclick="if (id_LED.checked) {sendLED('1');} 
+        else {sendLED('0');}"/>
+        <span class='switch'></span>
+        <span class='toggle'></span>
+        </label>
+    </div></h1>
 </div>
 
 <div id='id_ram_canvas'>
@@ -187,7 +206,7 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 }
 
 //=============================================================================
-var mod1 = 0, mod2 = 0, temp1 = 0, temp2 = -20, humidity = 0, volt = 150, bmp = 720;
+var mod1 = 0, mod2 = 0, temp1 = 0, temp2 = -20, humidity = 0, volt = 150, bmp = 720, flag = '';
 
 var PS1 = new RadialGauge({
     renderTo: 'chart_T1',
@@ -450,9 +469,18 @@ function onConnect() {
     client.subscribe("ESP12/H");
     client.subscribe("ESP12/V");
     client.subscribe("ESP12/BMP180");
+    client.subscribe("ESP12/LED");
+    client.subscribe("ESP12/SetLED");
 
     message = new Paho.MQTT.Message('0');
     message.destinationName = 'ESP12/GetStatus';
+    client.send(message);
+}
+
+//=============================================================================
+function sendLED(ld) {
+    message = new Paho.MQTT.Message(ld);
+    message.destinationName = 'ESP12/SetLED';
     client.send(message);
 }
 
@@ -520,6 +548,17 @@ function onMessageArrived(message) {
         PS5.value = message.payloadString; PS5.draw();  
         }   
     }
+
+    //статус розетки
+    if (message.destinationName == 'ESP12/LED') {
+        //stLED.innerHTML = message.payloadString; 
+        if (message.payloadString == '0') {id_LED.checked = false;}
+        else {id_LED.checked = true;}
+        if (flag == '') {flag = message.payloadString; }
+        if (message.payloadString != flag) { flag = message.payloadString;}
+        else {flag = message.payloadString; }
+    }
+
     //setTimeout(function(){
         //if (mod1 = 0) { id_modT1.style.display = 'block'; chart_T1.style.display = 'none';}
         //if (mod2 = 0) { id_modT2.style.display = 'block'; chart_T2.style.display = 'none';}

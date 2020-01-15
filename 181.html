@@ -55,12 +55,12 @@ background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53
 .b1 {float: right; font-size: 18px; padding: 4px 0 0 10px; margin: 16px 0 10px 0;}
 
 input[type='checkbox'] { display: none;}
-input[type='checkbox']:checked ~ .toggle { background: white; left: 31px; transition: .2s;}
-input[type='checkbox']:checked ~ .switch { background: #0097fe; transition: .2s;}
-.switch {display: block; width: 62px; height: 36px; background: #939393; border-radius: 20px;
+input[type='checkbox']:checked ~ .toggle { background: white; left: 36px; transition: .2s;}
+input[type='checkbox']:checked ~ .switch { background: #008ae5; transition: .2s;}
+.switch {display: block; width: 70px; height: 38px; background: #939393; border-radius: 20px;
   position: absolute; top: -12px; transition: .2s;}
-.toggle {height: 26px; width: 26px; border-radius: 50%; background: white; position: absolute;
-  top: -7px; left: 5px; transition: .2s;}
+.toggle {height: 30px; width: 30px; border-radius: 50%; background: white; position: absolute;
+  top: -8px; left: 4px; transition: .2s;}
 .card {display: inline-block; margin: 20px 4px 0 12px; width: 25px; height: 13px; text-align: center; position: relative;}
 
 #id_Interval, #id_Load { float: right;}
@@ -133,13 +133,13 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     <div class='lab2'><h1>Разница температур: <a id='stRT'></a> &degC</h1></div>
     
     <div class='lab1'>
-    <h1>Атмосферное давление<div class='ram1' onclick="EnableChart(2)"><div class='icoCH'></div></div></h1>
-    <div id='id_modBMP'><div class="inn">Датчик не подключен</div></div><canvas id='chart_BMP'></canvas></div>
-    
-    <div class='lab1'>
     <h1>Влажность в комнате<div class='ram1' onclick="EnableChart(3)"><div class='icoCH'></div></h1>
     <div id='id_modH'><div class="inn">Датчик не подключен</div></div><canvas id='chart_H'></canvas></div>
-    
+
+    <div class='lab1'>
+    <h1>Атмосферное давление<div class='ram1' onclick="EnableChart(2)"><div class='icoCH'></div></div></h1>
+    <div id='id_modBMP'><div class="inn">Датчик не подключен</div></div><canvas id='chart_BMP'></canvas></div>
+
     <div class='lab1'>
     <h1>Напряжение в сети<div class='ram1' onclick="EnableChart(4)"><div class='icoCH'></div></div></h1>
     <div id='id_modV'><div class="inn">Датчик не подключен</div></div><canvas id='chart_V'></canvas></div>
@@ -184,7 +184,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     </div>
     <canvas id='id_canvas'></canvas>
 </div>
-<div class='lab2'>Версия: 20200114-2151</div>
+<div class='lab2'>Версия: 20200115-1612</div>
 </center>
 </body>
 

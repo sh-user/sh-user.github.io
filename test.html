@@ -6,16 +6,19 @@
 
 <style>
 body{margin:0; background: #9ea7aa; color: #455a64; font-family: Helvetica;}
-::selection {background: #a0bbbb;}
-::-moz-selection {background: #a0bbbb;}
-input, textarea, button, select, select:focus {outline: none;}
+
+.icoDownload{margin: 16px 0 0 16px; background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxMnB0IiBoZWlnaHQ9IjEycHQiIHZpZXdCb3g9IjAgMCAxMiAxMiIgdmVyc2lvbj0iMS4xIj48ZyBpZD0ic3VyZmFjZTEiPjxwYXRoIHN0eWxlPSIgc3Ryb2tlOm5vbmU7ZmlsbC1ydWxlOm5vbnplcm87ZmlsbDojM2U1MDUwO2ZpbGwtb3BhY2l0eToxOyIgZD0iTSAxMS4yMjI2NTYgNi42NTIzNDQgQyAxMS4xODM1OTQgNi41NTg1OTQgMTEuMDkzNzUgNi40OTYwOTQgMTAuOTkyMTg4IDYuNDk2MDk0IEwgOC4yNTM5MDYgNi40OTYwOTQgTCA4LjI1MzkwNiAwLjI1IEMgOC4yNTM5MDYgMC4xMTMyODEgOC4xNDA2MjUgMCA4LjAwMzkwNiAwIEwgNC4wMDM5MDYgMCBDIDMuODY3MTg4IDAgMy43NTc4MTIgMC4xMTMyODEgMy43NTc4MTIgMC4yNSBMIDMuNzU3ODEyIDYuNDk2MDk0IEwgMS4wMDc4MTIgNi40OTYwOTQgQyAwLjkwNjI1IDYuNDk2MDk0IDAuODE2NDA2IDYuNTU4NTk0IDAuNzc3MzQ0IDYuNjUyMzQ0IEMgMC43MzgyODEgNi43NDYwOTQgMC43NTc4MTIgNi44NTE1NjIgMC44MjgxMjUgNi45MjU3ODEgTCA1LjgxNjQwNiAxMS45MjU3ODEgQyA1Ljg2MzI4MSAxMS45NzI2NTYgNS45MjU3ODEgMTIgNS45OTIxODggMTIgQyA2LjA1ODU5NCAxMiA2LjEyMTA5NCAxMS45NzI2NTYgNi4xNjc5NjkgMTEuOTI1NzgxIEwgMTEuMTY3OTY5IDYuOTI1NzgxIEMgMTEuMjQyMTg4IDYuODUxNTYyIDExLjI2MTcxOSA2Ljc0NjA5NCAxMS4yMjI2NTYgNi42NTIzNDQgWiBNIDExLjIyMjY1NiA2LjY1MjM0NCAiLz48L2c+PC9zdmc+)}
+.icoDownload {width: 16px; height: 16px;}
+
+.vBtn {float: left; width: 48px; height: 48px; margin: 12px 8px 12px 0; background: #a0bbbb; -moz-border-radius: 24px; -webkit-border-radius: 24px; border-radius: 24px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);}
+.vBtn:active {background: #FFF;}
 
 h1 {font-size: 30px; margin: -4px 0 0 0;}
-h3 {width: 354px; margin: 0 4px 12px 0;}
+h3 {width: 100%; margin: 0 4px 12px 0;}
 h1, h3 {font-weight:normal;}
 
 .ed {height: 36px; width: 72px; margin: -5px 0 0 0; }
-.ed2 {height: 24px; width: 480px;}
+.ed2 {height: 24px; width: 100%;}
 .ed3 {width: 340px; resize: none; margin: 0 0 -5px 0;}
 .ed, .ed2, .ed3 {background: #fdfdfe; color: #455a64; font-family: Helvetica; font-size: 18px; 
 border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
@@ -24,8 +27,9 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
 box-shadow: 0 0 10px rgba(0,0,0,0.3); -moz-box-shadow: 0 0 10px rgba(0,0,0,0.3); -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.3);
 background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-size: 18px;}
 
-.ram0 {width: 354px; margin: 0; overflow: hidden; padding: 14px 12px 0 12px; font-family: Helvetica; font-size: 15px;}
+.ram0 {width: 100%; margin: 0; overflow: hidden; padding: 14px 12px 0 12px; font-family: Helvetica; font-size: 15px;}
 .lab1 {width: 100%; float: left; margin: 0 0 12px 0;}
+#id_divfrm {width: 100%; float: left; margin: 0 0 12px 0;}
 
 </style>
 
@@ -33,28 +37,290 @@ background: rgba(207,216,220,1); color: #455a64; font-family: Helvetica; font-si
 <table id='lay1'>
 <tr><td>
 <div class='ram0'>
-<p><div class='lab1'><h3>Ответ сервера: <a id='id_title'></a></h3></div></p>
-<p><input type='submit' class='btn' onclick="GetHTTP('https://2conv.com/convert/1/aLrRTJVF5DM/?videoId=aLrRTJVF5DM&format=1&userStatus=&uniqVideoId=',1)" value='2conv.com'></p>
-<p><input type='submit' class='btn' onclick="GetHTTP('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&key=AIzaSyDPZL8ta-gNxEQoAz4EZ9yUPeEcfMBfRHE&q=IAMX+-+Think+Of+England',1)" value='YouTube'></p>
+<p><div class='lab1'><h3>Response: <a id='id_title'></a></h3></div></p>
+<p><input type='submit' id='id_youtube' onclick="GetHTTP('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&key=AIzaSyDPZL8ta-gNxEQoAz4EZ9yUPeEcfMBfRHE&q=IAMX+-+Think+Of+England',1)" value='YouTube'></p>
+<p><input type='submit' onclick="FOCUS()" value='FOCUS'></p>
+<p><input type='submit' onclick="getfoc();" value='activeElement'></p>
+<p><div class='vBtn' onclick="StartPOST()"><div class='icoDownload'></div></div></p>
+<p><div id='id_divfrm' tabIndex='1'></div></p>
 </div>
 </td></tr>
 </table>
 </body>
 
 <script type="text/javascript">
+//id_youtube.focus();
+//getfoc();
+
+function StartFrame(idVideo) {
+  var iframes = document.querySelectorAll('iframe');
+  for (var i = 0; i < iframes.length; i++) {
+    iframes[i].parentNode.removeChild(iframes[i]);
+  }
+  //var x = document.createElement("IFRAME");
+  //x.setAttribute("id","id_frame");
+  //x.setAttribute("height","40px");
+  //x.setAttribute("width","160px");
+  //x.setAttribute("src","https://youtube2mp3api.com/@api/button/mp3/"+idVideo+"?color=9ea7aa");
+  //document.body.appendChild(x);
+
+  id_divfrm.innerHTML = "<iframe id='id_frame' tabIndex='0' height='40px' width='450px' scrolling='no' style='border:none;' src='https://youtube2mp3api.com/@api/button/mp3/"+idVideo+"?color=9ea7aa'></iframe>";
+}
+
+function FOCUS () {
+    //var simulatedEvent = new KeyboardEvent("keyup", {keyCode: 13, which: 13});
+    //document.getElementById("id_youtube").focus();
+    
+    //document.getElementById("id_youtube").dispatchEvent(simulatedEvent);
+
+    //var el = document.getElementById("id_divfrm");
+    //var el = document.getElementById("id_frame");
+    //var frame_win = getIframeWindow(el);
+    //frame_win.setActive();
+    //id_frame.focus();
+    //var iframes = document.querySelectorAll('iframe');
+    //id_title.innerHTML = iframes.length;
+
+    
+    //window.parent.document.getElementById("test").
+
+    //id_frame.setActive(true);
+    //id_frame[0].sendEvent("click");
+
+
+    id_frame.focus();
+    //id_frame.blur();
+    //var simulatedEvent = new KeyboardEvent('keypress', {keyCode: 9}); //tab
+    //id_frame.dispatchEvent(simulatedEvent);
+
+    //id_frame[1].focus();
+
+    //el.submit();
+    //document.getElementById("id_frame").focus();
+
+
+    //var browser = document.querySelector('iframe')[0];
+    //browser.setActive(true);
+    //var event = new Event("click");
+    //elem.dispatchEvent(event);
+    //browser.click();
+
+
+    //document.activeElement.blur();
+    //document.activeElement === document.getElementById('id_frame');
+
+
+    //el.click();
+    //el.submit();
+
+
+    //triggerEvent(el, 'keyup', 13); // simulate mouse/enter key press
+    //triggerEvent2(el, 'mousedown');
+
+    //el.dispatchEvent(new KeyboardEvent('keypress',{'key':13}));
+    //el.dispatchEvent(new Event('keypress', {keyCode: 13}));
+
+
+   //var simulatedEvent = new KeyboardEvent("keydown", {keyCode: 13} as KeyboardEventInit);
+   //var simulatedEvent = new KeyboardEvent('keypress', {keyCode: 13});
+   //element.dispatchEvent(simulatedEvent);
+    //el.trigger(simulatedEvent);
+
+
+    //el.dispatchEvent(new KeyboardEvent('keypress',{'key':13}));
+
+}
+
+function getfoc() {
+
+  //__triggerKeyboardEvent(id_youtube,9);
+
+
+  
+
+  //id_frame.focus();
+  
+  
+
+  var simulatedEvent = new KeyboardEvent("keydown", {keyCode: 9});
+  id_youtube.dispatchEvent(simulatedEvent);
+
+  id_title.innerHTML = document.activeElement; 
+  id_index.innerHTML = document.activeElement.tabIndex; 
+  setTimeout(function(){getfoc();},3000);
+}
+
+function __triggerKeyboardEvent(el, keyCode)
+{
+   var eventObj = document.createEventObject ?
+       document.createEventObject() : document.createEvent("Events");
+
+   var tempKeyboardObj = document.createEvent("KeyboardEvents");
+
+   if(eventObj.initEvent){
+      eventObj.initEvent("keydown", true, true);
+   }
+   eventObj.___dart_dispatch_record_ZxYxX_0_ = tempKeyboardObj.___dart_dispatch_record_ZxYxX_0_
+   eventObj.keyCode = keyCode;
+   eventObj.which = keyCode;
+
+   el.dispatchEvent ? el.dispatchEvent(eventObj) : el.fireEvent("onkeydown", eventObj);
+
+} 
+
+
+ function simulatedClick(target) {
+
+        var event = target.ownerDocument.createEvent('MouseEvents'),
+            opts = { // These are the default values, set up for un-modified left clicks
+              type: 'click',
+              canBubble: true,
+              cancelable: true,
+              view: target.ownerDocument.defaultView,
+              detail: 1,
+              screenX: 0, //The coordinates within the entire page
+              screenY: 0,
+              clientX: 0, //The coordinates within the viewport
+              clientY: 0,
+              ctrlKey: false,
+              altKey: false,
+              shiftKey: false,
+              metaKey: false, //I *think* 'meta' is 'Cmd/Apple' on Mac, and 'Windows key' on Win. Not sure, though!
+              button: 0, //0 = left, 1 = middle, 2 = right
+              relatedTarget: null,
+            };
+
+        //Pass in the options
+        event.initMouseEvent(
+            opts.type,
+            opts.canBubble,
+            opts.cancelable,
+            opts.view,
+            opts.detail,
+            opts.screenX,
+            opts.screenY,
+            opts.clientX,
+            opts.clientY,
+            opts.ctrlKey,
+            opts.altKey,
+            opts.shiftKey,
+            opts.metaKey,
+            opts.button,
+            opts.relatedTarget
+        );
+
+        //Fire the event
+        target.dispatchEvent(event);
+    }
+
+
+function contextMenuClick(element){
+    var evt = element.ownerDocument.createEvent('MouseEvents');
+
+    var LEFT_CLICK_BUTTON_CODE = 1; // the same for FF and IE
+
+    evt.initMouseEvent('contextmenu', true, true,
+         element.ownerDocument.defaultView, 1, 0, 0, 0, 0, false,
+         false, false, false, LEFT_CLICK_BUTTON_CODE, null);
+
+    if (document.createEventObject){
+        // dispatch for IE
+       return element.fireEvent('onclick', evt)
+     }
+    else{
+       // dispatch for firefox + others
+      return !element.dispatchEvent(evt);
+    }
+}
+
+function triggerEvent2(el, type){
+   if ('createEvent' in document) {
+        // modern browsers, IE9+
+        var e = document.createEvent('HTMLEvents');
+        e.initEvent(type, false, true);
+        el.dispatchEvent(e);
+    } else {
+        // IE 8
+        var e = document.createEventObject();
+        e.eventType = type;
+        el.fireEvent('on'+e.eventType, e);
+    }
+}
+
+function triggerEvent(el, type, keyCode) {
+    if ('createEvent' in document) {
+            // modern browsers, IE9+
+            var e = document.createEvent('HTMLEvents');
+            e.keyCode = keyCode;
+            e.initEvent(type, false, true);
+            el.dispatchEvent(e);
+    } else {
+        // IE 8
+        var e = document.createEventObject();
+        e.keyCode = keyCode;
+        e.eventType = type;
+        el.fireEvent('on'+e.eventType, e);
+    }
+}
+
+
+//id_frame.onload = function() {
+//  id_title.innerHTML = 'onload';
+//}
+
+
+  //let event = new Event("click");
+  //elem.dispatchEvent(event);
+
+
+function StartPOST() {
+  //var xhr = new XMLHttpRequest();
+  var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+  var xhr = new XHR();
+  var json = JSON.stringify({
+    url: "https://www.youtube.com/watch?v=6dXP4OndfRU",
+    extension: "mp3"
+  });
+  xhr.open("POST", 'https://mp3-youtube.download/download/start', true)
+  xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+  //xhr.setRequestHeader('Access-Control-Allow-Origin' 'origin-list'
+  xhr.onload = function() {
+    id_title.innerHTML = this.responseText;
+  }
+  xhr.onerror = function() {
+    id_title.innerHTML = 'error: ' + this.status;
+  }
+
+  /*xhr.onreadystatechange = function() {
+    if (this.readyState == 4) {
+      if(this.status == 200) {
+        id_title.innerHTML = this.responseText;
+      }
+      else {
+        id_title.innerHTML = 'error';
+      }
+    }
+  }*/
+  xhr.send(json);
+}
+
+
+
+
+
 
 function GetHTTP(url,st) {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET',url,true); 
+  xhr.open('GET',url,true);
   xhr.send();
   xhr.onload = function() {
     if (this.responseText != '') {
       if (st==1) {
-        var myObj = JSON.parse(this.responseText);
-        id_title.innerHTML = myObj.items[0].id.videoId;
+        //var myObj = JSON.parse(this.responseText);
+        //id_title.innerHTML = myObj.items[0].id.videoId;
 
         //videoId = this.responseText;
-        //id_title.innerHTML = this.responseText;
+        id_title.innerHTML = this.responseText;
         //setTimeout(function(){GetHTTP('http://2conv.com/convert/1/'+videoId+'/?videoId='+videoId+'&format=1&userStatus=&uniqVideoId=',2);},3000);
       }
       if (st==2) {

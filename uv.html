@@ -3,7 +3,7 @@
 <head>
 <meta charset='utf-8'>
 <meta name='viewport' content='width=384'>
-<meta http-equiv='Access-Control-Allow-Origin' content='https://sh-user.github.io/uv'>
+<meta http-equiv='Access-Control-Allow-Origin' content='*'>
 <title>UV index</title>
 
 <style>
@@ -148,11 +148,6 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 }
 
 //=============================================================================
-
-//var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
-//var xhr = new XHR();
-
-//=============================================================================
 function GetUV() {
 	if (lat != 0) {
 	var xmlhttp = new XMLHttpRequest();
@@ -214,7 +209,8 @@ function MenuSF() {
 //=============================================================================
 function GeоCity() {
 	id_loader.style.display='block';
-	var xhr = new XMLHttpRequest();
+	var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+  	var xhr = new XHR();
 	var key = 'AKfycby7nPMjjYlgPgDMP3kyYQTuSj9q-PEE4rbL13wU';
 	var URL2 = 'https://script.google.com/macros/s/' + key +'/exec?city=' + id_city.value;
 	xhr.open('GET', URL2, true);

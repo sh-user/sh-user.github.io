@@ -148,13 +148,14 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 }
 
 //=============================================================================
-var xmlhttp = new XMLHttpRequest();
-var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
-var xhr = new XHR();
+
+//var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+//var xhr = new XHR();
 
 //=============================================================================
 function GetUV() {
 	if (lat != 0) {
+	var xmlhttp = new XMLHttpRequest();
 	var isodate = new Date().toISOString();
 	var URL = 'https://api.openuv.io/api/v1/uv?lat=' + lat + '&lng='+ lng + '&dt=' + isodate;
 	xmlhttp.open('GET', URL, true);
@@ -213,14 +214,11 @@ function MenuSF() {
 //=============================================================================
 function GeоCity() {
 	id_loader.style.display='block';
+	var xhr = new XMLHttpRequest();
 	var key = 'AKfycby7nPMjjYlgPgDMP3kyYQTuSj9q-PEE4rbL13wU';
 	var URL2 = 'https://script.google.com/macros/s/' + key +'/exec?city=' + id_city.value;
 	xhr.open('GET', URL2, true);
-    xhr.send();
-}
-
-//================================================================
-xhr.onload = function() {
+    xhr.onload = function() {
   	//console.log(this.responseText);
   	var myObj2 = JSON.parse(this.responseText);
 	var st = myObj2.status;
@@ -247,6 +245,11 @@ xhr.onload = function() {
 		}
 		//GetUV();
   		setTimeout(function(){GetUV();}, 500);
+	}
+    xhr.send();
 }
+
+//================================================================
+
 </script>
 </html>

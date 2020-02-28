@@ -70,9 +70,7 @@ background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53
   var key = 'AKfycbz5w1yrWlc-8SJtlkq19WwzaerPZR6gO0SWQwRCuY1WbvHNc0s';
   var ENRU = 'https://script.google.com/macros/s/' + key + '/exec?from=en&to=ru&str=';
   var RUEN = 'https://script.google.com/macros/s/' + key + '/exec?from=ru&to=en&str=';
-
-  var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
-  var xhr = new XHR();
+  var xhr = new new XMLHttpRequest();
 
 //================================================================
 if ('webkitSpeechRecognition' in window) {
@@ -85,17 +83,12 @@ if ('webkitSpeechRecognition' in window) {
   //recognizer.maxAlternatives = 1;
   recognizer.start();
 }
-  //var synth = window.speechSynthesis;
-  var voices = speechSynthesis.getVoices();
   var utterance = new SpeechSynthesisUtterance();
-  //utterance.voice = voices[0];
-  utterance.voice = voices[1];
+  utterance.voice = speechSynthesis.getVoices()[1];
   utterance.lang = 'en-US'; 
 
   setTimeout(function() { 
-  	if(typeof speechSynthesis === 'undefined') {
-    	return;
-  	}
+  	if(typeof speechSynthesis === 'undefined') return;
   	var voices = speechSynthesis.getVoices();
   	for(i = 0; i < voices.length ; i++) {
     	var option = document.createElement('option');
@@ -128,6 +121,7 @@ function SW1() {
   utterance.voice = speechSynthesis.getVoices()[1];
   utterance.lang = 'en-US';
   txtVoice.innerHTML = speechSynthesis.getVoices()[1].name;
+  voiceSelect.selectedIndex = 1;
   //console.log('Voice: ' + synth.getVoices()[1].name);
   //recognizer.start();
 }
@@ -136,10 +130,10 @@ function SW1() {
 function SW2() {
   recognizer.stop();
   recognizer.lang = 'en-US';
-  var voices = speechSynthesis.getVoices();
   utterance.voice = speechSynthesis.getVoices()[2];
   utterance.lang = 'ru-Ru'; 
   txtVoice.innerHTML = speechSynthesis.getVoices()[2].name;
+  voiceSelect.selectedIndex = 2;
   //console.log('Voice: ' + synth.getVoices()[0].name);
   //recognizer.start();
 }

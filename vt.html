@@ -89,7 +89,7 @@ if ('webkitSpeechRecognition' in window) {
   var voices = speechSynthesis.getVoices();
   var utterance = new SpeechSynthesisUtterance();
   //utterance.voice = voices[0];
-  utterance.voice = voices[2];
+  utterance.voice = voices[1];
   utterance.lang = 'en-US'; 
   setTimeout(function() { 
   	if(typeof speechSynthesis === 'undefined') {
@@ -107,7 +107,7 @@ if ('webkitSpeechRecognition' in window) {
     document.getElementById("voiceSelect").appendChild(option);
   }
 
-  	txtVoice.innerHTML = synth.getVoices()[2].name;
+  	txtVoice.innerHTML = synth.getVoices()[1].name;
   },100);
   
 //================================================================
@@ -127,7 +127,7 @@ function SW1() {
   recognizer.lang = 'ru-Ru';
   utterance.voice = voices[1];
   utterance.lang = 'en-US';
-  txtVoice.innerHTML = synth.getVoices()[2].name;
+  txtVoice.innerHTML = synth.getVoices()[1].name;
   //console.log('Voice: ' + synth.getVoices()[1].name);
   //recognizer.start();
 }
@@ -136,9 +136,9 @@ function SW1() {
 function SW2() {
   recognizer.stop();
   recognizer.lang = 'en-US';
-  utterance.voice = voices[0];
+  utterance.voice = voices[2];
   utterance.lang = 'ru-Ru'; 
-  txtVoice.innerHTML = synth.getVoices()[0].name;
+  txtVoice.innerHTML = synth.getVoices()[2].name;
   //console.log('Voice: ' + synth.getVoices()[0].name);
   //recognizer.start();
 }

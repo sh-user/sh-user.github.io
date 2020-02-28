@@ -18,7 +18,7 @@ input, textarea, button {outline: none;}
 .ed1, .ed2 {border: 1px solid gray; color: #455a64; font-family: Helvetica; font-size: 18px;
 border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset;}
 
-.btn {width: 100%; height: 40px; color: #455a64; font-family: Helvetica; font-size: 18px;
+.btn {width: 100%; height: 48px; color: #455a64; font-family: Helvetica; font-size: 18px;
 background: linear-gradient(#F7F7F7, #DCDCDC);  border: 1px solid #949494; 
 border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px; outline: none; margin: 4px 0 4px 0;}
 .btn:active {background: linear-gradient(#DCDCDC, #F7F7F7);}
@@ -33,8 +33,8 @@ input[type=radio] + label {display:inline-block; margin:-2px; padding: 8px 12px;
 font-family: Helvetica; font-size: 18px; }
 input[type=radio]:checked + label { background-image: none; color: #fff; background-color: #2aa79e;}
 
-select {margin:10px 0px 12px 0; height: 48px; background: #fdfdfe; color: #455a64; font-family: Helvetica; 
-    font-size: 18px; border: 1px solid #455a64; border-radius: 4px; padding: 6px; 
+select {margin:10px 0px 12px 0; height: 48px; width: 100%; background: #fdfdfe; color: #455a64; 
+	font-family: Helvetica; font-size: 18px; border: 1px solid #455a64; border-radius: 4px; padding: 6px; 
     box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset; -moz-appearance: none; -webkit-appearance: none; appearance: none; background-repeat: no-repeat; background-size: 11px auto; background-position: right 8px center; 
 background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA2MCA0MCc+IFwgICAgICA8cG9seWdvbiBwb2ludHM9JzAsMCA2MCwwIDMwLDQwJyBzdHlsZT0nZmlsbDojNDU1YTY0OycvPiBcICAgIDwvc3ZnPg==);}
 
@@ -101,14 +101,13 @@ if ('webkitSpeechRecognition' in window) {
     option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
     if(voices[i].default) {
       option.textContent += ' -- DEFAULT';
-      txtVoice.innerHTML = voices[i].name;
     }
     option.setAttribute('data-lang', voices[i].lang);
     option.setAttribute('data-name', voices[i].name);
     document.getElementById("voiceSelect").appendChild(option);
   }
 
-  	//txtVoice.innerHTML = synth.getVoices()[1].name;
+  	txtVoice.innerHTML = synth.getVoices()[2].name;
   },100);
   
 //================================================================

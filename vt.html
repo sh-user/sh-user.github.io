@@ -48,6 +48,7 @@ input[type=radio]:checked + label { background-image: none; color: #fff; backgro
     <input type='radio' id='r2' name='rad' value='2' onClick='SW2()'><label for='r2'> EN ► RU </label>
     </p>
     <p>Voice: <a id='txtVoice'></a></p>
+    <p>Voice: <select id="voiceSelect"></select></p>
     <p><textarea class='ed2' id='txtIN' rows='6'></textarea></p>
     <p><textarea class='ed2' id='txtOUT' rows='6'></textarea></p>
     <p><input class='btn' type='button' value='Translate' onClick='btn_TR()'/></p>
@@ -85,7 +86,25 @@ if ('webkitSpeechRecognition' in window) {
   //utterance.voice = voices[0];
   utterance.voice = voices[1];
   utterance.lang = 'en-US'; 
-  setTimeout(function(){ txtVoice.innerHTML = synth.getVoices()[1].name;},100);
+  setTimeout(function() { 
+  	if(typeof speechSynthesis === 'undefined') {
+    	return;
+  	}
+  	var voices = speechSynthesis.getVoices();
+  	for(i = 0; i < voices.length ; i++) {
+    var option = document.createElement('option');
+    option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
+    if(voices[i].default) {
+      option.textContent += ' -- DEFAULT';
+      txtVoice.innerHTML = voices[i].name;
+    }
+    option.setAttribute('data-lang', voices[i].lang);
+    option.setAttribute('data-name', voices[i].name);
+    document.getElementById("voiceSelect").appendChild(option);
+  }
+
+  	//txtVoice.innerHTML = synth.getVoices()[1].name;
+  },100);
   
 //================================================================
 function btn_TR() {

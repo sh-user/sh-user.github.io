@@ -57,7 +57,7 @@ background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53
     <p><textarea class='ed2' id='txtIN' rows='6'></textarea></p>
     <p><textarea class='ed2' id='txtOUT' rows='6'></textarea></p>
     <p><input class='btn' type='button' value='Translate' onClick='btn_TR()'/></p>
-    <p class='ver'>Версия: 20200228-2321</p>
+    <p class='ver'>Версия: 20200228-2340</p>
   </div>
   </center> 
 </div>
@@ -125,7 +125,7 @@ function btn_TR() {
 function SW1() {
   recognizer.stop();
   recognizer.lang = 'ru-Ru';
-  utterance.voice = voices[1];
+  utterance.voice = speechSynthesis.getVoices()[1];
   utterance.lang = 'en-US';
   txtVoice.innerHTML = speechSynthesis.getVoices()[1].name;
   //console.log('Voice: ' + synth.getVoices()[1].name);
@@ -136,7 +136,8 @@ function SW1() {
 function SW2() {
   recognizer.stop();
   recognizer.lang = 'en-US';
-  utterance.voice = voices[2];
+  var voices = speechSynthesis.getVoices();
+  utterance.voice = speechSynthesis.getVoices()[2];
   utterance.lang = 'ru-Ru'; 
   txtVoice.innerHTML = speechSynthesis.getVoices()[2].name;
   //console.log('Voice: ' + synth.getVoices()[0].name);

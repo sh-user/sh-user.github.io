@@ -33,6 +33,11 @@ input[type=radio] + label {display:inline-block; margin:-2px; padding: 8px 12px;
 font-family: Helvetica; font-size: 18px; }
 input[type=radio]:checked + label { background-image: none; color: #fff; background-color: #2aa79e;}
 
+select {margin:10px 0px 12px 0; height: 48px; background: #fdfdfe; color: #455a64; font-family: Helvetica; 
+    font-size: 18px; border: 1px solid #455a64; border-radius: 4px; padding: 6px; 
+    box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset; -moz-appearance: none; -webkit-appearance: none; appearance: none; background-repeat: no-repeat; background-size: 11px auto; background-position: right 8px center; 
+background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA2MCA0MCc+IFwgICAgICA8cG9seWdvbiBwb2ludHM9JzAsMCA2MCwwIDMwLDQwJyBzdHlsZT0nZmlsbDojNDU1YTY0OycvPiBcICAgIDwvc3ZnPg==);}
+
 .ver {font-size: 14px;}
 
 </style>
@@ -48,7 +53,7 @@ input[type=radio]:checked + label { background-image: none; color: #fff; backgro
     <input type='radio' id='r2' name='rad' value='2' onClick='SW2()'><label for='r2'> EN ► RU </label>
     </p>
     <p>Voice: <a id='txtVoice'></a></p>
-    <p>Voice: <select id="voiceSelect"></select></p>
+    <p><select id="voiceSelect"></select></p>
     <p><textarea class='ed2' id='txtIN' rows='6'></textarea></p>
     <p><textarea class='ed2' id='txtOUT' rows='6'></textarea></p>
     <p><input class='btn' type='button' value='Translate' onClick='btn_TR()'/></p>

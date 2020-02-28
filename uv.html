@@ -1,9 +1,7 @@
-
 <!DOCTYPE html><html lang='ru'>
 <head>
 <meta charset='utf-8'>
 <meta name='viewport' content='width=384'>
-<meta http-equiv='Access-Control-Allow-Origin' content='*'>
 <title>UV index</title>
 
 <style>
@@ -209,11 +207,10 @@ function MenuSF() {
 //=============================================================================
 function GeоCity() {
 	id_loader.style.display='block';
-	var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
-  	var xhr = new XHR();
-	var key = 'AKfycby7nPMjjYlgPgDMP3kyYQTuSj9q-PEE4rbL13wU';
-	var URL2 = 'https://script.google.com/macros/s/' + key +'/exec?city=' + id_city.value;
-	xhr.open('GET', URL2, true);
+  	var xhr = new XMLHttpRequest();
+	var key = 'AKfycbyttA3tv_8zdgK2pVLjdOeb4mQaFA0luCua8jt6oaF-35sM2J1x';
+	var gsURL = 'https://script.google.com/macros/s/' + key +'/exec?city=' + id_city.value;
+	xhr.open('GET', gsURL, true);
     xhr.onload = function() {
   	//console.log(this.responseText);
   	var myObj2 = JSON.parse(this.responseText);

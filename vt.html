@@ -43,7 +43,6 @@ background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53
 </style>
 </head>
 <body>
-
 <div id='lay1'>
   <center>
   <div id='lay2'>
@@ -100,7 +99,7 @@ if ('webkitSpeechRecognition' in window) {
     	option.setAttribute('data-name', voices[i].name);
     	document.getElementById("voiceSelect").appendChild(option);
   	}
-  	txtVoice.innerHTML = voices[1].name;
+  	txtVoice.innerHTML = speechSynthesis.getVoices()[1].name;
   	voiceSelect.selectedIndex = 1;
   },100);
   

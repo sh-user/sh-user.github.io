@@ -31,7 +31,7 @@ input, textarea, button, select, select:focus {outline: none;}
 a {color: #455a64}
 h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
 
-#id_ram0 {width: 586px; padding: 28px 0 0 0;}
+#id_main {width: 586px; padding: 28px 0 0 0;}
 .lab1 {width: 50%;}
 .lab2 {width: 100%;}
 .lab1, .lab2 {float: left;  margin: 0 0 12px 0;}
@@ -54,13 +54,13 @@ background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53
 .b0 {float: left; font-size: 18px; margin: 0 8px 0 0;}
 .b1 {float: right; font-size: 18px; padding: 4px 0 0 10px; margin: 16px 0 10px 0;}
 
-input[type='checkbox'] { display: none;}
+input[type='checkbox'] {display: none;}
 input[type='checkbox']:checked ~ .toggle { background: white; left: 36px; transition: .2s;}
 input[type='checkbox']:checked ~ .switch { background: #008ae5; transition: .2s;}
 .switch {display: block; width: 70px; height: 38px; background: #939393; border-radius: 20px;
   position: absolute; top: -12px; transition: .2s;}
-.toggle {height: 30px; width: 30px; border-radius: 50%; background: white; position: absolute;
-  top: -8px; left: 4px; transition: .2s;}
+.toggle {height: 28px; width: 28px; border-radius: 50%; background: white; position: absolute;
+  top: -7px; left: 5px; transition: .2s;}
 .card {display: inline-block; margin: 20px 4px 0 12px; width: 25px; height: 13px; text-align: center; position: relative;}
 
 #id_Interval, #id_Load { float: right;}
@@ -121,7 +121,8 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 
 <body>
 <center>
-<div id='id_ram0'>
+<div id='id_main'>
+    <div class='lab2'><h1>Разница температур: <a id='stRT'></a> &degC</h1></div>
     <div class='lab1'>
     <h1>Температура в комнате<div class='ram1' onclick="EnableChart(0)"><div class='icoCH'></div></div></h1>
     <div id='id_modT1'><div class="inn">Датчик не подключен</div></div><canvas id='chart_T1'></canvas></div>
@@ -129,9 +130,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     <div class='lab1'>
     <h1>Температура на улице<div class='ram1' onclick="EnableChart(1)"><div class='icoCH'></div></div></h1>
     <div id='id_modT2'><div class="inn">Датчик не подключен</div></div><canvas id='chart_T2'></canvas></div>
-    
-    <div class='lab2'><h1>Разница температур: <a id='stRT'></a> &degC</h1></div>
-    
+
     <div class='lab1'>
     <h1>Влажность в комнате<div class='ram1' onclick="EnableChart(3)"><div class='icoCH'></div></h1>
     <div id='id_modH'><div class="inn">Датчик не подключен</div></div><canvas id='chart_H'></canvas></div>
@@ -139,7 +138,8 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     <div class='lab1'>
     <h1>Атмосферное давление<div class='ram1' onclick="EnableChart(2)"><div class='icoCH'></div></div></h1>
     <div id='id_modBMP'><div class="inn">Датчик не подключен</div></div><canvas id='chart_BMP'></canvas></div>
-    <div class='lab2'></div>
+    
+    <div id='id_line' class='lab2'></div>
     <div class='lab1'>
     <h1>Напряжение в сети<div class='ram1' onclick="EnableChart(4)"><div class='icoCH'></div></div></h1>
     <div id='id_modV'><div class="inn">Датчик не подключен</div></div><canvas id='chart_V'></canvas></div>
@@ -184,7 +184,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     </div>
     <canvas id='id_canvas'></canvas>
 </div>
-<div class='lab2'>Версия: 20200115-1612</div>
+<div class='lab2'>Версия: 20200421-1937</div>
 </center>
 </body>
 
@@ -200,13 +200,22 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
   //alert('код для мобильных устройств');
   id_ram_canvas.style.margin = '0 0 12px 0';
   id_ram_canvas.style.width = '586px';
+  id_main.style.width = '586px';
+  id_line.style.float = 'block';
+  const lab = document.querySelectorAll('.lab1');
+  lab.forEach(item => item.style.width = '50%');
 } else {
-  //alert('код для обычных устройств');
+  //alert('код для обычных устройств');  
+  id_ram_canvas.style.margin = '0 0 12px 0';
+  id_ram_canvas.style.width = '860px';
+  id_main.style.width = '860px';
+  id_line.style.float = 'none';
+  const lab = document.querySelectorAll('.lab1');
+  lab.forEach(item => item.style.width = '33.3%');
 }
 
 //=============================================================================
-var mod1 = 0, mod2 = 0, temp1 = 0, temp2 = -20, humidity = 0, volt = 150, bmp = 720;
-var flag = '';
+var mod1 = 0, mod2 = 0, temp1 = 0, temp2 = -20, humidity = 0, volt = 150, bmp = 720, flag = '';
 
 var PS1 = new RadialGauge({
     renderTo: 'chart_T1',
@@ -641,7 +650,7 @@ function EnableChart(num) {
     id_ram_canvas.classList.remove("minus");
     id_ram_canvas.classList.add("plus");
     id_ram_canvas.style.display='block';
-    id_ram0.style.display='none';
+    id_main.style.display='none';
     var ctx = document.getElementById('id_canvas').getContext('2d');
     window.myLine = new Chart(ctx, config);
     flagCH = 1;
@@ -661,7 +670,7 @@ function DisableChart() {
         window.myLine.update();
         window.myLine.destroy();
         id_ram_canvas.style.display='none';
-        id_ram0.style.display='block';
+        id_main.style.display='block';
         flagCH = 0;
     }, 300);
 }

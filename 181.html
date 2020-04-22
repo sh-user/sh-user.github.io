@@ -32,8 +32,9 @@ input, textarea, button, select, select:focus {outline: none;}
 a {color: #455a64}
 h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
 
-#id_main {width: 586px; padding: 28px 0 0 0;}
-.lab1 {width: 50%;}
+#id_main {width: 860px; padding: 28px 0 0 0;}
+#id_line {display: none;}
+.lab1 {width: 33.3%;}
 .lab2 {width: 100%;}
 .lab1, .lab2 {float: left;  margin: 0 0 12px 0;}
 #id_modT1, #id_modT2, #id_modH, #id_modV, #id_modBMP, #id_modP
@@ -207,10 +208,6 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
   lab.forEach(item => item.style.width = '50%');
 } else {
   //alert('код для обычных устройств');
-  id_main.style.width = '860px';
-  id_line.style.float = 'none';
-  const lab = document.querySelectorAll('.lab1');
-  lab.forEach(item => item.style.width = '33.3%');
 }
 
 //=============================================================================
@@ -450,6 +447,7 @@ var PS6 = new RadialGauge({
     animatedValue: true
   });
 
+//=============================================================================
  // Create a client instance
   client = new Paho.MQTT.Client(server, port, "web_" + parseInt(Math.random() * 100, 10));
   // set callback handlers

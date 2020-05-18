@@ -2,7 +2,7 @@
 <!DOCTYPE html><html lang='ru'>
 <head>
 <meta charset='utf-8'>
-<meta name='viewport' content='width=586'>
+<meta name='viewport' content='width=device-width'>
 <title>Home 181</title>
 
 <style>
@@ -117,6 +117,19 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 #id_ram_canvas { display: none; min-width: 586px; width: 82%; margin:12px 0 12px 0; padding: 10px 10px 10px 10px;
     background: #f7f7f7; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);  
 }
+
+@media screen and (max-width: 860px) {
+	#id_main {width: 586px; padding: 28px 0 0 0;}
+	#id_ram_canvas {margin: 0 0 12px 0; width: 586px}
+	.lab1 {width: 50%}
+}
+
+@media screen and (max-width: 586px) {
+	#id_main {width: 286px; padding: 28px 0 0 0;}
+	#id_ram_canvas {margin: 0 0 12px 0; width: 286px}
+	.lab1 {width: 100%}
+}
+
 </style>
 </head>
 
@@ -184,7 +197,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     </div>
     <canvas id='id_canvas'></canvas>
 </div>
-<div class='lab2'>Версия: 20200511-1513</div>
+<div class='lab2'>Версия: 20200519-0205</div>
 </center>
 </body>
 
@@ -196,16 +209,16 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 <script type="text/javascript">
 
 //=============================================================================
-if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-  //alert('код для мобильных устройств');
-  id_ram_canvas.style.margin = '0 0 12px 0';
-  id_ram_canvas.style.width = '586px';
-  id_main.style.width = '586px';
-  const lab = document.querySelectorAll('.lab1');
-  lab.forEach(item => item.style.width = '50%');
-} else {
-  //alert('код для обычных устройств');
-}
+// if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+//   //alert('код для мобильных устройств');
+//   id_ram_canvas.style.margin = '0 0 12px 0';
+//   id_ram_canvas.style.width = '586px';
+//   id_main.style.width = '586px';
+//   const lab = document.querySelectorAll('.lab1');
+//   lab.forEach(item => item.style.width = '50%');
+// } else {
+//   //alert('код для обычных устройств');
+// }
 
 //=============================================================================
 function playSound() {

@@ -729,7 +729,7 @@ function UpdateChart(ch) {
     case 1:
         config.data.datasets[0].label = 'Температура';
         config.options.scales.yAxes[0].ticks.min = -20;
-        config.options.scales.yAxes[0].ticks.max = 40;
+        config.options.scales.yAxes[0].ticks.max = 45;
         config.options.scales.yAxes[0].ticks.stepSize = 5;
         if (f01 == 1) { LoadChart(1);} else { GetData(2, 1); f01 = 1;}
         break;

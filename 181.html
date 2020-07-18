@@ -5,7 +5,7 @@
 <title>Home 181</title>
 
 <style>
-body {margin: 0; background: #cfd8dc; color: #455a64; font-family: Helvetica; font-size: 15px;}
+body {margin: 0; background: #f1f3f4; color: #455a64; font-family: Helvetica; font-size: 15px;}
 ::selection {background: #a0bbbb;}
 ::-moz-selection {background: #a0bbbb;}
 input, textarea, button, select, select:focus {outline: none;}
@@ -18,13 +18,13 @@ input, textarea, button, select, select:focus {outline: none;}
 
 .icoCH, .icoBack, .icoUpdate {width: 24px; height: 24px; margin: 12px 0 0 0;}
 
-.ram1 {float:right; width: 48px; height: 48px; margin: -12px 12px 0 0; 
-    background: #f7f7f7; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
+.ram1 {float:right; width: 48px; height: 48px; margin: -12px 12px 0 0;
+    background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
     -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%;}
 .ram1:active {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.0);}
 
 .ram2 {float: left; width: 48px; height: 48px; margin: 10px 12px 0 0; 
-    background: #f7f7f7; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
+    background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
     -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%;}
 .ram2:active {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.0);}
 
@@ -36,7 +36,7 @@ h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
 .lab2 {width: 100%;}
 .lab1, .lab2 {float: left; margin: 0 0 12px 0;}
 #id_modT1, #id_modT2, #id_modH, #id_modV, #id_modBMP, #id_modP
-  {display: table; width: 238px; height: 238px; margin: 12px 0 12px 0; background: #f7f7f7;
+  {display: table; width: 238px; height: 238px; margin: 12px 0 12px 0; background: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); -webkit-border-radius: 50%; 
     -moz-border-radius: 50%; border-radius: 50%;}
 
@@ -46,7 +46,7 @@ h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
 
 .ed1 {width: 240px;}
 .ed2 {width: 110px;}
-select {margin:10px 0px 12px 0; height: 48px; background: #fdfdfe; color: #455a64; font-family: Helvetica; 
+select {margin:10px 0px 12px 0; height: 48px; background: #fff; color: #455a64; font-family: Helvetica; 
     font-size: 18px; border: 1px solid #455a64; border-radius: 4px; padding: 6px; 
     box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset; -moz-appearance: none; -webkit-appearance: none; appearance: none; background-repeat: no-repeat; background-size: 11px auto; background-position: right 8px center; 
 background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA2MCA0MCc+IFwgICAgICA8cG9seWdvbiBwb2ludHM9JzAsMCA2MCwwIDMwLDQwJyBzdHlsZT0nZmlsbDojNDU1YTY0OycvPiBcICAgIDwvc3ZnPg==);}
@@ -57,13 +57,13 @@ background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53
 input[type='checkbox'] {display: none;}
 input[type='checkbox']:checked ~ .toggle { background: white; left: 36px; transition: .2s;}
 input[type='checkbox']:checked ~ .switch { background: #008ae5; transition: .2s;}
-.switch {display: block; width: 70px; height: 38px; background: #939393; border-radius: 20px;
+.switch {display: block; width: 70px; height: 38px; background: gray; border-radius: 20px;
   position: absolute; top: -12px; transition: .2s;}
 .toggle {height: 28px; width: 28px; border-radius: 50%; background: white; position: absolute;
   top: -7px; left: 5px; transition: .2s;}
 .card {display: inline-block; margin: 20px 4px 0 12px; width: 25px; height: 13px; text-align: center; position: relative;}
 
-#id_Interval, #id_Load { float: right;}
+#id_Interval, #id_Load {float: right;}
 
 @-webkit-keyframes loader { 100% {-webkit-transform: rotate(360deg); transform: rotate(360deg);}}
 @-moz-keyframes loader { 100% {-moz-transform: rotate(360deg); transform: rotate(360deg);}}
@@ -76,26 +76,26 @@ input[type='checkbox']:checked ~ .switch { background: #008ae5; transition: .2s;
     animation: loader 0.5s infinite linear;}
 
 @-webkit-keyframes scalePlus{ 
-from {opacity: 0;  -webkit-transform: scale(0); } to {opacity: 1; -webkit-transform: scale(1); }}
+from {opacity: 0; -webkit-transform: scale(0);} to {opacity: 1; -webkit-transform: scale(1);}}
 @-moz-keyframes scalePlus { 
-from {opacity: 0;  -moz-transform: scale(0); } to {opacity: 1; -moz-transform: scale(1); }}
+from {opacity: 0; -moz-transform: scale(0);} to {opacity: 1; -moz-transform: scale(1);}}
 @-ms-keyframes scalePlus { 
-from {opacity: 0;  -ms-transform: scale(0); } to {opacity: 1; -ms-transform: scale(1); }}
+from {opacity: 0; -ms-transform: scale(0);} to {opacity: 1; -ms-transform: scale(1);}}
 @-o-keyframes scalePlus {
-from {opacity: 0;  -o-transform: scale(0); } to {opacity: 1; -o-transform: scale(1); }}
+from {opacity: 0; -o-transform: scale(0);} to {opacity: 1; -o-transform: scale(1);}}
 @keyframes scalePlus {
-from {opacity: 0;  transform: scale(0); } to {opacity: 1; transform: scale(1); }}
+from {opacity: 0; transform: scale(0);} to {opacity: 1; transform: scale(1);}}
 
 @-webkit-keyframes scaleMinus{ 
-from {opacity: 1;  -webkit-transform: scale(1); } to {opacity: 0; -webkit-transform: scale(0); }}
+from {opacity: 1; -webkit-transform: scale(1);} to {opacity: 0; -webkit-transform: scale(0);}}
 @-moz-keyframes scaleMinus { 
-from {opacity: 1;  -moz-transform: scale(1); } to {opacity: 0; -moz-transform: scale(0); }}
+from {opacity: 1; -moz-transform: scale(1);} to {opacity: 0; -moz-transform: scale(0);}}
 @-ms-keyframes scaleMinus { 
-from {opacity: 1;  -ms-transform: scale(1); } to {opacity: 0; -ms-transform: scale(0); }}
+from {opacity: 1; -ms-transform: scale(1);} to {opacity: 0; -ms-transform: scale(0);}}
 @-o-keyframes scaleMinus {
-from {opacity: 1;  -o-transform: scale(1); } to {opacity: 0; -o-transform: scale(0); }}
+from {opacity: 1; -o-transform: scale(1);} to {opacity: 0; -o-transform: scale(0);}}
 @keyframes scaleMinus {
-from {opacity: 1;  transform: scale(1); } to {opacity: 0; transform: scale(0); }}
+from {opacity: 1; transform: scale(1);} to {opacity: 0; transform: scale(0);}}
 
 .plus {
   -webkit-animation: scalePlus 300ms linear;
@@ -128,48 +128,47 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 	#id_ram_canvas {margin: 0 0 12px 0; width: 286px}
 	.lab1 {width: 100%}
 }
-
 </style>
 </head>
 
 <body>
 <center>
 <div id='id_main'>
-    <div class='lab2'><h1>Разница температур: <a id='stRT'></a> &degC</h1></div>
-    <div class='lab1'>
-    <h1>Температура в комнате<div class='ram1' onclick="EnableChart(0)"><div class='icoCH'></div></div></h1>
-    <div id='id_modT1'><div class="inn">Датчик не подключен</div></div><canvas id='chart_T1'></canvas></div>
+<div class='lab2'><h1>Разница температур: <a id='id_RT'></a> &degC</h1></div>
+<div class='lab1'>
+<h1>Температура в комнате<div id='id_r1' class='ram1' onclick="EnableChart(0)"><div class='icoCH'></div></div></h1>
+<div id='id_modT1'><div class="inn">Датчик не подключен</div></div><canvas id='chart_T1'></canvas></div>
     
-    <div class='lab1'>
-    <h1>Температура на улице<div class='ram1' onclick="EnableChart(1)"><div class='icoCH'></div></div></h1>
-    <div id='id_modT2'><div class="inn">Датчик не подключен</div></div><canvas id='chart_T2'></canvas></div>
+<div class='lab1'>
+<h1>Температура на улице<div  id='id_r2' class='ram1' onclick="EnableChart(1)"><div class='icoCH'></div></div></h1>
+<div id='id_modT2'><div class="inn">Датчик не подключен</div></div><canvas id='chart_T2'></canvas></div>
 
-    <div class='lab1'>
-    <h1>Влажность в комнате<div class='ram1' onclick="EnableChart(3)"><div class='icoCH'></div></h1>
-    <div id='id_modH'><div class="inn">Датчик не подключен</div></div><canvas id='chart_H'></canvas></div>
+<div class='lab1'>
+<h1>Влажность в комнате<div id='id_r3' class='ram1' onclick="EnableChart(3)"><div class='icoCH'></div></h1>
+<div id='id_modH'><div class="inn">Датчик не подключен</div></div><canvas id='chart_H'></canvas></div>
 
-    <div class='lab1'>
-    <h1>Атмосферное давление<div class='ram1' onclick="EnableChart(2)"><div class='icoCH'></div></div></h1>
-    <div id='id_modBMP'><div class="inn">Датчик не подключен</div></div><canvas id='chart_BMP'></canvas></div>
+<div class='lab1'>
+<h1>Атмосферное давление<div id='id_r4' class='ram1' onclick="EnableChart(2)"><div class='icoCH'></div></div></h1>
+<div id='id_modBMP'><div class="inn">Датчик не подключен</div></div><canvas id='chart_BMP'></canvas></div>
 
-    <div class='lab1'>
-    <h1>Напряжение в сети<div class='ram1' onclick="EnableChart(4)"><div class='icoCH'></div></div></h1>
-    <div id='id_modV'><div class="inn">Датчик не подключен</div></div><canvas id='chart_V'></canvas></div>
+<div class='lab1'>
+<h1>Напряжение в сети<div id='id_r5' class='ram1' onclick="EnableChart(4)"><div class='icoCH'></div></div></h1>
+<div id='id_modV'><div class="inn">Датчик не подключен</div></div><canvas id='chart_V'></canvas></div>
     
-    <div class='lab1'>
-    <h1>Текущая мощность<div class='ram1'><div class='icoCH'></div></div></h1>
-    <div id='id_modP'><div class="inn">Датчик не подключен</div></div><canvas id='chart_P'></canvas></div>
+<div class='lab1'>
+<h1>Текущая мощность<div id='id_r6' class='ram1'><div class='icoCH'></div></div></h1>
+<div id='id_modP'><div class="inn">Датчик не подключен</div></div><canvas id='chart_P'></canvas></div>
 
-    <div class='lab2'>
-    <h1>Управление розеткой
-    <div class='card'>
-        <label for='id_LED'><input type='checkbox' id='id_LED' onclick="if (id_LED.checked) {sendLED('1');} 
-        else {sendLED('0');}"/>
-        <span class='switch'></span>
-        <span class='toggle'></span>
-        </label>
-    </div></h1>
-    </div>
+<div class='lab2'>
+<h1>Управление розеткой
+<div class='card'>
+    <label for='id_LED'>
+    <input type='checkbox' id='id_LED' onclick="if (id_LED.checked) sendLED('1'); else sendLED('0');"/>
+    <span class='switch'></span><span class='toggle'></span>
+    </label>
+</div></h1>
+</div>
+<div class='lab2'>Версия: 20200718-2256</div>
 </div>
 
 <div id='id_ram_canvas'>
@@ -196,7 +195,6 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     </div>
     <canvas id='id_canvas'></canvas>
 </div>
-<div class='lab2'>Версия: 20200707-1608</div>
 </center>
 </body>
 
@@ -240,13 +238,19 @@ var PS1 = new RadialGauge({
     majorTicks: ['0','5','10','15','20','25','30','35','40'],
     minorTicks: 5,
     strokeTicks: false,
-    highlights  : [
-        { from : 28,  to : 30, color : 'rgba(255,153,0,.75)' },
-        { from : 30, to : 40, color : 'rgba(220,57,18,.75)' }
+    highlights: [
+        {from: 28, to: 30, color: 'rgba(255,153,0,.75)'},
+        {from: 30, to: 40, color: 'rgba(220,57,18,.75)'}
     ],
     valueInt: 1,
     valueDec: 1,
-    colorPlate: "#f7f7f7",
+    colorBorderOuter: "#fff",
+  	colorBorderOuterEnd: "#fff",
+  	colorBorderInner: "#fff",
+  	colorBorderInnerEnd: "#fff",
+  	colorBorderMiddle: "#fff",
+  	colorBorderMiddleEnd: "#fff",
+  	colorPlate: "#fff",
     colorMajorTicks: "#333333",
     colorMinorTicks: "#333333",
     colorNumbers: "#333333",
@@ -282,12 +286,18 @@ var PS2 = new RadialGauge({
     minorTicks: 10,
     strokeTicks: false,
     highlights  : [
-        { from : 28,  to : 30, color : 'rgba(255,153,0,.75)' },
+        { from : 28, to : 30, color : 'rgba(255,153,0,.75)' },
         { from : 30, to : 40, color : 'rgba(220,57,18,.75)' }
     ],
     valueInt: 1,
     valueDec: 1,
-    colorPlate: "#f7f7f7",
+    colorBorderOuter: "#fff",
+  	colorBorderOuterEnd: "#fff",
+  	colorBorderInner: "#fff",
+  	colorBorderInnerEnd: "#fff",
+  	colorBorderMiddle: "#fff",
+  	colorBorderMiddleEnd: "#fff",
+  	colorPlate: "#fff",
     colorMajorTicks: "#333333",
     colorMinorTicks: "#333333",
     colorNumbers: "#333333",
@@ -324,7 +334,13 @@ var PS3 = new RadialGauge({
     highlights: false,
     valueInt: 1,
     valueDec: 1,
-    colorPlate: "#f7f7f7",
+    colorBorderOuter: "#fff",
+  	colorBorderOuterEnd: "#fff",
+  	colorBorderInner: "#fff",
+  	colorBorderInnerEnd: "#fff",
+  	colorBorderMiddle: "#fff",
+  	colorBorderMiddleEnd: "#fff",
+  	colorPlate: "#fff",
     colorMajorTicks: "#333333",
     colorMinorTicks: "#333333",
     colorNumbers: "#333333",
@@ -359,14 +375,20 @@ var PS3 = new RadialGauge({
     majorTicks: ['150','','170','','190','','210','','230','','250'],
     minorTicks: 10,
     strokeTicks: false,
-    //highlights: false,
+    highlights: false,
     highlights  : [
         { from : 150,  to : 170, color: 'rgba(220,57,18,.75)' },
         { from : 170, to : 180, color: 'rgba(255,153,0,.75)'  }
     ],
     valueInt: 1,
     valueDec: 1,
-    colorPlate: "#f7f7f7",
+    colorBorderOuter: "#fff",
+  	colorBorderOuterEnd: "#fff",
+  	colorBorderInner: "#fff",
+  	colorBorderInnerEnd: "#fff",
+  	colorBorderMiddle: "#fff",
+  	colorBorderMiddleEnd: "#fff",
+  	colorPlate: "#fff",
     colorMajorTicks: "#333333",
     colorMinorTicks: "#333333",
     colorNumbers: "#333333",
@@ -403,7 +425,13 @@ var PS5 = new RadialGauge({
     highlights: false,
     valueInt: 1,
     valueDec: 1,
-    colorPlate: "#f7f7f7",
+    colorBorderOuter: "#fff",
+  	colorBorderOuterEnd: "#fff",
+  	colorBorderInner: "#fff",
+  	colorBorderInnerEnd: "#fff",
+  	colorBorderMiddle: "#fff",
+  	colorBorderMiddleEnd: "#fff",
+  	colorPlate: "#fff",
     colorMajorTicks: "#333333",
     colorMinorTicks: "#333333",
     colorNumbers: "#333333",
@@ -440,7 +468,13 @@ var PS6 = new RadialGauge({
     highlights: false,
     valueInt: 1,
     valueDec: 1,
-    colorPlate: "#f7f7f7",
+    colorBorderOuter: "#fff",
+  	colorBorderOuterEnd: "#fff",
+  	colorBorderInner: "#fff",
+  	colorBorderInnerEnd: "#fff",
+  	colorBorderMiddle: "#fff",
+  	colorBorderMiddleEnd: "#fff",
+  	colorPlate: "#fff",
     colorMajorTicks: "#333333",
     colorMinorTicks: "#333333",
     colorNumbers: "#333333",
@@ -465,6 +499,127 @@ var PS6 = new RadialGauge({
     animatedValue: true
   });
 
+PS1.update({
+  colorNeedle: "#a0bbbb",
+  colorNeedleEnd: "#a0bbbb",
+  colorNeedleShadowUp: "gray",
+  colorNeedleCircleOuter: "#a0bbbb",
+  colorNeedleCircleOuterEnd: "#a0bbbb",
+  colorNeedleCircleInner: "#a0bbbb",
+  colorNeedleCircleInnerEnd: "gray",
+  colorBorderInner: "#2e2e2e",
+  colorBorderInnerEnd: "#2e2e2e",
+  colorBorderMiddle: "#a0bbbb",
+  colorBorderMiddleEnd: "#a0bbbb",
+  colorBorderOuter: "gray",
+  colorBorderOuterEnd: "gray",
+  colorPlate: "#2e2e2e",
+  colorMajorTicks: "#a0bbbb",
+  colorMinorTicks: "#a0bbbb",
+  colorNumbers: "#a0bbbb",
+  colorValueText: "#a0bbbb"
+});
+
+PS2.update({
+  colorNeedle: "#a0bbbb",
+  colorNeedleEnd: "#a0bbbb",
+  colorNeedleShadowUp: "gray",
+  colorNeedleCircleOuter: "#a0bbbb",
+  colorNeedleCircleOuterEnd: "#a0bbbb",
+  colorNeedleCircleInner: "#a0bbbb",
+  colorNeedleCircleInnerEnd: "gray",
+  colorBorderInner: "#2e2e2e",
+  colorBorderInnerEnd: "#2e2e2e",
+  colorBorderMiddle: "#a0bbbb",
+  colorBorderMiddleEnd: "#a0bbbb",
+  colorBorderOuter: "gray",
+  colorBorderOuterEnd: "gray",
+  colorPlate: "#2e2e2e",
+  colorMajorTicks: "#a0bbbb",
+  colorMinorTicks: "#a0bbbb",
+  colorNumbers: "#a0bbbb",
+  colorValueText: "#a0bbbb"
+});
+
+PS3.update({
+  colorNeedle: "#a0bbbb",
+  colorNeedleEnd: "#a0bbbb",
+  colorNeedleShadowUp: "gray",
+  colorNeedleCircleOuter: "#a0bbbb",
+  colorNeedleCircleOuterEnd: "#a0bbbb",
+  colorNeedleCircleInner: "#a0bbbb",
+  colorNeedleCircleInnerEnd: "gray",
+  colorBorderInner: "#2e2e2e",
+  colorBorderInnerEnd: "#2e2e2e",
+  colorBorderMiddle: "#a0bbbb",
+  colorBorderMiddleEnd: "#a0bbbb",
+  colorBorderOuter: "gray",
+  colorBorderOuterEnd: "gray",
+  colorPlate: "#2e2e2e",
+  colorMajorTicks: "#a0bbbb",
+  colorMinorTicks: "#a0bbbb",
+  colorNumbers: "#a0bbbb",
+  colorValueText: "#a0bbbb"
+});
+
+PS4.update({
+  colorNeedle: "#a0bbbb",
+  colorNeedleEnd: "#a0bbbb",
+  colorNeedleShadowUp: "gray",
+  colorNeedleCircleOuter: "#a0bbbb",
+  colorNeedleCircleOuterEnd: "#a0bbbb",
+  colorNeedleCircleInner: "#a0bbbb",
+  colorNeedleCircleInnerEnd: "gray",
+  colorBorderInner: "#2e2e2e",
+  colorBorderInnerEnd: "#2e2e2e",
+  colorBorderMiddle: "#a0bbbb",
+  colorBorderMiddleEnd: "#a0bbbb",
+  colorBorderOuter: "gray",
+  colorBorderOuterEnd: "gray",
+  colorPlate: "#2e2e2e",
+  colorMajorTicks: "#a0bbbb",
+  colorMinorTicks: "#a0bbbb",
+  colorNumbers: "#a0bbbb",
+  colorValueText: "#a0bbbb"
+});
+
+PS5.update({
+  colorNeedle: "#a0bbbb",
+  colorNeedleEnd: "#a0bbbb",
+  colorNeedleShadowUp: "gray",
+  colorNeedleCircleOuter: "#a0bbbb",
+  colorNeedleCircleOuterEnd: "#a0bbbb",
+  colorNeedleCircleInner: "#a0bbbb",
+  colorNeedleCircleInnerEnd: "gray",
+  colorBorderInner: "#2e2e2e",
+  colorBorderInnerEnd: "#2e2e2e",
+  colorBorderMiddle: "#a0bbbb",
+  colorBorderMiddleEnd: "#a0bbbb",
+  colorBorderOuter: "gray",
+  colorBorderOuterEnd: "gray",
+  colorPlate: "#2e2e2e",
+  colorMajorTicks: "#a0bbbb",
+  colorMinorTicks: "#a0bbbb",
+  colorNumbers: "#a0bbbb",
+  colorValueText: "#a0bbbb"
+});
+
+document.body.style.background = '#2e2e2e';
+document.body.style.color = '#a0bbbb';
+id_r1.style.background = '#a0bbbb';
+id_r2.style.background = '#a0bbbb';
+id_r3.style.background = '#a0bbbb';
+id_r4.style.background = '#a0bbbb';
+id_r5.style.background = '#a0bbbb';
+id_r6.style.background = '#a0bbbb';
+id_modT1.style.background = '#2e2e2e';
+id_modT2.style.background = '#2e2e2e';
+id_modH.style.background = '#2e2e2e';
+id_modBMP.style.background = '#2e2e2e';
+id_modV.style.background = '#2e2e2e';
+id_modP.style.background = '#2e2e2e';
+id_RT.style.color = '#a0bbbb';
+
 //=============================================================================
  // Create a client instance
   client = new Paho.MQTT.Client(server, port, "web_" + parseInt(Math.random() * 100, 10));
@@ -485,7 +640,7 @@ var PS6 = new RadialGauge({
 // called when the client connects
 function onConnect() {
     // Once a connection has been made, make a subscription and send a message.
-    //id_status.innerHTML = "Подключен";
+    //id_status.textContent = "Подключен";
     //console.log("onConnect");
     client.subscribe("ESP12/Status");
     client.subscribe("ESP12/T");
@@ -512,9 +667,9 @@ function sendLED(ld) {
 //=============================================================================
 function doFail(e){
     //console.log('doFail:' + e.errorMessage);
-    //id_status.innerHTML = e.errorMessage;
+    //id_status.textContent = e.errorMessage;
     
-    setTimeout(function(){if (flagCH == 0) {location.reload();}}, 20000);
+    setTimeout(function(){if (flagCH == 0) location.reload();}, 20000);
 }
 
 //=============================================================================
@@ -522,8 +677,8 @@ function doFail(e){
 function onConnectionLost(e) {
     if (e.errorCode !== 0) {
       //console.log('onConnectionLost:' + e.errorMessage);
-      //id_status.innerHTML = e.errorMessage;
-      setTimeout(function(){if (flagCH == 0) {location.reload();}}, 20000);
+      //id_status.textContent = e.errorMessage;
+      setTimeout(function(){if (flagCH == 0) location.reload();}, 20000);
     }
 }
 
@@ -542,35 +697,40 @@ function onMessageArrived(message) {
     if (message.destinationName == 'ESP12/T2') {
         if (message.payloadString != '') {
         id_modT2.style.display = 'none'; chart_T2.style.display = 'block';
-        PS2.value = message.payloadString; PS2.draw();
+        PS2.value = message.payloadString; 
+        PS2.draw();
         }
     }
     //температура в комнате
     if (message.destinationName == 'ESP12/T') {
         if (message.payloadString != '') {
         id_modT1.style.display = 'none'; chart_T1.style.display = 'block';
-        PS1.value = message.payloadString; PS1.draw(); 
+        PS1.value = message.payloadString; 
+        PS1.draw(); 
         }
     }
     //влажность в комнате
     if (message.destinationName == 'ESP12/H') {
         if (message.payloadString != '') {
         id_modH.style.display = 'none'; chart_H.style.display = 'block';
-        PS3.value = message.payloadString; PS3.draw(); 
+        PS3.value = message.payloadString; 
+        PS3.draw(); 
         }
     }
     //напряжение в сети
     if (message.destinationName == 'ESP12/V') {
         if (message.payloadString != '') {
         id_modV.style.display = 'none'; chart_V.style.display = 'block';
-        PS4.value = message.payloadString; PS4.draw();   
+        PS4.value = message.payloadString; 
+        PS4.draw();   
         }
     }
     //атмосферное давление
     if (message.destinationName == 'ESP12/BMP180') {
         if (message.payloadString != '') {
         id_modBMP.style.display = 'none'; chart_BMP.style.display = 'block';
-        PS5.value = message.payloadString; PS5.draw();  
+        PS5.value = message.payloadString; 
+        PS5.draw();  
         }   
     }
     //статус розетки
@@ -590,7 +750,7 @@ function onMessageArrived(message) {
     var RT = parseFloat(PS2.value) - parseFloat(PS1.value);
     RT = RT.toFixed(1);
     if (RT < 0) {RT = RT/-1;}  
-    stRT.innerHTML = RT;
+    id_RT.textContent = RT;
     PS6.draw();
 }
 
@@ -680,8 +840,8 @@ function DisableChart() {
     id_ram_canvas.classList.add("minus");
     f00 = 0; f01 = 0; f02 = 0; f03 = 0; f04 = 0;
     for (var i = 0; i < interval; i++) {
-            config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
-        }
+    	config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
+    }
     setTimeout(function(){
         window.myLine.update();
         window.myLine.destroy();

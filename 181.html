@@ -57,8 +57,8 @@ background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53
 input[type='checkbox'] {display: none;}
 input[type='checkbox']:checked ~ .toggle { background: white; left: 36px; transition: .2s;}
 input[type='checkbox']:checked ~ .switch { background: #008ae5; transition: .2s;}
-.switch {display: block; width: 70px; height: 38px; background: gray; border-radius: 20px;
-  position: absolute; top: -12px; transition: .2s;}
+.switch {display: block; width: 70px; height: 38px; background: #a0bbbb; border-radius: 20px; 
+	position: absolute; top: -12px; transition: .2s;}
 .toggle {height: 28px; width: 28px; border-radius: 50%; background: white; position: absolute;
   top: -7px; left: 5px; transition: .2s;}
 .card {display: inline-block; margin: 20px 4px 0 12px; width: 25px; height: 13px; text-align: center; position: relative;}
@@ -164,11 +164,11 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 <div class='card'>
     <label for='id_LED'>
     <input type='checkbox' id='id_LED' onclick="if (id_LED.checked) sendLED('1'); else sendLED('0');"/>
-    <span class='switch'></span><span class='toggle'></span>
+    <span id='id_sw' class='switch'></span><span class='toggle'></span>
     </label>
 </div></h1>
 </div>
-<div class='lab2'>Версия: 20200718-2256</div>
+<div class='lab2'>Версия: 20200720-1402</div>
 </div>
 
 <div id='id_ram_canvas'>
@@ -499,6 +499,7 @@ var PS6 = new RadialGauge({
     animatedValue: true
   });
 
+function darktheme() {
 PS1.update({
   colorNeedle: "#a0bbbb",
   colorNeedleEnd: "#a0bbbb",
@@ -619,6 +620,10 @@ id_modBMP.style.background = '#2e2e2e';
 id_modV.style.background = '#2e2e2e';
 id_modP.style.background = '#2e2e2e';
 id_RT.style.color = '#a0bbbb';
+}
+//id_sw.classList.remove("switch");
+//document.getElementsByTagName('head')[0].append('<style>.switch {display: block; width: 70px; height: 38px; background: #FFF; border-radius: 20px; position: absolute; top: -12px; transition: .2s;}</style>');
+
 
 //=============================================================================
  // Create a client instance

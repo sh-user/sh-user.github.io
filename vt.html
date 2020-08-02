@@ -107,21 +107,21 @@ if ('webkitSpeechRecognition' in window) {
 function btn_TR() {
   rec_str = txtIN.value; 
   if (txtIN.value != '') {
-    if (r1.checked) { URL = RUEN + txtIN.value; }
-    else {URL = ENRU + txtIN.value;}
+    if (r1.checked) URL = RUEN + txtIN.value
+    else URL = ENRU + txtIN.value;
     xhr.open('GET', URL, true);
     xhr.send();
-  } else { recognizer.start();}
+  } else recognizer.start();
 }
 
 //================================================================
 function SW1() {
   recognizer.stop();
   recognizer.lang = 'ru-Ru';
-  utterance.voice = speechSynthesis.getVoices()[1];
+  utterance.voice = speechSynthesis.getVoices()[2];
   utterance.lang = 'en-US';
-  txtVoice.innerHTML = speechSynthesis.getVoices()[1].name;
-  voiceSelect.selectedIndex = 1;
+  txtVoice.innerHTML = speechSynthesis.getVoices()[2].name;
+  voiceSelect.selectedIndex = 2;
   //console.log('Voice: ' + synth.getVoices()[1].name);
   //recognizer.start();
 }
@@ -130,10 +130,10 @@ function SW1() {
 function SW2() {
   recognizer.stop();
   recognizer.lang = 'en-US';
-  utterance.voice = speechSynthesis.getVoices()[2];
+  utterance.voice = speechSynthesis.getVoices()[1];
   utterance.lang = 'ru-Ru'; 
-  txtVoice.innerHTML = speechSynthesis.getVoices()[2].name;
-  voiceSelect.selectedIndex = 2;
+  txtVoice.innerHTML = speechSynthesis.getVoices()[1].name;
+  voiceSelect.selectedIndex = 1;
   //console.log('Voice: ' + synth.getVoices()[0].name);
   //recognizer.start();
 }

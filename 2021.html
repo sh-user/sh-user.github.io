@@ -205,6 +205,7 @@ input[type='checkbox']:checked ~ .switch { background: #008000; transition: .2s;
 
 //=============================================================================
 var flagCH = 0, flag = '';
+document.getElementById("lights").style.display = "none";
 
 if (typeof window.Audio === 'function') {
     var audioElem = new Audio();
@@ -274,7 +275,6 @@ function onMessageArrived(message) {
     if (message.destinationName == 'ESP12/LED') {
         if (message.payloadString == '0') {
         	id_LED.checked = false;
-        	//var style = document.getElementById("lights").style.display;
         	document.getElementById("lights").style.display = "none";
         }
         else {

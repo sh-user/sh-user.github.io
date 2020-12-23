@@ -1,0 +1,290 @@
+<!DOCTYPE html><html lang='ru'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width'>
+<title>Home 181</title>
+
+<style>
+body {margin: 0; background: #f1f3f4; color: #455a64; font-family: Helvetica; font-size: 15px;}
+::selection {background: #a0bbbb;}
+::-moz-selection {background: #a0bbbb;}
+
+.fixed-snow span::after {
+    position:fixed; color:#BFE2FF; font-weight:bold; pointer-events: none; z-index: 1000;
+}
+.fixed-snow span:nth-child(even)::after {
+    content: "\2744";
+}
+.fixed-snow span:nth-child(odd)::after {
+    content: "\2745";
+}
+.fixed-snow span:nth-child(1)::after {
+    font-size:40px; bottom:4%; left:4%; animation: snowzoom 2s linear infinite;
+}
+.fixed-snow span:nth-child(2)::after {
+    font-size:48px; bottom:6%; right:6%; animation: snowzoom 3s ease-in infinite;
+}
+.fixed-snow span:nth-child(3)::after {
+    font-size:32px; bottom:10%; left:45%; animation: snowzoom 4s linear infinite;
+}
+.fixed-snow span:nth-child(4)::after {
+    font-size:44px; bottom:40%; left:20%; animation: snowzoom 3s ease-in-out infinite;
+}
+.fixed-snow span:nth-child(5)::after {
+    font-size:42px; top:16%; left:8%; animation: snowzoom 3.2s ease-out infinite;
+}
+.fixed-snow span:nth-child(6)::after {
+    font-size:30px; top:20%; right:8%; animation: snowzoom 2.2s ease infinite;
+}
+.fixed-snow span:nth-child(7)::after {
+    font-size:50px; top:50%; left:50%; animation: snowzoom 2.4s linear infinite;
+}
+.fixed-snow span:nth-child(8)::after {
+    font-size:32px; top:26%; right:28%; animation: snowzoom 1.8s ease-in-out infinite;
+}
+.fixed-snow span:nth-child(9)::after {
+    font-size:42px; top:12%; left:58%; animation: snowzoom 3.2s linear infinite;
+}
+.fixed-snow span:nth-child(10)::after {
+    font-size:46px; bottom:30%; right:24%; animation: snowzoom 2s ease infinite;
+}
+.fixed-snow span:nth-child(11)::after {
+    font-size:38px; bottom:22%; left:14%; animation: snowzoom 3s ease-in infinite;
+}
+.fixed-snow span:nth-child(12)::after {
+    font-size:28px; bottom:28%; left:40%; animation: snowzoom 2.8s ease-out infinite;
+}
+.fixed-snow span:nth-child(13)::after {
+    font-size:22px; top:24%; left:20%; animation: snowzoom 2.4s ease infinite;
+}
+.fixed-snow span:nth-child(14)::after {
+    font-size:42px; top:30%; left:38%; animation: snowzoom 2.4s ease-in infinite;
+}
+@keyframes snowzoom {
+    0% {transform: scale(1);}
+    50% {transform: scale(2);}
+    100% {transform: scale(1);}
+}
+
+#tree {width: 220px; display: block; margin: 0 auto;}
+.st0 {fill:#332C28;}
+.st1 {fill:#0f690f;}
+.st2 {fill:#388f38;}
+.red-md {fill: #aa1231;	animation: 0.6s red-flash ease-in-out infinite;}
+@keyframes red-flash {
+	40% {fill: #ea385c;}
+	80% {fill: #FF0000;}
+}
+.gold-lt {fill: #c1881c; animation: 0.6s gold-lt-flash ease-in-out infinite;}
+@keyframes gold-lt-flash {
+	40% {fill: #e7b75c;}
+	80% {fill: #FFFF00;}
+}
+.blue-lt {fill: #1f3e64; animation: 0.6s blue-lt-flash ease-in-out infinite;}
+@keyframes blue-lt-flash {
+	40% {fill: #386fb1;}
+	80% {fill: #00BFFF;}
+}
+.blue-dk {fill: #0f1f2f; animation: 0.6s blue-dk-flash ease-in-out infinite;}
+@keyframes blue-dk-flash {
+	40% {fill: #28527c;}
+	80% {fill: #0f1f2f;}
+}
+.gold-dk {fill: #69512a; animation: 0.6s gold-dk-flash ease-in-out infinite;}
+@keyframes gold-dk-flash {
+	40% {fill: #b28947;}
+	80% {fill: #69512a;}
+}
+.g1 {animation-delay: 0s;}
+.g2 {animation-delay: 0.4s;}
+.g3 {animation-delay: 0.8s;}
+
+.ram1 {float:right; width: 48px; height: 48px; margin: -12px 12px 0 0;
+    background: #fff; box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); 
+    -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%;}
+.ram1:active {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.0);}
+
+.ram2 {float: left; width: 48px; height: 48px; margin: 10px 12px 0 0; 
+    background: #fff; box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); 
+    -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%;}
+.ram2:active {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.0);}
+
+a {color: #455a64}
+h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
+
+#id_main {width: 860px; padding: 28px 0 0 0;}
+.lab1 {width: 33.3%;}
+.lab2 {width: 100%;}
+.lab1, .lab2 {float: left; margin: 0 0 12px 0;}
+
+.inn {display: table-cell; vertical-align: middle; text-align: center;}
+.b0 {float: left; font-size: 18px; margin: 0 8px 0 0;}
+.b1 {float: right; font-size: 18px; padding: 4px 0 0 10px; margin: 16px 0 10px 0;}
+
+input[type='checkbox'] {display: none;}
+input[type='checkbox']:checked ~ .toggle { background: white; left: 36px; transition: .2s;}
+input[type='checkbox']:checked ~ .switch { background: #008000; transition: .2s;}
+.switch {display: block; width: 70px; height: 38px; background: #a0bbbb; border-radius: 20px; 
+	position: absolute; top: -12px; transition: .2s;}
+.toggle {height: 28px; width: 28px; border-radius: 50%; background: white; position: absolute;
+  top: -7px; left: 5px; transition: .2s;}
+.card {display: inline-block; margin: 20px 4px 0 8px; width: 25px; height: 13px; text-align: center; position: relative;}
+
+@media screen and (max-width: 860px) {
+	#id_main {width: 586px; padding: 28px 0 0 0;}
+	#id_ram_canvas {margin: 0 0 12px 0; width: 586px}
+	.lab1 {width: 50%}
+}
+
+@media screen and (max-width: 586px) {
+	#id_main {width: 286px; padding: 28px 0 0 0;}
+	#id_ram_canvas {margin: 0 0 12px 0; width: 286px}
+	.lab1 {width: 100%}
+}
+</style>
+</head>
+
+<body>
+<div class="fixed-snow">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+<center>
+<div id='id_main'>
+<div class='lab2' id='id_svg'>
+<svg id="tree" xmlns="http://www.w3.org/2000/svg" version="1.1" id="Layer_1" x="0" y="0" viewBox="-1694.2 483.2 199.3 285.2" xml:space="preserve">
+    <g id="tree">
+        <rect x="-1605.6" y="697.1" class="st0" width="21.7" height="71.3"/>
+        <polygon class="st1" points="-1656.1 616.8 -1634.8 612 -1670.6 676.1 -1648.5 671.1 -1694.2 753 -1595 730.5 -1595 507.4 "/>
+        <polygon class="st2" points="-1494.9 753 -1540.6 671.1 -1518.5 676.1 -1554.4 612 -1533.1 616.8 -1594.7 506.8 -1595 507.4 -1595 730.5 -1594.7 730.4 "/>
+    </g>
+    <g id="lights">
+        <g id="blue-lt">
+            <circle class="blue-lt g1" cx="-1575" cy="706.1" r="9"/>
+            <circle class="blue-lt g2" cx="-1621.3" cy="641" r="7"/>
+            <circle class="blue-lt g3" cx="-1665.5" cy="732.8" r="7"/>
+            <circle class="blue-lt g1" cx="-1600.3" cy="668.5" r="7"/>
+        </g>
+        <g id="blue-dk">
+            <circle class="blue-dk g3" cx="-1578.3" cy="570.8" r="7"/>
+            <circle class="blue-dk g1" cx="-1538" cy="718.6" r="7"/>
+            <circle class="blue-dk g2" cx="-1594.8" cy="610.3" r="7"/>
+        </g>
+        <g id="red-md">
+            <circle class="red-md g1" cx="-1635.6" cy="681.7" r="9"/>
+            <circle class="red-md g1" cx="-1570.3" cy="634" r="9"/>
+            <circle class="red-md g2" cx="-1607.3" cy="711.6" r="7"/>
+        </g>
+        <g id="gold-lt">
+            <circle class="gold-lt g1" cx="-1612.3" cy="585.8" r="9"/>
+            <circle class="gold-lt g2" cx="-1631.6" cy="705.6" r="7"/>
+        </g>
+        <g id="gold-dk">
+            <circle class="gold-dk g2" cx="-1572.3" cy="604.7" r="7"/>
+            <circle class="gold-dk g3" cx="-1561.3" cy="681.7" r="7"/>
+        </g>
+    </g>
+</svg>
+</div>
+
+<div class='lab2'>
+<h1>Управление елочкой
+<div class='card'>
+    <label for='id_LED'>
+    <input type='checkbox' id='id_LED' onclick="if (id_LED.checked) sendLED('1'); else sendLED('0');"/>
+    <span id='id_sw' class='switch'></span><span id='id_tog' class='toggle'></span>
+    </label>
+</div></h1>
+</div>
+</div>
+</center>
+</body>
+
+<script type="text/javascript" src="mqttws31.js"></script>
+<script type="text/javascript" src="config.js"></script>
+<script type="text/javascript">
+
+//=============================================================================
+var flagCH = 0, flag = '';
+
+if (typeof window.Audio === 'function') {
+    var audioElem = new Audio();
+    audioElem.src = "data:audio/ogg;base64,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LI4FJBIQGgAAqgiIrghASHZKAKTv7LW/a1v//mXmecSo0jpEjAMAkiwUkUCv6FDcXf//4UcCsHBWILkb//4LwbFiigoqaC5BUU7//xvRWX/rhwViKhZHApIZTEFNRTMuOTNVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUQUcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgDA==";
+ }
+
+//=============================================================================
+ // Create a client instance
+  client = new Paho.MQTT.Client(server, port, "web_" + parseInt(Math.random() * 100, 10));
+  // set callback handlers
+  client.onConnectionLost = onConnectionLost;
+  client.onMessageArrived = onMessageArrived;
+  var options = {
+    useSSL: true,
+    userName: user,
+    password: pass,
+    onSuccess: onConnect,
+    onFailure: doFail
+  }
+  // connect the client
+  client.connect(options);
+
+//=============================================================================
+// called when the client connects
+function onConnect() {
+    // Once a connection has been made, make a subscription and send a message.
+    //id_status.textContent = "Подключен";
+    //console.log("onConnect");
+    client.subscribe("ESP12/Status");
+    client.subscribe("ESP12/LED");
+    client.subscribe("ESP12/SetLED");
+
+    message = new Paho.MQTT.Message('0');
+    message.destinationName = 'ESP12/GetStatus';
+    client.send(message);
+}
+
+//=============================================================================
+function sendLED(ld) {
+    message = new Paho.MQTT.Message(ld);
+    message.destinationName = 'ESP12/SetLED';
+    client.send(message);
+    audioElem.play();
+}
+
+//=============================================================================
+function doFail(e){
+    //console.log('doFail:' + e.errorMessage);
+    //id_status.textContent = e.errorMessage;
+    setTimeout(function(){if (flagCH == 0) location.reload();}, 20000);
+}
+
+//=============================================================================
+// called when the client loses its connection
+function onConnectionLost(e) {
+    if (e.errorCode !== 0) {
+      //console.log('onConnectionLost:' + e.errorMessage);
+      //id_status.textContent = e.errorMessage;
+      setTimeout(function(){if (flagCH == 0) location.reload();}, 20000);
+    }
+}
+
+//=============================================================================
+// called when a message arrives
+function onMessageArrived(message) {
+    //статус розетки
+    if (message.destinationName == 'ESP12/LED') {
+        if (message.payloadString == '0') {
+        	id_LED.checked = false;
+        	//var style = document.getElementById("lights").style.display;
+        	document.getElementById("lights").style.display = "none";
+        }
+        else {
+        	id_LED.checked = true; 
+        	document.getElementById("lights").style.display = "block";
+        }
+        if (flag == '') {flag = message.payloadString; }
+        if (message.payloadString != flag) { flag = message.payloadString;}
+        else {flag = message.payloadString; }
+    }
+}
+</script>
+</html>

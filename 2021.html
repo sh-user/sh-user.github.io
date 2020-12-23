@@ -10,7 +10,7 @@ body {margin: 0; background: #f1f3f4; color: #455a64; font-family: Helvetica; fo
 ::-moz-selection {background: #a0bbbb;}
 
 .fixed-snow span::after {
-    position:fixed; color:#BFE2FF; font-weight:bold; pointer-events: none; z-index: 1000;
+    position:fixed; color:#BFE2FF; font-weight:bold; pointer-events: none; z-index: 1;
 }
 .fixed-snow span:nth-child(even)::after {
     content: "\2744";
@@ -115,7 +115,7 @@ h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
 #id_main {width: 860px; padding: 28px 0 0 0;}
 .lab1 {width: 33.3%;}
 .lab2 {width: 100%;}
-.lab1, .lab2 {float: left; margin: 0 0 12px 0;}
+.lab1, .lab2 {float: left; margin: 0 0 12px 0; position: relative; z-index: 100;}
 
 .inn {display: table-cell; vertical-align: middle; text-align: center;}
 .b0 {float: left; font-size: 18px; margin: 0 8px 0 0;}
@@ -150,7 +150,7 @@ input[type='checkbox']:checked ~ .switch { background: #008000; transition: .2s;
 </div>
 <center>
 <div id='id_main'>
-<div class='lab2' id='id_svg'>
+<div class='lab2'>
 <svg id="tree" xmlns="http://www.w3.org/2000/svg" version="1.1" id="Layer_1" x="0" y="0" viewBox="-1694.2 483.2 199.3 285.2" xml:space="preserve">
     <g id="tree">
         <rect x="-1605.6" y="697.1" class="st0" width="21.7" height="71.3"/>

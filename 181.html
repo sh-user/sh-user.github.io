@@ -31,7 +31,6 @@ input, textarea, button, select, select:focus {outline: none;}
 a {color: #455a64}
 h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
 
-#id_main {width: 860px; padding: 28px 0 0 0;}
 .lab1 {width: 33.3%;}
 .lab2 {width: 100%;}
 .lab1, .lab2 {float: left; margin: 0 0 12px 0;}
@@ -61,7 +60,7 @@ input[type='checkbox']:checked ~ .switch { background: #008ae5; transition: .2s;
 	position: absolute; top: -12px; transition: .2s;}
 .toggle {height: 28px; width: 28px; border-radius: 50%; background: white; position: absolute;
   top: -7px; left: 5px; transition: .2s;}
-.card {display: inline-block; margin: 20px 4px 0 12px; width: 25px; height: 13px; text-align: center; position: relative;}
+.card {display: inline-block; margin: 18px 4px 0 4px; width: 25px; height: 13px; text-align: center; position: relative;}
 
 #id_Interval, #id_Load {float: right;}
 
@@ -113,18 +112,20 @@ from {opacity: 1; transform: scale(1);} to {opacity: 0; transform: scale(0);}}
 }
 
 canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none;}
-#id_ram_canvas { display: none; min-width: 586px; width: 82%; margin:12px 0 12px 0; padding: 10px 10px 10px 10px;
-    background: #f7f7f7; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);  
+#id_ram_canvas { display: none; min-width: 586px; width: 82%; margin:12px 0 12px 0; 
+	padding: 10px 10px 10px 10px; background: #f7f7f7; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);  
 }
 
+#id_main {width: 860px; padding: 24px 0 0 0;}
+
 @media screen and (max-width: 860px) {
-	#id_main {width: 586px; padding: 28px 0 0 0;}
+	#id_main {width: 586px; padding: 24px 0 0 0;}
 	#id_ram_canvas {margin: 0 0 12px 0; width: 586px}
 	.lab1 {width: 50%}
 }
 
 @media screen and (max-width: 586px) {
-	#id_main {width: 286px; padding: 28px 0 0 0;}
+	#id_main {width: 300px; padding: 24px 0 0 0;}
 	#id_ram_canvas {margin: 0 0 12px 0; width: 286px}
 	.lab1 {width: 100%}
 }
@@ -169,7 +170,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 </div></h1>
 </div>
 <div class='lab2'>
-<h1>Управление жалюзи [<a id='id_jal_status'></a>]
+<h1>Управление жалюзи <a id='id_jal_status'></a>
 <div class='card'>
     <label for='id_JAL'>
     <input type='checkbox' id='id_JAL' onclick="if (id_JAL.checked) sendJAL('1'); else sendJAL('0');"/>
@@ -177,7 +178,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     </label>
 </div></h1>
 </div>
-<div class='lab2'>Версия: 20210228-0201</div>
+<div class='lab2'>Версия: 20210228-2059</div>
 </div>
 
 <div id='id_ram_canvas'>
@@ -753,10 +754,10 @@ function onMessageArrived(message) {
     }
     //статус жалюзи
     if (message.destinationName == 'ESP12/JAL') {
-        if (message.payloadString == '0') {id_JAL.checked = false; id_jal_status.textContent = 'Открыта';}
-        if (message.payloadString == '1') {id_JAL.checked = true; id_jal_status.textContent = 'Закрыта';}
-        if (message.payloadString == '3') {id_jal_status.textContent = 'Открытие';}
-        if (message.payloadString == '4') {id_jal_status.textContent = 'Закрытие';}
+        if (message.payloadString == '0') {id_JAL.checked = false; id_jal_status.textContent = '[Открыта]';}
+        if (message.payloadString == '1') {id_JAL.checked = true; id_jal_status.textContent = '[Закрыта]';}
+        if (message.payloadString == '3') {id_jal_status.textContent = '[Открытие]';}
+        if (message.payloadString == '4') {id_jal_status.textContent = '[Закрытие]';}
         if (flag2 == '') {flag2 = message.payloadString; }
         if (message.payloadString != flag2) { flag2 = message.payloadString;}
         else {flag2 = message.payloadString; }

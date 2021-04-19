@@ -205,7 +205,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     	</label>
 	</div></h1>
 	</div>
-	<div class='lab2'>Версия: 20210301-0022</div>
+	<div class='lab2'>Версия: 20210420-0221</div>
 </div>
 
 </center>
@@ -655,7 +655,7 @@ function onConnect() {
     client.subscribe("ESP12/V");
     client.subscribe("ESP12/BMP180");
     client.subscribe("ESP12/LED");
-    client.subscribe("ESP12/JAL");
+    client.subscribe("ESP12/StatusJAL");
 
     message = new Paho.MQTT.Message('0');
     message.destinationName = 'ESP12/GetStatus';
@@ -673,7 +673,7 @@ function sendLED(ld) {
 //=============================================================================
 function sendJAL(ld) {
     message = new Paho.MQTT.Message(ld);
-    message.destinationName = 'ESP12/SetJAL';
+    message.destinationName = 'ESP12/JAL1';
     client.send(message);
     audioElem.play();
 }
@@ -756,11 +756,11 @@ function onMessageArrived(message) {
         else {flag = message.payloadString; }
     }
     //статус жалюзи
-    if (message.destinationName == 'ESP12/JAL') {
-        if (message.payloadString == '0') {id_JAL.checked = false; id_jal_status.textContent = '[Открыта]';}
-        if (message.payloadString == '1') {id_JAL.checked = true; id_jal_status.textContent = '[Закрыта]';}
-        if (message.payloadString == '3') {id_jal_status.textContent = '[Открытие]';}
-        if (message.payloadString == '4') {id_jal_status.textContent = '[Закрытие]';}
+    if (message.destinationName == 'ESP12/StatusJAL') {
+        if (message.payloadString[0] == '0') {id_JAL.checked = false; id_jal_status.textContent = '[Открыта]';}
+        if (message.payloadString[0] == '1') {id_JAL.checked = true; id_jal_status.textContent = '[Закрыта]';}
+        if (message.payloadString[0] == '3') {id_jal_status.textContent = '[Открытие]';}
+        if (message.payloadString[0] == '4') {id_jal_status.textContent = '[Закрытие]';}
         if (flag2 == '') {flag2 = message.payloadString; }
         if (message.payloadString != flag2) { flag2 = message.payloadString;}
         else {flag2 = message.payloadString; }

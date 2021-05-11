@@ -822,17 +822,17 @@ function onMessageArrived(message) {
             scales: {
                 xAxes: [{
                     type: 'time',
-                    time: { 
+                    time: {
                         min: DateMIN,
                         max: DateMAX,
                         tooltipFormat: 'DD.MM.YYYY, HH:mm:ss',
                         displayFormats: {
-                            hour: 'DD MMM, HH:mm', 
-                            day: 'DD MMM', 
+                            hour: 'DD MMM, HH:mm',
+                            day: 'DD MMM',
                             week: 'DD MMM',
                             month: 'MMM YYYY'
                         }
-                    }
+                    },
                 }],
                 yAxes: [{
                     ticks: {
@@ -891,11 +891,11 @@ function MenuInterval(upd) {
     if (upd == 1) {f00 = 0; f01 = 0; f02 = 0; f03 = 0; f04 = 0;}
     config.options.scales.xAxes[0].time.max = DateMAX;
     switch (id_menu.options.selectedIndex) {
-    case 0: config.options.scales.xAxes[0].time.min = off12; break; //12 часов
-    case 1: config.options.scales.xAxes[0].time.min = off1; break;  //1 день
-    case 2: config.options.scales.xAxes[0].time.min = off3; break;  //3 дня
-    case 3: config.options.scales.xAxes[0].time.min = off7; break;  //7 дней
-    case 4: config.options.scales.xAxes[0].time.min = off30; break; //30 дней
+    	case 0: config.options.scales.xAxes[0].time.min = off12; break; //12 часов
+    	case 1: config.options.scales.xAxes[0].time.min = off1; break;  //1 день
+    	case 2: config.options.scales.xAxes[0].time.min = off3; break;  //3 дня
+    	case 3: config.options.scales.xAxes[0].time.min = off7; break;  //7 дней
+    	case 4: config.options.scales.xAxes[0].time.min = off30; break; //30 дней
     }
     id_Interval.style.display='none';
     id_Load.style.display='block';
@@ -987,8 +987,8 @@ function GetData(mod, idx) {
     in12 = 0; in1 = 0; in3 = 0; in7 = 0; in30 = 0; 
     id_Interval.style.display='none';
     id_Load.style.display='block';
-    if (mod == 1) { appURL = gsURL + '?mod=1';  }
-    if (mod == 2) { appURL = gsURL + '?mod=2';  }
+    if (mod == 1) appURL = gsURL + '?mod=1';
+    if (mod == 2) appURL = gsURL + '?mod=2';
     xhr = new XMLHttpRequest();
     xhr.open('GET', appURL);
     xhr.onreadystatechange = function() {
@@ -1000,12 +1000,12 @@ function GetData(mod, idx) {
             res = tab["result"];
             let cmp = 0;
             for (let i = 1; cmp < 1; i++) {
-                if (off12 > new Date(res[res.length-i][0]) && in12 == 0) { in12 = i; }
-                if (off1 > new Date(res[res.length-i][0]) && in1 == 0) { in1 = i; }
-                if (off3 > new Date(res[res.length-i][0]) && in3 == 0) { in3 = i; }
-                if (off7 > new Date(res[res.length-i][0]) && in7 == 0) { in7 = i; }
-                if (off30 > new Date(res[res.length-i][0])) { cmp = 1; }
-                if (res.length-i == 0) {cmp = 1;}
+                if (off12 > new Date(res[res.length-i][0]) && in12 == 0) in12 = i;
+                if (off1 > new Date(res[res.length-i][0]) && in1 == 0) in1 = i;
+                if (off3 > new Date(res[res.length-i][0]) && in3 == 0) in3 = i;
+                if (off7 > new Date(res[res.length-i][0]) && in7 == 0) in7 = i;
+                if (off30 > new Date(res[res.length-i][0])) cmp = 1;
+                if (res.length-i == 0) cmp = 1;
                 in30 = i;
             }
             LoadChart(idx);

@@ -205,7 +205,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     	</label>
 	</div></h1>
 	</div>
-	<div class='lab2'>Версия: 20210420-0221</div>
+	<div class='lab2'>Версия: 20210511-1848</div>
 </div>
 
 </center>
@@ -874,6 +874,9 @@ function DisableChart() {
         id_main.style.display='block';
         id_switch.style.display='block';
         flagCH = 0;
+        message = new Paho.MQTT.Message('0');
+    	message.destinationName = 'ESP12/GetStatus';
+    	client.send(message);
     }, 300);
 }
 

@@ -653,7 +653,7 @@ function onConnect() {
     client.subscribe("ESP12/T2");
     client.subscribe("ESP12/H");
     client.subscribe("ESP12/V");
-    client.subscribe("ESP12/BMP180");
+    client.subscribe("ESP12/BMP280");
     client.subscribe("ESP12/LED");
     client.subscribe("ESP12/StatusJAL");
 
@@ -740,7 +740,7 @@ function onMessageArrived(message) {
         }
     }
     //атмосферное давление
-    if (message.destinationName == 'ESP12/BMP180') {
+    if (message.destinationName == 'ESP12/BMP280') {
         if (message.payloadString != '') {
         id_modBMP.style.display = 'none'; chart_BMP.style.display = 'block';
         PS5.value = message.payloadString; 

@@ -964,7 +964,7 @@ function UpdateChart(ch) {
         config.data.datasets[0].label = 'Активная мощность';
         config.options.scales.yAxes[0].ticks.min = 0;
         config.options.scales.yAxes[0].ticks.max = 3000;
-        config.options.scales.yAxes[0].ticks.stepSize = 10;
+        config.options.scales.yAxes[0].ticks.stepSize = 100;
         if (f05 == 1) { LoadChart(2);} else { GetData(1,2); f05 = 1;}
         break;
     }

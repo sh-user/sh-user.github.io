@@ -1,4 +1,4 @@
-var gsURL = 'https://script.google.com/macros/s/AKfycbzcBzCF1UHLopqIbyHNvfEjMEnpuhjR5lFIM6H-WxX1xiH-dSE/exec',
+let gsURL = 'https://script.google.com/macros/s/AKfycbwss3_wuFqwiMznhHdbh6v3y5I6fRaRTKPnxEeg0oSF7IFbmsFh/exec',
 server = 'm23.cloudmqtt.com',
 port = 33492,
 user = 'ivtjhrii',

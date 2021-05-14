@@ -900,7 +900,7 @@ function GetInterval(days) {
 
 //=============================================================================
 function MenuInterval(upd) {
-    if (upd == 1) {f00 = 0; f01 = 0; f02 = 0; f03 = 0; f04 = 0;}
+    if (upd == 1) {f00 = 0; f01 = 0; f02 = 0; f03 = 0; f04 = 0; f05 = 0;}
     config.options.scales.xAxes[0].time.max = DateMAX;
     switch (id_menu.options.selectedIndex) {
     	case 0: config.options.scales.xAxes[0].time.min = off12; break; //12 часов
@@ -1002,7 +1002,7 @@ function GetData(mod, idx) {
     off3 = GetInterval(3);
     off7 = GetInterval(7);
     off30 = GetInterval(30);
-    f00 = 0; f01 = 0; f02 = 0; f03 = 0; f04 = 0;
+    f00 = 0; f01 = 0; f02 = 0; f03 = 0; f04 = 0; f05 = 0;
     in12 = 0; in1 = 0; in3 = 0; in7 = 0; in30 = 0; 
     id_Interval.style.display='none';
     id_Load.style.display='block';

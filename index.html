@@ -51,8 +51,8 @@ h1, h3 {font-weight:normal;}
 .ram1:active {box-shadow: 0 2px 4px rgba(0, 0, 0, 0.0);}
 
 input[type='checkbox'] { display: none;}
-input[type='checkbox']:checked ~ .toggle { background: #4169e1; left: 15px; transition: .2s;}
-input[type='checkbox']:checked ~ .switch { background: #93AEFF; transition: .2s;}
+input[type='checkbox']:checked ~ .toggle { background: #008ae5; left: 15px; transition: .2s;}
+input[type='checkbox']:checked ~ .switch { background: #7FC7FF; transition: .2s;}
 .switch {display: block; width: 32px; height: 14px; background: #939393; border-radius: 10px;
   position: absolute; top: 0; transition: .2s;}
 .toggle {height: 21px; width: 21px; border-radius: 50%; background: white; position: absolute;
@@ -83,7 +83,7 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
 	<div class='icoExit'></div></div></div>
   </h1></h1>
   <hr>
-<div id='id_conn'><br /><h3>Подключение</h3><br /></div>
+<div id='id_conn'><br /><h3>Подключение...</h3><br /></div>
 <div id='id_login' style="display: none">
 <form>
   <h3>Авторизация</h3>
@@ -104,24 +104,38 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
   <h3>Статус сервера: <a id='stMQTT'></a></h3>
   <h3>Клиентов на сервере: <a id='stUSERS'></a></h3>
   <h3>Последнее обновление: <a id='time'></a></h3>
-  <h3>Модуль ESP01-4M: <a id='stESP01'></a></h3>
-  <h3>Модуль ESP12: <a id='stESP12'></a></h3>
-<div id='id_m1' style='display: none'>
   <div class='lab45'><h3>Сигнал ESP01-4M</h3><div class='icoSign'></div><h1><a id='stRSSI2'></a> dBm</h1></div>
   <div class='lab45'><h3>Температура на улице</h3><div class='icoT'></div><h1><a id='stT2'></a> &degC</h1></div>
-</div>
-<div id='id_m2' style='display: none'>
-  <div class='lab45'><h3>Сигнал ESP12</h3><div class='icoSign'></div><h1><a id='stRSSI'></a> dBm</h1></div>
-  <div class='lab45'><h3>Освещенность в комнате</h3><div class='icoFoto'></div><h1><a id='stLDR'></a></h1></div>
-  <div class='lab45'><h3>Влажность в комнате</h3><div class='icoH'></div><h1><a id='stH'></a> %</h1></div>
+  <div class='lab45'><h3>Сигнал ESP12-2</h3><div class='icoSign'></div><h1><a id='stRSSI'></a> dBm</h1></div>
   <div class='lab45'><h3>Температура в комнате</h3><div class='icoT'></div><h1><a id='stT'></a> &degC</h1></div>
-  <div class='lab45' title='PZEM-004'><h3>Напряжение в сети</h3><div class='icoV'></div><h1><a id='stPZEM'></a> V</h1></div>
-  <div class='lab1' title='HC-SR501'><h3>Датчик движения</h3><div class='icoPIR'></div><h1><a id='stPIR'></a></h1></div>
-  <h3><label>Управление розеткой<div class='lay2'>
+  <div class='lab45'><h3>Влажность в комнате</h3><div class='icoH'></div><h1><a id='stH'></a> %</h1></div>
+  <div class='lab45'><h3>Атмосферное давление</h3><div class='icoFoto'></div><h1><a id='stBMP'></a> mm</h1></div>
+  <div class='lab45'><h3>Напряжение в сети</h3><div class='icoV'></div><h1><a id='stV'></a> V</h1></div>
+  <div class='lab45'><h3>Активная мощность</h3><div class='icoV'></div><h1><a id='stW'></a> W</h1></div>
+  <h3>Управление розеткой<div class='lay2'>
     <div class='card'><label for='id_LED'>
-    <input type='checkbox' id='id_LED' onclick="checkLED()"/><span class='switch'></span><span class='toggle'></span>
+    <input type='checkbox' id='id_LED' onclick="checkLED()"/>
+    <span class='switch'></span><span class='toggle'></span>
     </label></div></div>
-  </label></h3>
+  </h3>
+  <h3>Управление жалюзи 1 <a id='id_jal_status1'></a><div class='lay2'>
+	<div class='card'><label for='id_JAL1'>
+    	<input type='checkbox' id='id_JAL1' onclick="if (id_JAL1.checked) sendJAL(1,'1'); else sendJAL(1,'0');"/>
+    	<span id='id_sw1' class='switch'></span><span id='id_tog1' class='toggle'></span>
+    </label></div></div>
+  </h3>
+  <h3>Управление жалюзи 2 <a id='id_jal_status2'></a></a><div class='lay2'>
+	<div class='card'><label for='id_JAL2'>
+    	<input type='checkbox' id='id_JAL2' onclick="if (id_JAL2.checked) sendJAL(2,'1'); else sendJAL(2,'0');"/>
+    	<span id='id_sw2' class='switch'></span><span id='id_tog2' class='toggle'></span>
+    	</label></div></div>
+  </h3>
+	<h3>Управление жалюзи 3 <a id='id_jal_status3'></a></a><div class='lay2'>
+	<div class='card'><label for='id_JAL3'>
+    	<input type='checkbox' id='id_JAL3' onclick="if (id_JAL3.checked) sendJAL(3,'1'); else sendJAL(3,'0');"/>
+    	<span id='id_sw3' class='switch'></span><span id='id_tog3' class='toggle'></span>
+    	</label></div></div>
+	</h3>
 
   <h3><label title='Работает только в Google Chrome'>Голосовое управление <div class='lay2'>
     <div class='card'><label for='id_REC'>
@@ -130,9 +144,8 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
   </label></h3>
 <div id='id_area1' style="display: none">
   <h3>Команды: включить, выключить, температура</h3>
-  <textarea readonly class='ed' id='rcmd' rows='6'></textarea>
+  <textarea readonly class='ed' id='rcmd' rows='4'></textarea>
   <div class='lab2'></div>
-</div>
 </div>
 <h3><label>MQTT Messenger <div class='lay2'>
     <div class='card'><label for='id_MESS'>
@@ -143,8 +156,7 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
    <h3>Пользователь: <a id='stUSER1'></a></h3>
    <textarea readonly class='ed' id='rmess' rows='8'></textarea>
 <form onsubmit="btnSendMESS(); return false">
-   <p><input class='ed2' id='mq_mess' autocomplete='off' type='text' placeholder='Сообщение'>
-</p>
+   <p><input class='ed2' id='mq_mess' autocomplete='off' type='text' placeholder='Сообщение'></p>
 </form>
 <h3><label title='Работает только в Google Chrome'>Голосовой набор сообщения<div class='lay2'>
     <div class='card'><label for='id_RMESS'>
@@ -159,7 +171,7 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
 </div>
 
 </div>
-<p class='ver'>Версия: 20190729-1723</p>
+<p class='ver'>Версия: 20210620-1357</p>
 </div>
 </td></tr>
 </table>
@@ -172,12 +184,14 @@ border: 1px solid gray; border-radius: 4px; padding: 6px; box-shadow: 0 3px 4px 
 var idUSER = ''; flag = ''; temp = ''; host = ''; port = 0; user = ''; US = '1'; cntREC = 0;
 var login = ''; pass = ''; txtUTT = ''; flagSTOP = 0; rec_str = ''; rec_flag = ''; m01 = 0; m12 = 0;
 
-//stT.innerHTML = '00.0';
-//stH.innerHTML = '00.0';
-//stT2.innerHTML = '00.0';
-//stRSSI.innerHTML = '-00';
-//stRSSI2.innerHTML = '-00';
-//stPZEM.innerHTML = '000.0';
+stT.innerHTML = '00.0';
+stH.innerHTML = '00.0';
+stBMP.innerHTML = '000.00';
+stT2.innerHTML = '00.0';
+stRSSI.innerHTML = '-00';
+stRSSI2.innerHTML = '-00';
+stV.innerHTML = '000.0';
+stW.innerHTML = '000.0';
 
 //=============================================================================
 function playSound() {
@@ -220,8 +234,6 @@ function onConnect() {
     console.log('onConnect');
     stMQTT.innerHTML='Подключен';
     id_conn.style.display='none';
-    stESP01.innerHTML='Не подключен';
-    stESP12.innerHTML='Не подключен';
     stUSERS.innerHTML = '1';
     client.subscribe('$SYS/broker/clients/connected');
     client.subscribe('ESP12/#');
@@ -274,15 +286,11 @@ function sendLED(ld) {
 }
 
 //=============================================================================
-function esp01(set) {
- if (set == 1) {stESP01.innerHTML = 'Подключен'; id_m1.style.display='block'; }
- else {stESP01.innerHTML = 'Не подключен'; id_m1.style.display='none'; }
-}
-
-//=============================================================================
-function esp12(set) {
- if (set == 1) {stESP12.innerHTML = 'Подключен'; id_m2.style.display='block'; }
- else {stESP12.innerHTML = 'Не подключен'; id_m2.style.display='none'; }
+function sendJAL(num, set) {
+    message = new Paho.MQTT.Message(set);
+    message.destinationName = 'ESP12/JAL' + num;
+    client.send(message);
+    audioElem.play();
 }
 
 //=============================================================================
@@ -290,13 +298,6 @@ function esp12(set) {
 function onMessageArrived(message) {
 	console.log(message.destinationName + ':' + message.payloadString);
 	time.innerHTML = new Date().toLocaleTimeString();
-
-	//статус модуля
-	if (message.destinationName == 'ESP12/Status') {
-    m12=0; m01=0;
-	if (message.payloadString == '1') {m12=1; esp12(1);}
-	if (message.payloadString == '2') {m01=1; esp01(1);}
-	}
 
 	//клиентов на сервере
     if (message.destinationName == '$SYS/broker/clients/connected') {
@@ -317,7 +318,7 @@ function onMessageArrived(message) {
 	//уровень сигнала ESP12
 	if (message.destinationName == 'ESP12/RSSI') {stRSSI.innerHTML = message.payloadString; }
 	//уровень освещенности
-	if (message.destinationName == 'ESP12/LDR') {stLDR.innerHTML = message.payloadString; }
+	if (message.destinationName == 'ESP12/BMP280') {stBMP.innerHTML = message.payloadString; }
 	//температура на улице
 	if (message.destinationName == 'ESP12/T2') {stT2.innerHTML = message.payloadString; temp2 = message.payloadString;}
 	//температура в комнате
@@ -325,17 +326,30 @@ function onMessageArrived(message) {
 	//влажность в комнате
 	if (message.destinationName == 'ESP12/H') {stH.innerHTML = message.payloadString; }
 	//напряжение в сети
-	if (message.destinationName == 'ESP12/V') {stPZEM.innerHTML = message.payloadString; }
-	//датчик движения
-	if (message.destinationName == 'ESP12/PIR') {stPIR.innerHTML = message.payloadString;}
-	//статус светодиода
-	if (message.destinationName == 'ESP12/LED') {
-	//stLED.innerHTML = message.payloadString; 
-	if (message.payloadString == '0') {id_LED.checked = false;}
-	else {id_LED.checked = true;}
-	if (flag == '') {flag = message.payloadString; }
-	if (message.payloadString != flag) { flag = message.payloadString;}
-	else {flag = message.payloadString; }}
+	if (message.destinationName == 'ESP12/V') {stV.innerHTML = message.payloadString; }
+	//активная мощность
+	if (message.destinationName == 'ESP12/W') {stW.innerHTML = message.payloadString; }
+	
+    //статус розетки
+    if (message.destinationName == 'ESP12/LED') {
+        if (message.payloadString == '0') {id_LED.checked = false;}
+        else {id_LED.checked = true;}
+    }
+    //статус жалюзи
+	if (message.destinationName == 'ESP12/StatusJAL') {
+        if (message.payloadString[0] == '0') {id_JAL1.checked = false; id_jal_status1.textContent = '[Открыта]';}
+        if (message.payloadString[0] == '1') {id_JAL1.checked = true; id_jal_status1.textContent = '[Закрыта]';}
+        if (message.payloadString[0] == '3') {id_jal_status1.textContent = '[Открытие]';}
+        if (message.payloadString[0] == '4') {id_jal_status1.textContent = '[Закрытие]';}
+        if (message.payloadString[1] == '0') {id_JAL2.checked = false; id_jal_status2.textContent = '[Открыта]';}
+        if (message.payloadString[1] == '1') {id_JAL2.checked = true; id_jal_status2.textContent = '[Закрыта]';}
+        if (message.payloadString[1] == '3') {id_jal_status2.textContent = '[Открытие]';}
+        if (message.payloadString[1] == '4') {id_jal_status2.textContent = '[Закрытие]';}
+        if (message.payloadString[2] == '0') {id_JAL3.checked = false; id_jal_status3.textContent = '[Открыта]';}
+        if (message.payloadString[2] == '1') {id_JAL3.checked = true; id_jal_status3.textContent = '[Закрыта]';}
+        if (message.payloadString[2] == '3') {id_jal_status3.textContent = '[Открытие]';}
+        if (message.payloadString[2] == '4') {id_jal_status3.textContent = '[Закрытие]';}
+    }
 
 	//мессенджер
 	if (message.destinationName == 'ESP12/MESS') {

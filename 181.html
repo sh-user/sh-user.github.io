@@ -952,8 +952,8 @@ function UpdateChart(ch) {
     switch (ch) {
     case 0:
         config.data.datasets[0].label = 'Температура';
-        config.options.scales.yAxes[0].ticks.min = 0;
-        config.options.scales.yAxes[0].ticks.max = 30;
+        config.options.scales.yAxes[0].ticks.min = 5;
+        config.options.scales.yAxes[0].ticks.max = 35;
         config.options.scales.yAxes[0].ticks.stepSize = 5;
         //LoadChart(1) обновление данных с 1 столбца таблицы
         //GetData(2,1) загрузка данных со 2 таблицы (модуля) и 1 столбца

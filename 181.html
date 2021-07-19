@@ -895,6 +895,9 @@ function onMessageArrived(message) {
             },
             scales: {
                 xAxes: [{
+                	ticks: {
+                    	fontColor: "#a0bbbb"
+                    },
                     type: 'time',
                     time: {
                         min: DateMIN,
@@ -910,6 +913,7 @@ function onMessageArrived(message) {
                 }],
                 yAxes: [{
                     ticks: {
+                    	fontColor: "#a0bbbb",
                         min: 150,
                         max: 260,
                         stepSize: 10

@@ -1,5 +1,4 @@
-<!DOCTYPE html><html lang='ru'>
-<head>
+<!DOCTYPE html><html lang='ru'><head>
 <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width'>
 <title>Home 181</title>
@@ -47,8 +46,7 @@ h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
 .ed2 {width: 110px;}
 select {margin:10px 0px 12px 0; height: 48px; background: #fff; color: #455a64; font-family: Helvetica; 
     font-size: 18px; border: 1px solid #455a64; border-radius: 4px; padding: 6px; 
-    box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset; -moz-appearance: none; -webkit-appearance: none; appearance: none; background-repeat: no-repeat; background-size: 11px auto; background-position: right 8px center; 
-background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 40'%3E%3Cpolygon points='0,0 60,0 30,40' style='fill:%23455a64;'/%3E%3C/svg%3E");}
+    box-shadow: 0 3px 4px rgba(0,0,0,0.1) inset; -moz-appearance: none; -webkit-appearance: none; appearance: none; background-repeat: no-repeat; background-size: 11px auto; background-position: right 8px center; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 40'%3E%3Cpolygon points='0,0 60,0 30,40' style='fill:%23a0bbbb;'/%3E%3C/svg%3E");}
 
 .b0 {float: left; font-size: 18px; margin: 0 8px 0 0;}
 .b1 {float: right; font-size: 18px; padding: 4px 0 0 10px; margin: 16px 0 10px 0;}
@@ -162,8 +160,8 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 </div>
 
 <div id='id_ram_canvas'>
-    <div class='ram2' onclick="DisableChart()"><div class='icoBack'></div></div>
-    <div class='ram2' onclick="MenuInterval(1)"><div class='icoUpdate'></div></div>
+    <div class='ram2' id='id_back' onclick="DisableChart()"><div class='icoBack'></div></div>
+    <div class='ram2' id='id_update' onclick="MenuInterval(1)"><div class='icoUpdate'></div></div>
     <div class='b0'>
     <select id='id_menuCH' class='ed1' onchange="MenuInterval(1)">
     <option value='1'>Температура в комнате</option>
@@ -304,8 +302,8 @@ let PS2 = new RadialGauge({
     minorTicks: 10,
     strokeTicks: false,
     highlights  : [
-        { from : 28, to : 30, color : 'rgba(255,153,0,.75)' },
-        { from : 30, to : 40, color : 'rgba(220,57,18,.75)' }
+        { from: 28, to: 30, color: 'rgba(255,153,0,.75)' },
+        { from: 30, to: 40, color: 'rgba(220,57,18,.75)' }
     ],
     valueInt: 1,
     valueDec: 1,
@@ -395,8 +393,8 @@ let PS3 = new RadialGauge({
     strokeTicks: false,
     highlights: false,
     highlights  : [
-        { from : 150,  to : 170, color: 'rgba(220,57,18,.75)' },
-        { from : 170, to : 180, color: 'rgba(255,153,0,.75)'  }
+        { from: 150,  to: 170, color: 'rgba(220,57,18,.75)' },
+        { from: 170, to: 180, color: 'rgba(255,153,0,.75)'  }
     ],
     valueInt: 1,
     valueDec: 1,
@@ -659,6 +657,15 @@ id_modBMP.style.background = '#2e2e2e';
 id_modV.style.background = '#2e2e2e';
 id_modW.style.background = '#2e2e2e';
 id_RT.style.color = '#a0bbbb';
+id_ram_canvas.style.background = '#2e2e2e';
+id_menuCH.style.backgroundColor = '#2e2e2e';
+id_menuCH.style.color = '#a0bbbb';
+id_menuCH.style.border = '1px solid #a0bbbb';
+id_menu.style.backgroundColor = '#2e2e2e';
+id_menu.style.color = '#a0bbbb';
+id_menu.style.border = '1px solid #a0bbbb';
+id_back.style.background = '#a0bbbb';
+id_update.style.background = '#a0bbbb';
 
 id_jal_status1.style.color = '#a0bbbb';
 id_jal_status2.style.color = '#a0bbbb';
@@ -863,13 +870,15 @@ function onMessageArrived(message) {
         data: {
             labels: [],
             datasets: [{
-                backgroundColor: color('#434343').alpha(0.1).rgbString(),
-                borderColor: '#434343',
+                //backgroundColor: color('#434343').alpha(0.1).rgbString(),
+                //borderColor: '#434343',
+                backgroundColor: color('#a0bbbb').alpha(0.1).rgbString(),
+                borderColor: '#a0bbbb',
                 pointRadius: 0,
                 hitRadius: 4,
                 borderWidth: 1,
                 fill: false,
-                data: [],
+                data: []
             }]
         },
         options: {
@@ -914,9 +923,9 @@ function onMessageArrived(message) {
 function EnableChart(num) {
     id_ram_canvas.classList.remove("minus");
     id_ram_canvas.classList.add("plus");
-    id_ram_canvas.style.display='block';
-    id_main.style.display='none';
-    id_switch.style.display='none';
+    id_ram_canvas.style.display = 'block';
+    id_main.style.display = 'none';
+    id_switch.style.display = 'none';
     let ctx = document.getElementById('id_canvas').getContext('2d');
     window.myLine = new Chart(ctx, config);
     flagCH = 1;

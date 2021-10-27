@@ -1047,9 +1047,9 @@ function UpdateChart(ch) {
         break;
     case 6:
         config.data.datasets[0].label = 'Электроэнергия';
-        config.options.scales.yAxes[0].ticks.min = 1000;
-        config.options.scales.yAxes[0].ticks.max = 1500;
-        config.options.scales.yAxes[0].ticks.stepSize = 100;
+        config.options.scales.yAxes[0].ticks.min = 1100;
+        config.options.scales.yAxes[0].ticks.max = 1300;
+        config.options.scales.yAxes[0].ticks.stepSize = 10;
         if (f06 == 1) {LoadChart(1);} else {GetData(0,1); f06 = 1;}
         break;
     }

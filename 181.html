@@ -976,17 +976,15 @@ function GetInterval(days) {
 //=============================================================================
 function MenuInterval(upd) {
     if (upd == 1) {f00 = 0; f01 = 0; f02 = 0; f03 = 0; f04 = 0; f05 = 0; f06 = 0;}
-    if (id_menuCH.selectedIndex != 6) {
-    	config.options.scales.xAxes[0].time.max = DateMAX;
-    	switch (id_menu.options.selectedIndex) {
-    		case 0: config.options.scales.xAxes[0].time.min = off12; break; //12 часов
-    		case 1: config.options.scales.xAxes[0].time.min = off1; break;  //1 день
-    		case 2: config.options.scales.xAxes[0].time.min = off3; break;  //3 дня
-    		case 3: config.options.scales.xAxes[0].time.min = off7; break;  //7 дней
-    		case 4: config.options.scales.xAxes[0].time.min = off14; break; //14 дней
-    		case 5: config.options.scales.xAxes[0].time.min = off30; break; //30 дней
-    	}
-	} 
+    config.options.scales.xAxes[0].time.max = DateMAX;
+    switch (id_menu.options.selectedIndex) {
+    	case 0: config.options.scales.xAxes[0].time.min = off12; break; //12 часов
+    	case 1: config.options.scales.xAxes[0].time.min = off1; break;  //1 день
+    	case 2: config.options.scales.xAxes[0].time.min = off3; break;  //3 дня
+    	case 3: config.options.scales.xAxes[0].time.min = off7; break;  //7 дней
+    	case 4: config.options.scales.xAxes[0].time.min = off14; break; //14 дней
+    	case 5: config.options.scales.xAxes[0].time.min = off30; break; //30 дней
+    }
     id_Interval.style.display='none';
     id_Load.style.display='block';
     setTimeout(function(){UpdateChart(id_menuCH.options.selectedIndex);}, 20); 

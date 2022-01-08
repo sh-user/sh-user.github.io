@@ -228,7 +228,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     	</label>
 	</div></h1>
 	</div>
-	<div class='lab2'>Версия: 20211117-0050</div>
+	<div class='lab2'>Версия: 20220108-2348</div>
 </div>
 
 </center>
@@ -976,15 +976,17 @@ function GetInterval(days) {
 //=============================================================================
 function MenuInterval(upd) {
     if (upd == 1) {f00 = 0; f01 = 0; f02 = 0; f03 = 0; f04 = 0; f05 = 0; f06 = 0;}
-    config.options.scales.xAxes[0].time.max = DateMAX;
-    switch (id_menu.options.selectedIndex) {
-    	case 0: config.options.scales.xAxes[0].time.min = off12; break; //12 часов
-    	case 1: config.options.scales.xAxes[0].time.min = off1; break;  //1 день
-    	case 2: config.options.scales.xAxes[0].time.min = off3; break;  //3 дня
-    	case 3: config.options.scales.xAxes[0].time.min = off7; break;  //7 дней
-    	case 4: config.options.scales.xAxes[0].time.min = off14; break; //14 дней
-    	case 5: config.options.scales.xAxes[0].time.min = off30; break; //30 дней
-    }
+    if (id_menuCH.selectedIndex != 6) {
+    	config.options.scales.xAxes[0].time.max = DateMAX;
+    	switch (id_menu.options.selectedIndex) {
+    		case 0: config.options.scales.xAxes[0].time.min = off12; break; //12 часов
+    		case 1: config.options.scales.xAxes[0].time.min = off1; break;  //1 день
+    		case 2: config.options.scales.xAxes[0].time.min = off3; break;  //3 дня
+    		case 3: config.options.scales.xAxes[0].time.min = off7; break;  //7 дней
+    		case 4: config.options.scales.xAxes[0].time.min = off14; break; //14 дней
+    		case 5: config.options.scales.xAxes[0].time.min = off30; break; //30 дней
+    	}
+	} 
     id_Interval.style.display='none';
     id_Load.style.display='block';
     setTimeout(function(){UpdateChart(id_menuCH.options.selectedIndex);}, 20); 
@@ -994,7 +996,7 @@ function MenuInterval(upd) {
 function UpdateChart(ch) {
 	let date = new Date();
 	let month = date.getMonth();
-
+	config.type = 'line';
     switch (ch) {
     case 0:
         config.data.datasets[0].label = 'Температура';
@@ -1050,10 +1052,13 @@ function UpdateChart(ch) {
         if (f05 == 1) {LoadChart(2);} else {GetData(1,2); f05 = 1;}
         break;
     case 6:
+    	config.type = 'bar';
         config.data.datasets[0].label = 'Электроэнергия';
-        config.options.scales.yAxes[0].ticks.min = 1100;
-        config.options.scales.yAxes[0].ticks.max = 1500;
+        config.options.scales.yAxes[0].ticks.min = 0;
+        config.options.scales.yAxes[0].ticks.max = 250;
         config.options.scales.yAxes[0].ticks.stepSize = 10;
+        //config.options.scales.xAxes[0].time.unit = 'month';
+        config.options.scales.xAxes[0].time.min = new Date().getMonth();
         if (f06 == 1) {LoadChart(1);} else {GetData(0,1); f06 = 1;}
         break;
     }
@@ -1067,16 +1072,16 @@ function LoadChart(idx) {
         config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
     }
     switch (id_menu.options.selectedIndex) {
-    case 0: interval = in12; break;
-    case 1: interval = in1; break;
-    case 2: interval = in3; break;
-    case 3: interval = in7; break;
-    case 4: interval = in14; break;
-    case 5: interval = in30; break;
+    	case 0: interval = in12; break;
+    	case 1: interval = in1; break;
+    	case 2: interval = in3; break;
+    	case 3: interval = in7; break;
+    	case 4: interval = in14; break;
+    	case 5: interval = in30; break;
     }
-    if (interval == 0) {interval = res.length;}
+    if (interval == 0) interval = res.length;
     for (let i = res.length-interval; i < res.length; i++) {
-        config.data.labels.push(res[i][0]);                 //x
+    	config.data.labels.push(res[i][0]);                 //x
         config.data.datasets[0].data.push(res[i][idx]);     //y
         //config.data.datasets[0].data.push({ x: res[i][0], y: res[i][idx] });
     }
@@ -1097,15 +1102,11 @@ function GetData(mod, idx) {
     in12 = 0; in1 = 0; in3 = 0; in7 = 0; in14 = 0; in30 = 0; 
     id_Interval.style.display='none';
     id_Load.style.display='block';
-    if (mod == 0) appURL = gsURL + '?mod=0';
-    if (mod == 1) appURL = gsURL + '?mod=1';
-    if (mod == 2) appURL = gsURL + '?mod=2';
-    if (mod == 3) appURL = gsURL + '?mod=3';
+    appURL = gsURL + '?mod=' + mod;
     xhr = new XMLHttpRequest();
-    xhr.open('GET', appURL);
     xhr.onreadystatechange = function() {
     if (xhr.readyState !== 4) return;
-    if (xhr.status == 200) {
+    	if (xhr.status == 200) {
         try {
             //console.log(xhr.responseText);
             let tab = JSON.parse(xhr.responseText);
@@ -1127,6 +1128,7 @@ function GetData(mod, idx) {
         id_Load.style.display='none';
         } 
    }
+   xhr.open('GET', appURL);
    xhr.send();
 }
 

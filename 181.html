@@ -759,7 +759,7 @@ function UpdateChart(ch) {
 
 //=============================================================================
 function LoadChart(idx) {
-    for (let i = 0; i < res.length; i++) {
+    for (let i = 0; i < interval; i++) {
         //config.data.labels.splice(-1, 1); // remove the label first
         config.data.labels.shift();
         config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
@@ -780,6 +780,7 @@ function LoadChart(idx) {
         //config.data.datasets[0].data.push({ x: res[i][0], y: res[i][idx] });
     	}
     } else {
+    	interval = res.length;
     	for (let i = 0; i < res.length; i++) {
     	config.data.labels.push(res[i][0].substring(0, 4) + '-' + res[i][0].substring(5, 7) + '-01T00:00:00');
         config.data.datasets[0].data.push(res[i][idx]);     //y

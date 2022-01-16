@@ -4,7 +4,7 @@
 <title>Home 181</title>
 
 <style>
-body {margin: 0; background: #f1f3f4; color: #455a64; font-family: Helvetica; font-size: 15px;}
+body {margin: 0; background: #2e2e2e; color: #a0bbbb; font-family: Helvetica; font-size: 15px;}
 ::selection {background: #3e5050;}
 ::-moz-selection {background: #3e5050;}
 input, textarea, button, select, select:focus {outline: none;}
@@ -36,7 +36,7 @@ h1 {font-size: 18px; font-weight:normal; margin: 0 0 12px 0;}
 .lab2 {width: 100%;}
 .lab1, .lab2 {float: left; margin: 0 0 12px 0;}
 #id_modT1, #id_modT2, #id_modH, #id_modV, #id_modBMP, #id_modW
-  {display: table; width: 238px; height: 238px; margin: 20px 0 6px 0; background: #fff;
+  {display: table; width: 238px; height: 238px; margin: 20px 0 6px 0; background: #2e2e2e;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); -webkit-border-radius: 50%; 
     -moz-border-radius: 50%; border-radius: 50%;}
 
@@ -114,7 +114,7 @@ from {opacity: 1; transform: scale(1);} to {opacity: 0; transform: scale(0);}}
 
 canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none;}
 #id_ram_canvas { display: none; min-width: 586px; width: 82%; margin:12px 0 12px 0; 
-	padding: 10px 10px 10px 10px; background: #f7f7f7; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);  
+	padding: 10px 10px 10px 10px; background: #2e2e2e; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);  
 }
 
 #id_main {width: 860px; padding: 24px 0 0 0;}
@@ -130,6 +130,13 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 	#id_ram_canvas {margin: 0 0 12px 0; width: 286px}
 	.lab1 {width: 100%}
 }
+
+#id_r1, #id_r2, #id_r3, #id_r4, #id_r5, #id_r6, #id_back, #id_update {background: #a0bbbb}
+#id_RT, #id_E, #id_jal_status1, #id_jal_status2, #id_jal_status3 {color: #a0bbbb}
+#id_menuCH, #id_menu {background: #2e2e2e; color: #a0bbbb; border: 1px solid #a0bbbb;}
+#id_sw0, #id_sw1, #id_sw2, #id_sw3 {background: #455a64}
+#id_tog0, #id_tog1, #id_tog2, #id_tog3 {background: #a0bbbb}
+
 </style>
 </head>
 
@@ -228,7 +235,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     	</label>
 	</div></h1>
 	</div>
-	<div class='lab2'>Версия: 20220108-2348</div>
+	<div class='lab2'>Версия: 20220116-0246</div>
 </div>
 
 </center>
@@ -247,8 +254,6 @@ let mod1 = 0, mod2 = 0, temp1 = 0, temp2 = -20, humidity = 0, volt = 150, bmp = 
 
 let PS1 = new RadialGauge({
     renderTo: 'chart_T1',
-    width: 250,
-    height: 250,
     minValue: 0,
     maxValue: 40,
     majorTicks: ['0','5','10','15','20','25','30','35','40'],
@@ -257,44 +262,11 @@ let PS1 = new RadialGauge({
     highlights: [
         {from: 28, to: 30, color: 'rgba(255,153,0,.75)'},
         {from: 30, to: 40, color: 'rgba(220,57,18,.75)'}
-    ],
-    valueInt: 1,
-    valueDec: 1,
-    colorBorderOuter: "#fff",
-  	colorBorderOuterEnd: "#fff",
-  	colorBorderInner: "#fff",
-  	colorBorderInnerEnd: "#fff",
-  	colorBorderMiddle: "#fff",
-  	colorBorderMiddleEnd: "#fff",
-  	colorPlate: "#fff",
-    colorMajorTicks: "#333333",
-    colorMinorTicks: "#333333",
-    colorNumbers: "#333333",
-    colorValueText: "#333333",
-    colorValueBoxRect: "transparent",
-    colorValueBoxRectEnd: "transparent",
-    colorValueBoxBackground: "transparent",
-    colorValueBoxShadow: false,
-    colorValueTextShadow: false,
-    colorNeedleShadowUp: true,
-    colorNeedleShadowDown: false,
-    colorNeedle: "rgba(200, 50, 50, .75)",
-    colorNeedleEnd: "rgba(200, 50, 50, .75)",
-    borderShadowWidth: 6,
-    needleType: "arrow",
-    needleWidth: 6,
-    needleCircleSize: 12,
-    animationDuration: 300,
-    animationRule: "dequint",
-    fontNumbersSize: 24,
-    fontValueSize: 46,
-    animatedValue: true
+    ]
 });
 
 let PS2 = new RadialGauge({
     renderTo: 'chart_T2',
-    width: 250,
-    height: 250,
     value: -30,
     minValue: -40,
     maxValue: 40,
@@ -304,87 +276,21 @@ let PS2 = new RadialGauge({
     highlights  : [
         { from: 28, to: 30, color: 'rgba(255,153,0,.75)' },
         { from: 30, to: 40, color: 'rgba(220,57,18,.75)' }
-    ],
-    valueInt: 1,
-    valueDec: 1,
-    colorBorderOuter: "#fff",
-  	colorBorderOuterEnd: "#fff",
-  	colorBorderInner: "#fff",
-  	colorBorderInnerEnd: "#fff",
-  	colorBorderMiddle: "#fff",
-  	colorBorderMiddleEnd: "#fff",
-  	colorPlate: "#fff",
-    colorMajorTicks: "#333333",
-    colorMinorTicks: "#333333",
-    colorNumbers: "#333333",
-    colorValueText: "#333333",    
-    colorValueBoxRect: "transparent",
-    colorValueBoxRectEnd: "transparent",
-    colorValueBoxBackground: "transparent",
-    colorValueBoxShadow: false,
-    colorValueTextShadow: false,
-    colorNeedleShadowUp: true,
-    colorNeedleShadowDown: false,
-    colorNeedle: "rgba(200, 50, 50, .75)",
-    colorNeedleEnd: "rgba(200, 50, 50, .75)",
-    borderShadowWidth: 6,
-    needleType: "arrow",
-    needleWidth: 6,
-    needleCircleSize: 12,
-    animationDuration: 300,
-    animationRule: "dequint",
-    fontNumbersSize: 24,
-    fontValueSize: 46,
-    animatedValue: true
+    ]
   });
 
 let PS3 = new RadialGauge({
     renderTo: 'chart_H',
-    width: 250,
-    height: 250,
     minValue: 0,
     maxValue: 100,
     majorTicks: ['0','10','20','30','40','50','60','70','80','90','100'],
     minorTicks: 10,
     strokeTicks: false,
-    highlights: false,
-    valueInt: 1,
-    valueDec: 1,
-    colorBorderOuter: "#fff",
-  	colorBorderOuterEnd: "#fff",
-  	colorBorderInner: "#fff",
-  	colorBorderInnerEnd: "#fff",
-  	colorBorderMiddle: "#fff",
-  	colorBorderMiddleEnd: "#fff",
-  	colorPlate: "#fff",
-    colorMajorTicks: "#333333",
-    colorMinorTicks: "#333333",
-    colorNumbers: "#333333",
-    colorValueText: "#333333",
-    colorValueBoxRect: "transparent",
-    colorValueBoxRectEnd: "transparent",
-    colorValueBoxBackground: "transparent",
-    colorValueBoxShadow: false,
-    colorValueTextShadow: false,
-    colorNeedleShadowUp: true,
-    colorNeedleShadowDown: false,
-    colorNeedle: "rgba(200, 50, 50, .75)",
-    colorNeedleEnd: "rgba(200, 50, 50, .75)",
-    borderShadowWidth: 6,
-    needleType: "arrow",
-    needleWidth: 6,
-    needleCircleSize: 12,
-    animationDuration: 300,
-    animationRule: "dequint",
-    fontNumbersSize: 24,
-    fontValueSize: 46,
-    animatedValue: true
+    highlights: false
   });
 
   let PS4 = new RadialGauge({
     renderTo: 'chart_V',
-    width: 250,
-    height: 250,
     value:150,
     minValue: 150,
     maxValue: 250,
@@ -395,293 +301,75 @@ let PS3 = new RadialGauge({
     highlights  : [
         { from: 150,  to: 170, color: 'rgba(220,57,18,.75)' },
         { from: 170, to: 180, color: 'rgba(255,153,0,.75)'  }
-    ],
-    valueInt: 1,
-    valueDec: 1,
-    colorBorderOuter: "#fff",
-  	colorBorderOuterEnd: "#fff",
-  	colorBorderInner: "#fff",
-  	colorBorderInnerEnd: "#fff",
-  	colorBorderMiddle: "#fff",
-  	colorBorderMiddleEnd: "#fff",
-  	colorPlate: "#fff",
-    colorMajorTicks: "#333333",
-    colorMinorTicks: "#333333",
-    colorNumbers: "#333333",
-    colorValueText: "#333333",
-    colorValueBoxRect: "transparent",
-    colorValueBoxRectEnd: "transparent",
-    colorValueBoxBackground: "transparent",
-    colorValueBoxShadow: false,
-    colorValueTextShadow: false,
-    colorNeedleShadowUp: true,
-    colorNeedleShadowDown: false,
-    colorNeedle: "rgba(200, 50, 50, .75)",
-    colorNeedleEnd: "rgba(200, 50, 50, .75)",
-    borderShadowWidth: 6,
-    needleType: "arrow",
-    needleWidth: 6,
-    needleCircleSize: 12,
-    animationDuration: 300,
-    animationRule: "dequint",
-    fontNumbersSize: 24,
-    fontValueSize: 46,
-    animatedValue: true
+    ]
   });
 
 let PS5 = new RadialGauge({
     renderTo: 'chart_BMP',
-    width: 250,
-    height: 250,
     minValue: 720,
     maxValue: 790,
     majorTicks: ['720','730','740','750','760','770','780','790'],
     minorTicks: 10,
     strokeTicks: false,
-    highlights: false,
-    valueInt: 1,
-    valueDec: 1,
-    colorBorderOuter: "#fff",
-  	colorBorderOuterEnd: "#fff",
-  	colorBorderInner: "#fff",
-  	colorBorderInnerEnd: "#fff",
-  	colorBorderMiddle: "#fff",
-  	colorBorderMiddleEnd: "#fff",
-  	colorPlate: "#fff",
-    colorMajorTicks: "#333333",
-    colorMinorTicks: "#333333",
-    colorNumbers: "#333333",
-    colorValueText: "#333333",
-    colorValueBoxRect: "transparent",
-    colorValueBoxRectEnd: "transparent",
-    colorValueBoxBackground: "transparent",
-    colorValueBoxShadow: false,
-    colorValueTextShadow: false,
-    colorNeedleShadowUp: true,
-    colorNeedleShadowDown: false,
-    colorNeedle: "rgba(200, 50, 50, .75)",
-    colorNeedleEnd: "rgba(200, 50, 50, .75)",
-    borderShadowWidth: 6,
-    needleType: "arrow",
-    needleWidth: 6,
-    needleCircleSize: 12,
-    animationDuration: 300,
-    animationRule: "dequint",
-    fontNumbersSize: 24,
-    fontValueSize: 46,
-    animatedValue: true
+    highlights: false
   });
 
 let PS6 = new RadialGauge({
     renderTo: 'chart_W',
-    width: 250,
-    height: 250,
     minValue: 0,
     maxValue: 4000,
     majorTicks: ['0','500','1000','1500','2000','2500','3000','3500','4000'],
     minorTicks: 10,
     strokeTicks: false,
-    highlights: false,
-    valueInt: 1,
-    valueDec: 1,
-    colorBorderOuter: "#fff",
-  	colorBorderOuterEnd: "#fff",
-  	colorBorderInner: "#fff",
-  	colorBorderInnerEnd: "#fff",
-  	colorBorderMiddle: "#fff",
-  	colorBorderMiddleEnd: "#fff",
-  	colorPlate: "#fff",
-    colorMajorTicks: "#333333",
-    colorMinorTicks: "#333333",
-    colorNumbers: "#333333",
-    colorValueText: "#333333",
-    colorValueBoxRect: "transparent",
-    colorValueBoxRectEnd: "transparent",
-    colorValueBoxBackground: "transparent",
-    colorValueBoxShadow: false,
-    colorValueTextShadow: false,
-    colorNeedleShadowUp: true,
-    colorNeedleShadowDown: false,
-    colorNeedle: "rgba(200, 50, 50, .75)",
-    colorNeedleEnd: "rgba(200, 50, 50, .75)",
-    borderShadowWidth: 6,
-    needleType: "arrow",
-    needleWidth: 6,
-    needleCircleSize: 12,
-    animationDuration: 300,
-    animationRule: "dequint",
-    fontNumbersSize: 24,
-    fontValueSize: 46,
-    animatedValue: true
+    highlights: false
   });
 
-function darktheme() {
-PS1.update({
-  colorNeedle: "#a0bbbb",
-  colorNeedleEnd: "#a0bbbb",
-  colorNeedleShadowUp: "gray",
-  colorNeedleCircleOuter: "#a0bbbb",
-  colorNeedleCircleOuterEnd: "#a0bbbb",
-  colorNeedleCircleInner: "#a0bbbb",
-  colorNeedleCircleInnerEnd: "gray",
-  colorBorderInner: "#2e2e2e",
-  colorBorderInnerEnd: "#2e2e2e",
-  colorBorderMiddle: "#a0bbbb",
-  colorBorderMiddleEnd: "#a0bbbb",
-  colorBorderOuter: "gray",
-  colorBorderOuterEnd: "gray",
-  colorPlate: "#2e2e2e",
-  colorMajorTicks: "#a0bbbb",
-  colorMinorTicks: "#a0bbbb",
-  colorNumbers: "#a0bbbb",
-  colorValueText: "#a0bbbb"
-});
+let obj = {
+	width: 250,
+    height: 250,
+	valueInt: 1,
+  	valueDec: 1,
+  	colorValueBoxRect: "transparent",
+  	colorValueBoxRectEnd: "transparent",
+  	colorValueBoxBackground: "transparent",
+  	colorValueBoxShadow: false,
+  	colorValueTextShadow: false,
+	colorNeedleShadowDown: false,
+  	borderShadowWidth: 6,
+  	needleType: "arrow",
+  	needleWidth: 6,
+  	needleCircleSize: 12,
+  	animationDuration: 300,
+  	animationRule: "dequint",
+  	fontNumbersSize: 24,
+  	fontValueSize: 46,
+  	animatedValue: true,
+  	colorNeedle: "#a0bbbb",
+  	colorNeedleEnd: "#a0bbbb",
+  	colorNeedleShadowUp: "gray",
+  	colorNeedleCircleOuter: "#a0bbbb",
+  	colorNeedleCircleOuterEnd: "#a0bbbb",
+  	colorNeedleCircleInner: "#a0bbbb",
+  	colorNeedleCircleInnerEnd: "gray",
+  	colorBorderInner: "#2e2e2e",
+  	colorBorderInnerEnd: "#2e2e2e",
+  	colorBorderMiddle: "#a0bbbb",
+  	colorBorderMiddleEnd: "#a0bbbb",
+  	colorBorderOuter: "gray",
+  	colorBorderOuterEnd: "gray",
+  	colorPlate: "#2e2e2e",
+  	colorMajorTicks: "#a0bbbb",
+  	colorMinorTicks: "#a0bbbb",
+  	colorNumbers: "#a0bbbb",
+  	colorValueText: "#a0bbbb"
+};
 
-PS2.update({
-  colorNeedle: "#a0bbbb",
-  colorNeedleEnd: "#a0bbbb",
-  colorNeedleShadowUp: "gray",
-  colorNeedleCircleOuter: "#a0bbbb",
-  colorNeedleCircleOuterEnd: "#a0bbbb",
-  colorNeedleCircleInner: "#a0bbbb",
-  colorNeedleCircleInnerEnd: "gray",
-  colorBorderInner: "#2e2e2e",
-  colorBorderInnerEnd: "#2e2e2e",
-  colorBorderMiddle: "#a0bbbb",
-  colorBorderMiddleEnd: "#a0bbbb",
-  colorBorderOuter: "gray",
-  colorBorderOuterEnd: "gray",
-  colorPlate: "#2e2e2e",
-  colorMajorTicks: "#a0bbbb",
-  colorMinorTicks: "#a0bbbb",
-  colorNumbers: "#a0bbbb",
-  colorValueText: "#a0bbbb"
-});
-
-PS3.update({
-  colorNeedle: "#a0bbbb",
-  colorNeedleEnd: "#a0bbbb",
-  colorNeedleShadowUp: "gray",
-  colorNeedleCircleOuter: "#a0bbbb",
-  colorNeedleCircleOuterEnd: "#a0bbbb",
-  colorNeedleCircleInner: "#a0bbbb",
-  colorNeedleCircleInnerEnd: "gray",
-  colorBorderInner: "#2e2e2e",
-  colorBorderInnerEnd: "#2e2e2e",
-  colorBorderMiddle: "#a0bbbb",
-  colorBorderMiddleEnd: "#a0bbbb",
-  colorBorderOuter: "gray",
-  colorBorderOuterEnd: "gray",
-  colorPlate: "#2e2e2e",
-  colorMajorTicks: "#a0bbbb",
-  colorMinorTicks: "#a0bbbb",
-  colorNumbers: "#a0bbbb",
-  colorValueText: "#a0bbbb"
-});
-
-PS4.update({
-  colorNeedle: "#a0bbbb",
-  colorNeedleEnd: "#a0bbbb",
-  colorNeedleShadowUp: "gray",
-  colorNeedleCircleOuter: "#a0bbbb",
-  colorNeedleCircleOuterEnd: "#a0bbbb",
-  colorNeedleCircleInner: "#a0bbbb",
-  colorNeedleCircleInnerEnd: "gray",
-  colorBorderInner: "#2e2e2e",
-  colorBorderInnerEnd: "#2e2e2e",
-  colorBorderMiddle: "#a0bbbb",
-  colorBorderMiddleEnd: "#a0bbbb",
-  colorBorderOuter: "gray",
-  colorBorderOuterEnd: "gray",
-  colorPlate: "#2e2e2e",
-  colorMajorTicks: "#a0bbbb",
-  colorMinorTicks: "#a0bbbb",
-  colorNumbers: "#a0bbbb",
-  colorValueText: "#a0bbbb"
-});
-
-PS5.update({
-  colorNeedle: "#a0bbbb",
-  colorNeedleEnd: "#a0bbbb",
-  colorNeedleShadowUp: "gray",
-  colorNeedleCircleOuter: "#a0bbbb",
-  colorNeedleCircleOuterEnd: "#a0bbbb",
-  colorNeedleCircleInner: "#a0bbbb",
-  colorNeedleCircleInnerEnd: "gray",
-  colorBorderInner: "#2e2e2e",
-  colorBorderInnerEnd: "#2e2e2e",
-  colorBorderMiddle: "#a0bbbb",
-  colorBorderMiddleEnd: "#a0bbbb",
-  colorBorderOuter: "gray",
-  colorBorderOuterEnd: "gray",
-  colorPlate: "#2e2e2e",
-  colorMajorTicks: "#a0bbbb",
-  colorMinorTicks: "#a0bbbb",
-  colorNumbers: "#a0bbbb",
-  colorValueText: "#a0bbbb"
-});
-
-PS6.update({
-  colorNeedle: "#a0bbbb",
-  colorNeedleEnd: "#a0bbbb",
-  colorNeedleShadowUp: "gray",
-  colorNeedleCircleOuter: "#a0bbbb",
-  colorNeedleCircleOuterEnd: "#a0bbbb",
-  colorNeedleCircleInner: "#a0bbbb",
-  colorNeedleCircleInnerEnd: "gray",
-  colorBorderInner: "#2e2e2e",
-  colorBorderInnerEnd: "#2e2e2e",
-  colorBorderMiddle: "#a0bbbb",
-  colorBorderMiddleEnd: "#a0bbbb",
-  colorBorderOuter: "gray",
-  colorBorderOuterEnd: "gray",
-  colorPlate: "#2e2e2e",
-  colorMajorTicks: "#a0bbbb",
-  colorMinorTicks: "#a0bbbb",
-  colorNumbers: "#a0bbbb",
-  colorValueText: "#a0bbbb"
-});
-
-document.body.style.background = '#2e2e2e';
-document.body.style.color = '#a0bbbb';
-id_r1.style.background = '#a0bbbb';
-id_r2.style.background = '#a0bbbb';
-id_r3.style.background = '#a0bbbb';
-id_r4.style.background = '#a0bbbb';
-id_r5.style.background = '#a0bbbb';
-id_r6.style.background = '#a0bbbb';
-id_modT1.style.background = '#2e2e2e';
-id_modT2.style.background = '#2e2e2e';
-id_modH.style.background = '#2e2e2e';
-id_modBMP.style.background = '#2e2e2e';
-id_modV.style.background = '#2e2e2e';
-id_modW.style.background = '#2e2e2e';
-id_RT.style.color = '#a0bbbb';
-id_E.style.color = '#a0bbbb';
-id_ram_canvas.style.background = '#2e2e2e';
-id_menuCH.style.backgroundColor = '#2e2e2e';
-id_menuCH.style.color = '#a0bbbb';
-id_menuCH.style.border = '1px solid #a0bbbb';
-id_menu.style.backgroundColor = '#2e2e2e';
-id_menu.style.color = '#a0bbbb';
-id_menu.style.border = '1px solid #a0bbbb';
-id_back.style.background = '#a0bbbb';
-id_update.style.background = '#a0bbbb';
-
-id_jal_status1.style.color = '#a0bbbb';
-id_jal_status2.style.color = '#a0bbbb';
-id_jal_status3.style.color = '#a0bbbb';
-id_sw0.style.background = '#455a64';
-id_sw1.style.background = '#455a64';
-id_sw2.style.background = '#455a64';
-id_sw3.style.background = '#455a64';
-id_tog0.style.background = '#a0bbbb';
-id_tog1.style.background = '#a0bbbb';
-id_tog2.style.background = '#a0bbbb';  
-id_tog3.style.background = '#a0bbbb'; 
-}
-
-darktheme();
+PS1.update(obj);
+PS2.update(obj);
+PS3.update(obj);
+PS4.update(obj);
+PS5.update(obj);
+PS6.update(obj);
 
 //=============================================================================
  // Create a client instance
@@ -705,7 +393,7 @@ function onConnect() {
     // Once a connection has been made, make a subscription and send a message.
     //id_status.textContent = "Подключен";
     //console.log("onConnect");
-    client.subscribe("ESP12/Status");
+    //client.subscribe("ESP12/Status");
     client.subscribe("ESP12/T");
     client.subscribe("ESP12/T2");
     client.subscribe("ESP12/H");
@@ -865,7 +553,7 @@ function onMessageArrived(message) {
     let off14 = new Date();
     let off30 = new Date();
 
-    dateOffset = (24*60*60*1000) * 3; //3 days
+    let dateOffset = (24*60*60*1000) * 3; //3 days
     let DateMAX = new Date();
     let DateMIN = new Date();
     DateMIN.setTime(DateMAX.getTime() - dateOffset);
@@ -908,6 +596,7 @@ function onMessageArrived(message) {
                     time: {
                         min: DateMIN,
                         max: DateMAX,
+                        unit: 'hour',
                         tooltipFormat: 'DD.MM.YYYY, HH:mm:ss',
                         displayFormats: {
                             hour: 'DD MMM, HH:mm',
@@ -966,10 +655,10 @@ function DisableChart() {
 
 //=============================================================================
 function GetInterval(days) {
-    dateOffset = (24*60*60*1000) * days; //days
+    let offset = (24*60*60*1000) * days; //days
     DateMAX = new Date();
     let ret = new Date();
-    ret.setTime(DateMAX.getTime() - dateOffset);
+    ret.setTime(DateMAX.getTime() - offset);
     return ret;
 }
 
@@ -992,9 +681,12 @@ function MenuInterval(upd) {
 
 //=============================================================================
 function UpdateChart(ch) {
-	let date = new Date();
-	let month = date.getMonth();
+	let month = new Date().getMonth();
 	config.type = 'line';
+	config.options.scales.xAxes[0].offset = false;
+	config.options.scales.xAxes[0].time.unit = 'hour';
+	config.options.scales.xAxes[0].time.tooltipFormat = 'DD.MM.YYYY, HH:mm:ss';
+	id_menu.style.display='block';
     switch (ch) {
     case 0:
         config.data.datasets[0].label = 'Температура';
@@ -1051,12 +743,15 @@ function UpdateChart(ch) {
         break;
     case 6:
     	config.type = 'bar';
+    	id_menu.style.display='none';
         config.data.datasets[0].label = 'Электроэнергия';
         config.options.scales.yAxes[0].ticks.min = 0;
         config.options.scales.yAxes[0].ticks.max = 250;
         config.options.scales.yAxes[0].ticks.stepSize = 10;
-        //config.options.scales.xAxes[0].time.unit = 'month';
+        config.options.scales.xAxes[0].offset = true;
+        config.options.scales.xAxes[0].time.unit = 'month';
         config.options.scales.xAxes[0].time.min = new Date().getMonth();
+        config.options.scales.xAxes[0].time.tooltipFormat = 'MMMM YYYY';
         if (f06 == 1) {LoadChart(1);} else {GetData(0,1); f06 = 1;}
         break;
     }
@@ -1064,24 +759,31 @@ function UpdateChart(ch) {
 
 //=============================================================================
 function LoadChart(idx) {
-    for (let i = 0; i < interval; i++) {
+    for (let i = 0; i < res.length; i++) {
         //config.data.labels.splice(-1, 1); // remove the label first
         config.data.labels.shift();
         config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
     }
-    switch (id_menu.options.selectedIndex) {
-    	case 0: interval = in12; break;
-    	case 1: interval = in1; break;
-    	case 2: interval = in3; break;
-    	case 3: interval = in7; break;
-    	case 4: interval = in14; break;
-    	case 5: interval = in30; break;
-    }
-    if (interval == 0) interval = res.length;
-    for (let i = res.length-interval; i < res.length; i++) {
+    if (id_menuCH.options.selectedIndex != 6) {
+    	switch (id_menu.options.selectedIndex) {
+    		case 0: interval = in12; break;
+    		case 1: interval = in1; break;
+    		case 2: interval = in3; break;
+    		case 3: interval = in7; break;
+    		case 4: interval = in14; break;
+    		case 5: interval = in30; break;
+    	}
+    	if (interval == 0) interval = res.length;
+    	for (let i = res.length-interval; i < res.length; i++) {
     	config.data.labels.push(res[i][0]);                 //x
         config.data.datasets[0].data.push(res[i][idx]);     //y
         //config.data.datasets[0].data.push({ x: res[i][0], y: res[i][idx] });
+    	}
+    } else {
+    	for (let i = 0; i < res.length; i++) {
+    	config.data.labels.push(res[i][0].substring(0, 4) + '-' + res[i][0].substring(5, 7) + '-01T00:00:00');
+        config.data.datasets[0].data.push(res[i][idx]);     //y
+    	}
     }
     window.myLine.update();
     id_Interval.style.display='block';

@@ -235,7 +235,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     	</label>
 	</div></h1>
 	</div>
-	<div class='lab2'>Версия: 20220202-1843</div>
+	<div class='lab2'>Версия: 20220202-1850</div>
 </div>
 
 </center>
@@ -750,7 +750,7 @@ function UpdateChart(ch) {
         config.options.scales.yAxes[0].ticks.stepSize = 10;
         config.options.scales.xAxes[0].offset = true;
         config.options.scales.xAxes[0].time.unit = 'month';
-        config.options.scales.xAxes[0].time.min = new Date().getMonth();
+        //config.options.scales.xAxes[0].time.min = new Date().getMonth();
         config.options.scales.xAxes[0].time.tooltipFormat = 'MMMM YYYY';
         if (f06 == 1) {LoadChart(1);} else {GetData(0,1); f06 = 1;}
         break;

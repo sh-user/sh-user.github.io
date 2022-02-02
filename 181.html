@@ -235,7 +235,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     	</label>
 	</div></h1>
 	</div>
-	<div class='lab2'>Версия: 20220202-1850</div>
+	<div class='lab2'>Версия: 20220202-1909</div>
 </div>
 
 </center>
@@ -250,7 +250,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
 //=============================================================================
 id_E.textContent = '000.00';
 id_RT.textContent = '00.0';
-let mod1 = 0, mod2 = 0, temp1 = 0, temp2 = -20, humidity = 0, volt = 150, bmp = 720, flag = ''; flag2 = '';
+let mod1 = 0, mod2 = 0, temp1 = 0, temp2 = -20;
 
 let PS1 = new RadialGauge({
     renderTo: 'chart_T1',
@@ -502,7 +502,7 @@ function onMessageArrived(message) {
     }
     //электроэнергия
     if (message.destinationName == 'ESP12/E') {
-        if (message.payloadString != '') {id_E.textContent = message.payloadString;}
+        if (message.payloadString != '') {id_E.textContent = (Number(message.payloadString) + delta).toFixed(2);}
     }
     //статус розетки
     if (message.destinationName == 'ESP12/LED') {

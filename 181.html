@@ -235,7 +235,7 @@ canvas {-moz-user-select: none; -webkit-user-select: none; -ms-user-select: none
     	</label>
 	</div></h1>
 	</div>
-	<div class='lab2'>Версия: 20220116-0246</div>
+	<div class='lab2'>Версия: 20220202-1843</div>
 </div>
 
 </center>
@@ -759,11 +759,13 @@ function UpdateChart(ch) {
 
 //=============================================================================
 function LoadChart(idx) {
-    for (let i = 0; i < interval; i++) {
-        //config.data.labels.splice(-1, 1); // remove the label first
-        config.data.labels.shift();
-        config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
-    }
+	config.data.labels.length = 0;
+    config.data.datasets[0].data.length = 0;
+    //for (let i = 0; i < interval; i++) {
+    //    //config.data.labels.splice(-1, 1); // remove the label first
+    //    config.data.labels.shift();
+    //    config.data.datasets.forEach(function(dataset) { dataset.data.pop(); });
+    //}
     if (id_menuCH.options.selectedIndex != 6) {
     	switch (id_menu.options.selectedIndex) {
     		case 0: interval = in12; break;
@@ -775,15 +777,16 @@ function LoadChart(idx) {
     	}
     	if (interval == 0) interval = res.length;
     	for (let i = res.length-interval; i < res.length; i++) {
-    	config.data.labels.push(res[i][0]);                 //x
-        config.data.datasets[0].data.push(res[i][idx]);     //y
-        //config.data.datasets[0].data.push({ x: res[i][0], y: res[i][idx] });
+    		config.data.labels.push(res[i][0]);                 //x
+        	config.data.datasets[0].data.push(res[i][idx]);     //y
+        	//config.data.datasets[0].data.push({ x: res[i][0], y: res[i][idx] });
     	}
     } else {
-    	interval = res.length;
+    	config.options.scales.xAxes[0].time.min = res[0][0].substring(0, 4) + '-' + res[0][0].substring(5, 7) + '-01T00:00:00';
+    	//interval = res.length;
     	for (let i = 0; i < res.length; i++) {
-    	config.data.labels.push(res[i][0].substring(0, 4) + '-' + res[i][0].substring(5, 7) + '-01T00:00:00');
-        config.data.datasets[0].data.push(res[i][idx]);     //y
+    		config.data.labels.push(res[i][0].substring(0, 4) + '-' + res[i][0].substring(5, 7) + '-01T00:00:00');
+        	config.data.datasets[0].data.push(res[i][idx]);     //y
     	}
     }
     window.myLine.update();
